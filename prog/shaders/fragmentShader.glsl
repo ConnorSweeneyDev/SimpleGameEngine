@@ -1,10 +1,10 @@
 #version 410 core
 
-in vec3 v_vertexColor;
+in vec3 vVertexColor;
 
 out vec4 color;
 
 void main()
 {
-    color = vec4(v_vertexColor.r, v_vertexColor.g, v_vertexColor.b, 1.0f);
+    color = vec4(vVertexColor.r, vVertexColor.g, vVertexColor.b, 1.0f);
 }
