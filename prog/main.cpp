@@ -253,7 +253,7 @@ void Draw()
     glBindVertexArray(gVertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
 
-    GLCheck(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0));
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 
     glUseProgram(0);
 }
