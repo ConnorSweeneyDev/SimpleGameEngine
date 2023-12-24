@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include <glad/glad.h>
 #include <SDL2/SDL.h>
@@ -14,30 +15,38 @@ bool gQuit = false;
 
 GLuint gVertexArrayObject = 0;
 GLuint gVertexBufferObject = 0;
+GLuint gVertexBufferObject2 = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
 
-const std::string gVertexShaderSource =
-    "#version 410 core\n"
-    "in vec4 position;\n"
-    "void main()\n"
-    "{\n"
-    "    gl_Position = vec4(position.x, position.y, position.z, position.w);\n"
-    "}\n";
+std::string LoadShaderAsString(const std::string& fileName)
+{
+    std::string result;
 
-const std::string gFragmentShaderSource =
-    "#version 410 core\n"
-    "out vec4 color;\n"
-    "void main()\n"
-    "{\n"
-    "    color = vec4(1.0f, 0.5f, 0.0f, 1.0f);\n"
-    "}\n";
+    std::string line;
+    std::ifstream file(fileName.c_str());
+
+    if (file.is_open())
+    {
+        while (std::getline(file, line))
+        {
+            result += line + "\n";
+        }
+        file.close();
+    }
+    else
+    {
+        std::cout << "Unable to open file: " << fileName << "!" << std::endl;
+    }
+
+    return result;
+}
 
 void GetOpenGLVersionInfo()
 {
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
     std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
     std::cout << "Version:" << glGetString(GL_VERSION) << std::endl;
-    std::cout << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    std::cout << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 
 void InitializeProgram()
@@ -79,12 +88,19 @@ void InitializeProgram()
 
 void VertexSpecification()
 {
-    const std::vector<GLfloat> vertexPosition
+    const std::vector<GLfloat> vertexPositions
     {
         // x      y      z
-        -0.8f, -0.8f, 0.0f, // vertex 1
-        0.8f, -0.8f, 0.0f,  // vertex 2
-        0.0f, 0.8f, 0.0f    // vertex 3
+        -0.8f, -0.8f, 0.0f, // left vertex position
+        0.8f, -0.8f, 0.0f,  // right vertex position
+        0.0f, 0.8f, 0.0f    // top vertex position
+    };
+    const std::vector<GLfloat> vertexColors
+    {
+        // x      y      z
+        1.0f, 0.0f, 0.0f,   // left vertex color
+        0.0f, 1.0f, 0.0f,   // right vertex color
+        0.0f, 0.0f, 1.0f    // top vertex color
     };
 
     glGenVertexArrays(1, &gVertexArrayObject);
@@ -92,13 +108,19 @@ void VertexSpecification()
 
     glGenBuffers(1, &gVertexBufferObject);
     glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, vertexPosition.size() * sizeof(GLfloat), vertexPosition.data(), GL_STATIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER, vertexPositions.size() * sizeof(GLfloat), vertexPositions.data(), GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); 
+
+    glGenBuffers(1, &gVertexBufferObject2);
+    glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject2);
+    glBufferData(GL_ARRAY_BUFFER, vertexColors.size() * sizeof(GLfloat), vertexColors.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
     glBindVertexArray(0);
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
 }
 
 GLuint CompileShader(GLuint type, const std::string& shaderSource)
@@ -130,11 +152,11 @@ GLuint CompileShader(GLuint type, const std::string& shaderSource)
 
         if (type == GL_VERTEX_SHADER)
         {
-            std::cout << "ERROR: GL_VERTEX_SHADER compilation failed!\n" << errorMessages << std::endl;
+            std::cout << "GL_VERTEX_SHADER compilation failed!\n" << errorMessages << std::endl;
         }
         else if (type == GL_FRAGMENT_SHADER)
         {
-            std::cout << "ERROR: GL_FRAGMENT_SHADER compilation failed!\n" << errorMessages << std::endl;
+            std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << errorMessages << std::endl;
         }
 
         delete[] errorMessages;
@@ -164,7 +186,10 @@ GLuint CreateShaderProgram(const std::string& vertexShaderSource, const std::str
 
 void CreateGraphicsPipeline()
 {
-   gGraphicsPipelineShaderProgram = CreateShaderProgram(gVertexShaderSource, gFragmentShaderSource); 
+    std::string vertexShaderSource = LoadShaderAsString("prog/shaders/vertexShader.glsl");
+    std::string fragmentShaderSource = LoadShaderAsString("prog/shaders/fragmentShader.glsl");
+
+    gGraphicsPipelineShaderProgram = CreateShaderProgram(vertexShaderSource, fragmentShaderSource); 
 }
 
 void Input()
