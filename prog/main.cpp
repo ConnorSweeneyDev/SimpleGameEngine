@@ -15,7 +15,29 @@ bool gQuit = false;
 
 GLuint gVertexArrayObject = 0;
 GLuint gVertexBufferObject = 0;
+GLuint gIndexBufferObject = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
+
+void GLClearAllErrors()
+{
+    while (glGetError() != GL_NO_ERROR){ }
+}
+
+bool GLCheckErrorStatus(const char* functionName, const char* fileName, int line)
+{
+    while (GLenum error = glGetError())
+    {
+        std::cout << "OpenGL Error " << std::hex << error << std::dec << "!"
+                  << "    Function: " << functionName
+                  << "    File: " << fileName
+                  << "    Line: " << line << std::endl;
+        return true;
+    }
+
+    return false;
+}
+
+#define GLCheck(function) GLClearAllErrors(); function; GLCheckErrorStatus(#function, __FILE__, __LINE__);
 
 std::string LoadShaderAsString(const std::string& fileName)
 {
@@ -87,35 +109,43 @@ void InitializeProgram()
 
 void VertexSpecification()
 {
+    glGenVertexArrays(1, &gVertexArrayObject);
+    glBindVertexArray(gVertexArrayObject);  
+
     const std::vector<GLfloat> vertexData
     {
-        // first triangle
+        // vertex 0
         -0.5f, -0.5f, 0.0f, // bottom left vertex position
         1.0f, 0.0f, 0.0f,   // bottom left vertex color
+        // vertex 1
         0.5f, -0.5f, 0.0f,  // bottom right vertex position
         0.0f, 1.0f, 0.0f,   // bottom right vertex color
+        // vertex 2
         -0.5f, 0.5f, 0.0f,  // top left vertex position
         0.0f, 0.0f, 1.0f,   // top left vertex color
-        // second triangle
+        // vertex 3
         0.5f, 0.5f, 0.0f,   // top right vertex position
-        1.0f, 0.0f, 0.0f,   // top right vertex color
-        -0.5f, 0.5f, 0.0f,  // top left vertex position
-        0.0f, 0.0f, 1.0f,   // top left vertex color
-        0.5f, -0.5f, 0.0f,  // bottom right vertex position
-        0.0f, 1.0f, 0.0f    // bottom right vertex color
+        1.0f, 0.0f, 0.0f    // top right vertex color
     };
-
-    glGenVertexArrays(1, &gVertexArrayObject);
-    glBindVertexArray(gVertexArrayObject); 
 
     glGenBuffers(1, &gVertexBufferObject);
     glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
     glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*6, (void*)0); 
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*6, (GLvoid*)0); 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*6, (GLvoid*)(sizeof(GL_FLOAT)*3));
+
+    const std::vector<GLuint> indexData
+    {
+        0, 1, 2, // first triangle
+        1, 2, 3  // second triangle
+    };
+
+    glGenBuffers(1, &gIndexBufferObject);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIndexBufferObject);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
 
     glBindVertexArray(0);
     glDisableVertexAttribArray(0);
@@ -223,7 +253,7 @@ void Draw()
     glBindVertexArray(gVertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    GLCheck(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0));
 
     glUseProgram(0);
 }
