@@ -89,13 +89,20 @@ void VertexSpecification()
 {
     const std::vector<GLfloat> vertexData
     {
-        // x     y     z
-        -0.8f, -0.8f, 0.0f, // left vertex position
-        1.0f, 0.0f, 0.0f,   // left vertex color
-        0.8f, -0.8f, 0.0f,  // right vertex position
-        0.0f, 1.0f, 0.0f,   // right vertex color
-        0.0f, 0.8f, 0.0f,   // top vertex position
-        0.0f, 0.0f, 1.0f    // top vertex color
+        // first triangle
+        -0.5f, -0.5f, 0.0f, // bottom left vertex position
+        1.0f, 0.0f, 0.0f,   // bottom left vertex color
+        0.5f, -0.5f, 0.0f,  // bottom right vertex position
+        0.0f, 1.0f, 0.0f,   // bottom right vertex color
+        -0.5f, 0.5f, 0.0f,  // top left vertex position
+        0.0f, 0.0f, 1.0f,   // top left vertex color
+        // second triangle
+        0.5f, 0.5f, 0.0f,   // top right vertex position
+        1.0f, 0.0f, 0.0f,   // top right vertex color
+        -0.5f, 0.5f, 0.0f,  // top left vertex position
+        0.0f, 0.0f, 1.0f,   // top left vertex color
+        0.5f, -0.5f, 0.0f,  // bottom right vertex position
+        0.0f, 1.0f, 0.0f    // bottom right vertex color
     };
 
     glGenVertexArrays(1, &gVertexArrayObject);
@@ -216,7 +223,7 @@ void Draw()
     glBindVertexArray(gVertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glUseProgram(0);
 }
