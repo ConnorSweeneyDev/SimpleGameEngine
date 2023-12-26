@@ -321,7 +321,7 @@ void PreDraw()
     
     GLint offsetLocationX = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetX");
     GLint offsetLocationY = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetY");
-    if (offsetLocationX >= 0)
+    if (offsetLocationX >= 0) // If the uniform variable exists, it's value is passed to the shader
     {
         glUniform1f(offsetLocationX, guOffsetX);
     } 
@@ -330,7 +330,7 @@ void PreDraw()
         std::cout << "uOffsetX could not found!" << std::endl;
     }
 
-    if (offsetLocationY >= 0)
+    if (offsetLocationY >= 0) // If the uniform variable exists, it's value is passed to the shader
     {
         glUniform1f(offsetLocationY, guOffsetY);
     } 
