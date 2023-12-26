@@ -26,6 +26,9 @@ GLuint gGraphicsPipelineShaderProgram = 0;
 
 bool gQuit = false;
 
+float guOffsetX = 0.0f;
+float guOffsetY = 0.0f;
+
 void ClearAllGLErrors() // Clears any errors that might have been generated previously
 {
     while (glGetError() != GL_NO_ERROR){ }
@@ -266,14 +269,36 @@ void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a v
 void Input() // Handles input events
 {
     SDL_Event e;
+    const Uint8* keyState = SDL_GetKeyboardState(nullptr);
 
     while (SDL_PollEvent(&e) != 0)
     {
-        if (e.type == SDL_QUIT)
+        if (e.type == SDL_QUIT || keyState[SDL_SCANCODE_ESCAPE])
         {
             std::cout << "Goodbye!" << std::endl;
             gQuit = true;
         }
+    } 
+
+    if (keyState[SDL_SCANCODE_A])
+    {
+        guOffsetX -= 0.01f;
+        std::cout << "guOffsetX: " << guOffsetX << std::endl;
+    }
+    if (keyState[SDL_SCANCODE_D])
+    {
+        guOffsetX += 0.01f;
+        std::cout << "guOffsetX: " <<  guOffsetX << std::endl;
+    }
+    if (keyState[SDL_SCANCODE_W])
+    {
+        guOffsetY += 0.01f;
+        std::cout << "guOffsetY: " << guOffsetY << std::endl;
+    }
+    if (keyState[SDL_SCANCODE_S])
+    {
+        guOffsetY -= 0.01f;
+        std::cout << "guOffsetY: " << guOffsetY << std::endl;
     }
 }
 
@@ -293,6 +318,26 @@ void PreDraw()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Resets the depth and color buffers to the values set above
 
     glUseProgram(gGraphicsPipelineShaderProgram);
+    
+    GLint offsetLocationX = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetX");
+    GLint offsetLocationY = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetY");
+    if (offsetLocationX >= 0)
+    {
+        glUniform1f(offsetLocationX, guOffsetX);
+    } 
+    else
+    {
+        std::cout << "uOffsetX could not found!" << std::endl;
+    }
+
+    if (offsetLocationY >= 0)
+    {
+        glUniform1f(offsetLocationY, guOffsetY);
+    } 
+    else
+    {
+        std::cout << "uOffsetY could not found!" << std::endl;
+    }
 }
 
 void Draw()
