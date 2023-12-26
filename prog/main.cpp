@@ -1,10 +1,18 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
+#include <iostream> // For console output
+#include <fstream>  // For file input and output
+#include <string>   // std::string
+#include <vector>   // std::vector
 
-#include <glad/glad.h>
-#include <SDL2/SDL.h>
+#include <SDL2/SDL.h>                    // Create an OpenGL context and manage the window
+#include <glad/glad.h>                   // Load OpenGL functions
+#include <glm/glm.hpp>                   // Mathematics library
+#include <glm/vec2.hpp>                  // glm::vec2
+#include <glm/vec3.hpp>                  // glm::vec3
+#include <glm/vec4.hpp>                  // glm::vec4
+#include <glm/mat4x4.hpp>                // glm::mat4
+#include <glm/ext/matrix_transform.hpp>  // glm::translate, glm::rotate, glm::scale
+#include <glm/ext/matrix_clip_space.hpp> // glm::perspective
+#include <glm/ext/scalar_constants.hpp>  // glm::pi
 
 int gScreenWidth = 1280;
 int gScreenHeight = 720;
