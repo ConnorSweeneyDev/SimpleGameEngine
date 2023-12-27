@@ -370,28 +370,28 @@ void PreDraw()
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
     }
 
-    glm::mat4 model = glm::mat4(1.0f); // Initialize the model matrix
+    glm::mat4 model = glm::mat4(1.0f); // Initialize the model's identity matrix
     model = glm::translate(
-                           model,                                                                   // Matrix to translate
+                           model,                                                                   // Identity matrix (Matrix to translate)
                            glm::vec3(gOffsetTranslationX, gOffsetTranslationY, gOffsetTranslationZ) // Translation vector
                           );
     model = glm::rotate(
-                        model,                          // Matrix to rotate
+                        model,                          // Identity matrix (matrix to rotate)
                         glm::radians(gOffsetRotationX), // Rotation vector
                         glm::vec3(1.0f, 0.0f, 0.0f)     // Axis of rotation
                        );
     model = glm::rotate(
-                        model,                          // Matrix to rotate
+                        model,                          // Identity matrix (Matrix to rotate)
                         glm::radians(gOffsetRotationY), // Rotation vector
                         glm::vec3(0.0f, 1.0f, 0.0f)     // Axis of rotation
                        );
     model = glm::rotate(
-                        model,                          // Matrix to rotate
+                        model,                          // Identity matrix (Matrix to rotate)
                         glm::radians(gOffsetRotationZ), // Rotation vector
                         glm::vec3(0.0f, 0.0f, 1.0f)     // Axis of rotation
                        );
     model = glm::scale(
-                       model,                  // Matrix to scale
+                       model,                  // Identity matrix (Matrix to scale)
                        glm::vec3(gOffsetScale) // Scale vector
                       );
     GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
