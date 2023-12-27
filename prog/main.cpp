@@ -11,9 +11,9 @@
 #include <glm/vec4.hpp>                  // glm::vec4
 #include <glm/mat4x4.hpp>                // glm::mat4
 #include <glm/ext/matrix_transform.hpp>  // glm::translate, glm::rotate, glm::scale
+#include <glm/gtc/type_ptr.hpp>          // glm::value_ptr, glm::perspective
 #include <glm/ext/matrix_clip_space.hpp> // glm::perspective
 #include <glm/ext/scalar_constants.hpp>  // glm::pi
-#include <glm/gtc/type_ptr.hpp>          // glm::value_ptr
 
 int gScreenWidth = 1280;
 int gScreenHeight = 720;
@@ -25,8 +25,9 @@ GLuint gVertexBufferObject = 0;
 GLuint gIndexBufferObject = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
 
-float gOffsetX = 0;
-float gOffsetY = 0;
+float gOffsetX = 0.0f;
+float gOffsetY = 0.0f;
+float gOffsetZ = -3.0f;
 
 bool gQuit = false;
 
@@ -297,11 +298,20 @@ void Input() // Handles input events
     {
         gOffsetY -= 0.005f;
     }
+    if (keyState[SDL_SCANCODE_Z])
+    {
+        gOffsetZ -= 0.005f;
+    }
+    if (keyState[SDL_SCANCODE_X])
+    {
+        gOffsetZ += 0.005f;
+    }
 
     if (keyState[SDL_SCANCODE_R])
     {
         gOffsetX = 0.0f;
         gOffsetY = 0.0f;
+        gOffsetZ = -3.0f;
     }
 }
 
@@ -317,21 +327,36 @@ void PreDraw()
                gScreenHeight // Height of the viewport rectangle
               );
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Resets the depth and color buffers to the values set above
 
     glUseProgram(gGraphicsPipelineShaderProgram);
-    
-    glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(gOffsetX, gOffsetY, 0.0f));
-    GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix");
-    
-    if (uModelMatrixLocation >= 0) // If the uniform variable exists, it's value is passed to the shader
+   
+    glm::mat4 translate = glm::translate(
+                                         glm::mat4(1.0f),                        // Identity matrix
+                                         glm::vec3(gOffsetX, gOffsetY, gOffsetZ) // Translation vector
+                                        );
+    GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
+    if (uModelMatrixLocation >= 0)                                                                     // If the uniform variable exists, it's value is passed to the shader
     {
         glUniformMatrix4fv(uModelMatrixLocation, 1, GL_FALSE, &translate[0][0]);
     } 
     else
     {
-        std::cout << "uModelMatrixLocation could not be found!" << std::endl;
+        std::cout << "uModelMatrix could not be found!" << std::endl;
+    }
+
+    glm::mat4 perspective = glm::perspective(glm::radians(90.0f),                        // Field of view
+                                             (float)gScreenWidth / (float)gScreenHeight, // Aspect ratio
+                                             0.1f, 10.0f                                 // Near and far clipping planes
+                                            );
+    GLint uProjectionMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uProjectionMatrix"); // Gets the location of the uniform variable
+    if (uProjectionMatrixLocation >= 0)                                                                          // If the uniform variable exists, it's value is passed to the shader
+    {
+        glUniformMatrix4fv(uProjectionMatrixLocation, 1, GL_FALSE, &perspective[0][0]);
+    }
+    else
+    {
+        std::cout << "uProjectionMatrix could not be found!" << std::endl;
     }
 }
 
