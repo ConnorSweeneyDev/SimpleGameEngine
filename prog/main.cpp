@@ -281,7 +281,7 @@ void Input() // Handles input events
             gQuit = true;
         }
     } 
-
+    
     if (keyState[SDL_SCANCODE_A])
     {
         gOffsetX -= 0.005f;
@@ -332,7 +332,7 @@ void PreDraw()
     glUseProgram(gGraphicsPipelineShaderProgram);
    
     glm::mat4 translate = glm::translate(
-                                         glm::mat4(1.0f),                        // Identity matrix
+                                         glm::mat4(1.0f),                        // Identity matrix (the matrix is initialized to this value)
                                          glm::vec3(gOffsetX, gOffsetY, gOffsetZ) // Translation vector
                                         );
     GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
@@ -346,7 +346,7 @@ void PreDraw()
     }
 
     glm::mat4 perspective = glm::perspective(
-                                             glm::radians(90.0f),                        // Field of view
+                                             glm::radians(45.0f),                        // Field of view
                                              (float)gScreenWidth / (float)gScreenHeight, // Aspect ratio
                                              0.1f, 10.0f                                 // Near and far clipping planes
                                             );
