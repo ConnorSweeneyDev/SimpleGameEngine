@@ -253,8 +253,8 @@ GLuint CreateShaderProgram(const std::string& vertexShaderSource, const std::str
 
     glAttachShader(programObject, vertexShader);
     glAttachShader(programObject, fragmentShader);
+    
     glLinkProgram(programObject);
-
     glValidateProgram(programObject);
 
     return programObject;
@@ -342,7 +342,7 @@ void PreDraw()
                            uModelMatrixLocation,     // Location of the uniform variable
                            1,                        // Number of matrices
                            GL_FALSE,                 // Whether to transpose the matrix
-                           glm::value_ptr(translate) // pointer to the data of translate, &translate[0][0] also works
+                           glm::value_ptr(translate) // Pointer to the data of translate, &translate[0][0] also works
                           );
     } 
     else
@@ -362,7 +362,7 @@ void PreDraw()
                            uProjectionMatrixLocation,  // Location of the uniform variable
                            1,                          // Number of matrices
                            GL_FALSE,                   // Whether to transpose the matrix
-                           glm::value_ptr(perspective) // pointer to the data of perspective, &perspective[0][0] also works
+                           glm::value_ptr(perspective) // Pointer to the data of perspective, &perspective[0][0] also works
                           );
     }
     else
