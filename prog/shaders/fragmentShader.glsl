@@ -1,13 +1,14 @@
 #version 410 core
 
-uniform float uOffsetX;
-uniform float uOffsetY;
-
 in vec3 vColor;
 
 out vec4 color;
 
+uniform mat4 uModelMatrix;
+
 void main()
 {
-    color = vec4(vColor.r + uOffsetX + uOffsetY, vColor.g + uOffsetX + uOffsetY, vColor.b + uOffsetX + uOffsetY, 1.0f);
+    vec4 newColor = uModelMatrix * vec4(vColor, 1.0f);
+
+    color = vec4(newColor.r, newColor.g, newColor.b, 1.0f);
 }

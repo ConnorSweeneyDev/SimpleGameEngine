@@ -13,6 +13,7 @@
 #include <glm/ext/matrix_transform.hpp>  // glm::translate, glm::rotate, glm::scale
 #include <glm/ext/matrix_clip_space.hpp> // glm::perspective
 #include <glm/ext/scalar_constants.hpp>  // glm::pi
+#include <glm/gtc/type_ptr.hpp>          // glm::value_ptr
 
 int gScreenWidth = 1280;
 int gScreenHeight = 720;
@@ -24,10 +25,10 @@ GLuint gVertexBufferObject = 0;
 GLuint gIndexBufferObject = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
 
-bool gQuit = false;
+float gOffsetX = 0;
+float gOffsetY = 0;
 
-float guOffsetX = 0.0f;
-float guOffsetY = 0.0f;
+bool gQuit = false;
 
 void ClearAllGLErrors() // Clears any errors that might have been generated previously
 {
@@ -282,23 +283,25 @@ void Input() // Handles input events
 
     if (keyState[SDL_SCANCODE_A])
     {
-        guOffsetX -= 0.01f;
-        std::cout << "guOffsetX: " << guOffsetX << std::endl;
+        gOffsetX -= 0.005f;
     }
     if (keyState[SDL_SCANCODE_D])
     {
-        guOffsetX += 0.01f;
-        std::cout << "guOffsetX: " <<  guOffsetX << std::endl;
+        gOffsetX += 0.005f;
     }
     if (keyState[SDL_SCANCODE_W])
     {
-        guOffsetY += 0.01f;
-        std::cout << "guOffsetY: " << guOffsetY << std::endl;
+        gOffsetY += 0.005f;
     }
     if (keyState[SDL_SCANCODE_S])
     {
-        guOffsetY -= 0.01f;
-        std::cout << "guOffsetY: " << guOffsetY << std::endl;
+        gOffsetY -= 0.005f;
+    }
+
+    if (keyState[SDL_SCANCODE_R])
+    {
+        gOffsetX = 0.0f;
+        gOffsetY = 0.0f;
     }
 }
 
@@ -319,24 +322,16 @@ void PreDraw()
 
     glUseProgram(gGraphicsPipelineShaderProgram);
     
-    GLint offsetLocationX = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetX");
-    GLint offsetLocationY = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uOffsetY");
-    if (offsetLocationX >= 0) // If the uniform variable exists, it's value is passed to the shader
+    glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(gOffsetX, gOffsetY, 0.0f));
+    GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix");
+    
+    if (uModelMatrixLocation >= 0) // If the uniform variable exists, it's value is passed to the shader
     {
-        glUniform1f(offsetLocationX, guOffsetX);
+        glUniformMatrix4fv(uModelMatrixLocation, 1, GL_FALSE, &translate[0][0]);
     } 
     else
     {
-        std::cout << "uOffsetX could not found!" << std::endl;
-    }
-
-    if (offsetLocationY >= 0) // If the uniform variable exists, it's value is passed to the shader
-    {
-        glUniform1f(offsetLocationY, guOffsetY);
-    } 
-    else
-    {
-        std::cout << "uOffsetY could not found!" << std::endl;
+        std::cout << "uModelMatrixLocation could not be found!" << std::endl;
     }
 }
 
