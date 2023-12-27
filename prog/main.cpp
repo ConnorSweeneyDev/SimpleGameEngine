@@ -338,7 +338,12 @@ void PreDraw()
     GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
     if (uModelMatrixLocation >= 0)                                                                     // If the uniform variable exists, it's value is passed to the shader
     {
-        glUniformMatrix4fv(uModelMatrixLocation, 1, GL_FALSE, &translate[0][0]);
+        glUniformMatrix4fv(
+                           uModelMatrixLocation,     // Location of the uniform variable
+                           1,                        // Number of matrices
+                           GL_FALSE,                 // Whether to transpose the matrix
+                           glm::value_ptr(translate) // pointer to the data of translate, &translate[0][0] also works
+                          );
     } 
     else
     {
@@ -353,7 +358,12 @@ void PreDraw()
     GLint uProjectionMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uProjectionMatrix"); // Gets the location of the uniform variable
     if (uProjectionMatrixLocation >= 0)                                                                          // If the uniform variable exists, it's value is passed to the shader
     {
-        glUniformMatrix4fv(uProjectionMatrixLocation, 1, GL_FALSE, &perspective[0][0]);
+        glUniformMatrix4fv(
+                           uProjectionMatrixLocation,  // Location of the uniform variable
+                           1,                          // Number of matrices
+                           GL_FALSE,                   // Whether to transpose the matrix
+                           glm::value_ptr(perspective) // pointer to the data of perspective, &perspective[0][0] also works
+                          );
     }
     else
     {
