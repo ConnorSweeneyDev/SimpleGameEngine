@@ -413,7 +413,6 @@ void PreDraw()
 void Draw()
 {
     glBindVertexArray(gVertexArrayObject);
-    glBindBuffer(GL_ARRAY_BUFFER, gVertexBufferObject);
 
     glDrawElements(
                    GL_TRIANGLES,    // Type of primitive to draw
