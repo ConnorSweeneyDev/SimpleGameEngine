@@ -345,7 +345,8 @@ void PreDraw()
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 
-    glm::mat4 perspective = glm::perspective(glm::radians(90.0f),                        // Field of view
+    glm::mat4 perspective = glm::perspective(
+                                             glm::radians(90.0f),                        // Field of view
                                              (float)gScreenWidth / (float)gScreenHeight, // Aspect ratio
                                              0.1f, 10.0f                                 // Near and far clipping planes
                                             );
@@ -397,7 +398,7 @@ void CleanUp() // Cleans up the program
     SDL_Quit();
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char* argv[]) // The entry point of the program
 {
     InitializeProgram();
 
