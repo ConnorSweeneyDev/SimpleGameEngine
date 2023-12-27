@@ -25,9 +25,13 @@ GLuint gVertexBufferObject = 0;
 GLuint gIndexBufferObject = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
 
-float gOffsetX = 0.0f;
-float gOffsetY = 0.0f;
-float gOffsetZ = -3.0f;
+float gOffsetTranslationX = 0.0f;
+float gOffsetTranslationY = 0.0f;
+float gOffsetTranslationZ = -3.0f;
+float gOffsetRotationX = 0.0f;
+float gOffsetRotationY = 0.0f;
+float gOffsetRotationZ = 0.0f;
+float gOffsetScale = 1.0f;
 
 bool gQuit = false;
 
@@ -273,45 +277,60 @@ void Input() // Handles input events
     SDL_Event e;
     const Uint8* keyState = SDL_GetKeyboardState(nullptr);
 
-    while (SDL_PollEvent(&e) != 0)
+    while (SDL_PollEvent(&e) != 0)                // Clicking a built-in window button triggers SDL_PollEvent
     {
-        if (e.type == SDL_QUIT || keyState[SDL_SCANCODE_ESCAPE])
+        if (e.type == SDL_QUIT)                   // Code for the window close button
         {
             std::cout << "Goodbye!" << std::endl;
             gQuit = true;
-        }
-    } 
+        } 
+    }
+    if (keyState[SDL_SCANCODE_ESCAPE])            // Gives the escape key the same functionality as the window close button
+    {
+        std::cout << "Goodbye!" << std::endl;
+        gQuit = true;
+    }
     
-    if (keyState[SDL_SCANCODE_A])
-    {
-        gOffsetX -= 0.005f;
-    }
+    if (keyState[SDL_SCANCODE_A])      // Translations are on WASD
+        gOffsetTranslationX -= 0.005f;
     if (keyState[SDL_SCANCODE_D])
-    {
-        gOffsetX += 0.005f;
-    }
+        gOffsetTranslationX += 0.005f;
     if (keyState[SDL_SCANCODE_W])
-    {
-        gOffsetY += 0.005f;
-    }
+        gOffsetTranslationY += 0.005f;
     if (keyState[SDL_SCANCODE_S])
-    {
-        gOffsetY -= 0.005f;
-    }
+        gOffsetTranslationY -= 0.005f;
     if (keyState[SDL_SCANCODE_Z])
-    {
-        gOffsetZ -= 0.005f;
-    }
+        gOffsetTranslationZ -= 0.005f;
     if (keyState[SDL_SCANCODE_X])
-    {
-        gOffsetZ += 0.005f;
-    }
-
+        gOffsetTranslationZ += 0.005f;
+    
+    if (keyState[SDL_SCANCODE_Q])      // Rotations are on QERTFG
+        gOffsetRotationX -= 0.5f;
+    if (keyState[SDL_SCANCODE_E])
+        gOffsetRotationX += 0.5f;
     if (keyState[SDL_SCANCODE_R])
+        gOffsetRotationY -= 0.5f;
+    if (keyState[SDL_SCANCODE_T])
+        gOffsetRotationY += 0.5f;
+    if (keyState[SDL_SCANCODE_F])
+        gOffsetRotationZ += 0.5f;
+    if (keyState[SDL_SCANCODE_G])
+        gOffsetRotationZ -= 0.5f;
+    
+    if (keyState[SDL_SCANCODE_C])      // Scaling is on CV
+        gOffsetScale -= 0.005f;
+    if (keyState[SDL_SCANCODE_V])
+        gOffsetScale += 0.005f;
+
+    if (keyState[SDL_SCANCODE_SPACE])  // Reset is on space
     {
-        gOffsetX = 0.0f;
-        gOffsetY = 0.0f;
-        gOffsetZ = -3.0f;
+        gOffsetTranslationX = 0.0f;
+        gOffsetTranslationY = 0.0f;
+        gOffsetTranslationZ = -3.0f;
+        gOffsetRotationX = 0.0f;
+        gOffsetRotationY = 0.0f;
+        gOffsetRotationZ = 0.0f;
+        gOffsetScale = 1.0f;
     }
 }
 
@@ -331,25 +350,6 @@ void PreDraw()
 
     glUseProgram(gGraphicsPipelineShaderProgram);
    
-    glm::mat4 translate = glm::translate(
-                                         glm::mat4(1.0f),                        // Identity matrix (the matrix is initialized to this value)
-                                         glm::vec3(gOffsetX, gOffsetY, gOffsetZ) // Translation vector
-                                        );
-    GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
-    if (uModelMatrixLocation >= 0)                                                                     // If the uniform variable exists, it's value is passed to the shader
-    {
-        glUniformMatrix4fv(
-                           uModelMatrixLocation,     // Location of the uniform variable
-                           1,                        // Number of matrices
-                           GL_FALSE,                 // Whether to transpose the matrix
-                           glm::value_ptr(translate) // Pointer to the data of translate, &translate[0][0] also works
-                          );
-    } 
-    else
-    {
-        std::cout << "uModelMatrix could not be found!" << std::endl;
-    }
-
     glm::mat4 perspective = glm::perspective(
                                              glm::radians(45.0f),                        // Field of view
                                              (float)gScreenWidth / (float)gScreenHeight, // Aspect ratio
@@ -369,6 +369,45 @@ void PreDraw()
     {
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
     }
+
+    glm::mat4 model = glm::mat4(1.0f); // Initialize the model matrix
+    model = glm::translate(
+                           model,                                                                   // Matrix to translate
+                           glm::vec3(gOffsetTranslationX, gOffsetTranslationY, gOffsetTranslationZ) // Translation vector
+                          );
+    model = glm::rotate(
+                        model,                          // Matrix to rotate
+                        glm::radians(gOffsetRotationX), // Rotation vector
+                        glm::vec3(1.0f, 0.0f, 0.0f)     // Axis of rotation
+                       );
+    model = glm::rotate(
+                        model,                          // Matrix to rotate
+                        glm::radians(gOffsetRotationY), // Rotation vector
+                        glm::vec3(0.0f, 1.0f, 0.0f)     // Axis of rotation
+                       );
+    model = glm::rotate(
+                        model,                          // Matrix to rotate
+                        glm::radians(gOffsetRotationZ), // Rotation vector
+                        glm::vec3(0.0f, 0.0f, 1.0f)     // Axis of rotation
+                       );
+    model = glm::scale(
+                       model,                  // Matrix to scale
+                       glm::vec3(gOffsetScale) // Scale vector
+                      );
+    GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
+    if (uModelMatrixLocation >= 0)                                                                     // If the uniform variable exists, it's value is passed to the shader
+    {
+        glUniformMatrix4fv(
+                           uModelMatrixLocation, // Location of the uniform variable
+                           1,                    // Number of matrices
+                           GL_FALSE,             // Whether to transpose the matrix
+                           glm::value_ptr(model) // Pointer to the data of model, &model[0][0] also works
+                          );
+    } 
+    else
+    {
+        std::cout << "uModelMatrix could not be found!" << std::endl;
+    }
 }
 
 void Draw()
@@ -386,7 +425,7 @@ void Draw()
     glUseProgram(0);
 }
 
-void MainLoop() // The main loop of the program
+void MainLoop() // The main program loop
 {
     while (!gQuit)
     {
