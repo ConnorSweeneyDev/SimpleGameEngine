@@ -15,9 +15,9 @@
 #include <glm/ext/matrix_clip_space.hpp> // glm::perspective
 #include <glm/ext/scalar_constants.hpp>  // glm::pi
 
-int gScreenWidth = 1280;
-int gScreenHeight = 720;
-SDL_Window* gGraphicsApplicationWindow = nullptr; 
+int gWindowWidth = 1280;
+int gWindowHeight = 720;
+SDL_Window* gGraphicsApplicationWindow = nullptr;
 SDL_GLContext gOpenGLContext = nullptr;
 
 GLuint gVertexArrayObject = 0;
@@ -34,6 +34,7 @@ float gOffsetRotationZ = 0.0f;
 float gOffsetScale = 1.0f;
 
 bool gQuit = false;
+bool gFullscreen = false;
 
 void ClearAllGLErrors() // Clears any errors that might have been generated previously
 {
@@ -81,7 +82,7 @@ void InitializeProgram() // Initializes SDL2 4.1, OpenGL, and GLAD
     gGraphicsApplicationWindow = SDL_CreateWindow(
                                                   "SDLGL Test",                // Window title
                                                   100, 100,                    // Window top left corner coordinates
-                                                  gScreenWidth, gScreenHeight, // Window width and height
+                                                  gWindowWidth, gWindowHeight, // Window width and height
                                                   SDL_WINDOW_OPENGL            // Window type
                                                  );
     if (gGraphicsApplicationWindow == nullptr)
@@ -179,8 +180,8 @@ std::string LoadShaderAsString(const std::string& fileName) // Loads a shader fr
 {
     std::string result;
 
-    std::string line;
     std::ifstream file(fileName.c_str());
+    std::string line;
 
     if (file.is_open())
     {
@@ -277,20 +278,47 @@ void Input() // Handles input events
     SDL_Event e;
     const Uint8* keyState = SDL_GetKeyboardState(nullptr);
 
-    while (SDL_PollEvent(&e) != 0)                // Clicking a built-in window button triggers SDL_PollEvent
+    while (SDL_PollEvent(&e) != 0)
     {
-        if (e.type == SDL_QUIT)                   // Code for the window close button
+        if (e.type == SDL_QUIT) // Code for the window close button
         {
             std::cout << "Goodbye!" << std::endl;
             gQuit = true;
-        } 
+        }
+
+        if (e.type == SDL_WINDOWEVENT)
+        {
+            if (e.window.event == SDL_WINDOWEVENT_RESIZED) // Code for entering and exiting fullscreen mode
+            {
+                SDL_GetWindowSize(gGraphicsApplicationWindow, &gWindowWidth, &gWindowHeight);
+                glViewport(0, 0, gWindowWidth, gWindowHeight);
+            }
+        }
+        
+        if (e.type == SDL_KEYDOWN)
+        {
+            if (keyState[SDL_SCANCODE_ESCAPE])        // Gives the escape key the same functionality as the window close button
+            {
+                std::cout << "Goodbye!" << std::endl;
+                gQuit = true;
+            }
+
+            if (keyState[SDL_SCANCODE_L])             // Fullscreen toggle is on L
+            {
+                if (!gFullscreen)
+                {
+                    SDL_SetWindowFullscreen(gGraphicsApplicationWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+                    gFullscreen = true;
+                }
+                else
+                {
+                    SDL_SetWindowFullscreen(gGraphicsApplicationWindow, 0);
+                    gFullscreen = false;
+                }
+            }
+        }
     }
-    if (keyState[SDL_SCANCODE_ESCAPE])            // Gives the escape key the same functionality as the window close button
-    {
-        std::cout << "Goodbye!" << std::endl;
-        gQuit = true;
-    }
-    
+
     if (keyState[SDL_SCANCODE_A])      // Translations are on WASD
         gOffsetTranslationX -= 0.005f;
     if (keyState[SDL_SCANCODE_D])
@@ -303,7 +331,7 @@ void Input() // Handles input events
         gOffsetTranslationZ -= 0.005f;
     if (keyState[SDL_SCANCODE_X])
         gOffsetTranslationZ += 0.005f;
-    
+
     if (keyState[SDL_SCANCODE_Q])      // Rotations are on QERTFG
         gOffsetRotationX -= 0.5f;
     if (keyState[SDL_SCANCODE_E])
@@ -342,8 +370,8 @@ void PreDraw()
     glViewport(
                0,            // X position of the lower left corner of the viewport rectangle
                0,            // Y position of the lower left corner of the viewport rectangle
-               gScreenWidth, // Width of the viewport rectangle
-               gScreenHeight // Height of the viewport rectangle
+               gWindowWidth, // Width of the viewport rectangle
+               gWindowHeight // Height of the viewport rectangle
               );
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Resets the depth and color buffers to the values set above
@@ -352,7 +380,7 @@ void PreDraw()
    
     glm::mat4 perspective = glm::perspective(
                                              glm::radians(45.0f),                        // Field of view
-                                             (float)gScreenWidth / (float)gScreenHeight, // Aspect ratio
+                                             (float)gWindowWidth / (float)gWindowHeight, // Aspect ratio
                                              0.1f, 10.0f                                 // Near and far clipping planes
                                             );
     GLint uProjectionMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uProjectionMatrix"); // Gets the location of the uniform variable
@@ -372,26 +400,26 @@ void PreDraw()
 
     glm::mat4 model = glm::mat4(1.0f); // Initialize the model's identity matrix
     model = glm::translate(
-                           model,                                                                   // Identity matrix (Matrix to translate)
+                           model,                                                                   // Identity matrix (the matrix to translate)
                            glm::vec3(gOffsetTranslationX, gOffsetTranslationY, gOffsetTranslationZ) // Translation vector
                           );
     model = glm::rotate(
-                        model,                          // Identity matrix (matrix to rotate)
+                        model,                          // Identity matrix (the matrix to rotate)
                         glm::radians(gOffsetRotationX), // Rotation vector
                         glm::vec3(1.0f, 0.0f, 0.0f)     // Axis of rotation
                        );
     model = glm::rotate(
-                        model,                          // Identity matrix (Matrix to rotate)
+                        model,                          // Identity matrix (the matrix to rotate)
                         glm::radians(gOffsetRotationY), // Rotation vector
                         glm::vec3(0.0f, 1.0f, 0.0f)     // Axis of rotation
                        );
     model = glm::rotate(
-                        model,                          // Identity matrix (Matrix to rotate)
+                        model,                          // Identity matrix (the matrix to rotate)
                         glm::radians(gOffsetRotationZ), // Rotation vector
                         glm::vec3(0.0f, 0.0f, 1.0f)     // Axis of rotation
                        );
     model = glm::scale(
-                       model,                  // Identity matrix (Matrix to scale)
+                       model,                  // Identity matrix (the matrix to scale)
                        glm::vec3(gOffsetScale) // Scale vector
                       );
     GLint uModelMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uModelMatrix"); // Gets the location of the uniform variable
