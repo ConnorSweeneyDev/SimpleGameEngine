@@ -10,5 +10,5 @@ void main()
 {
     vec4 newColor = uModelMatrix * vec4(vColor, 1.0f);
 
-    color = vec4(newColor.rg, newColor.b + 3.0f, newColor.a);
+    color = vec4(newColor.rg, newColor.b, newColor.a);
 }

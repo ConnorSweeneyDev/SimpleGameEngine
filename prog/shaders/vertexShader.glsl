@@ -5,14 +5,15 @@ layout (location = 1) in vec3 color;
 
 out vec3 vColor;
 
-uniform mat4 uModelMatrix;
 uniform mat4 uProjectionMatrix;
+uniform mat4 uViewMatrix;
+uniform mat4 uModelMatrix;
 
 void main()
 {
     vColor = color;
 
-    vec4 newPosition = uProjectionMatrix * uModelMatrix * vec4(position, 1.0f);
+    vec4 newPosition = uProjectionMatrix * uViewMatrix * uModelMatrix * vec4(position, 1.0f);
 
     gl_Position = newPosition;
 }

@@ -15,6 +15,8 @@
 #include <glm/ext/matrix_clip_space.hpp> // glm::perspective
 #include <glm/ext/scalar_constants.hpp>  // glm::pi
 
+#include "Camera.hpp" // Camera class
+
 int gWindowWidth = 1280;
 int gWindowHeight = 720;
 SDL_Window* gGraphicsApplicationWindow = nullptr;
@@ -25,9 +27,11 @@ GLuint gVertexBufferObject = 0;
 GLuint gIndexBufferObject = 0;
 GLuint gGraphicsPipelineShaderProgram = 0;
 
+Camera gCamera;
+
 float gOffsetTranslationX = 0.0f;
 float gOffsetTranslationY = 0.0f;
-float gOffsetTranslationZ = -3.0f;
+float gOffsetTranslationZ = 0.0f;
 float gOffsetRotationX = 0.0f;
 float gOffsetRotationY = 0.0f;
 float gOffsetRotationZ = 0.0f;
@@ -319,6 +323,19 @@ void Input() // Handles input events
         }
     }
 
+    if (keyState[SDL_SCANCODE_RSHIFT]) // Camera movement is on the arrow keys
+        gCamera.moveForward(0.005f);
+    if (keyState[SDL_SCANCODE_RCTRL])
+        gCamera.moveBackward(0.005f);
+    if (keyState[SDL_SCANCODE_UP])
+        gCamera.moveUp(0.005f);
+    if (keyState[SDL_SCANCODE_DOWN])
+        gCamera.moveDown(0.005f);
+    if (keyState[SDL_SCANCODE_LEFT])
+        gCamera.moveLeft(0.005f);
+    if (keyState[SDL_SCANCODE_RIGHT])
+        gCamera.moveRight(0.005f);
+
     if (keyState[SDL_SCANCODE_A])      // Translations are on WASD
         gOffsetTranslationX -= 0.005f;
     if (keyState[SDL_SCANCODE_D])
@@ -354,7 +371,7 @@ void Input() // Handles input events
     {
         gOffsetTranslationX = 0.0f;
         gOffsetTranslationY = 0.0f;
-        gOffsetTranslationZ = -3.0f;
+        gOffsetTranslationZ = 0.0f;
         gOffsetRotationX = 0.0f;
         gOffsetRotationY = 0.0f;
         gOffsetRotationZ = 0.0f;
@@ -377,7 +394,7 @@ void PreDraw()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Resets the depth and color buffers to the values set above
 
     glUseProgram(gGraphicsPipelineShaderProgram);
-   
+    
     glm::mat4 perspective = glm::perspective(
                                              glm::radians(45.0f),                        // Field of view
                                              (float)gWindowWidth / (float)gWindowHeight, // Aspect ratio
@@ -396,6 +413,22 @@ void PreDraw()
     else
     {
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
+    }
+
+    glm::mat4 view = gCamera.getViewMatrix();
+    GLint uViewMatrixLocation = glGetUniformLocation(gGraphicsPipelineShaderProgram, "uViewMatrix"); // Gets the location of the uniform variable
+    if (uViewMatrixLocation >= 0)                                                                    // If the uniform variable exists, it's value is passed to the shader
+    {
+        glUniformMatrix4fv(
+                           uViewMatrixLocation, // Location of the uniform variable
+                           1,                   // Number of matrices
+                           GL_FALSE,            // Whether to transpose the matrix
+                           glm::value_ptr(view) // Pointer to the data of view
+                          );
+    }
+    else
+    {
+        std::cout << "uViewMatrix could not be found!" << std::endl;
     }
 
     glm::mat4 model = glm::mat4(1.0f); // Initialize the model's identity matrix
