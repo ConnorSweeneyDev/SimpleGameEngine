@@ -19,9 +19,9 @@ class Camera
         void moveRight(float speed);
 
     private:
-        glm::vec3 cPosition;
-        glm::vec3 cDirection;
-        glm::vec3 cUp;
+        glm::vec3 cPosition;  // Camera position
+        glm::vec3 cDirection; // Camera look direction
+        glm::vec3 cUp;        // Camera up direction
 };
 
 #endif

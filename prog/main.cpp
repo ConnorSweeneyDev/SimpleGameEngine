@@ -495,7 +495,7 @@ void MainLoop() // The main program loop
 
         Draw();
 
-        SDL_GL_SwapWindow(gGraphicsApplicationWindow);
+        SDL_GL_SwapWindow(gGraphicsApplicationWindow); // Swaps the front and back buffers, presenting the rendered image to the screen
     }
 }
 
