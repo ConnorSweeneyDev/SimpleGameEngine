@@ -15,7 +15,7 @@
 #include <glm/ext/matrix_clip_space.hpp> // glm::perspective
 #include <glm/ext/scalar_constants.hpp>  // glm::pi
 
-#include "Camera.hpp" // Camera class
+#include "Camera.hpp" // Camera::...
 
 int gWindowWidth = 1280;
 int gWindowHeight = 720;
