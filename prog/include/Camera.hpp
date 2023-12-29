@@ -13,10 +13,10 @@ class Camera
         
         void moveUp(float speed);
         void moveDown(float speed);
-        void moveForward(float speed);
-        void moveBackward(float speed);
         void moveLeft(float speed);
         void moveRight(float speed);
+        void moveForward(float speed);
+        void moveBackward(float speed);
 
     private:
         glm::vec3 cPosition;  // Camera position

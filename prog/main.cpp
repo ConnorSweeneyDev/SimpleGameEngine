@@ -323,11 +323,7 @@ void Input() // Handles input events
         }
     }
 
-    if (keyState[SDL_SCANCODE_RSHIFT]) // Camera movement is on the arrow keys
-        gCamera.moveForward(0.005f);
-    if (keyState[SDL_SCANCODE_RCTRL])
-        gCamera.moveBackward(0.005f);
-    if (keyState[SDL_SCANCODE_UP])
+    if (keyState[SDL_SCANCODE_UP])     // Camera movement is on the arrow keys
         gCamera.moveUp(0.005f);
     if (keyState[SDL_SCANCODE_DOWN])
         gCamera.moveDown(0.005f);
@@ -335,6 +331,10 @@ void Input() // Handles input events
         gCamera.moveLeft(0.005f);
     if (keyState[SDL_SCANCODE_RIGHT])
         gCamera.moveRight(0.005f);
+    if (keyState[SDL_SCANCODE_RSHIFT])
+        gCamera.moveForward(0.005f);
+    if (keyState[SDL_SCANCODE_RCTRL])
+        gCamera.moveBackward(0.005f);
 
     if (keyState[SDL_SCANCODE_A])      // Translations are on WASD
         gOffsetTranslationX -= 0.005f;
