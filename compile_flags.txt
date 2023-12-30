@@ -1,0 +1,22 @@
+-I
+prog/include
+-I
+src/include
+-I
+src/include/glad
+-I
+src/include/glm
+-I
+src/include/KHR
+-I
+src/include/SDL2
+-L
+src/lib
+-Wall
+-l
+Mingw32
+-l
+SDL2main
+-l
+SDL2
+-o SDLGLTest.exe
