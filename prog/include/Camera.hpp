@@ -1,14 +1,11 @@
-#ifndef CAMERA_HPP
-#define CAMERA_HPP
+#pragma once
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include "glm/glm.hpp"                  // Mathematics library
+#include "glm/gtc/matrix_transform.hpp" // glm::lookAt
 
-class Camera
+class Camera // Stores camera values and functions
 {
     public:
-        Camera();
-
         glm::mat4 getViewMatrix() const;
         
         void moveUp(float speed);
@@ -17,11 +14,14 @@ class Camera
         void moveRight(float speed);
         void moveForward(float speed);
         void moveBackward(float speed);
+        
+        void resetPosition();
+
+        void init();
 
     private:
-        glm::vec3 cPosition;  // Camera position
-        glm::vec3 cDirection; // Camera look direction
-        glm::vec3 cUp;        // Camera up direction
+        glm::vec3 position;
+        glm::vec3 direction;
+        glm::vec3 up;
 };
-
-#endif
+extern Camera camera;

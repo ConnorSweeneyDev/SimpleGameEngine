@@ -1,14 +1,14 @@
 #version 410 core
 
-in vec3 vColor;
+in vec3 vColor; // Interpolated values from the vertex shaders
 
-out vec4 color;
+out vec4 color; // Output data to main.cpp
 
-uniform mat4 uModelMatrix;
+uniform mat4 uModelMatrix; // Uniform passed from main.cpp to the shader each time
 
 void main()
 {
-    vec4 newColor = uModelMatrix * vec4(vColor, 1.0f);
+    vec4 newColor = uModelMatrix * vec4(vColor, 1.0f); // Order matters
 
-    color = vec4(newColor.rg, newColor.b, newColor.a);
+    color = newColor;
 }
