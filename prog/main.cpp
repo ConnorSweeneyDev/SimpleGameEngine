@@ -110,7 +110,7 @@ void VertexSpecification() // Creates a vertex array object, a vertex buffer obj
                           3,                  // Number of components per vertex attribute
                           GL_FLOAT,           // Type of data of each component
                           GL_FALSE,           // Whether the data is normalized
-                          sizeof(GL_FLOAT)*6, // Stride (the space between consecutive vertex attributes)
+                          sizeof(GLfloat)*6, // Stride (the space between consecutive vertex attributes)
                           (GLvoid*)0          // Offset of the first component
                          ); 
     glEnableVertexAttribArray(1);
@@ -119,8 +119,8 @@ void VertexSpecification() // Creates a vertex array object, a vertex buffer obj
                           3,
                           GL_FLOAT,
                           GL_FALSE,
-                          sizeof(GL_FLOAT)*6,
-                          (GLvoid*)(sizeof(GL_FLOAT)*3)
+                          sizeof(GLfloat)*6,
+                          (GLvoid*)(sizeof(GLfloat)*3)
                          );
 
     const std::vector<GLuint> indexData
