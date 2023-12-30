@@ -1,5 +1,6 @@
 #include <fstream> // File input and output
 #include <vector>  // std::vector
+#include <string>  // std::getline
 
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
@@ -178,6 +179,10 @@ GLuint CompileShader(GLuint type, const std::string& shaderSource) // Compiles a
     else if (type == GL_FRAGMENT_SHADER)
     {
         shaderObject = glCreateShader(GL_FRAGMENT_SHADER); 
+    }
+    else
+    {
+        shaderObject = 0;
     }
     
     const char* source = shaderSource.c_str();
