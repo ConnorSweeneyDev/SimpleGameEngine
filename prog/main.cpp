@@ -1,11 +1,10 @@
-#include <fstream> // File input and output
-#include <vector>  // std::vector
-#include <string>  // std::getline
+#include <vector> // std::vector
 
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
 #include "Util.hpp"
 #include "Window.hpp"
+#include "Shader.hpp"
 #include "Camera.hpp" 
 
 #define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
@@ -103,105 +102,12 @@ void VertexSpecification() // Creates a vertex array object, a vertex buffer obj
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-std::string LoadShaderAsString(const std::string& fileName) // Loads a shader from a file and returns it as a string
-{
-    std::string result;
-
-    std::ifstream file(fileName.c_str());
-    std::string line;
-
-    if (file.is_open())
-    {
-        while (std::getline(file, line))
-        {
-            result += line + "\n";
-        }
-        file.close();
-    }
-    else
-    {
-        std::cout << "Unable to open file: " << fileName << "!" << std::endl;
-    }
-
-    return result;
-}
-
-GLuint CompileShader(GLuint type, const std::string& shaderSource) // Compiles a shader and returns its ID
-{
-    GLuint shaderObject;
-
-    if (type == GL_VERTEX_SHADER)
-    {
-        shaderObject = glCreateShader(GL_VERTEX_SHADER);
-    }
-    else if (type == GL_FRAGMENT_SHADER)
-    {
-        shaderObject = glCreateShader(GL_FRAGMENT_SHADER); 
-    }
-    else
-    {
-        shaderObject = glCreateShader(GL_NONE);
-    }
-    
-    const char* source = shaderSource.c_str();
-    glShaderSource(
-                   shaderObject, // Destination for the shader source
-                   1,            // Number of elements in the string and length arrays
-                   &source,      // The shader source code as a string
-                   nullptr       // Array of string lengths
-                  );
-    glCompileShader(shaderObject);
-    
-    int result;
-    glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &result); // Gets the compile status of the shader
-
-    if (result == GL_FALSE) // If the shader failed to compile
-    {
-        int length;
-        glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &length);         // Gets the length of the array of error messages
-        char* errorMessages = new char[length];                           // Creates a new char array with the length of the error message array
-        glGetShaderInfoLog(shaderObject, length, &length, errorMessages); // Puts the error messages inside the array
-
-        if (type == GL_VERTEX_SHADER)
-        {
-            std::cout << "GL_VERTEX_SHADER compilation failed!\n" << errorMessages << std::endl;
-        }
-        else if (type == GL_FRAGMENT_SHADER)
-        {
-            std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << errorMessages << std::endl;
-        }
-
-        delete[] errorMessages;
-        glDeleteShader(shaderObject);
-
-        return 0;
-    }
-
-    return shaderObject; // Upon successful compilation, returns the shader object
-}
-
-GLuint CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource) // Creates a shader program and returns its ID
-{
-    GLuint programObject = glCreateProgram();
-
-    GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-
-    glAttachShader(programObject, vertexShader);
-    glAttachShader(programObject, fragmentShader);
-    
-    glLinkProgram(programObject);
-    glValidateProgram(programObject);
-
-    return programObject;
-}
-
 void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a vertex shader and a fragment shader
 {
-    std::string vertexShaderSource = LoadShaderAsString("prog/shaders/vertexShader.glsl");
-    std::string fragmentShaderSource = LoadShaderAsString("prog/shaders/fragmentShader.glsl");
+    std::string vertexShaderSource = shader.LoadShaderAsString("prog/shaders/vertexShader.glsl");
+    std::string fragmentShaderSource = shader.LoadShaderAsString("prog/shaders/fragmentShader.glsl");
 
-    gGraphicsPipelineShaderProgram = CreateShaderProgram(vertexShaderSource, fragmentShaderSource); 
+    gGraphicsPipelineShaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource); 
 }
 
 void InitializeGame()
@@ -409,8 +315,8 @@ void MainLoop()
     while (!window.getQuit())
     {
         Input();
-
         PreDraw();
+
         Draw();
         SDL_GL_SwapWindow(window.getWindow()); // Swaps the front and back buffers, presenting the rendered image to the screen
     }
@@ -434,6 +340,7 @@ int main(int argc, char* argv[]) // The entry point of the program
 
     InitializeGame();
     MainLoop();
+
     CleanUp();
 
     return 0;
