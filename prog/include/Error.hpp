@@ -3,7 +3,7 @@
 
 #pragma once
 
-class Error
+class Error // Stores functions for #define CheckGL(function)
 {
     public:
         void ClearAllGLErrors();
