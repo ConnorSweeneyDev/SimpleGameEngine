@@ -22,10 +22,10 @@ bool PlatformUtil::CheckGLErrorStatus(const char* functionName, const char* file
 
 void PlatformUtil::GetOpenGLVersionInfo()
 {
-    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
-    std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
+    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
+              << "Renderer: " << glGetString(GL_RENDERER) << std::endl
+              << "Version: " << glGetString(GL_VERSION) << std::endl
+              << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 
 void PlatformUtil::sdlinit()
