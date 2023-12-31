@@ -4,8 +4,11 @@
 
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
+#include "Error.hpp"
 #include "Window.hpp"
 #include "Camera.hpp" 
+
+#define CheckGL(function) error.ClearAllGLErrors(); function; error.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
 
 GLuint gVertexArrayObject = 0;
 GLuint gVertexBufferObject = 0;
@@ -19,27 +22,6 @@ float gOffsetRotationX = 0.0f;
 float gOffsetRotationY = 0.0f;
 float gOffsetRotationZ = 0.0f;
 float gOffsetScale = 1.0f;
-
-void ClearAllGLErrors() // Clears any errors that might have been generated previously
-{
-    while (glGetError() != GL_NO_ERROR){ }
-}
-
-bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line) // Checks for errors and displays them
-{
-    while (GLenum error = glGetError())
-    {
-        std::cout << "OpenGL Error " << std::hex << error << std::dec << "!"
-                  << "    Function: " << functionName
-                  << "    File: " << fileName
-                  << "    Line: " << line << std::endl;
-        return true;
-    }
-
-    return false;
-}
-
-#define CheckGL(function) ClearAllGLErrors(); function; CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
 
 void GetOpenGLVersionInfo()
 {
