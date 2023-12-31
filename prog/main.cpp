@@ -4,11 +4,11 @@
 
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
-#include "Error.hpp"
+#include "PlatformUtil.hpp"
 #include "Window.hpp"
 #include "Camera.hpp" 
 
-#define CheckGL(function) error.ClearAllGLErrors(); function; error.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
+#define CheckGL(function) platformUtil.ClearAllGLErrors(); function; platformUtil.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
 
 GLuint gVertexArrayObject = 0;
 GLuint gVertexBufferObject = 0;
@@ -23,37 +23,13 @@ float gOffsetRotationY = 0.0f;
 float gOffsetRotationZ = 0.0f;
 float gOffsetScale = 1.0f;
 
-void GetOpenGLVersionInfo()
+void InitializeProgram() // Initializes SDL2 4.1, the OpenGL window, and functions via GLAD, optionally prints OpenGL version info
 {
-    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
-    std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
-    std::cout << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
-}
-
-void InitializeProgram() // Initializes SDL2 4.1, the OpenGL window, and functions via GLAD
-{
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-    {
-        std::cout << "SDL2 could not be initialized!" << std::endl;
-        exit(1);
-    }
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Double buffering enabled
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);  // 24 layers of depth
-    
+    platformUtil.sdlinit();
     window.init();
+    platformUtil.gladinit();
 
-    if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) // Loads OpenGL functions using GLAD
-    {
-        std::cout << "Glad could not be initialized!" << std::endl;
-        exit(1);
-    }
-
-    GetOpenGLVersionInfo();
+    platformUtil.GetOpenGLVersionInfo();
 }
 
 void VertexSpecification() // Creates a vertex array object, a vertex buffer object, and an index buffer object
@@ -435,9 +411,7 @@ void MainLoop()
         Input();
 
         PreDraw();
-
         Draw();
-
         SDL_GL_SwapWindow(window.getWindow()); // Swaps the front and back buffers, presenting the rendered image to the screen
     }
 }
@@ -455,13 +429,10 @@ int main(int argc, char* argv[]) // The entry point of the program
     InitializeProgram();
 
     VertexSpecification();
-
     CreateGraphicsPipeline();
 
     InitializeGame();
-
     MainLoop();
-
     CleanUp();
 
     return 0;
