@@ -1,12 +1,12 @@
-#include "PlatformUtil.hpp"
+#include "Util.hpp"
 
-PlatformUtil platformUtil;
+Util util;
 
-void PlatformUtil::ClearAllGLErrors() // OpenGL errors can stack up, so this clears them all
+void Util::ClearAllGLErrors() // OpenGL errors can stack up, so this clears them all
 {
     while (glGetError() != GL_NO_ERROR);
 }
-bool PlatformUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) // Checks for errors and displays them
+bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) // Checks for errors and displays them
 {
     while (GLenum error = glGetError())
     {
@@ -20,7 +20,7 @@ bool PlatformUtil::CheckGLErrorStatus(const char* functionName, const char* file
     return false;
 }
 
-void PlatformUtil::GetOpenGLVersionInfo()
+void Util::GetOpenGLVersionInfo()
 {
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
               << "Renderer: " << glGetString(GL_RENDERER) << std::endl
@@ -28,7 +28,7 @@ void PlatformUtil::GetOpenGLVersionInfo()
               << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 
-void PlatformUtil::sdlinit()
+void Util::sdlinit()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -42,7 +42,7 @@ void PlatformUtil::sdlinit()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Double buffering enabled
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);  // 24 layers of depth
 }
-void PlatformUtil::gladinit()
+void Util::gladinit()
 {
     if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) // Loads OpenGL functions using GLAD
     {

@@ -4,11 +4,11 @@
 
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
-#include "PlatformUtil.hpp"
+#include "Util.hpp"
 #include "Window.hpp"
 #include "Camera.hpp" 
 
-#define CheckGL(function) platformUtil.ClearAllGLErrors(); function; platformUtil.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
+#define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
 
 GLuint gVertexArrayObject = 0;
 GLuint gVertexBufferObject = 0;
@@ -25,11 +25,11 @@ float gOffsetScale = 1.0f;
 
 void InitializeProgram() // Initializes SDL2 4.1, the OpenGL window, and functions via GLAD, optionally prints OpenGL version info
 {
-    platformUtil.sdlinit();
+    util.sdlinit();
     window.init();
-    platformUtil.gladinit();
+    util.gladinit();
 
-    platformUtil.GetOpenGLVersionInfo();
+    util.GetOpenGLVersionInfo();
 }
 
 void VertexSpecification() // Creates a vertex array object, a vertex buffer object, and an index buffer object
@@ -421,6 +421,7 @@ void CleanUp() // Runs at the end of the program
     glDeleteProgram(gGraphicsPipelineShaderProgram);
     SDL_GL_DeleteContext(window.getGLContext());
     SDL_DestroyWindow(window.getWindow());
+    
     SDL_Quit();
 }
 

@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>  // SDL, SDL_GL 
 #include <glad/glad.h> // Load OpenGL functions
 
-class PlatformUtil // Stores utility functions for platform code
+class Util // Stores utility functions for platform code
 {
     public:
         void ClearAllGLErrors();                                                           // Functions for #define CheckGL(function), used to clear
@@ -16,4 +16,4 @@ class PlatformUtil // Stores utility functions for platform code
         void sdlinit();
         void gladinit();
 };
-extern PlatformUtil platformUtil;
+extern Util util;
