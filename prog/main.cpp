@@ -164,7 +164,7 @@ GLuint CompileShader(GLuint type, const std::string& shaderSource) // Compiles a
     }
     else
     {
-        shaderObject = 0;
+        shaderObject = glCreateShader(GL_NONE);
     }
     
     const char* source = shaderSource.c_str();
