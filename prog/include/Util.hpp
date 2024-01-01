@@ -2,7 +2,7 @@
 
 #include <iostream> // Console output
 
-#include <SDL2/SDL.h>  // SDL, SDL_GL 
+#include <SDL2/SDL.h>  // SDL_... 
 #include <glad/glad.h> // Load OpenGL functions
 
 #define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
