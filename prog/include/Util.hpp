@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>  // SDL, SDL_GL 
 #include <glad/glad.h> // Load OpenGL functions
 
+#define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
+
 class Util // Stores utility functions for platform code
 {
     public:
