@@ -1,3 +1,3 @@
 @ECHO OFF
 
-start cmd /k SDLGLTest.exe
+start cmd /C gdb SDLGLTest.exe
