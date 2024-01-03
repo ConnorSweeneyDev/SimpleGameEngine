@@ -10,7 +10,8 @@ void InitializeProgram()
 
 void VertexSpecification()
 {
-    player1.specifyVertices(
+    GameObjectPtr player = std::make_shared<GameObject>("Player 1");
+    player->specifyVertices(
                             {
                                 // Vertex 0
                                 -0.5f, -0.5f, 0.0f, // Bottom left vertex position
@@ -30,8 +31,10 @@ void VertexSpecification()
                                 3, 2, 1  // second triangle
                             }
                            );
+    game_objects.push_back(player);
 
-    player2.specifyVertices(
+    player = std::make_shared<GameObject>("Player 2");
+    player->specifyVertices(
                             {
                                 // Vertex 0
                                 -0.1f, -0.1f, 0.0f, // Bottom left vertex position
@@ -51,22 +54,37 @@ void VertexSpecification()
                                 3, 2, 1  // second triangle
                             }
                            );
+    game_objects.push_back(player);
 
     util.vertexcleanup();
 }
 
 void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a vertex shader and a fragment shader
 {
-    player1.setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
-    player2.setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader2.glsl");
+    for(auto& game_object : game_objects)
+    {
+        if (game_object->getName() == "Player 1")
+            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+        else if (game_object->getName() == "Player 2")
+            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader2.glsl");
+        else
+            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+    }
 }
 
 void InitializeGame()
 {
     camera.init();
     
-    player1.init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-    player2.init(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+    for(auto& game_object : game_objects)
+    {
+        if (game_object->getName() == "Player 1")
+            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+        else if (game_object->getName() == "Player 2")
+            game_object->init(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+        else
+            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 180.0f, 0.f, 1.0f);
+    }
 }
 
 void Input()
@@ -114,65 +132,97 @@ void Input()
     if (keyState[SDL_SCANCODE_RCTRL])
         camera.moveBackward(0.005f);
 
-    if (keyState[SDL_SCANCODE_W])
-        player1.moveUp(0.005f);
-    if (keyState[SDL_SCANCODE_S])
-        player1.moveDown(0.005f);
-    if (keyState[SDL_SCANCODE_A])
-        player1.moveLeft(0.005f);
-    if (keyState[SDL_SCANCODE_D])
-        player1.moveRight(0.005f);
-    if (keyState[SDL_SCANCODE_Z])
-        player1.moveForward(0.005f);
-    if (keyState[SDL_SCANCODE_X])
-        player1.moveBackward(0.005f);
-
-    if (keyState[SDL_SCANCODE_E])
-        player1.rotateXPos(0.5);
-    if (keyState[SDL_SCANCODE_Q])
-        player1.rotateXNeg(0.5);
-    if (keyState[SDL_SCANCODE_T])
-        player1.rotateYPos(0.5);
-    if (keyState[SDL_SCANCODE_R])
-        player1.rotateYNeg(0.5);
-    if (keyState[SDL_SCANCODE_F])
-        player1.rotateZPos(0.5);
-    if (keyState[SDL_SCANCODE_G])
-        player1.rotateZNeg(0.5);
-    
-    if (keyState[SDL_SCANCODE_C])
-        player1.scaleUp(0.005f);
-    if (keyState[SDL_SCANCODE_V])
-        player1.scaleDown(0.005f);
-
     if (keyState[SDL_SCANCODE_SPACE])
-    {
         camera.resetPosition();
-        player1.reset();
-    }
 
-    if (keyState[SDL_SCANCODE_U])
-        player2.moveUp(0.005f);
-    if (keyState[SDL_SCANCODE_J])
-        player2.moveDown(0.005f);
-    if (keyState[SDL_SCANCODE_H])
-        player2.moveLeft(0.005f);
-    if (keyState[SDL_SCANCODE_K])
-        player2.moveRight(0.005f);
+    auto player1 = getGameObjectByName("Player 1");
+    if (player1)
+    {
+        if (keyState[SDL_SCANCODE_W])
+            player1->moveUp(0.005f);
+        if (keyState[SDL_SCANCODE_S])
+            player1->moveDown(0.005f);
+        if (keyState[SDL_SCANCODE_A])
+            player1->moveLeft(0.005f);
+        if (keyState[SDL_SCANCODE_D])
+            player1->moveRight(0.005f);
+        if (keyState[SDL_SCANCODE_Z])
+            player1->moveForward(0.005f);
+        if (keyState[SDL_SCANCODE_X])
+            player1->moveBackward(0.005f);    
+        
+        if (keyState[SDL_SCANCODE_E])
+            player1->rotateXPos(0.5);
+        if (keyState[SDL_SCANCODE_Q])
+            player1->rotateXNeg(0.5);
+        if (keyState[SDL_SCANCODE_T])
+            player1->rotateYPos(0.5);
+        if (keyState[SDL_SCANCODE_R])
+            player1->rotateYNeg(0.5);
+        if (keyState[SDL_SCANCODE_F])
+            player1->rotateZPos(0.5);
+        if (keyState[SDL_SCANCODE_G])
+            player1->rotateZNeg(0.5);
+    
+        if (keyState[SDL_SCANCODE_E])
+            player1->rotateXPos(0.5);
+        if (keyState[SDL_SCANCODE_Q])
+            player1->rotateXNeg(0.5);
+        if (keyState[SDL_SCANCODE_T])
+            player1->rotateYPos(0.5);
+        if (keyState[SDL_SCANCODE_R])
+            player1->rotateYNeg(0.5);
+        if (keyState[SDL_SCANCODE_F])
+            player1->rotateZPos(0.5);
+        if (keyState[SDL_SCANCODE_G])
+            player1->rotateZNeg(0.5);
+
+        if (keyState[SDL_SCANCODE_C])
+            player1->scaleUp(0.005f);
+        if (keyState[SDL_SCANCODE_V])
+            player1->scaleDown(0.005f);
+
+        if (keyState[SDL_SCANCODE_SPACE])
+            player1->reset();
+    }
+    
+    auto player2 = getGameObjectByName("Player 2");
+    if (player2)
+    {
+        if (keyState[SDL_SCANCODE_U])
+            player2->moveUp(0.005f);
+        if (keyState[SDL_SCANCODE_J])
+            player2->moveDown(0.005f);
+        if (keyState[SDL_SCANCODE_H])
+            player2->moveLeft(0.005f);
+        if (keyState[SDL_SCANCODE_K])
+            player2->moveRight(0.005f);
+        if (keyState[SDL_SCANCODE_B])
+            player2->moveForward(0.005f);
+        if (keyState[SDL_SCANCODE_N])
+            player2->moveBackward(0.005f);
+
+        if (keyState[SDL_SCANCODE_SPACE])
+            player2->reset();
+    }
 }
 
 void PreDraw()
 {
     util.predrawinit();
-
-    player1.preDraw();
-    player2.preDraw();
+    
+    for (auto& game_object : game_objects)
+    {
+        game_object->preDraw();
+    }
 }
 
 void Draw()
 {
-    player1.draw();
-    player2.draw();
+    for (auto& game_object : game_objects)
+    {
+        game_object->draw();
+    }
     
     util.drawcleanup();
 }
@@ -192,8 +242,10 @@ void MainLoop()
 
 void CleanUp()
 {
-    player1.cleanup();
-    player2.cleanup();
+    for (auto& game_object : game_objects)
+    {
+        game_object->cleanup();
+    }
  
     util.sdlcleanup();
 }

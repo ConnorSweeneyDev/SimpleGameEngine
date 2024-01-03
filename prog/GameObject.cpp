@@ -1,7 +1,10 @@
 #include "GameObject.hpp"
 
-GameObject player1;
-GameObject player2;
+GameObjectList game_objects;
+
+GameObject::GameObject(std::string name) { this->name = name; }
+
+const std::string& GameObject::getName() const { return name; }
 
 void GameObject::specifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
 {
@@ -21,14 +24,12 @@ void GameObject::specifyVertices(std::vector<GLfloat> vertexData, std::vector<GL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLfloat), indexData.data(), GL_STATIC_DRAW);
 }
-
 void GameObject::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
 {
     std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
     std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
     shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 }
-
 void GameObject::preDraw()
 {
     glUseProgram(shaderProgram);
@@ -108,7 +109,6 @@ void GameObject::preDraw()
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 }
-
 void GameObject::draw()
 {
     glUseProgram(shaderProgram);
@@ -135,30 +135,41 @@ void GameObject::scaleDown(float speed) { scale -= speed; }
 
 void GameObject::reset()
 {
-    translationX = 0.0f;
-    translationY = 0.0f;
-    translationZ = 0.0f;
-    rotationX = 0.0f;
-    rotationY = 0.0f;
-    rotationZ = 0.0f;
-    scale = 1.0f;
+    translationX = initial[0];
+    translationY = initial[1];
+    translationZ = initial[2];
+    rotationX = initial[3];
+    rotationY = initial[4];
+    rotationZ = initial[5];
+    scale = initial[6];
 }
 
 void GameObject::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale)
 {
-    this->translationX = translationX;
-    this->translationY = translationY;
-    this->translationZ = translationZ;
-    this->rotationX = rotationX;
-    this->rotationY = rotationY;
-    this->rotationZ = rotationZ;
-    this->scale = scale;
+    initial.push_back(this->translationX = translationX);
+    initial.push_back(this->translationY = translationY);
+    initial.push_back(this->translationZ = translationZ);
+    initial.push_back(this->rotationX = rotationX);
+    initial.push_back(this->rotationY = rotationY);
+    initial.push_back(this->rotationZ = rotationZ);
+    initial.push_back(this->scale = scale);
 }
-
 void GameObject::cleanup()
 {
     glDeleteVertexArrays(1, &vertexArrayObject);
     glDeleteBuffers(1, &vertexBufferObject);
     glDeleteBuffers(1, &indexBufferObject);
     glDeleteProgram(shaderProgram);
+}
+
+GameObjectPtr getGameObjectByName(const std::string &name)
+{
+    for (auto &gameObject : game_objects)
+    {
+        if (gameObject->getName() == name)
+        {
+            return gameObject;
+        }
+    }
+    return nullptr;
 }

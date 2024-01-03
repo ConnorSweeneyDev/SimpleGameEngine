@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -11,12 +12,13 @@
 class GameObject
 {
     public:
+        GameObject(std::string name);
+        
+        const std::string& getName() const;
+
         void specifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
-
         void setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
-
         void preDraw();
-
         void draw();
 
         void moveUp(float speed);
@@ -39,10 +41,11 @@ class GameObject
         void reset();
 
         void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale);
-
         void cleanup();
 
     private:
+        std::string name;
+
         GLuint vertexArrayObject = 0;
         GLuint vertexBufferObject = 0;
         GLuint indexBufferObject = 0;
@@ -55,6 +58,12 @@ class GameObject
         float rotationY = 0.0f;
         float rotationZ = 0.0f;
         float scale = 1.0f;
+
+        std::vector<float> initial;
 };
-extern GameObject player1;
-extern GameObject player2;
+using GameObjectPtr = std::shared_ptr<GameObject>;
+using GameObjectList = std::vector<GameObjectPtr>;
+
+GameObjectPtr getGameObjectByName(const std::string& name);
+
+extern GameObjectList game_objects;
