@@ -1,9 +1,6 @@
 #pragma once
 
-#include <iostream>
-
-#include <SDL2/SDL.h>
-#include <glad/glad.h>
+#include "Window.hpp"
 
 #define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__);
 
@@ -17,5 +14,10 @@ class Util
 
         void sdlinit();
         void gladinit();
+        void predrawinit();
+        
+        void sdlcleanup();
+        void vertexcleanup();
+        void drawcleanup();
 };
 extern Util util;

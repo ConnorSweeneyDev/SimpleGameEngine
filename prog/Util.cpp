@@ -50,3 +50,37 @@ void Util::gladinit()
         exit(1);
     }
 }
+void Util::predrawinit()
+{
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+
+    glViewport(
+               0,
+               0,
+               window.getWidth(),
+               window.getHeight()
+              );
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+}
+
+void Util::sdlcleanup()
+{
+    SDL_GL_DeleteContext(window.getGLContext());
+    SDL_DestroyWindow(window.getWindow()); 
+    SDL_Quit();
+}
+void Util::vertexcleanup()
+{
+    glBindVertexArray(0);
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+void Util::drawcleanup()
+{
+    glBindVertexArray(0);
+    glUseProgram(0);
+}
