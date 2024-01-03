@@ -297,7 +297,6 @@ void PreDraw()
 void Draw()
 {
     glBindVertexArray(gVertexArrayObject);
-
     glDrawElements(
                    GL_TRIANGLES,    // Type of primitive to draw
                    6,               // Number of vertexes to be rendered
@@ -305,6 +304,7 @@ void Draw()
                    (GLvoid*)0       // Offset of the first index
                   );
 
+    glBindVertexArray(0);
     glUseProgram(0);
 }
 
