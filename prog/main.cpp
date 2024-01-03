@@ -60,13 +60,13 @@ void VertexSpecification() // Creates a vertex array object, a vertex buffer obj
                 );
     
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(                    // Vertix attribute pointer for the vertex position
-                          0,                  // Index of the vertex attribute pointer
-                          3,                  // Number of components per vertex attribute
-                          GL_FLOAT,           // Type of data of each component
-                          GL_FALSE,           // Whether the data is normalized
+    glVertexAttribPointer(                   // Vertix attribute pointer for the vertex position
+                          0,                 // Index of the vertex attribute pointer
+                          3,                 // Number of components per vertex attribute
+                          GL_FLOAT,          // Type of data of each component
+                          GL_FALSE,          // Whether the data is normalized
                           sizeof(GLfloat)*6, // Stride (the space between consecutive vertex attributes)
-                          (GLvoid*)0          // Offset of the first component
+                          (GLvoid*)0         // Offset of the first component
                          ); 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(                              
