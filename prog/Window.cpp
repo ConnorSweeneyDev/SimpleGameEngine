@@ -1,4 +1,4 @@
-#include "Window.hpp" // Window
+#include "Window.hpp"
 
 Window window;
 
@@ -34,10 +34,10 @@ void Window::handleQuit()
 void Window::init()
 { 
     graphicsApplicationWindow = SDL_CreateWindow(
-                                                  "SDLGL Test",     // Window title
-                                                  100, 100,         // Window top left corner coordinates
-                                                  width, height,    // Window width and height
-                                                  SDL_WINDOW_OPENGL // Window type
+                                                  "SDLGL Test",
+                                                  startingPosX, startingPosY,
+                                                  width, height,
+                                                  SDL_WINDOW_OPENGL
                                                  );
     if (graphicsApplicationWindow == nullptr)
     {
@@ -45,7 +45,7 @@ void Window::init()
         exit(1);
     }    
 
-    GLContext = SDL_GL_CreateContext(graphicsApplicationWindow); // Creates an OpenGL context associated with the window
+    GLContext = SDL_GL_CreateContext(graphicsApplicationWindow);
     if (GLContext == nullptr)
     {
         std::cout << "OpenGl context could not be created!" << std::endl;

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <iostream> // Console output
+#include <iostream>
 
-#include <SDL2/SDL.h>  // SDL_Window, SDL_GLContext
-#include <glad/glad.h> // Load OpenGL functions
+#include <SDL2/SDL.h>
+#include <glad/glad.h>
 
-class Window // Stores window settings and functions
+class Window
 {
     public:
         SDL_Window* getWindow() const;
@@ -21,8 +21,10 @@ class Window // Stores window settings and functions
         void init();
 
     private:
-        SDL_Window* graphicsApplicationWindow = nullptr; // Pointer to the window
+        SDL_Window* graphicsApplicationWindow = nullptr;
         SDL_GLContext GLContext = nullptr;
+        int startingPosX = 100;
+        int startingPosY = 100;
         int width = 1280;
         int height = 720;
         bool quit = false;

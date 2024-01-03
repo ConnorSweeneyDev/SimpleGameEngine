@@ -2,11 +2,11 @@
 
 Util util;
 
-void Util::ClearAllGLErrors() // OpenGL errors can stack up, so this clears them all
+void Util::ClearAllGLErrors() // OpenGL errors can stack up
 {
     while (glGetError() != GL_NO_ERROR);
 }
-bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) // Checks for errors and displays them
+bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, int line)
 {
     while (GLenum error = glGetError())
     {
@@ -39,12 +39,12 @@ void Util::sdlinit()
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // Double buffering enabled
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);  // 24 layers of depth
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 }
 void Util::gladinit()
 {
-    if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) // Loads OpenGL functions using GLAD
+    if (!gladLoadGLLoader(SDL_GL_GetProcAddress))
     {
         std::cout << "Glad could not be initialized!" << std::endl;
         exit(1);

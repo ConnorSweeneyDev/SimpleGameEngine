@@ -1,12 +1,12 @@
 #pragma once
 
-#include <iostream> // Console output
-#include <fstream> // File input and output
-#include <string> // std::string, std::getline
+#include <iostream>
+#include <fstream>
+#include <string>
 
-#include <glad/glad.h> // Load OpenGL functions
+#include <glad/glad.h>
 
-class Shader // Stores utility functions for shaders
+class Shader
 {
     public:
         std::string LoadShaderAsString(const std::string& fileName);

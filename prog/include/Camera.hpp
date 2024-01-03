@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glm/glm.hpp"                  // Mathematics library
-#include "glm/gtc/matrix_transform.hpp" // glm::lookAt
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
-class Camera // Stores camera values and functions
+class Camera
 {
     public:
         glm::mat4 getViewMatrix() const;

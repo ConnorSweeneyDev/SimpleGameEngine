@@ -1,17 +1,17 @@
 #pragma once
 
-#include <iostream> // Console output
+#include <iostream>
 
-#include <SDL2/SDL.h>  // SDL_... 
-#include <glad/glad.h> // Load OpenGL functions
+#include <SDL2/SDL.h>
+#include <glad/glad.h>
 
-#define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__); // Macro for use in finding and displaying OpenGL function errors
+#define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__);
 
-class Util // Stores utility functions for platform code
+class Util
 {
     public:
-        void ClearAllGLErrors();                                                           // Functions for #define CheckGL(function), used to clear
-        bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line); // Used to check for and display OpenGL errors
+        void ClearAllGLErrors();
+        bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line);
 
         void GetOpenGLVersionInfo();
 

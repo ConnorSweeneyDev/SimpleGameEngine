@@ -1,4 +1,4 @@
-#include "Camera.hpp" // Camera
+#include "Camera.hpp"
 
 Camera camera;
 

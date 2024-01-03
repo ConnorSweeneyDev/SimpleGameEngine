@@ -8,7 +8,7 @@ uniform mat4 uModelMatrix;
 
 void main()
 {
-    vec4 newColor = uModelMatrix * vec4(vColor, 1.0f); // Order of multiplication matters
+    vec4 newColor = vec4(vColor, 1.0f);
 
     color = newColor;
 }

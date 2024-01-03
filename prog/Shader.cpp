@@ -2,7 +2,7 @@
 
 Shader shader;
 
-std::string Shader::LoadShaderAsString(const std::string& fileName) // Loads a shader from a file and returns it as a string
+std::string Shader::LoadShaderAsString(const std::string& fileName)
 {
     std::string result;
 
@@ -11,7 +11,7 @@ std::string Shader::LoadShaderAsString(const std::string& fileName) // Loads a s
 
     if (file.is_open())
     {
-        while (std::getline(file, line)) // Concatenates each line of the file into a single string
+        while (std::getline(file, line))
         {
             result += line + "\n";
         }
@@ -25,7 +25,7 @@ std::string Shader::LoadShaderAsString(const std::string& fileName) // Loads a s
     return result;
 }
 
-GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource) // Compiles a shader and returns its ID
+GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource)
 {
     GLuint shaderObject;
 
@@ -44,22 +44,22 @@ GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource) // Co
     
     const char* source = shaderSource.c_str();
     glShaderSource(
-                   shaderObject, // Destination for the shader source
-                   1,            // Number of elements in the string and length arrays
-                   &source,      // The shader source code as a string
-                   nullptr       // Array of string lengths
+                   shaderObject,
+                   1,
+                   &source,
+                   nullptr
                   );
     glCompileShader(shaderObject);
     
     int result;
-    glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &result); // Gets the compile status of the shader
+    glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &result);
 
-    if (result == GL_FALSE) // If the shader failed to compile
+    if (result == GL_FALSE)
     {
         int length;
-        glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &length);         // Gets the length of the array of error messages
-        char* errorMessages = new char[length];                           // Creates a new char array with the length of the error message array
-        glGetShaderInfoLog(shaderObject, length, &length, errorMessages); // Puts the error messages inside the array
+        glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &length);
+        char* errorMessages = new char[length];
+        glGetShaderInfoLog(shaderObject, length, &length, errorMessages);
 
         if (type == GL_VERTEX_SHADER)
         {
@@ -76,9 +76,9 @@ GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource) // Co
         return 0;
     }
 
-    return shaderObject; // Upon successful compilation, returns the shader object
+    return shaderObject;
 }
-GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource) // Creates a shader program and returns its ID
+GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
 {
     GLuint programObject = glCreateProgram();
 
