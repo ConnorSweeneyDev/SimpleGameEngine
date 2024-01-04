@@ -2,18 +2,18 @@
 
 Input input;
 
-void Input::pollEvents()
+void Input::PollEvents()
 {
     while (SDL_PollEvent(&event) != 0)
     {
         if (event.type == SDL_QUIT)
-            window.handleQuit();
+            window.HandleQuit();
 
         if (event.type == SDL_WINDOWEVENT)
         {
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
             {
-                window.handleResize();
+                window.HandleResize();
             }
         }
 
@@ -21,102 +21,110 @@ void Input::pollEvents()
         {
             if (keyState[SDL_SCANCODE_ESCAPE])
             {
-                window.handleQuit();
+                window.HandleQuit();
             }
 
             if (keyState[SDL_SCANCODE_F11])
             {
-                window.handleFullscreen(); // Borderless fullscreen toggle
+                window.HandleFullscreen(); // Borderless fullscreen toggle
             }
         }
     }
 }
 
-void Input::pollKeys()
+void Input::PollKeys()
 {
     keyState = SDL_GetKeyboardState(nullptr);
 
     if (keyState[SDL_SCANCODE_UP])
-        camera.moveUp(0.005f);
+        camera.MoveUp(0.005f);
     if (keyState[SDL_SCANCODE_DOWN])
-        camera.moveDown(0.005f);
+        camera.MoveDown(0.005f);
     if (keyState[SDL_SCANCODE_LEFT])
-        camera.moveLeft(0.005f);
+        camera.MoveLeft(0.005f);
     if (keyState[SDL_SCANCODE_RIGHT])
-        camera.moveRight(0.005f);
+        camera.MoveRight(0.005f);
     if (keyState[SDL_SCANCODE_RSHIFT])
-        camera.moveForward(0.005f);
+        camera.MoveForward(0.005f);
     if (keyState[SDL_SCANCODE_RCTRL])
-        camera.moveBackward(0.005f);
+        camera.MoveBackward(0.005f);
+
+    if (keyState[SDL_SCANCODE_SPACE])
+        camera.ResetPosition();
 
     auto player1 = getGameObjectByName("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
-            player1->moveUp(0.005f);
+            player1->MoveUp(0.005f);
         if (keyState[SDL_SCANCODE_S])
-            player1->moveDown(0.005f);
+            player1->MoveDown(0.005f);
         if (keyState[SDL_SCANCODE_A])
-            player1->moveLeft(0.005f);
+            player1->MoveLeft(0.005f);
         if (keyState[SDL_SCANCODE_D])
-            player1->moveRight(0.005f);
+            player1->MoveRight(0.005f);
         if (keyState[SDL_SCANCODE_Z])
-            player1->moveForward(0.005f);
+            player1->MoveForward(0.005f);
         if (keyState[SDL_SCANCODE_X])
-            player1->moveBackward(0.005f);    
+            player1->MoveBackward(0.005f);    
         
         if (keyState[SDL_SCANCODE_E])
-            player1->rotateXPos(0.5);
+            player1->RotateXPos(0.5);
         if (keyState[SDL_SCANCODE_Q])
-            player1->rotateXNeg(0.5);
+            player1->RotateXNeg(0.5);
         if (keyState[SDL_SCANCODE_T])
-            player1->rotateYPos(0.5);
+            player1->RotateYPos(0.5);
         if (keyState[SDL_SCANCODE_R])
-            player1->rotateYNeg(0.5);
+            player1->RotateYNeg(0.5);
         if (keyState[SDL_SCANCODE_F])
-            player1->rotateZPos(0.5);
+            player1->RotateZPos(0.5);
         if (keyState[SDL_SCANCODE_G])
-            player1->rotateZNeg(0.5);
+            player1->RotateZNeg(0.5);
     
-        if (keyState[SDL_SCANCODE_E])
-            player1->rotateXPos(0.5);
-        if (keyState[SDL_SCANCODE_Q])
-            player1->rotateXNeg(0.5);
-        if (keyState[SDL_SCANCODE_T])
-            player1->rotateYPos(0.5);
-        if (keyState[SDL_SCANCODE_R])
-            player1->rotateYNeg(0.5);
-        if (keyState[SDL_SCANCODE_F])
-            player1->rotateZPos(0.5);
-        if (keyState[SDL_SCANCODE_G])
-            player1->rotateZNeg(0.5);
-
         if (keyState[SDL_SCANCODE_C])
-            player1->scaleUp(0.005f);
+            player1->ScaleUp(0.005f);
         if (keyState[SDL_SCANCODE_V])
-            player1->scaleDown(0.005f);
+            player1->ScaleDown(0.005f);
 
         if (keyState[SDL_SCANCODE_SPACE])
-            player1->reset();
+            player1->Reset();
     }
     
     auto player2 = getGameObjectByName("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_U])
-            player2->moveUp(0.005f);
+            player2->MoveUp(0.005f);
         if (keyState[SDL_SCANCODE_J])
-            player2->moveDown(0.005f);
+            player2->MoveDown(0.005f);
         if (keyState[SDL_SCANCODE_H])
-            player2->moveLeft(0.005f);
+            player2->MoveLeft(0.005f);
         if (keyState[SDL_SCANCODE_K])
-            player2->moveRight(0.005f);
+            player2->MoveRight(0.005f);
         if (keyState[SDL_SCANCODE_B])
-            player2->moveForward(0.005f);
+            player2->MoveForward(0.005f);
         if (keyState[SDL_SCANCODE_N])
-            player2->moveBackward(0.005f);
+            player2->MoveBackward(0.005f);
 
+        if (keyState[SDL_SCANCODE_I])
+            player2->RotateXPos(0.5);
+        if (keyState[SDL_SCANCODE_Y])
+            player2->RotateXNeg(0.5);
+        if (keyState[SDL_SCANCODE_P])
+            player2->RotateYPos(0.5);
+        if (keyState[SDL_SCANCODE_O])
+            player2->RotateYNeg(0.5);
+        if (keyState[SDL_SCANCODE_L])
+            player2->RotateZPos(0.5);
+        if (keyState[SDL_SCANCODE_SEMICOLON])
+            player2->RotateZNeg(0.5);
+    
+        if (keyState[SDL_SCANCODE_M])
+            player2->ScaleUp(0.005f);
+        if (keyState[SDL_SCANCODE_COMMA])
+            player2->ScaleDown(0.005f);
+        
         if (keyState[SDL_SCANCODE_SPACE])
-            player2->reset();
+            player2->Reset();
     }
 }

@@ -7,8 +7,8 @@
 class Input
 {
     public:
-        void pollEvents();
-        void pollKeys();
+        void PollEvents();
+        void PollKeys();
 
     private:
         SDL_Event event;

@@ -20,7 +20,7 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
     return false;
 }
 
-void Util::GetOpenGLVersionInfo()
+void Util::getOpenGLVersionInfo()
 {
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
               << "Renderer: " << glGetString(GL_RENDERER) << std::endl

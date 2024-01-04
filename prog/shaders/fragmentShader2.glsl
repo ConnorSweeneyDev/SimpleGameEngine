@@ -4,9 +4,11 @@ in vec3 vColor;
 
 out vec4 color;
 
+uniform mat4 uModelMatrix;
+
 void main()
 {
-    vec4 newColor = vec4(vColor, 1.0f);
+    vec4 newColor = uModelMatrix * vec4(vColor.r - 1.5, vColor.g + 0.2, vColor.b, 1.0f);
 
     color = newColor;
 }

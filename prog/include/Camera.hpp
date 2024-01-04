@@ -8,14 +8,14 @@ class Camera
     public:
         glm::mat4 getViewMatrix() const;
         
-        void moveUp(float speed);
-        void moveDown(float speed);
-        void moveLeft(float speed);
-        void moveRight(float speed);
-        void moveForward(float speed);
-        void moveBackward(float speed);
+        void MoveUp(float speed);
+        void MoveDown(float speed);
+        void MoveLeft(float speed);
+        void MoveRight(float speed);
+        void MoveForward(float speed);
+        void MoveBackward(float speed);
         
-        void resetPosition();
+        void ResetPosition();
 
         void init();
 

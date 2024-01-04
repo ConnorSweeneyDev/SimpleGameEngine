@@ -8,7 +8,7 @@ int Window::getWidth() const { return width; }
 int Window::getHeight() const { return height; }
 bool Window::getQuit() const { return quit; }
 
-void Window::handleFullscreen()
+void Window::HandleFullscreen()
 {
     if (fullscreen)
     {
@@ -21,12 +21,12 @@ void Window::handleFullscreen()
         fullscreen = true;
     }
 }
-void Window::handleResize()
+void Window::HandleResize()
 {
     SDL_GetWindowSize(graphicsApplicationWindow, &width, &height);
     glViewport(0, 0, width, height);
 }
-void Window::handleQuit()
+void Window::HandleQuit()
 {
     quit = true;
 }

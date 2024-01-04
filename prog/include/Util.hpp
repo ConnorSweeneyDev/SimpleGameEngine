@@ -10,7 +10,7 @@ class Util
         void ClearAllGLErrors();
         bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line);
 
-        void GetOpenGLVersionInfo();
+        void getOpenGLVersionInfo();
 
         void sdlinit();
         void gladinit();

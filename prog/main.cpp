@@ -11,19 +11,19 @@ void InitializeProgram()
 void VertexSpecification()
 {
     GameObjectPtr player = std::make_shared<GameObject>("Player 1");
-    player->specifyVertices(
+    player->SpecifyVertices(
                             {
                                 // Vertex 0
-                                -0.5f, -0.5f, 0.0f, // Bottom left vertex position
+                                -0.4f, -0.5f, 0.0f, // Bottom left vertex position
                                 1.0f, 0.0f, 0.0f,   // Bottom left vertex color
                                 // Vertex 1
-                                0.5f, -0.5f, 0.0f,  // Bottom right vertex position
+                                0.4f, -0.5f, 0.0f,  // Bottom right vertex position
                                 0.0f, 1.0f, 0.0f,   // Bottom right vertex color
                                 // Vertex 2
-                                -0.5f, 0.5f, 0.0f,  // Top left vertex position
+                                -0.4f, 0.5f, 0.0f,  // Top left vertex position
                                 0.0f, 0.0f, 1.0f,   // Top left vertex color
                                 // Vertex 3
-                                0.5f, 0.5f, 0.0f,   // Top right vertex position
+                                0.4f, 0.5f, 0.0f,   // Top right vertex position
                                 1.0f, 0.0f, 0.0f    // Top right vertex color
                             },
                             {
@@ -34,19 +34,19 @@ void VertexSpecification()
     game_objects.push_back(player);
 
     player = std::make_shared<GameObject>("Player 2");
-    player->specifyVertices(
+    player->SpecifyVertices(
                             {
                                 // Vertex 0
-                                -0.1f, -0.1f, 0.0f, // Bottom left vertex position
+                                -0.4f, -0.5f, 0.0f, // Bottom left vertex position
                                 1.0f, 0.0f, 0.0f,   // Bottom left vertex color
                                 // Vertex 1
-                                0.1f, -0.1f, 0.0f,  // Bottom right vertex position
+                                0.4f, -0.5f, 0.0f,  // Bottom right vertex position
                                 0.0f, 1.0f, 0.0f,   // Bottom right vertex color
                                 // Vertex 2
-                                -0.1f, 0.1f, 0.0f,  // Top left vertex position
+                                -0.4f, 0.5f, 0.0f,  // Top left vertex position
                                 0.0f, 0.0f, 1.0f,   // Top left vertex color
                                 // Vertex 3
-                                0.1f, 0.1f, 0.0f,   // Top right vertex position
+                                0.4f, 0.5f, 0.0f,   // Top right vertex position
                                 1.0f, 0.0f, 0.0f    // Top right vertex color
                             },
                             {
@@ -79,18 +79,18 @@ void InitializeGame()
     for(auto& game_object : game_objects)
     {
         if (game_object->getName() == "Player 1")
-            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+            game_object->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
         else if (game_object->getName() == "Player 2")
-            game_object->init(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+            game_object->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
         else
-            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 180.0f, 0.f, 1.0f);
+            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
     }
 }
 
 void Input()
 {
-    input.pollEvents();
-    input.pollKeys();
+    input.PollEvents();
+    input.PollKeys();
 }
 
 void PreDraw()
@@ -98,13 +98,13 @@ void PreDraw()
     util.predrawinit();
     
     for (auto& game_object : game_objects)
-        game_object->preDraw();
+        game_object->PreDraw();
 }
 
 void Draw()
 {
     for (auto& game_object : game_objects)
-        game_object->draw();
+        game_object->Draw();
     
     util.drawcleanup();
 }

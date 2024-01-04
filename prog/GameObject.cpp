@@ -5,8 +5,14 @@ GameObjectList game_objects;
 GameObject::GameObject(std::string name) { this->name = name; }
 
 const std::string& GameObject::getName() const { return name; }
+void GameObject::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
+{
+    std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
+    std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
+    shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+}
 
-void GameObject::specifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
+void GameObject::SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
 {
     glGenVertexArrays(1, &vertexArrayObject);
     glBindVertexArray(vertexArrayObject);
@@ -24,13 +30,7 @@ void GameObject::specifyVertices(std::vector<GLfloat> vertexData, std::vector<GL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLfloat), indexData.data(), GL_STATIC_DRAW);
 }
-void GameObject::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
-{
-    std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
-    std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
-    shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
-}
-void GameObject::preDraw()
+void GameObject::PreDraw()
 {
     glUseProgram(shaderProgram);
     
@@ -109,31 +109,31 @@ void GameObject::preDraw()
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 }
-void GameObject::draw()
+void GameObject::Draw()
 {
     glUseProgram(shaderProgram);
     glBindVertexArray(vertexArrayObject);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
-void GameObject::moveUp(float speed) { translationY += speed; }
-void GameObject::moveDown(float speed) { translationY -= speed; }
-void GameObject::moveLeft(float speed) { translationX -= speed; }
-void GameObject::moveRight(float speed) { translationX += speed; }
-void GameObject::moveForward(float speed) { translationZ -= speed; }
-void GameObject::moveBackward(float speed) { translationZ += speed; }
+void GameObject::MoveUp(float speed) { translationY += speed; }
+void GameObject::MoveDown(float speed) { translationY -= speed; }
+void GameObject::MoveLeft(float speed) { translationX -= speed; }
+void GameObject::MoveRight(float speed) { translationX += speed; }
+void GameObject::MoveForward(float speed) { translationZ -= speed; }
+void GameObject::MoveBackward(float speed) { translationZ += speed; }
 
-void GameObject::rotateXPos(float speed) { rotationX += speed; }
-void GameObject::rotateXNeg(float speed) { rotationX -= speed; }
-void GameObject::rotateYPos(float speed) { rotationY += speed; }
-void GameObject::rotateYNeg(float speed) { rotationY -= speed; }
-void GameObject::rotateZPos(float speed) { rotationZ += speed; }
-void GameObject::rotateZNeg(float speed) { rotationZ -= speed; }
+void GameObject::RotateXPos(float speed) { rotationX += speed; }
+void GameObject::RotateXNeg(float speed) { rotationX -= speed; }
+void GameObject::RotateYPos(float speed) { rotationY += speed; }
+void GameObject::RotateYNeg(float speed) { rotationY -= speed; }
+void GameObject::RotateZPos(float speed) { rotationZ += speed; }
+void GameObject::RotateZNeg(float speed) { rotationZ -= speed; }
 
-void GameObject::scaleUp(float speed) { scale += speed; }
-void GameObject::scaleDown(float speed) { scale -= speed; }
+void GameObject::ScaleUp(float speed) { scale += speed; }
+void GameObject::ScaleDown(float speed) { scale -= speed; }
 
-void GameObject::reset()
+void GameObject::Reset()
 {
     translationX = initial[0];
     translationY = initial[1];

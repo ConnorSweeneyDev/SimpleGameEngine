@@ -15,30 +15,30 @@ class GameObject
         GameObject(std::string name);
         
         const std::string& getName() const;
-
-        void specifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
         void setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
-        void preDraw();
-        void draw();
 
-        void moveUp(float speed);
-        void moveDown(float speed);
-        void moveLeft(float speed);
-        void moveRight(float speed);
-        void moveForward(float speed);
-        void moveBackward(float speed);
+        void SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
+        void PreDraw();
+        void Draw();
 
-        void rotateXPos(float speed);
-        void rotateXNeg(float speed);
-        void rotateYPos(float speed);
-        void rotateYNeg(float speed);
-        void rotateZPos(float speed);
-        void rotateZNeg(float speed);
+        void MoveUp(float speed);
+        void MoveDown(float speed);
+        void MoveLeft(float speed);
+        void MoveRight(float speed);
+        void MoveForward(float speed);
+        void MoveBackward(float speed);
 
-        void scaleUp(float speed);
-        void scaleDown(float speed);
+        void RotateXPos(float speed);
+        void RotateXNeg(float speed);
+        void RotateYPos(float speed);
+        void RotateYNeg(float speed);
+        void RotateZPos(float speed);
+        void RotateZNeg(float speed);
 
-        void reset();
+        void ScaleUp(float speed);
+        void ScaleDown(float speed);
+
+        void Reset();
 
         void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale);
         void cleanup();
