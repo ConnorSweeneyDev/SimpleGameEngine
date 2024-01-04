@@ -5,7 +5,6 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Window.hpp"
 #include "Shader.hpp"
 #include "Camera.hpp"
 

@@ -2,6 +2,15 @@
 
 Util util;
 
+void Util::getOpenGLVersionInfo()
+{
+    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
+              << "Renderer: " << glGetString(GL_RENDERER) << std::endl
+              << "Version: " << glGetString(GL_VERSION) << std::endl
+              << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
+}
+float Util::getDeltaTime() { return deltaTime; }
+
 void Util::ClearAllGLErrors() // OpenGL errors can stack up
 {
     while (glGetError() != GL_NO_ERROR);
@@ -20,12 +29,11 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
     return false;
 }
 
-void Util::getOpenGLVersionInfo()
+void Util::UpdateDeltaTime()
 {
-    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
-              << "Renderer: " << glGetString(GL_RENDERER) << std::endl
-              << "Version: " << glGetString(GL_VERSION) << std::endl
-              << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
+    currentTime = SDL_GetTicks64();
+    deltaTime = (currentTime - lastTime);
+    lastTime = currentTime;
 }
 
 void Util::sdlinit()
@@ -41,6 +49,7 @@ void Util::sdlinit()
     
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetSwapInterval(0); // Vsync
 }
 void Util::gladinit()
 {

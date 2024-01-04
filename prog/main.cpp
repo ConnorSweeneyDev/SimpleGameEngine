@@ -1,4 +1,3 @@
-#include "Util.hpp"
 #include "Input.hpp"
 
 void InitializeProgram()
@@ -113,6 +112,8 @@ void MainLoop()
 {
     while (!window.getQuit())
     {
+        util.UpdateDeltaTime();
+
         Input();
         
         PreDraw();

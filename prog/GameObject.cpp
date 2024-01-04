@@ -116,22 +116,22 @@ void GameObject::Draw()
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
-void GameObject::MoveUp(float speed) { translationY += speed; }
-void GameObject::MoveDown(float speed) { translationY -= speed; }
-void GameObject::MoveLeft(float speed) { translationX -= speed; }
-void GameObject::MoveRight(float speed) { translationX += speed; }
-void GameObject::MoveForward(float speed) { translationZ -= speed; }
-void GameObject::MoveBackward(float speed) { translationZ += speed; }
+void GameObject::MoveUp(float speed) { translationY += speed * util.getDeltaTime(); }
+void GameObject::MoveDown(float speed) { translationY -= speed * util.getDeltaTime(); }
+void GameObject::MoveLeft(float speed) { translationX -= speed * util.getDeltaTime(); }
+void GameObject::MoveRight(float speed) { translationX += speed * util.getDeltaTime(); }
+void GameObject::MoveForward(float speed) { translationZ -= speed * util.getDeltaTime(); }
+void GameObject::MoveBackward(float speed) { translationZ += speed * util.getDeltaTime(); }
 
-void GameObject::RotateXPos(float speed) { rotationX += speed; }
-void GameObject::RotateXNeg(float speed) { rotationX -= speed; }
-void GameObject::RotateYPos(float speed) { rotationY += speed; }
-void GameObject::RotateYNeg(float speed) { rotationY -= speed; }
-void GameObject::RotateZPos(float speed) { rotationZ += speed; }
-void GameObject::RotateZNeg(float speed) { rotationZ -= speed; }
+void GameObject::RotateXPos(float speed) { rotationX += speed * util.getDeltaTime(); }
+void GameObject::RotateXNeg(float speed) { rotationX -= speed * util.getDeltaTime(); }
+void GameObject::RotateYPos(float speed) { rotationY += speed * util.getDeltaTime(); }
+void GameObject::RotateYNeg(float speed) { rotationY -= speed * util.getDeltaTime(); }
+void GameObject::RotateZPos(float speed) { rotationZ += speed * util.getDeltaTime(); }
+void GameObject::RotateZNeg(float speed) { rotationZ -= speed * util.getDeltaTime(); }
 
-void GameObject::ScaleUp(float speed) { scale += speed; }
-void GameObject::ScaleDown(float speed) { scale -= speed; }
+void GameObject::ScaleUp(float speed) { scale += speed * util.getDeltaTime(); }
+void GameObject::ScaleDown(float speed) { scale -= speed * util.getDeltaTime(); }
 
 void GameObject::Reset()
 {
