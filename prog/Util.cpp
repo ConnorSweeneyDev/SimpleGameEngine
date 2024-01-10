@@ -29,6 +29,56 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
     return false;
 }
 
+void Util::DefineVertices()
+{ 
+    GameObjectPtr game_object;
+
+    game_object = std::make_shared<GameObject>("Player 1");
+    game_object->SpecifyVertices(
+                                 {
+                                     // Vertex 0
+                                     -0.4f, -0.5f, 0.0f, // Bottom left vertex position
+                                     1.0f, 0.0f, 0.0f,   // Bottom left vertex color
+                                     // Vertex 1
+                                     0.4f, -0.5f, 0.0f,  // Bottom right vertex position
+                                     0.0f, 1.0f, 0.0f,   // Bottom right vertex color
+                                     // Vertex 2
+                                     -0.4f, 0.5f, 0.0f,  // Top left vertex position
+                                     0.0f, 0.0f, 1.0f,   // Top left vertex color
+                                     // Vertex 3
+                                     0.4f, 0.5f, 0.0f,   // Top right vertex position
+                                     1.0f, 0.0f, 0.0f    // Top right vertex color
+                                 },
+                                 {
+                                     0, 1, 2, // first triangle
+                                     3, 2, 1  // second triangle
+                                 }
+                                );
+    game_objects.push_back(game_object);
+
+    game_object = std::make_shared<GameObject>("Player 2");
+    game_object->SpecifyVertices(
+                                 {
+                                     // Vertex 0
+                                     -0.4f, -0.5f, 0.0f, // Bottom left vertex position
+                                     1.0f, 0.0f, 0.0f,   // Bottom left vertex color
+                                     // Vertex 1
+                                     0.4f, -0.5f, 0.0f,  // Bottom right vertex position
+                                     0.0f, 1.0f, 0.0f,   // Bottom right vertex color
+                                     // Vertex 2
+                                     -0.4f, 0.5f, 0.0f,  // Top left vertex position
+                                     0.0f, 0.0f, 1.0f,   // Top left vertex color
+                                     // Vertex 3
+                                     0.4f, 0.5f, 0.0f,   // Top right vertex position
+                                     1.0f, 0.0f, 0.0f    // Top right vertex color
+                                 },
+                                 {
+                                     0, 1, 2, // first triangle
+                                     3, 2, 1  // second triangle
+                                 }
+                                );
+    game_objects.push_back(game_object);    
+}
 void Util::UpdateDeltaTime()
 {
     currentTime = SDL_GetTicks64();

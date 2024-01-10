@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window.hpp"
+#include "GameObject.hpp"
 
 #define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__);
 
@@ -13,6 +14,7 @@ class Util
         void ClearAllGLErrors();
         bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line);
 
+        void DefineVertices();
         void UpdateDeltaTime();
 
         void sdlinit();

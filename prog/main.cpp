@@ -9,7 +9,7 @@ void InitializeProgram()
 
 void VertexDefinition()
 {
-    game_object_ptr->DefineVertices();
+    util.DefineVertices();
 
     util.vertexcleanup();
 }
