@@ -4,10 +4,10 @@ Util util;
 
 void Util::getOpenGLVersionInfo()
 {
-    std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl
-              << "Renderer: " << glGetString(GL_RENDERER) << std::endl
-              << "Version: " << glGetString(GL_VERSION) << std::endl
-              << "Shading Language: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
+    std::cout << "GL Vendor: " << glGetString(GL_VENDOR) << std::endl
+              << "GL Renderer: " << glGetString(GL_RENDERER) << std::endl
+              << "GL Version: " << glGetString(GL_VERSION) << std::endl
+              << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 float Util::getDeltaTime() { return deltaTime; }
 
@@ -94,7 +94,7 @@ void Util::sdlinit()
         exit(1);
     }
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
