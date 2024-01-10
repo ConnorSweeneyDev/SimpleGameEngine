@@ -13,14 +13,14 @@ void Camera::MoveBackward(float speed) { position.z += speed * util.getDeltaTime
 
 void Camera::ResetPosition()
 {
-    position = glm::vec3(0.0f, 0.0f, 3.0f);
-    direction = glm::vec3(0.0f, 0.0f, -1.0f);
-    up = glm::vec3(0.0f, 1.0f, 0.0f);
+    position = initial[0];
+    direction = initial[1];
+    up = initial[2];
 }
 
-void Camera::init()
+void Camera::init(glm::vec3 position, glm::vec3 direction, glm::vec3 up)
 {
-    position = glm::vec3(0.0f, 0.0f, 3.0f);
-    direction = glm::vec3(0.0f, 0.0f, -1.0f);
-    up = glm::vec3(0.0f, 1.0f, 0.0f);
+    initial.push_back(this->position = position);
+    initial.push_back(this->direction = direction);
+    initial.push_back(this->up = up);
 }

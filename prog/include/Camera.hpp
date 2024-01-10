@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "Util.hpp"
@@ -18,11 +20,13 @@ class Camera
         
         void ResetPosition();
 
-        void init();
+        void init(glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
     private:
         glm::vec3 position;
         glm::vec3 direction;
         glm::vec3 up;
+
+        std::vector<glm::vec3> initial;
 };
 extern Camera camera;

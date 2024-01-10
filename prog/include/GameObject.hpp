@@ -17,6 +17,7 @@ class GameObject
 
         void setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
 
+        void DefineVertices();
         void SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
         void PreDraw();
         void Draw();
@@ -66,4 +67,5 @@ using GameObjectList = std::vector<GameObjectPtr>;
 
 GameObjectPtr getGameObjectByName(const std::string& name);
 
-extern GameObjectList game_objects;
+extern GameObjectPtr game_object_ptr; // For calling GameObject functions without referencing a specific object
+extern GameObjectList game_objects;   // For storing all GameObjects

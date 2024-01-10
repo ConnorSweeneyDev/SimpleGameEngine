@@ -7,55 +7,9 @@ void InitializeProgram()
     util.gladinit();
 }
 
-void VertexSpecification()
+void VertexDefinition()
 {
-    GameObjectPtr game_object;
-
-    game_object = std::make_shared<GameObject>("Player 1");
-    game_object->SpecifyVertices(
-                                 {
-                                     // Vertex 0
-                                     -0.4f, -0.5f, 0.0f, // Bottom left vertex position
-                                     1.0f, 0.0f, 0.0f,   // Bottom left vertex color
-                                     // Vertex 1
-                                     0.4f, -0.5f, 0.0f,  // Bottom right vertex position
-                                     0.0f, 1.0f, 0.0f,   // Bottom right vertex color
-                                     // Vertex 2
-                                     -0.4f, 0.5f, 0.0f,  // Top left vertex position
-                                     0.0f, 0.0f, 1.0f,   // Top left vertex color
-                                     // Vertex 3
-                                     0.4f, 0.5f, 0.0f,   // Top right vertex position
-                                     1.0f, 0.0f, 0.0f    // Top right vertex color
-                                 },
-                                 {
-                                     0, 1, 2, // first triangle
-                                     3, 2, 1  // second triangle
-                                 }
-                                );
-    game_objects.push_back(game_object);
-
-    game_object = std::make_shared<GameObject>("Player 2");
-    game_object->SpecifyVertices(
-                                 {
-                                     // Vertex 0
-                                     -0.4f, -0.5f, 0.0f, // Bottom left vertex position
-                                     1.0f, 0.0f, 0.0f,   // Bottom left vertex color
-                                     // Vertex 1
-                                     0.4f, -0.5f, 0.0f,  // Bottom right vertex position
-                                     0.0f, 1.0f, 0.0f,   // Bottom right vertex color
-                                     // Vertex 2
-                                     -0.4f, 0.5f, 0.0f,  // Top left vertex position
-                                     0.0f, 0.0f, 1.0f,   // Top left vertex color
-                                     // Vertex 3
-                                     0.4f, 0.5f, 0.0f,   // Top right vertex position
-                                     1.0f, 0.0f, 0.0f    // Top right vertex color
-                                 },
-                                 {
-                                     0, 1, 2, // first triangle
-                                     3, 2, 1  // second triangle
-                                 }
-                                );
-    game_objects.push_back(game_object);
+    game_object_ptr->DefineVertices();
 
     util.vertexcleanup();
 }
@@ -75,7 +29,7 @@ void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a v
 
 void InitializeGame()
 {
-    camera.init();
+    camera.init(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     for(auto& game_object : game_objects)
     {
@@ -136,7 +90,7 @@ void CleanUp()
 int main(int argc, char* argv[])
 {
     InitializeProgram();
-    VertexSpecification();
+    VertexDefinition();
     CreateGraphicsPipeline();
     InitializeGame();
 
