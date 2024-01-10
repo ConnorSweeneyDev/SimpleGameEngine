@@ -5,6 +5,7 @@ GameObjectList game_objects;
 GameObject::GameObject(std::string name) { this->name = name; }
 
 const std::string& GameObject::getName() const { return name; }
+
 void GameObject::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
 {
     std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
