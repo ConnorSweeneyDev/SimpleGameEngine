@@ -35,7 +35,7 @@ void GameObject::PreDraw()
 {
     glUseProgram(shaderProgram);
     
-    glm::mat4 perspective = camera.getProjectionMatrix();
+    glm::mat4 projection = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation >= 0)
     {
@@ -43,7 +43,7 @@ void GameObject::PreDraw()
                            uProjectionMatrixLocation,
                            1,
                            GL_FALSE,
-                           glm::value_ptr(perspective) // Pointer to the data of perspective, &perspective[0][0] also works
+                           glm::value_ptr(projection) // Pointer to the data of projection, &projection[0][0] also works
                           );
     }
     else
