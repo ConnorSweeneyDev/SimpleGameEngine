@@ -5,8 +5,8 @@
 class Input
 {
     public:
-        void PollEvents();
-        void PollKeys();
+        void PollWindow();
+        void PollGame();
 
     private:
         SDL_Event event;

@@ -35,11 +35,7 @@ void GameObject::PreDraw()
 {
     glUseProgram(shaderProgram);
     
-    glm::mat4 perspective = glm::perspective(
-                                             glm::radians(45.0f),                                  // Field of view
-                                             (float)window.getWidth() / (float)window.getHeight(), // Aspect ratio
-                                             0.1f, 10.0f                                           // Near and far clipping planes
-                                            );
+    glm::mat4 perspective = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation >= 0)
     {
@@ -134,26 +130,26 @@ void GameObject::RotateZNeg(float speed) { rotationZ -= speed * util.getDeltaTim
 void GameObject::ScaleUp(float speed) { scale += speed * util.getDeltaTime(); }
 void GameObject::ScaleDown(float speed) { scale -= speed * util.getDeltaTime(); }
 
-void GameObject::Reset()
+void GameObject::ResetModel()
 {
-    translationX = initial[0];
-    translationY = initial[1];
-    translationZ = initial[2];
-    rotationX = initial[3];
-    rotationY = initial[4];
-    rotationZ = initial[5];
-    scale = initial[6];
+    translationX = initialModel[0];
+    translationY = initialModel[1];
+    translationZ = initialModel[2];
+    rotationX = initialModel[3];
+    rotationY = initialModel[4];
+    rotationZ = initialModel[5];
+    scale = initialModel[6];
 }
 
 void GameObject::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale)
 {
-    initial.push_back(this->translationX = translationX);
-    initial.push_back(this->translationY = translationY);
-    initial.push_back(this->translationZ = translationZ);
-    initial.push_back(this->rotationX = rotationX);
-    initial.push_back(this->rotationY = rotationY);
-    initial.push_back(this->rotationZ = rotationZ);
-    initial.push_back(this->scale = scale);
+    initialModel.push_back(this->translationX = translationX);
+    initialModel.push_back(this->translationY = translationY);
+    initialModel.push_back(this->translationZ = translationZ);
+    initialModel.push_back(this->rotationX = rotationX);
+    initialModel.push_back(this->rotationY = rotationY);
+    initialModel.push_back(this->rotationZ = rotationZ);
+    initialModel.push_back(this->scale = scale);
 }
 void GameObject::cleanup()
 {

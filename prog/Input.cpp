@@ -2,7 +2,7 @@
 
 Input input;
 
-void Input::PollEvents()
+void Input::PollWindow()
 {
     while (SDL_PollEvent(&event) != 0)
     {
@@ -32,7 +32,7 @@ void Input::PollEvents()
     }
 }
 
-void Input::PollKeys()
+void Input::PollGame()
 {
     keyState = SDL_GetKeyboardState(nullptr);
 
@@ -87,7 +87,7 @@ void Input::PollKeys()
             player1->ScaleDown(0.001f);
 
         if (keyState[SDL_SCANCODE_SPACE])
-            player1->Reset();
+            player1->ResetModel();
     }
     
     auto player2 = getGameObjectByName("Player 2");
@@ -125,6 +125,6 @@ void Input::PollKeys()
             player2->ScaleDown(0.001f);
         
         if (keyState[SDL_SCANCODE_SPACE])
-            player2->Reset();
+            player2->ResetModel();
     }
 }

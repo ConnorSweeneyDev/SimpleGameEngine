@@ -9,6 +9,7 @@
 class Camera
 {
     public:
+        glm::mat4 getProjectionMatrix() const;
         glm::mat4 getViewMatrix() const;
         
         void MoveUp(float speed);
@@ -20,13 +21,17 @@ class Camera
         
         void ResetPosition();
 
-        void init(glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+        void init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
     private:
+        float fov;
+        float nearClip;
+        float farClip;
+
         glm::vec3 position;
         glm::vec3 direction;
         glm::vec3 up;
 
-        std::vector<glm::vec3> initial;
+        std::vector<glm::vec3> initialPosition;
 };
 extern Camera camera;

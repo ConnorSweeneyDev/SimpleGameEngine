@@ -29,7 +29,7 @@ void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a v
 
 void InitializeGame()
 {
-    camera.init(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     for(auto& game_object : game_objects)
     {
@@ -44,8 +44,8 @@ void InitializeGame()
 
 void Input()
 {
-    input.PollEvents();
-    input.PollKeys();
+    input.PollWindow();
+    input.PollGame();
 }
 
 void PreDraw()
@@ -79,7 +79,7 @@ void MainLoop()
     }
 }
 
-void CleanUp()
+void CleanUpProgram()
 {
     for (auto& game_object : game_objects)
         game_object->cleanup();
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 
     MainLoop();
 
-    CleanUp();
+    CleanUpProgram();
 
     return 0;
 }

@@ -38,7 +38,7 @@ class GameObject
         void ScaleUp(float speed);
         void ScaleDown(float speed);
 
-        void Reset();
+        void ResetModel();
 
         void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale);
         void cleanup();
@@ -59,7 +59,7 @@ class GameObject
         float rotationZ = 0.0f;
         float scale = 1.0f;
 
-        std::vector<float> initial;
+        std::vector<float> initialModel;
 };
 using GameObjectPtr = std::shared_ptr<GameObject>;
 using GameObjectList = std::vector<GameObjectPtr>;
