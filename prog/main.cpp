@@ -7,7 +7,7 @@ void InitializeProgram()
     util.gladinit();
 }
 
-void VertexDefinition()
+void VertexSpecification()
 {
     util.DefineVertices();
 
@@ -90,7 +90,7 @@ void CleanUpProgram()
 int main(int argc, char* argv[])
 {
     InitializeProgram();
-    VertexDefinition();
+    VertexSpecification();
     CreateGraphicsPipeline();
     InitializeGame();
 
