@@ -12,7 +12,6 @@ void GameObject::setShaderProgram(std::string vertexShaderPath, std::string frag
     std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
     shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 }
-
 void GameObject::SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
 {
     glGenVertexArrays(1, &vertexArrayObject);
@@ -89,7 +88,7 @@ void GameObject::PreDraw()
                        );
     model = glm::scale(
                        model,
-                       glm::vec3(scale)
+                       glm::vec3(scaleX, scaleY, scaleZ)
                       );
     GLint uModelMatrixLocation = glGetUniformLocation(shaderProgram, "uModelMatrix");
     if (uModelMatrixLocation >= 0)
@@ -127,8 +126,12 @@ void GameObject::RotateYNeg(float speed) { rotationY -= speed * util.getDeltaTim
 void GameObject::RotateZPos(float speed) { rotationZ += speed * util.getDeltaTime(); }
 void GameObject::RotateZNeg(float speed) { rotationZ -= speed * util.getDeltaTime(); }
 
-void GameObject::ScaleUp(float speed) { scale += speed * util.getDeltaTime(); }
-void GameObject::ScaleDown(float speed) { scale -= speed * util.getDeltaTime(); }
+void GameObject::ScaleXUp(float speed) { scaleX += speed * util.getDeltaTime(); }
+void GameObject::ScaleXDown(float speed) { scaleX -= speed * util.getDeltaTime(); }
+void GameObject::ScaleYUp(float speed) { scaleY += speed * util.getDeltaTime(); }
+void GameObject::ScaleYDown(float speed) { scaleY -= speed * util.getDeltaTime(); }
+void GameObject::ScaleZUp(float speed) { scaleZ += speed * util.getDeltaTime(); }
+void GameObject::ScaleZDown(float speed) { scaleZ -= speed * util.getDeltaTime(); }
 
 void GameObject::ResetModel()
 {
@@ -138,10 +141,12 @@ void GameObject::ResetModel()
     rotationX = initialModel[3];
     rotationY = initialModel[4];
     rotationZ = initialModel[5];
-    scale = initialModel[6];
+    scaleX = initialModel[6];
+    scaleY = initialModel[7];
+    scaleZ = initialModel[8];
 }
 
-void GameObject::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale)
+void GameObject::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ)
 {
     initialModel.push_back(this->translationX = translationX);
     initialModel.push_back(this->translationY = translationY);
@@ -149,7 +154,9 @@ void GameObject::init(float translationX, float translationY, float translationZ
     initialModel.push_back(this->rotationX = rotationX);
     initialModel.push_back(this->rotationY = rotationY);
     initialModel.push_back(this->rotationZ = rotationZ);
-    initialModel.push_back(this->scale = scale);
+    initialModel.push_back(this->scaleX = scaleX);
+    initialModel.push_back(this->scaleY = scaleY);
+    initialModel.push_back(this->scaleZ = scaleZ);
 }
 void GameObject::cleanup()
 {

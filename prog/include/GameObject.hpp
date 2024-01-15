@@ -16,7 +16,6 @@ class GameObject
         const std::string& getName() const;
 
         void setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
-
         void SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
         void PreDraw();
         void Draw();
@@ -35,12 +34,16 @@ class GameObject
         void RotateZPos(float speed);
         void RotateZNeg(float speed);
 
-        void ScaleUp(float speed);
-        void ScaleDown(float speed);
+        void ScaleXUp(float speed);
+        void ScaleXDown(float speed);
+        void ScaleYUp(float speed);
+        void ScaleYDown(float speed);
+        void ScaleZUp(float speed);
+        void ScaleZDown(float speed);
 
         void ResetModel();
 
-        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scale);
+        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ);
         void cleanup();
 
     private:
@@ -57,7 +60,9 @@ class GameObject
         float rotationX = 0.0f;
         float rotationY = 0.0f;
         float rotationZ = 0.0f;
-        float scale = 1.0f;
+        float scaleX = 1.0f;
+        float scaleY = 1.0f;
+        float scaleZ = 1.0f;
 
         std::vector<float> initialModel;
 };

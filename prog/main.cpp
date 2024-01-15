@@ -34,11 +34,11 @@ void InitializeGame()
     for(auto& game_object : game_objects)
     {
         if (game_object->getName() == "Player 1")
-            game_object->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+            game_object->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
         else if (game_object->getName() == "Player 2")
-            game_object->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+            game_object->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, -1.0f, 1.0f, 1.0f);
         else
-            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f);
+            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
     }
 }
 

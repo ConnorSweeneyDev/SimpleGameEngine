@@ -82,9 +82,17 @@ void Input::PollGame()
             player1->RotateZNeg(0.1);
     
         if (keyState[SDL_SCANCODE_C])
-            player1->ScaleUp(0.001f);
+            player1->ScaleXUp(0.001f);
         if (keyState[SDL_SCANCODE_V])
-            player1->ScaleDown(0.001f);
+            player1->ScaleXDown(0.001f);
+        if (keyState[SDL_SCANCODE_2])
+            player1->ScaleYUp(0.001f);
+        if (keyState[SDL_SCANCODE_1])
+            player1->ScaleYDown(0.001f);
+        if (keyState[SDL_SCANCODE_4])
+            player1->ScaleZUp(0.001f);
+        if (keyState[SDL_SCANCODE_3])
+            player1->ScaleZDown(0.001f);
 
         if (keyState[SDL_SCANCODE_SPACE])
             player1->ResetModel();
@@ -120,9 +128,17 @@ void Input::PollGame()
             player2->RotateZNeg(0.1);
     
         if (keyState[SDL_SCANCODE_M])
-            player2->ScaleUp(0.001f);
+            player2->ScaleXUp(0.001f);
         if (keyState[SDL_SCANCODE_COMMA])
-            player2->ScaleDown(0.001f);
+            player2->ScaleXDown(0.001f);
+        if (keyState[SDL_SCANCODE_8])
+            player2->ScaleYUp(0.001f);
+        if (keyState[SDL_SCANCODE_7])
+            player2->ScaleYDown(0.001f);
+        if (keyState[SDL_SCANCODE_0])
+            player2->ScaleZUp(0.001f);
+        if (keyState[SDL_SCANCODE_9])
+            player2->ScaleZDown(0.001f);
         
         if (keyState[SDL_SCANCODE_SPACE])
             player2->ResetModel();
