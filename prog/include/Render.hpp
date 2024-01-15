@@ -11,8 +11,5 @@ class Render
 
         void vertexcleanup();
         void drawcleanup();
-
-    private:
-
 };
 extern Render render;
