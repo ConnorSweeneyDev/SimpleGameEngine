@@ -16,6 +16,7 @@ class GameObject
         const std::string& getName() const;
 
         void setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
+
         void SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
         void PreDraw();
         void Draw();
