@@ -20,11 +20,19 @@ void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a v
     for(auto& player : players)
     {
         if (player->getName() == "Player 1")
-            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player1.glsl");
         else if (player->getName() == "Player 2")
-            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader2.glsl");
+            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player2.glsl");
         else
-            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+    }
+
+    for(auto& item : items)
+    {
+        if (item->getName() == "Floor")
+            render.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/floor.glsl");
+        else
+            render.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
     }
 }
 
@@ -35,11 +43,22 @@ void InitializeGame()
     for(auto& player : players)
     {
         if (player->getName() == "Player 1")
-            player->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
+            player->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f,
+                         200, 0.001);
         else if (player->getName() == "Player 2")
-            player->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, -1.0f, 1.0f, 1.0f);
+            player->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, -1.0f, 1.0f, 1.0f,
+                         100, 0.002);
         else
-            player->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
+            player->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f,
+                         100, 0.001);
+    }
+
+    for(auto& item : items)
+    {
+        if (item->getName() == "Floor")
+            item->init(0.0f, -1.2f, 0.0f, 0.0f, 0.0f, 0.f, 10.0f, 1.0f, 1.0f);
+        else
+            item->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
     }
 }
 
@@ -54,13 +73,19 @@ void PreDraw()
     render.predrawinit();
     
     for (auto& player : players)
-        player->PreDraw();
+        render.PreDraw(player);
+
+    for (auto& item : items)
+        render.PreDraw(item);
 }
 
 void Draw()
 {
     for (auto& player : players)
-        player->Draw();
+        render.Draw(player);
+
+    for (auto& item : items)
+        render.Draw(item);
     
     render.drawcleanup();
 }
@@ -83,7 +108,10 @@ void MainLoop()
 void CleanUpProgram()
 {
     for (auto& player : players)
-        player->cleanup();
+        render.objectcleanup(player);
+
+    for (auto& item : items)
+        render.objectcleanup(item);
  
     util.sdlcleanup();
 }

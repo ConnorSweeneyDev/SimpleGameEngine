@@ -7,10 +7,10 @@
 
 #include "Camera.hpp"
 
-class Player
+class Item
 {
     public:
-        Player(std::string name);
+        Item(std::string name);
         
         const std::string& getName() const;
         GLuint& getVertexArrayObject();
@@ -27,24 +27,10 @@ class Player
         float& getScaleY();
         float& getScaleZ();
 
-        void MoveUp();
-        void MoveDown();
-        void MoveLeft();
-        void MoveRight();
-        void MoveForward();
-        void MoveBackward();
-
-        void ResetPosition();
-        void ResetStats();
-
-        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ,
-                  float health, float speed);
+        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ);
 
     private:
         std::string name;
-
-        float health;
-        float speed;
 
         float translationX;
         float translationY;
@@ -60,13 +46,10 @@ class Player
         GLuint vertexBufferObject = 0;
         GLuint indexBufferObject = 0;
         GLuint shaderProgram = 0;        
-
-        std::vector<float> initialPosition;
-        std::vector<float> initialStats;
 };
-using PlayerPtr = std::shared_ptr<Player>;
-using PlayerList = std::vector<PlayerPtr>;
+using ItemPtr = std::shared_ptr<Item>;
+using ItemList = std::vector<ItemPtr>;
 
-PlayerPtr getPlayerByName(const std::string& name);
+ItemPtr getItemByName(const std::string& name);
 
-extern PlayerList players;
+extern ItemList items;

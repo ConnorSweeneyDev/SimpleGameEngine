@@ -56,91 +56,39 @@ void Input::PollGame()
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
-            player1->MoveUp(0.001f);
+            player1->MoveUp();
         if (keyState[SDL_SCANCODE_S])
-            player1->MoveDown(0.001f);
+            player1->MoveDown();
         if (keyState[SDL_SCANCODE_A])
-            player1->MoveLeft(0.001f);
+            player1->MoveLeft();
         if (keyState[SDL_SCANCODE_D])
-            player1->MoveRight(0.001f);
+            player1->MoveRight();
         if (keyState[SDL_SCANCODE_Z])
-            player1->MoveForward(0.001f);
+            player1->MoveForward();
         if (keyState[SDL_SCANCODE_X])
-            player1->MoveBackward(0.001f);    
-        
-        if (keyState[SDL_SCANCODE_E])
-            player1->RotateXPos(0.1);
-        if (keyState[SDL_SCANCODE_Q])
-            player1->RotateXNeg(0.1);
-        if (keyState[SDL_SCANCODE_T])
-            player1->RotateYPos(0.1);
-        if (keyState[SDL_SCANCODE_R])
-            player1->RotateYNeg(0.1);
-        if (keyState[SDL_SCANCODE_F])
-            player1->RotateZPos(0.1);
-        if (keyState[SDL_SCANCODE_G])
-            player1->RotateZNeg(0.1);
-    
-        if (keyState[SDL_SCANCODE_C])
-            player1->ScaleXUp(0.001f);
-        if (keyState[SDL_SCANCODE_V])
-            player1->ScaleXDown(0.001f);
-        if (keyState[SDL_SCANCODE_2])
-            player1->ScaleYUp(0.001f);
-        if (keyState[SDL_SCANCODE_1])
-            player1->ScaleYDown(0.001f);
-        if (keyState[SDL_SCANCODE_4])
-            player1->ScaleZUp(0.001f);
-        if (keyState[SDL_SCANCODE_3])
-            player1->ScaleZDown(0.001f);
+            player1->MoveBackward();    
 
         if (keyState[SDL_SCANCODE_SPACE])
-            player1->ResetModel();
+            player1->ResetPosition();
     }
     
     auto player2 = getPlayerByName("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_U])
-            player2->MoveUp(0.001f);
+            player2->MoveUp();
         if (keyState[SDL_SCANCODE_J])
-            player2->MoveDown(0.001f);
+            player2->MoveDown();
         if (keyState[SDL_SCANCODE_H])
-            player2->MoveLeft(0.001f);
+            player2->MoveLeft();
         if (keyState[SDL_SCANCODE_K])
-            player2->MoveRight(0.001f);
+            player2->MoveRight();
         if (keyState[SDL_SCANCODE_B])
-            player2->MoveForward(0.001f);
+            player2->MoveForward();
         if (keyState[SDL_SCANCODE_N])
-            player2->MoveBackward(0.001f);
-
-        if (keyState[SDL_SCANCODE_I])
-            player2->RotateXPos(0.1);
-        if (keyState[SDL_SCANCODE_Y])
-            player2->RotateXNeg(0.1);
-        if (keyState[SDL_SCANCODE_P])
-            player2->RotateYPos(0.1);
-        if (keyState[SDL_SCANCODE_O])
-            player2->RotateYNeg(0.1);
-        if (keyState[SDL_SCANCODE_L])
-            player2->RotateZPos(0.1);
-        if (keyState[SDL_SCANCODE_SEMICOLON])
-            player2->RotateZNeg(0.1);
-    
-        if (keyState[SDL_SCANCODE_M])
-            player2->ScaleXUp(0.001f);
-        if (keyState[SDL_SCANCODE_COMMA])
-            player2->ScaleXDown(0.001f);
-        if (keyState[SDL_SCANCODE_8])
-            player2->ScaleYUp(0.001f);
-        if (keyState[SDL_SCANCODE_7])
-            player2->ScaleYDown(0.001f);
-        if (keyState[SDL_SCANCODE_0])
-            player2->ScaleZUp(0.001f);
-        if (keyState[SDL_SCANCODE_9])
-            player2->ScaleZDown(0.001f);
+            player2->MoveBackward();
         
         if (keyState[SDL_SCANCODE_SPACE])
-            player2->ResetModel();
+            player2->ResetPosition();
     }
 }
