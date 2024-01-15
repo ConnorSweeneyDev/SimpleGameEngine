@@ -14,16 +14,12 @@ class Util
         void ClearAllGLErrors();
         bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line);
 
-        void DefineVertices();
         void UpdateDeltaTime();
 
         void sdlinit();
         void gladinit();
-        void predrawinit();
         
         void sdlcleanup();
-        void vertexcleanup();
-        void drawcleanup();
 
     private:
         float deltaTime = 0.0f;

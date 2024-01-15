@@ -1,4 +1,5 @@
 #include "Input.hpp"
+#include "Render.hpp"
 
 void InitializeProgram()
 {
@@ -9,9 +10,9 @@ void InitializeProgram()
 
 void VertexSpecification()
 {
-    util.DefineVertices();
+    render.DefineVertices();
 
-    util.vertexcleanup();
+    render.vertexcleanup();
 }
 
 void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a vertex shader and a fragment shader
@@ -50,7 +51,7 @@ void Input()
 
 void PreDraw()
 {
-    util.predrawinit();
+    render.predrawinit();
     
     for (auto& player : players)
         player->PreDraw();
@@ -61,7 +62,7 @@ void Draw()
     for (auto& player : players)
         player->Draw();
     
-    util.drawcleanup();
+    render.drawcleanup();
 }
 
 void MainLoop()
