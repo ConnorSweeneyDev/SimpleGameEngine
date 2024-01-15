@@ -31,10 +31,10 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
 
 void Util::DefineVertices()
 { 
-    GameObjectPtr game_object;
+    PlayerPtr player;
 
-    game_object = std::make_shared<GameObject>("Player 1");
-    game_object->SpecifyVertices(
+    player = std::make_shared<Player>("Player 1");
+    player->SpecifyVertices(
                                  {
                                      // Vertex 0
                                      -0.4f, -0.5f, 0.0f, // Bottom left vertex position
@@ -54,10 +54,10 @@ void Util::DefineVertices()
                                      3, 2, 1  // second triangle
                                  }
                                 );
-    game_objects.push_back(game_object);
+    players.push_back(player);
 
-    game_object = std::make_shared<GameObject>("Player 2");
-    game_object->SpecifyVertices(
+    player = std::make_shared<Player>("Player 2");
+    player->SpecifyVertices(
                                  {
                                      // Vertex 0
                                      -0.4f, -0.5f, 0.0f, // Bottom left vertex position
@@ -77,7 +77,7 @@ void Util::DefineVertices()
                                      3, 2, 1  // second triangle
                                  }
                                 );
-    game_objects.push_back(game_object);    
+    players.push_back(player);    
 }
 void Util::UpdateDeltaTime()
 {

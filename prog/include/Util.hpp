@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Window.hpp"
-#include "GameObject.hpp"
+#include "Player.hpp"
 
 #define CheckGL(function) util.ClearAllGLErrors(); function; util.CheckGLErrorStatus(#function, __FILE__, __LINE__);
 

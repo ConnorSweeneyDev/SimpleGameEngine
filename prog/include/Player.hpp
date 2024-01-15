@@ -8,10 +8,10 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 
-class GameObject
+class Player
 {
     public:
-        GameObject(std::string name);
+        Player(std::string name);
         
         const std::string& getName() const;
 
@@ -67,9 +67,9 @@ class GameObject
 
         std::vector<float> initialModel;
 };
-using GameObjectPtr = std::shared_ptr<GameObject>;
-using GameObjectList = std::vector<GameObjectPtr>;
+using PlayerPtr = std::shared_ptr<Player>;
+using PlayerList = std::vector<PlayerPtr>;
 
-GameObjectPtr getGameObjectByName(const std::string& name);
+PlayerPtr getPlayerByName(const std::string& name);
 
-extern GameObjectList game_objects;
+extern PlayerList players;

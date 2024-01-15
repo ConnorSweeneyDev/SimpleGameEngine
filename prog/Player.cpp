@@ -1,18 +1,18 @@
-#include "GameObject.hpp"
+#include "Player.hpp"
 
-GameObjectList game_objects;
+PlayerList players;
 
-GameObject::GameObject(std::string name) { this->name = name; }
+Player::Player(std::string name) { this->name = name; }
 
-const std::string& GameObject::getName() const { return name; }
+const std::string& Player::getName() const { return name; }
 
-void GameObject::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
+void Player::setShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath)
 {
     std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
     std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
     shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 }
-void GameObject::SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
+void Player::SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GLuint> indexData)
 {
     glGenVertexArrays(1, &vertexArrayObject);
     glBindVertexArray(vertexArrayObject);
@@ -30,7 +30,7 @@ void GameObject::SpecifyVertices(std::vector<GLfloat> vertexData, std::vector<GL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLfloat), indexData.data(), GL_STATIC_DRAW);
 }
-void GameObject::PreDraw()
+void Player::PreDraw()
 {
     glUseProgram(shaderProgram);
     
@@ -105,35 +105,35 @@ void GameObject::PreDraw()
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 }
-void GameObject::Draw()
+void Player::Draw()
 {
     glUseProgram(shaderProgram);
     glBindVertexArray(vertexArrayObject);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
-void GameObject::MoveUp(float speed) { translationY += speed * util.getDeltaTime(); }
-void GameObject::MoveDown(float speed) { translationY -= speed * util.getDeltaTime(); }
-void GameObject::MoveLeft(float speed) { translationX -= speed * util.getDeltaTime(); }
-void GameObject::MoveRight(float speed) { translationX += speed * util.getDeltaTime(); }
-void GameObject::MoveForward(float speed) { translationZ -= speed * util.getDeltaTime(); }
-void GameObject::MoveBackward(float speed) { translationZ += speed * util.getDeltaTime(); }
+void Player::MoveUp(float speed) { translationY += speed * util.getDeltaTime(); }
+void Player::MoveDown(float speed) { translationY -= speed * util.getDeltaTime(); }
+void Player::MoveLeft(float speed) { translationX -= speed * util.getDeltaTime(); }
+void Player::MoveRight(float speed) { translationX += speed * util.getDeltaTime(); }
+void Player::MoveForward(float speed) { translationZ -= speed * util.getDeltaTime(); }
+void Player::MoveBackward(float speed) { translationZ += speed * util.getDeltaTime(); }
 
-void GameObject::RotateXPos(float speed) { rotationX += speed * util.getDeltaTime(); }
-void GameObject::RotateXNeg(float speed) { rotationX -= speed * util.getDeltaTime(); }
-void GameObject::RotateYPos(float speed) { rotationY += speed * util.getDeltaTime(); }
-void GameObject::RotateYNeg(float speed) { rotationY -= speed * util.getDeltaTime(); }
-void GameObject::RotateZPos(float speed) { rotationZ += speed * util.getDeltaTime(); }
-void GameObject::RotateZNeg(float speed) { rotationZ -= speed * util.getDeltaTime(); }
+void Player::RotateXPos(float speed) { rotationX += speed * util.getDeltaTime(); }
+void Player::RotateXNeg(float speed) { rotationX -= speed * util.getDeltaTime(); }
+void Player::RotateYPos(float speed) { rotationY += speed * util.getDeltaTime(); }
+void Player::RotateYNeg(float speed) { rotationY -= speed * util.getDeltaTime(); }
+void Player::RotateZPos(float speed) { rotationZ += speed * util.getDeltaTime(); }
+void Player::RotateZNeg(float speed) { rotationZ -= speed * util.getDeltaTime(); }
 
-void GameObject::ScaleXUp(float speed) { scaleX += speed * util.getDeltaTime(); }
-void GameObject::ScaleXDown(float speed) { scaleX -= speed * util.getDeltaTime(); }
-void GameObject::ScaleYUp(float speed) { scaleY += speed * util.getDeltaTime(); }
-void GameObject::ScaleYDown(float speed) { scaleY -= speed * util.getDeltaTime(); }
-void GameObject::ScaleZUp(float speed) { scaleZ += speed * util.getDeltaTime(); }
-void GameObject::ScaleZDown(float speed) { scaleZ -= speed * util.getDeltaTime(); }
+void Player::ScaleXUp(float speed) { scaleX += speed * util.getDeltaTime(); }
+void Player::ScaleXDown(float speed) { scaleX -= speed * util.getDeltaTime(); }
+void Player::ScaleYUp(float speed) { scaleY += speed * util.getDeltaTime(); }
+void Player::ScaleYDown(float speed) { scaleY -= speed * util.getDeltaTime(); }
+void Player::ScaleZUp(float speed) { scaleZ += speed * util.getDeltaTime(); }
+void Player::ScaleZDown(float speed) { scaleZ -= speed * util.getDeltaTime(); }
 
-void GameObject::ResetModel()
+void Player::ResetModel()
 {
     translationX = initialModel[0];
     translationY = initialModel[1];
@@ -146,7 +146,7 @@ void GameObject::ResetModel()
     scaleZ = initialModel[8];
 }
 
-void GameObject::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ)
+void Player::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ)
 {
     initialModel.push_back(this->translationX = translationX);
     initialModel.push_back(this->translationY = translationY);
@@ -158,7 +158,7 @@ void GameObject::init(float translationX, float translationY, float translationZ
     initialModel.push_back(this->scaleY = scaleY);
     initialModel.push_back(this->scaleZ = scaleZ);
 }
-void GameObject::cleanup()
+void Player::cleanup()
 {
     glDeleteVertexArrays(1, &vertexArrayObject);
     glDeleteBuffers(1, &vertexBufferObject);
@@ -166,13 +166,13 @@ void GameObject::cleanup()
     glDeleteProgram(shaderProgram);
 }
 
-GameObjectPtr getGameObjectByName(const std::string &name)
+PlayerPtr getPlayerByName(const std::string &name)
 {
-    for (auto &gameObject : game_objects)
+    for (auto &player : players)
     {
-        if (gameObject->getName() == name)
+        if (player->getName() == name)
         {
-            return gameObject;
+            return player;
         }
     }
     return nullptr;

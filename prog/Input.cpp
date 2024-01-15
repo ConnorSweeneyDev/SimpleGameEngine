@@ -52,7 +52,7 @@ void Input::PollGame()
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
 
-    auto player1 = getGameObjectByName("Player 1");
+    auto player1 = getPlayerByName("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
@@ -98,7 +98,7 @@ void Input::PollGame()
             player1->ResetModel();
     }
     
-    auto player2 = getGameObjectByName("Player 2");
+    auto player2 = getPlayerByName("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_U])

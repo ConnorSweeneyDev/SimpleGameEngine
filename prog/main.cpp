@@ -16,14 +16,14 @@ void VertexSpecification()
 
 void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a vertex shader and a fragment shader
 {
-    for(auto& game_object : game_objects)
+    for(auto& player : players)
     {
-        if (game_object->getName() == "Player 1")
-            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
-        else if (game_object->getName() == "Player 2")
-            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader2.glsl");
+        if (player->getName() == "Player 1")
+            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+        else if (player->getName() == "Player 2")
+            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader2.glsl");
         else
-            game_object->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+            player->setShaderProgram("prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
     }
 }
 
@@ -31,14 +31,14 @@ void InitializeGame()
 {
     camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
-    for(auto& game_object : game_objects)
+    for(auto& player : players)
     {
-        if (game_object->getName() == "Player 1")
-            game_object->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
-        else if (game_object->getName() == "Player 2")
-            game_object->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, -1.0f, 1.0f, 1.0f);
+        if (player->getName() == "Player 1")
+            player->init(-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
+        else if (player->getName() == "Player 2")
+            player->init(1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.f, -1.0f, 1.0f, 1.0f);
         else
-            game_object->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
+            player->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
     }
 }
 
@@ -52,14 +52,14 @@ void PreDraw()
 {
     util.predrawinit();
     
-    for (auto& game_object : game_objects)
-        game_object->PreDraw();
+    for (auto& player : players)
+        player->PreDraw();
 }
 
 void Draw()
 {
-    for (auto& game_object : game_objects)
-        game_object->Draw();
+    for (auto& player : players)
+        player->Draw();
     
     util.drawcleanup();
 }
@@ -81,8 +81,8 @@ void MainLoop()
 
 void CleanUpProgram()
 {
-    for (auto& game_object : game_objects)
-        game_object->cleanup();
+    for (auto& player : players)
+        player->cleanup();
  
     util.sdlcleanup();
 }
