@@ -18,7 +18,7 @@ void Input::PollWindow()
 
             if (keyState[SDL_SCANCODE_F11])
             {
-                window.HandleFullscreen(); // Borderless fullscreen toggle
+                window.HandleFullscreen(); // Custom borderless fullscreen to avoid tearing
             }
         }
     }

@@ -9,9 +9,8 @@ void Util::getOpenGLVersionInfo()
               << "GL Version: " << glGetString(GL_VERSION) << std::endl
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
-float Util::getDeltaTime() { return deltaTime; }
 
-void Util::ClearAllGLErrors() // OpenGL errors can stack up
+void Util::ClearAllGLErrors()
 {
     while (glGetError() != GL_NO_ERROR);
 }
@@ -29,11 +28,23 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
     return false;
 }
 
-void Util::UpdateDeltaTime()
+std::vector<std::string> Util::SplitStringByDelimiter(const std::string& string, std::string delimiter)
 {
-    currentTime = SDL_GetTicks64();
-    deltaTime = (currentTime - lastTime);
-    lastTime = currentTime;
+    size_t pos_start = 0;
+    size_t pos_end = 0;
+    size_t delimiter_length = delimiter.length();
+    std::string token;
+    std::vector<std::string> result;
+
+    while ((pos_end = string.find(delimiter, pos_start)) != std::string::npos)
+    {
+        token = string.substr(pos_start, pos_end - pos_start);
+        pos_start = pos_end + delimiter_length;
+        result.push_back(token);
+    }
+
+    result.push_back(string.substr(pos_start));
+    return result;
 }
 
 void Util::sdlinit()

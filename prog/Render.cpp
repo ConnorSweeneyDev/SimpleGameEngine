@@ -2,109 +2,60 @@
 
 Render render;
 
-void Render::DefineVertices()
+void Render::SpecifyObjects()
 { 
     PlayerPtr player;
-    player = std::make_shared<Player>("Player 1");
-    SpecifyVertices(
-                    player,
-                    {
-                        // Vertex 0
-                        -0.4f, -0.5f, 0.0f, // Bottom left vertex position
-                        1.0f, 0.0f, 0.0f,   // Bottom left vertex color
-                        // Vertex 1
-                        0.4f, -0.5f, 0.0f,  // Bottom right vertex position
-                        0.0f, 1.0f, 0.0f,   // Bottom right vertex color
-                        // Vertex 2
-                        -0.4f, 0.5f, 0.0f,  // Top left vertex position
-                        0.0f, 0.0f, 1.0f,   // Top left vertex color
-                        // Vertex 3
-                        0.4f, 0.5f, 0.0f,   // Top right vertex position
-                        1.0f, 0.0f, 0.0f    // Top right vertex color
-                    },
-                    {
-                        0, 1, 2, // first triangle
-                        3, 2, 1  // second triangle
-                    }
-                   );
-    players.push_back(player);
-    player = std::make_shared<Player>("Player 2");
-    SpecifyVertices(
-                    player,
-                    {
-                        // Vertex 0
-                        -0.4f, -0.5f, 0.0f, // Bottom left vertex position
-                        1.0f, 0.0f, 0.0f,   // Bottom left vertex color
-                        // Vertex 1
-                        0.4f, -0.5f, 0.0f,  // Bottom right vertex position
-                        0.0f, 1.0f, 0.0f,   // Bottom right vertex color
-                        // Vertex 2
-                        -0.4f, 0.5f, 0.0f,  // Top left vertex position
-                        0.0f, 0.0f, 1.0f,   // Top left vertex color
-                        // Vertex 3
-                        0.4f, 0.5f, 0.0f,   // Top right vertex position
-                        1.0f, 0.0f, 0.0f    // Top right vertex color
-                    },
-                    {
-                        0, 1, 2, // first triangle
-                        3, 2, 1  // second triangle
-                    }
-                   );
-    players.push_back(player);    
+    SpecifyObject(
+                  "Player 1",
+                  player, players
+                 );
+    SpecifyObject(
+                  "Player 2",
+                  player, players
+                 );
 
     ItemPtr item;
-    item = std::make_shared<Item>("Floor");
-    SpecifyVertices(
-                    item,
-                    {
-                        // Vertex 0
-                        -0.4f, -0.5f, 0.0f, // Bottom left vertex position
-                        1.0f, 0.0f, 0.0f,   // Bottom left vertex color
-                        // Vertex 1
-                        0.4f, -0.5f, 0.0f,  // Bottom right vertex position
-                        0.0f, 1.0f, 0.0f,   // Bottom right vertex color
-                        // Vertex 2
-                        -0.4f, 0.5f, 0.0f,  // Top left vertex position
-                        0.0f, 0.0f, 1.0f,   // Top left vertex color
-                        // Vertex 3
-                        0.4f, 0.5f, 0.0f,   // Top right vertex position
-                        1.0f, 0.0f, 0.0f    // Top right vertex color
-                    },
-                    {
-                        0, 1, 2, // first triangle
-                        3, 2, 1  // second triangle
-                    }
-                   );
-    items.push_back(item);
+    SpecifyObject(
+                  "Floor",
+                  item, items
+                 );
 }
-
-template <typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& player, std::vector<GLfloat> vertexData, std::vector<GLuint>indexData)
+template <typename Type> void Render::SpecifyObject(std::string name, std::shared_ptr<Type>& object, std::vector<std::shared_ptr<Type>>& objectList)
 {
-    glGenVertexArrays(1, &player->getVertexArrayObject());
-    glBindVertexArray(player->getVertexArrayObject());
+    object = std::make_shared<Type>(name);
+    SpecifyVertices(object);
+    objectList.push_back(object);
+}
+template void Render::SpecifyObject<Player>(std::string name, std::shared_ptr<Player>& object, std::vector<std::shared_ptr<Player>>& objectList);
+template void Render::SpecifyObject<Item>(std::string name, std::shared_ptr<Item>& object, std::vector<std::shared_ptr<Item>>& objectList);
 
-    glGenBuffers(1, &player->getVertexBufferObject());
-    glBindBuffer(GL_ARRAY_BUFFER, player->getVertexBufferObject());
-    glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
+template <typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
+{
+    glGenVertexArrays(1, &object->getVertexArrayObject());
+    glBindVertexArray(object->getVertexArrayObject());
+
+    glGenBuffers(1, &object->getVertexBufferObject());
+    glBindBuffer(GL_ARRAY_BUFFER, object->getVertexBufferObject());
+    glBufferData(GL_ARRAY_BUFFER, defaultQuadVertices.size() * sizeof(GLfloat), defaultQuadVertices.data(), GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(0); // Vertex attribute pointer for the vertex position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)0);
     glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)(sizeof(GLfloat)*3));
 
-    glGenBuffers(1, &player->getIndexBufferObject());
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, player->getIndexBufferObject());
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLfloat), indexData.data(), GL_STATIC_DRAW);
+    glGenBuffers(1, &object->getIndexBufferObject());
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->getIndexBufferObject());
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, defaultQuadIndices.size() * sizeof(GLfloat), defaultQuadIndices.data(), GL_STATIC_DRAW);
 }
-template void Render::SpecifyVertices<Player>(std::shared_ptr<Player>& player, std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
-template void Render::SpecifyVertices<Item>(std::shared_ptr<Item>& player, std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
+template void Render::SpecifyVertices<Player>(std::shared_ptr<Player>& object);
+template void Render::SpecifyVertices<Item>(std::shared_ptr<Item>& object);
 
-template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& player)
+template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
-    glUseProgram(player->getShaderProgram());
+    glUseProgram(object->getShaderProgram());
     
     glm::mat4 projection = camera.getProjectionMatrix();
-    GLint uProjectionMatrixLocation = glGetUniformLocation(player->getShaderProgram(), "uProjectionMatrix");
+    GLint uProjectionMatrixLocation = glGetUniformLocation(object->getShaderProgram(), "uProjectionMatrix");
     if (uProjectionMatrixLocation >= 0)
     {
         glUniformMatrix4fv(
@@ -120,7 +71,7 @@ template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& player)
     }
 
     glm::mat4 view = camera.getViewMatrix();
-    GLint uViewMatrixLocation = glGetUniformLocation(player->getShaderProgram(), "uViewMatrix");
+    GLint uViewMatrixLocation = glGetUniformLocation(object->getShaderProgram(), "uViewMatrix");
     if (uViewMatrixLocation >= 0)
     {
         glUniformMatrix4fv(
@@ -135,31 +86,31 @@ template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& player)
         std::cout << "uViewMatrix could not be found!" << std::endl;
     }
 
-    glm::mat4 model = glm::mat4(1.0f); // Initialize the model's identity matrix
+    glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(
                            model,
-                           glm::vec3(player->getTranslationX(), player->getTranslationY(), player->getTranslationZ())
+                           glm::vec3(object->getTranslationX(), object->getTranslationY(), object->getTranslationZ())
                           );
     model = glm::rotate(
                         model,
-                        glm::radians(player->getRotationX()),
+                        glm::radians(object->getRotationX()),
                         glm::vec3(1.0f, 0.0f, 0.0f)
                        );
     model = glm::rotate(
                         model,
-                        glm::radians(player->getRotationY()),
+                        glm::radians(object->getRotationY()),
                         glm::vec3(0.0f, 1.0f, 0.0f)
                        );
     model = glm::rotate(
                         model,
-                        glm::radians(player->getRotationZ()),
+                        glm::radians(object->getRotationZ()),
                         glm::vec3(0.0f, 0.0f, 1.0f)
                        );
     model = glm::scale(
                        model,
-                       glm::vec3(player->getScaleX(), player->getScaleY(), player->getScaleZ())
+                       glm::vec3(object->getScaleX(), object->getScaleY(), object->getScaleZ())
                       );
-    GLint uModelMatrixLocation = glGetUniformLocation(player->getShaderProgram(), "uModelMatrix");
+    GLint uModelMatrixLocation = glGetUniformLocation(object->getShaderProgram(), "uModelMatrix");
     if (uModelMatrixLocation >= 0)
     {
         glUniformMatrix4fv(
@@ -174,17 +125,42 @@ template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& player)
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 }
-template void Render::PreDraw<Player>(std::shared_ptr<Player>& player);
-template void Render::PreDraw<Item>(std::shared_ptr<Item>& player);
+template void Render::PreDraw<Player>(std::shared_ptr<Player>& object);
+template void Render::PreDraw<Item>(std::shared_ptr<Item>& object);
 
-template <typename Type> void Render::Draw(std::shared_ptr<Type>& player)
+template <typename Type> void Render::Draw(std::shared_ptr<Type>& object)
 {
-    glUseProgram(player->getShaderProgram());
-    glBindVertexArray(player->getVertexArrayObject());
+    glUseProgram(object->getShaderProgram());
+    glBindVertexArray(object->getVertexArrayObject());
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
-template void Render::Draw<Player>(std::shared_ptr<Player>& player);
-template void Render::Draw<Item>(std::shared_ptr<Item>& player);
+template void Render::Draw<Player>(std::shared_ptr<Player>& object);
+template void Render::Draw<Item>(std::shared_ptr<Item>& object);
+
+void Render::PreDrawObjects()
+{
+    for (auto& player : players)
+        PreDraw(player);
+
+    for (auto& item : items)
+        PreDraw(item);
+}
+void Render::DrawObjects()
+{
+    for (auto& player : players)
+        Draw(player);
+
+    for (auto& item : items)
+        Draw(item);
+}
+void Render::CleanupObjects()
+{
+    for (auto& player : players)
+        objectcleanup(player);
+
+    for (auto& item : items)
+        objectcleanup(item);
+}
 
 void Render::predrawinit()
 {
@@ -201,15 +177,15 @@ void Render::predrawinit()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
-template <typename Type> void Render::objectcleanup(std::shared_ptr<Type>& player)
+template <typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object)
 {
-    glDeleteVertexArrays(1, &player->getVertexArrayObject());
-    glDeleteBuffers(1, &player->getVertexBufferObject());
-    glDeleteBuffers(1, &player->getIndexBufferObject());
-    glDeleteProgram(player->getShaderProgram());
+    glDeleteVertexArrays(1, &object->getVertexArrayObject());
+    glDeleteBuffers(1, &object->getVertexBufferObject());
+    glDeleteBuffers(1, &object->getIndexBufferObject());
+    glDeleteProgram(object->getShaderProgram());
 }
-template void Render::objectcleanup<Player>(std::shared_ptr<Player>& player);
-template void Render::objectcleanup<Item>(std::shared_ptr<Item>& player);
+template void Render::objectcleanup<Player>(std::shared_ptr<Player>& object);
+template void Render::objectcleanup<Item>(std::shared_ptr<Item>& object);
 
 void Render::vertexcleanup()
 {

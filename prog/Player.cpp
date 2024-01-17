@@ -19,12 +19,12 @@ float& Player::getScaleX() { return scaleX; }
 float& Player::getScaleY() { return scaleY; }
 float& Player::getScaleZ() { return scaleZ; }
 
-void Player::MoveUp() { translationY += speed * util.getDeltaTime(); }
-void Player::MoveDown() { translationY -= speed * util.getDeltaTime(); }
-void Player::MoveLeft() { translationX -= speed * util.getDeltaTime(); }
-void Player::MoveRight() { translationX += speed * util.getDeltaTime(); }
-void Player::MoveForward() { translationZ -= speed * util.getDeltaTime(); }
-void Player::MoveBackward() { translationZ += speed * util.getDeltaTime(); }
+void Player::MoveUp() { translationY += speed * time_util.getDeltaTime(); }
+void Player::MoveDown() { translationY -= speed * time_util.getDeltaTime(); }
+void Player::MoveLeft() { translationX -= speed * time_util.getDeltaTime(); }
+void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
+void Player::MoveForward() { translationZ -= speed * time_util.getDeltaTime(); }
+void Player::MoveBackward() { translationZ += speed * time_util.getDeltaTime(); }
 
 void Player::ResetPosition()
 {
@@ -44,18 +44,20 @@ void Player::ResetStats()
     speed = initialStats[1];
 }
 
-void Player::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ,
-                  float health, float speed)
+void Player::init(
+                  float health, float speed,
+                  std::vector<float> defaultPosition
+                 )
 {
-    initialPosition.push_back(this->translationX = translationX);
-    initialPosition.push_back(this->translationY = translationY);
-    initialPosition.push_back(this->translationZ = translationZ);
-    initialPosition.push_back(this->rotationX = rotationX);
-    initialPosition.push_back(this->rotationY = rotationY);
-    initialPosition.push_back(this->rotationZ = rotationZ);
-    initialPosition.push_back(this->scaleX = scaleX);
-    initialPosition.push_back(this->scaleY = scaleY);
-    initialPosition.push_back(this->scaleZ = scaleZ);
+    initialPosition.push_back(this->translationX = defaultPosition[0]);
+    initialPosition.push_back(this->translationY = defaultPosition[1]);
+    initialPosition.push_back(this->translationZ = defaultPosition[2]);
+    initialPosition.push_back(this->rotationX = defaultPosition[3]);
+    initialPosition.push_back(this->rotationY = defaultPosition[4]);
+    initialPosition.push_back(this->rotationZ = defaultPosition[5]);
+    initialPosition.push_back(this->scaleX = defaultPosition[6]);
+    initialPosition.push_back(this->scaleY = defaultPosition[7]);
+    initialPosition.push_back(this->scaleZ = defaultPosition[8]);
 
     initialStats.push_back(this->health = health);
     initialStats.push_back(this->speed = speed);

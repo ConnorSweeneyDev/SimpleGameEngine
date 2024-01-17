@@ -102,3 +102,24 @@ GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const 
 
     return programObject;
 }
+
+void Shader::AssignShadersToObjects()
+{
+    for(auto& player : players)
+    {
+        if (player->getName() == "Player 1")
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player1.glsl");
+        else if (player->getName() == "Player 2")
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player2.glsl");
+        else
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+    }
+
+    for(auto& item : items)
+    {
+        if (item->getName() == "Floor")
+            shader.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/floor.glsl");
+        else
+            shader.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+    }
+}

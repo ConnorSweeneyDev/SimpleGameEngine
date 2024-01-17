@@ -9,21 +9,15 @@ class Util
 {
     public:
         void getOpenGLVersionInfo();
-        float getDeltaTime();
  
         void ClearAllGLErrors();
         bool CheckGLErrorStatus(const char* functionName, const char* fileName, int line);
 
-        void UpdateDeltaTime();
+        std::vector<std::string> SplitStringByDelimiter(const std::string& string, std::string delimiter);
 
         void sdlinit();
         void gladinit();
         
         void sdlcleanup();
-
-    private:
-        float deltaTime = 0.0f;
-        float currentTime = 0.0f;
-        float lastTime = 0.0f;
 };
 extern Util util;

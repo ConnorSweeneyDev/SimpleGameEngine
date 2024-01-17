@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <fstream>
 
 #include "Render.hpp"
@@ -13,5 +14,7 @@ class Shader
 
         GLuint CompileShader(GLuint type, const std::string& shaderSource); 
         GLuint CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
+        
+        void AssignShadersToObjects();
 };
 extern Shader shader;

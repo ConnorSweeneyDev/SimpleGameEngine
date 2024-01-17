@@ -37,8 +37,10 @@ class Player
         void ResetPosition();
         void ResetStats();
 
-        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ,
-                  float health, float speed);
+        void init(
+                  float health, float speed,
+                  std::vector<float> defaultPosition
+                 );
 
     private:
         std::string name;

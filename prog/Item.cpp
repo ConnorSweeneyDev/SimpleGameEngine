@@ -31,15 +31,3 @@ void Item::init(float translationX, float translationY, float translationZ, floa
     this->scaleY = scaleY;
     this->scaleZ = scaleZ;
 }
-
-ItemPtr getItemByName(const std::string &name)
-{
-    for (auto &item : items)
-    {
-        if (item->getName() == name)
-        {
-            return item;
-        }
-    }
-    return nullptr;
-}

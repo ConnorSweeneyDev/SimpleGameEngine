@@ -5,6 +5,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 #include "Util.hpp"
+#include "TimeUtil.hpp"
 
 class Camera
 {
