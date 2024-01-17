@@ -7,8 +7,6 @@
 class Render
 {
     public:
-        template <typename Type> void setShaderProgram(std::shared_ptr<Type>& object, std::string vertexShaderPath, std::string fragmentShaderPath);
-
         void DefineVertices();
         template <typename Type> void SpecifyVertices(std::shared_ptr<Type>& object, std::vector<GLfloat> vertexData, std::vector<GLuint>indexData);
         template <typename Type> void PreDraw(std::shared_ptr<Type>& object); 

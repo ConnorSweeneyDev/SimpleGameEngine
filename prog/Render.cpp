@@ -2,15 +2,6 @@
 
 Render render;
 
-template <typename Type> void Render::setShaderProgram(std::shared_ptr<Type>& object, std::string vertexShaderPath, std::string fragmentShaderPath)
-{
-    std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
-    std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
-    object->getShaderProgram() = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
-}
-template void Render::setShaderProgram<Player>(std::shared_ptr<Player>& object, std::string vertexShaderPath, std::string fragmentShaderPath);
-template void Render::setShaderProgram<Item>(std::shared_ptr<Item>& object, std::string vertexShaderPath, std::string fragmentShaderPath);
-
 void Render::DefineVertices()
 { 
     PlayerPtr player;

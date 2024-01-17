@@ -20,19 +20,19 @@ void CreateGraphicsPipeline() // At minimum, a graphics pipeline consists of a v
     for(auto& player : players)
     {
         if (player->getName() == "Player 1")
-            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player1.glsl");
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player1.glsl");
         else if (player->getName() == "Player 2")
-            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player2.glsl");
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/player2.glsl");
         else
-            render.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+            shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
     }
 
     for(auto& item : items)
     {
         if (item->getName() == "Floor")
-            render.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/floor.glsl");
+            shader.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/floor.glsl");
         else
-            render.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+            shader.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
     }
 }
 
