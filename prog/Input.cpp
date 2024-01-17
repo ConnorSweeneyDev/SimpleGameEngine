@@ -9,14 +9,6 @@ void Input::PollWindow()
         if (event.type == SDL_QUIT)
             window.HandleQuit();
 
-        if (event.type == SDL_WINDOWEVENT)
-        {
-            if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-            {
-                window.HandleResize();
-            }
-        }
-
         if (event.type == SDL_KEYDOWN)
         {
             if (keyState[SDL_SCANCODE_ESCAPE])

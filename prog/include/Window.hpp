@@ -10,8 +10,8 @@ class Window
     public:
         SDL_Window* getWindow() const;
         SDL_GLContext getGLContext() const;
-        int getWidth() const;
-        int getHeight() const;
+        const int getWidth() const;
+        const int getHeight() const;
         bool getQuit() const;
 
         void HandleFullscreen();
@@ -23,10 +23,12 @@ class Window
     private:
         SDL_Window* graphicsApplicationWindow = nullptr;
         SDL_GLContext GLContext = nullptr;
-        int startingPosX = 100;
-        int startingPosY = 100;
-        int width = 1280;
-        int height = 720;
+        const int startingPosX = 100;
+        const int startingPosY = 100;
+        const int startingWidth = 1280;
+        const int startingHeight = 720;
+        int width = startingWidth;
+        int height = startingHeight;
         bool quit = false;
         bool fullscreen = false;
 };
