@@ -1,10 +1,6 @@
 #pragma once
 
-#include <iostream>
 #include <fstream>
-#include <string>
-
-#include <glad/glad.h>
 
 #include "Render.hpp"
 
