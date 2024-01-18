@@ -34,8 +34,8 @@ class Player
         void MoveForward();
         void MoveBackward();
 
-        void ResetPosition();
         void ResetStats();
+        void ResetPosition();
 
         void init(
                   float health, float speed,
@@ -47,7 +47,12 @@ class Player
 
         float health;
         float speed;
+        std::vector<float> initialStats;
 
+        GLuint vertexArrayObject = 0;
+        GLuint vertexBufferObject = 0;
+        GLuint indexBufferObject = 0;
+        GLuint shaderProgram = 0;        
         float translationX;
         float translationY;
         float translationZ;
@@ -57,14 +62,7 @@ class Player
         float scaleX;
         float scaleY;
         float scaleZ;
-
-        GLuint vertexArrayObject = 0;
-        GLuint vertexBufferObject = 0;
-        GLuint indexBufferObject = 0;
-        GLuint shaderProgram = 0;        
-
         std::vector<float> initialPosition;
-        std::vector<float> initialStats;
 };
 using PlayerPtr = std::shared_ptr<Player>;
 using PlayerList = std::vector<PlayerPtr>;

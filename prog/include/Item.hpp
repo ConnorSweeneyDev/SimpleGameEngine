@@ -32,6 +32,10 @@ class Item
     private:
         std::string name;
 
+        GLuint vertexArrayObject = 0;
+        GLuint vertexBufferObject = 0;
+        GLuint indexBufferObject = 0;
+        GLuint shaderProgram = 0;        
         float translationX;
         float translationY;
         float translationZ;
@@ -41,11 +45,6 @@ class Item
         float scaleX;
         float scaleY;
         float scaleZ;
-
-        GLuint vertexArrayObject = 0;
-        GLuint vertexBufferObject = 0;
-        GLuint indexBufferObject = 0;
-        GLuint shaderProgram = 0;        
 };
 using ItemPtr = std::shared_ptr<Item>;
 using ItemList = std::vector<ItemPtr>;

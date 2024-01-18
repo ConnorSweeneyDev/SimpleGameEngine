@@ -26,6 +26,11 @@ void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
 void Player::MoveForward() { translationZ -= speed * time_util.getDeltaTime(); }
 void Player::MoveBackward() { translationZ += speed * time_util.getDeltaTime(); }
 
+void Player::ResetStats()
+{
+    health = initialStats[0];
+    speed = initialStats[1];
+}
 void Player::ResetPosition()
 {
     translationX = initialPosition[0];
@@ -38,17 +43,15 @@ void Player::ResetPosition()
     scaleY = initialPosition[7];
     scaleZ = initialPosition[8];
 }
-void Player::ResetStats()
-{
-    health = initialStats[0];
-    speed = initialStats[1];
-}
 
 void Player::init(
                   float health, float speed,
                   std::vector<float> defaultPosition
                  )
 {
+    initialStats.push_back(this->health = health);
+    initialStats.push_back(this->speed = speed);
+
     initialPosition.push_back(this->translationX = defaultPosition[0]);
     initialPosition.push_back(this->translationY = defaultPosition[1]);
     initialPosition.push_back(this->translationZ = defaultPosition[2]);
@@ -58,9 +61,6 @@ void Player::init(
     initialPosition.push_back(this->scaleX = defaultPosition[6]);
     initialPosition.push_back(this->scaleY = defaultPosition[7]);
     initialPosition.push_back(this->scaleZ = defaultPosition[8]);
-
-    initialStats.push_back(this->health = health);
-    initialStats.push_back(this->speed = speed);
 }
 
 PlayerPtr getPlayerByName(const std::string &name)
