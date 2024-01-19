@@ -26,6 +26,20 @@ void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
 void Player::MoveForward() { translationZ -= speed * time_util.getDeltaTime(); }
 void Player::MoveBackward() { translationZ += speed * time_util.getDeltaTime(); }
 
+void Player::RotateXPos(float speed) { rotationX += speed * time_util.getDeltaTime(); }
+void Player::RotateXNeg(float speed) { rotationX -= speed * time_util.getDeltaTime(); }
+void Player::RotateYPos(float speed) { rotationY += speed * time_util.getDeltaTime(); }
+void Player::RotateYNeg(float speed) { rotationY -= speed * time_util.getDeltaTime(); }
+void Player::RotateZPos(float speed) { rotationZ += speed * time_util.getDeltaTime(); }
+void Player::RotateZNeg(float speed) { rotationZ -= speed * time_util.getDeltaTime(); }
+
+void Player::ScaleXPos(float speed) { scaleX += speed * time_util.getDeltaTime(); }
+void Player::ScaleXNeg(float speed) { scaleX -= speed * time_util.getDeltaTime(); }
+void Player::ScaleYPos(float speed) { scaleY += speed * time_util.getDeltaTime(); }
+void Player::ScaleYNeg(float speed) { scaleY -= speed * time_util.getDeltaTime(); }
+void Player::ScaleZPos(float speed) { scaleZ += speed * time_util.getDeltaTime(); }
+void Player::ScaleZNeg(float speed) { scaleZ -= speed * time_util.getDeltaTime(); }
+
 void Player::ResetStats()
 {
     health = initialStats[0];
