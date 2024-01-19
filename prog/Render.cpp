@@ -20,7 +20,7 @@ void Render::SpecifyObjects()
                   item, items
                  );
 }
-template <typename Type> void Render::SpecifyObject(std::string name, std::shared_ptr<Type>& object, std::vector<std::shared_ptr<Type>>& objectList)
+template<typename Type> void Render::SpecifyObject(std::string name, std::shared_ptr<Type>& object, std::vector<std::shared_ptr<Type>>& objectList)
 {
     object = std::make_shared<Type>(name);
     SpecifyVertices(object);
@@ -29,7 +29,7 @@ template <typename Type> void Render::SpecifyObject(std::string name, std::share
 template void Render::SpecifyObject<Player>(std::string name, std::shared_ptr<Player>& object, std::vector<std::shared_ptr<Player>>& objectList);
 template void Render::SpecifyObject<Item>(std::string name, std::shared_ptr<Item>& object, std::vector<std::shared_ptr<Item>>& objectList);
 
-template <typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
+template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
 {
     glGenVertexArrays(1, &object->getVertexArrayObject());
     glBindVertexArray(object->getVertexArrayObject());
@@ -49,8 +49,7 @@ template <typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obj
 }
 template void Render::SpecifyVertices<Player>(std::shared_ptr<Player>& object);
 template void Render::SpecifyVertices<Item>(std::shared_ptr<Item>& object);
-
-template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
+template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->getShaderProgram());
     
@@ -127,8 +126,7 @@ template <typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 }
 template void Render::PreDraw<Player>(std::shared_ptr<Player>& object);
 template void Render::PreDraw<Item>(std::shared_ptr<Item>& object);
-
-template <typename Type> void Render::Draw(std::shared_ptr<Type>& object)
+template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->getShaderProgram());
     glBindVertexArray(object->getVertexArrayObject());
@@ -177,7 +175,7 @@ void Render::predrawinit()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
-template <typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object)
+template<typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object)
 {
     glDeleteVertexArrays(1, &object->getVertexArrayObject());
     glDeleteBuffers(1, &object->getVertexBufferObject());
@@ -186,7 +184,6 @@ template <typename Type> void Render::objectcleanup(std::shared_ptr<Type>& objec
 }
 template void Render::objectcleanup<Player>(std::shared_ptr<Player>& object);
 template void Render::objectcleanup<Item>(std::shared_ptr<Item>& object);
-
 void Render::vertexcleanup()
 {
     glBindVertexArray(0);
