@@ -28,7 +28,6 @@ class Camera
         float fov;
         float nearClip;
         float farClip;
-
         glm::vec3 position;
         glm::vec3 direction;
         glm::vec3 up;
