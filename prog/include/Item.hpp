@@ -27,7 +27,7 @@ class Item
         float& getScaleY();
         float& getScaleZ();
 
-        void init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ);
+        void init(std::vector<float> defaultPosition);
 
     private:
         std::string name;

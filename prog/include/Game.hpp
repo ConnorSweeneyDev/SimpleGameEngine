@@ -20,5 +20,12 @@ class Game
             0.0f, 0.0f, 0.f,
             -1.0f, 1.0f, 1.0f
         };
+
+        std::vector<float> defaultFloorPosition =
+        {
+            0.0f, -1.2f, 0.0f,
+            0.0f, 0.0f, 0.f,
+            10.0f, 1.0f, 1.0f
+        };
 };
 extern Game game;

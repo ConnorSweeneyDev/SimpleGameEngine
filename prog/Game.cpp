@@ -28,8 +28,8 @@ void Game::InitializeGameObjects()
     for(auto& item : items)
     {
         if (item->getName() == "Floor")
-            item->init(0.0f, -1.2f, 0.0f, 0.0f, 0.0f, 0.f, 10.0f, 1.0f, 1.0f);
+            item->init(defaultFloorPosition);
         else
-            item->init(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f);
+            item->init({ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
 }

@@ -19,15 +19,15 @@ float& Item::getScaleX() { return scaleX; }
 float& Item::getScaleY() { return scaleY; }
 float& Item::getScaleZ() { return scaleZ; }
 
-void Item::init(float translationX, float translationY, float translationZ, float rotationX, float rotationY, float rotationZ, float scaleX, float scaleY, float scaleZ)
+void Item::init(std::vector<float> defaultPosition)
 {
-    this->translationX = translationX;
-    this->translationY = translationY;
-    this->translationZ = translationZ;
-    this->rotationX = rotationX;
-    this->rotationY = rotationY;
-    this->rotationZ = rotationZ;
-    this->scaleX = scaleX;
-    this->scaleY = scaleY;
-    this->scaleZ = scaleZ;
+    this->translationX = defaultPosition[0];
+    this->translationY = defaultPosition[1];
+    this->translationZ = defaultPosition[2];
+    this->rotationX = defaultPosition[3];
+    this->rotationY = defaultPosition[4];
+    this->rotationZ = defaultPosition[5];
+    this->scaleX = defaultPosition[6];
+    this->scaleY = defaultPosition[7];
+    this->scaleZ = defaultPosition[8];
 }
