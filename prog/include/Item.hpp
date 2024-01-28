@@ -35,7 +35,7 @@ class Item
         GLuint vertexArrayObject = 0;
         GLuint vertexBufferObject = 0;
         GLuint indexBufferObject = 0;
-        GLuint shaderProgram = 0;        
+        GLuint shaderProgram = 0;
         float translationX;
         float translationY;
         float translationZ;
