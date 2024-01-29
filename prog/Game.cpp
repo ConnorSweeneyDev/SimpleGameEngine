@@ -4,7 +4,7 @@ Game game;
 
 void Game::InitializeGameObjects()
 {
-    camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    camera.init(90.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 1.5f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     for(auto& player : players)
     {
