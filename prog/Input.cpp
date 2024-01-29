@@ -101,9 +101,9 @@ void Input::PollGame()
             player2->MoveLeft();
         if (keyState[SDL_SCANCODE_L])
             player2->MoveRight();
-        if (keyState[SDL_SCANCODE_U])
-            player2->MoveForward();
         if (keyState[SDL_SCANCODE_O])
+            player2->MoveForward();
+        if (keyState[SDL_SCANCODE_U])
             player2->MoveBackward();
         
         if (keyState[SDL_SCANCODE_N])
