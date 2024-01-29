@@ -22,12 +22,12 @@ template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object)
 template<> void Render::RemoveObject<Player>(std::shared_ptr<Player>& object)
 {
     objectcleanup(object);
-    players.erase(std::remove_if(players.begin(), players.end(), [&object](const std::shared_ptr<Player>& p){ return p == object; }), players.end());
+    players.erase(std::remove_if(players.begin(), players.end(), [&object](const std::shared_ptr<Player>& player){ return player == object; }), players.end());
 }
 template<> void Render::RemoveObject<Item>(std::shared_ptr<Item>& object)
 {
     objectcleanup(object);
-    items.erase(std::remove_if(items.begin(), items.end(), [&object](const std::shared_ptr<Item>& i){ return i == object; }), items.end());
+    items.erase(std::remove_if(items.begin(), items.end(), [&object](const std::shared_ptr<Item>& item){ return item == object; }), items.end());
 }
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
