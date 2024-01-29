@@ -1,5 +1,4 @@
 #include "Render.hpp"
-#include <memory>
 
 Render render;
 
