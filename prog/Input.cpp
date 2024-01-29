@@ -44,7 +44,7 @@ void Input::PollGame()
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
 
-    auto player1 = getPlayerByName("Player 1");
+    player1 = getPlayerByName("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
@@ -88,9 +88,11 @@ void Input::PollGame()
 
         if (keyState[SDL_SCANCODE_SPACE])
             player1->ResetPosition();
+        if (keyState[SDL_SCANCODE_TAB])
+            render.RemoveObject(player1);
     }
     
-    auto player2 = getPlayerByName("Player 2");
+    player2 = getPlayerByName("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_I])
@@ -134,5 +136,7 @@ void Input::PollGame()
         
         if (keyState[SDL_SCANCODE_SPACE])
             player2->ResetPosition();
+        if (keyState[SDL_SCANCODE_BACKSPACE])
+            render.RemoveObject(player2);
     }
 }

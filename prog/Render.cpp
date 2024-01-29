@@ -9,6 +9,7 @@ void Render::SpecifyObjects()
 
     items.push_back(SpecifyObject<Item>("Floor"));
 }
+
 template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string name)
 {
     auto object = std::make_shared<Type>(name);
@@ -17,6 +18,17 @@ template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string 
 }
 template std::shared_ptr<Player> Render::SpecifyObject<Player>(std::string name);
 template std::shared_ptr<Item> Render::SpecifyObject<Item>(std::string name);
+template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
+template<> void Render::RemoveObject<Player>(std::shared_ptr<Player>& object)
+{
+    objectcleanup(object);
+    players.erase(std::remove_if(players.begin(), players.end(), [&object](const std::shared_ptr<Player>& p){ return p == object; }), players.end());
+}
+template<> void Render::RemoveObject<Item>(std::shared_ptr<Item>& object)
+{
+    objectcleanup(object);
+    items.erase(std::remove_if(items.begin(), items.end(), [&object](const std::shared_ptr<Item>& i){ return i == object; }), items.end());
+}
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
 {
