@@ -144,9 +144,11 @@ void Render::CleanupObjects()
 {
     for (auto& player : players)
         objectcleanup(player);
+    players.clear();
 
     for (auto& item : items)
         objectcleanup(item);
+    items.clear();
 }
 
 void Render::predrawinit()
