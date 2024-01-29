@@ -3,7 +3,6 @@
 #include "Player.hpp"
 #include "Item.hpp"
 #include "Shader.hpp"
-#include <memory>
 
 class Render
 {
