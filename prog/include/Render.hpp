@@ -3,12 +3,13 @@
 #include "Player.hpp"
 #include "Item.hpp"
 #include "Shader.hpp"
+#include <memory>
 
 class Render
 {
     public:
         void SpecifyObjects();
-        template<typename Type> void SpecifyObject(std::string name, std::shared_ptr<Type>& object, std::vector<std::shared_ptr<Type>>& objectList);
+        template<typename Type> std::shared_ptr<Type> SpecifyObject(std::string name);
 
         template<typename Type> void SpecifyVertices(std::shared_ptr<Type>& object);
         template<typename Type> void PreDraw(std::shared_ptr<Type>& object); 

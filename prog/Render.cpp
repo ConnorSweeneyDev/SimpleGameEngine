@@ -1,33 +1,23 @@
 #include "Render.hpp"
+#include <memory>
 
 Render render;
 
 void Render::SpecifyObjects()
 { 
-    PlayerPtr player;
-    SpecifyObject(
-                  "Player 1",
-                  player, players
-                 );
-    SpecifyObject(
-                  "Player 2",
-                  player, players
-                 );
+    players.push_back(SpecifyObject<Player>("Player 1"));
+    players.push_back(SpecifyObject<Player>("Player 2"));
 
-    ItemPtr item;
-    SpecifyObject(
-                  "Floor",
-                  item, items
-                 );
+    items.push_back(SpecifyObject<Item>("Floor"));
 }
-template<typename Type> void Render::SpecifyObject(std::string name, std::shared_ptr<Type>& object, std::vector<std::shared_ptr<Type>>& objectList)
+template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string name)
 {
-    object = std::make_shared<Type>(name);
+    auto object = std::make_shared<Type>(name);
     SpecifyVertices(object);
-    objectList.push_back(object);
+    return object;
 }
-template void Render::SpecifyObject<Player>(std::string name, std::shared_ptr<Player>& object, std::vector<std::shared_ptr<Player>>& objectList);
-template void Render::SpecifyObject<Item>(std::string name, std::shared_ptr<Item>& object, std::vector<std::shared_ptr<Item>>& objectList);
+template std::shared_ptr<Player> Render::SpecifyObject<Player>(std::string name);
+template std::shared_ptr<Item> Render::SpecifyObject<Item>(std::string name);
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
 {
