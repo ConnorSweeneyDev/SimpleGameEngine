@@ -9,23 +9,12 @@
 
 class Player
 {
+    friend class Render; friend class Shader;
+
     public:
         Player(std::string name);
         
         const std::string& getName() const;
-        GLuint& getVertexArrayObject();
-        GLuint& getVertexBufferObject();
-        GLuint& getIndexBufferObject();
-        GLuint& getShaderProgram();
-        float& getTranslationX();
-        float& getTranslationY();
-        float& getTranslationZ();
-        float& getRotationX();
-        float& getRotationY();
-        float& getRotationZ();
-        float& getScaleX();
-        float& getScaleY();
-        float& getScaleZ();
 
         void MoveUp();
         void MoveDown();

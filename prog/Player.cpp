@@ -5,19 +5,6 @@ PlayerList players;
 Player::Player(std::string name) { this->name = name; }
 
 const std::string& Player::getName() const { return name; }
-GLuint& Player::getVertexArrayObject() { return vertexArrayObject; }
-GLuint& Player::getVertexBufferObject() { return vertexBufferObject; }
-GLuint& Player::getIndexBufferObject() { return indexBufferObject; }
-GLuint& Player::getShaderProgram() { return shaderProgram; }
-float& Player::getTranslationX() { return translationX; }
-float& Player::getTranslationY() { return translationY; }
-float& Player::getTranslationZ() { return translationZ; }
-float& Player::getRotationX() { return rotationX; }
-float& Player::getRotationY() { return rotationY; }
-float& Player::getRotationZ() { return rotationZ; }
-float& Player::getScaleX() { return scaleX; }
-float& Player::getScaleY() { return scaleY; }
-float& Player::getScaleZ() { return scaleZ; }
 
 void Player::MoveUp() { translationY += speed * time_util.getDeltaTime(); }
 void Player::MoveDown() { translationY -= speed * time_util.getDeltaTime(); }
