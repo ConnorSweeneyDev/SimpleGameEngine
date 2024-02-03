@@ -1,3 +1,3 @@
 @ECHO OFF
 
-start cmd /C gdb SDLGLTest.exe
+start cmd /C gdb 3DGameEngine.exe

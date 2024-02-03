@@ -53,7 +53,7 @@ void Window::HandleQuit()
 void Window::init()
 { 
     graphicsApplicationWindow = SDL_CreateWindow(
-                                                  "SDLGL Test",
+                                                  "3D Game Engine",
                                                   startingPosX, startingPosY,
                                                   startingWidth, startingHeight,
                                                   SDL_WINDOW_OPENGL

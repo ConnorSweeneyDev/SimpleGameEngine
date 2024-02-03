@@ -19,4 +19,4 @@ Mingw32
 SDL2main
 -l
 SDL2
--o SDLGLTest.exe
+-o 3DGameEngine.exe
