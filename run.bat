@@ -1,3 +1,3 @@
 @ECHO OFF
 
-start cmd /C 3DGameEngine.exe
+start pwsh -Command "./3DGameEngine.exe"
