@@ -54,7 +54,7 @@ void MainLoop()
         PreDraw();
         Draw();
 
-        SDL_GL_SwapWindow(window.getWindow()); // Swaps the front and back buffers, presenting the rendered image to the screen
+        SDL_GL_SwapWindow(window.getWindow());
     }
 }
 
