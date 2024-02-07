@@ -18,3 +18,15 @@ void Item::init(std::vector<float> defaultPosition)
     this->scaleY = defaultPosition[7];
     this->scaleZ = defaultPosition[8];
 }
+
+ItemPtr getItemByName(const std::string& name)
+{
+    for (auto& item : items)
+    {
+        if (item->getName() == name)
+        {
+            return item;
+        }
+    }
+    return nullptr;
+}

@@ -18,6 +18,18 @@ template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string 
 }
 template std::shared_ptr<Player> Render::SpecifyObject<Player>(std::string name);
 template std::shared_ptr<Item> Render::SpecifyObject<Item>(std::string name);
+
+template<typename Type> void Render::AddObject(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition) { }
+template<> void Render::AddObject<Item>(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition)
+{
+    if (getItemByName(name) == nullptr)
+    {
+        items.push_back(SpecifyObject<Item>(name));
+        auto item = getItemByName(name);
+        shader.setShaderProgram(item, vertexShader, fragmentShader);
+        item->init(defaultPosition);
+    }
+}
 template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
 template<> void Render::RemoveObject<Player>(std::shared_ptr<Player>& object)
 {

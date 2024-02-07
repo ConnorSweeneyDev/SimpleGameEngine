@@ -12,6 +12,8 @@ class Render
         void SpecifyObjects();
 
         template<typename Type> std::shared_ptr<Type> SpecifyObject(std::string name);
+
+        template<typename Type> void AddObject(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition);
         template<typename Type> void RemoveObject(std::shared_ptr<Type>& object);
 
         template<typename Type> void SpecifyVertices(std::shared_ptr<Type>& object);

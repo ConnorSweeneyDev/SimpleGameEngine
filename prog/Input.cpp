@@ -44,7 +44,25 @@ void Input::PollGame()
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
 
-    player1 = getPlayerByName("Player 1");
+    if (keyState[SDL_SCANCODE_9])
+    {
+        render.AddObject<Item>(
+                               "Item 1",
+                               "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl",
+                               { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f }
+                              );
+    }
+
+    auto item1 = getItemByName("Item 1");
+    if (item1)
+    {
+        if (keyState[SDL_SCANCODE_0])
+        {
+            render.RemoveObject(item1);
+        }
+    }
+
+    auto player1 = getPlayerByName("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
@@ -92,7 +110,7 @@ void Input::PollGame()
             render.RemoveObject(player1);
     }
     
-    player2 = getPlayerByName("Player 2");
+    auto player2 = getPlayerByName("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_I])
