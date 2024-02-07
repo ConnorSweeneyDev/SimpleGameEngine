@@ -69,9 +69,7 @@ PlayerPtr getPlayerByName(const std::string &name)
     for (auto &player : players)
     {
         if (player->getName() == name)
-        {
             return player;
-        }
     }
     return nullptr;
 }
