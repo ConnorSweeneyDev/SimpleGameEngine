@@ -25,6 +25,8 @@ template<> void Render::AddObject<Item>(std::string name, std::string vertexShad
     if (getItemByName(name) == nullptr)
     {
         items.push_back(SpecifyObject<Item>(name));
+        vertexcleanup();
+
         auto item = getItemByName(name);
         shader.setShaderProgram(item, vertexShader, fragmentShader);
         item->init(defaultPosition);
