@@ -68,8 +68,8 @@ class Player
         std::vector<float> initialPosition;
 };
 using PlayerPtr = std::shared_ptr<Player>;
-using PlayerList = std::vector<PlayerPtr>;
+using PlayerPtrList = std::vector<PlayerPtr>;
 
 PlayerPtr getPlayerByName(const std::string& name);
 
-extern PlayerList players;
+extern PlayerPtrList players;

@@ -1,6 +1,6 @@
 #include "Item.hpp"
 
-ItemList items;
+ItemPtrList items;
 
 Item::Item(std::string name) { this->name = name; }
 

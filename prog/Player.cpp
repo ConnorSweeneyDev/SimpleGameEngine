@@ -1,6 +1,6 @@
 #include "Player.hpp"
 
-PlayerList players;
+PlayerPtrList players;
 
 Player::Player(std::string name) { this->name = name; }
 
