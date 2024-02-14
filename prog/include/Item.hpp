@@ -38,6 +38,4 @@ class Item
 using ItemPtr = std::shared_ptr<Item>;
 using ItemPtrList = std::vector<ItemPtr>;
 
-ItemPtr getItemByName(const std::string& name);
-
 extern ItemPtrList items;

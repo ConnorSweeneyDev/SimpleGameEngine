@@ -16,32 +16,32 @@ template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string 
     SpecifyVertices(object);
     return object;
 }
-template std::shared_ptr<Player> Render::SpecifyObject<Player>(std::string name);
-template std::shared_ptr<Item> Render::SpecifyObject<Item>(std::string name);
+template PlayerPtr Render::SpecifyObject<Player>(std::string name);
+template ItemPtr Render::SpecifyObject<Item>(std::string name);
 
 template<typename Type> void Render::AddObject(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition) { }
 template<> void Render::AddObject<Item>(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition)
 {
-    if (getItemByName(name) == nullptr)
+    if (util.getObjectByName<Item>(name) == nullptr)
     {
         items.push_back(SpecifyObject<Item>(name));
         vertexcleanup();
 
-        auto item = getItemByName(name);
+        auto item = util.getObjectByName<Item>(name);
         shader.setShaderProgram(item, vertexShader, fragmentShader);
         item->init(defaultPosition);
     }
 }
 template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
-template<> void Render::RemoveObject<Player>(std::shared_ptr<Player>& object)
+template<> void Render::RemoveObject<Player>(PlayerPtr& object)
 {
     objectcleanup(object);
-    players.erase(std::remove_if(players.begin(), players.end(), [&object](const std::shared_ptr<Player>& player){ return player == object; }), players.end());
+    players.erase(std::remove_if(players.begin(), players.end(), [&object](const PlayerPtr& player){ return player == object; }), players.end());
 }
-template<> void Render::RemoveObject<Item>(std::shared_ptr<Item>& object)
+template<> void Render::RemoveObject<Item>(ItemPtr& object)
 {
     objectcleanup(object);
-    items.erase(std::remove_if(items.begin(), items.end(), [&object](const std::shared_ptr<Item>& item){ return item == object; }), items.end());
+    items.erase(std::remove_if(items.begin(), items.end(), [&object](const ItemPtr& item){ return item == object; }), items.end());
 }
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
@@ -62,8 +62,8 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, defaultQuadIndices.size() * sizeof(GLfloat), defaultQuadIndices.data(), GL_STATIC_DRAW);
 }
-template void Render::SpecifyVertices<Player>(std::shared_ptr<Player>& object);
-template void Render::SpecifyVertices<Item>(std::shared_ptr<Item>& object);
+template void Render::SpecifyVertices<Player>(PlayerPtr& object);
+template void Render::SpecifyVertices<Item>(ItemPtr& object);
 template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
@@ -139,16 +139,16 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
         std::cout << "uModelMatrix could not be found!" << std::endl;
     }
 }
-template void Render::PreDraw<Player>(std::shared_ptr<Player>& object);
-template void Render::PreDraw<Item>(std::shared_ptr<Item>& object);
+template void Render::PreDraw<Player>(PlayerPtr& object);
+template void Render::PreDraw<Item>(ItemPtr& object);
 template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
     glBindVertexArray(object->vertexArrayObject);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
-template void Render::Draw<Player>(std::shared_ptr<Player>& object);
-template void Render::Draw<Item>(std::shared_ptr<Item>& object);
+template void Render::Draw<Player>(PlayerPtr& object);
+template void Render::Draw<Item>(ItemPtr& object);
 
 void Render::PreDrawObjects()
 {
@@ -199,8 +199,8 @@ template<typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object
     glDeleteBuffers(1, &object->indexBufferObject);
     glDeleteProgram(object->shaderProgram);
 }
-template void Render::objectcleanup<Player>(std::shared_ptr<Player>& object);
-template void Render::objectcleanup<Item>(std::shared_ptr<Item>& object);
+template void Render::objectcleanup<Player>(PlayerPtr& object);
+template void Render::objectcleanup<Item>(ItemPtr& object);
 void Render::vertexcleanup()
 {
     glBindVertexArray(0);

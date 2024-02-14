@@ -9,6 +9,25 @@ void Util::getOpenGLVersionInfo()
               << "GL Version: " << glGetString(GL_VERSION) << std::endl
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
+template <typename Type> std::shared_ptr<Type> getObjectByName(const std::string& name);
+template<> PlayerPtr Util::getObjectByName<Player>(const std::string& name)
+{
+    for (auto &player : players)
+    {
+        if (player->getName() == name)
+            return player;
+    }
+    return nullptr;
+}
+template<> ItemPtr Util::getObjectByName<Item>(const std::string& name)
+{
+    for (auto &item : items)
+    {
+        if (item->getName() == name)
+            return item;
+    }
+    return nullptr;
+}
 
 void Util::ClearAllGLErrors()
 {

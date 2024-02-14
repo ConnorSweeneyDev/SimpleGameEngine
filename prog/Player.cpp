@@ -63,13 +63,3 @@ void Player::init(
     initialPosition.push_back(this->scaleY = defaultPosition[7]);
     initialPosition.push_back(this->scaleZ = defaultPosition[8]);
 }
-
-PlayerPtr getPlayerByName(const std::string &name)
-{
-    for (auto &player : players)
-    {
-        if (player->getName() == name)
-            return player;
-    }
-    return nullptr;
-}

@@ -53,7 +53,7 @@ void Input::PollGame()
                               );
     }
 
-    auto item1 = getItemByName("Item 1");
+    auto item1 = util.getObjectByName<Item>("Item 1");
     if (item1)
     {
         if (keyState[SDL_SCANCODE_0])
@@ -62,7 +62,7 @@ void Input::PollGame()
         }
     }
 
-    auto player1 = getPlayerByName("Player 1");
+    auto player1 = util.getObjectByName<Player>("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_W])
@@ -110,7 +110,7 @@ void Input::PollGame()
             render.RemoveObject(player1);
     }
     
-    auto player2 = getPlayerByName("Player 2");
+    auto player2 = util.getObjectByName<Player>("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_I])

@@ -31,8 +31,8 @@ template <typename Type> void Shader::setShaderProgram(std::shared_ptr<Type>& ob
     std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
     object->shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
 }
-template void Shader::setShaderProgram<Player>(std::shared_ptr<Player>& object, std::string vertexShaderPath, std::string fragmentShaderPath);
-template void Shader::setShaderProgram<Item>(std::shared_ptr<Item>& object, std::string vertexShaderPath, std::string fragmentShaderPath);
+template void Shader::setShaderProgram<Player>(PlayerPtr& object, std::string vertexShaderPath, std::string fragmentShaderPath);
+template void Shader::setShaderProgram<Item>(ItemPtr& object, std::string vertexShaderPath, std::string fragmentShaderPath);
 
 GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource)
 {
