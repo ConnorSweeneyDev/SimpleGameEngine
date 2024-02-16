@@ -24,6 +24,7 @@ void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, 
     this->fov = fov;
     this->nearClip = nearClip;
     this->farClip = farClip;
+
     initialPosition.push_back(this->position = position);
     initialPosition.push_back(this->direction = direction);
     initialPosition.push_back(this->up = up);
