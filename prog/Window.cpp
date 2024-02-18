@@ -3,10 +3,10 @@
 Window window;
 
 SDL_Window* Window::getWindow() const { return graphicsApplicationWindow; }
-SDL_GLContext Window::getGLContext() const { return GLContext; }
+const SDL_GLContext Window::getGLContext() const { return GLContext; }
 const int Window::getWidth() const { return width; }
 const int Window::getHeight() const { return height; }
-bool Window::getQuit() const { return quit; }
+const bool Window::getQuit() const { return quit; }
 
 void Window::HandleFullscreen()
 {
