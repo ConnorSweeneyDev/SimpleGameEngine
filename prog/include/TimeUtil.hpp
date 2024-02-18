@@ -5,7 +5,7 @@
 class Time
 {
     public:
-        float getDeltaTime();
+        const float getDeltaTime() const;
         
         void UpdateDeltaTime();
 

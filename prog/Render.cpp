@@ -22,12 +22,12 @@ template ItemPtr Render::SpecifyObject<Item>(std::string name);
 template<typename Type> void Render::AddObject(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition) { }
 template<> void Render::AddObject<Item>(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition)
 {
-    if (util.getObjectByName<Item>(name) == nullptr)
+    if (system_util.getObjectByName<Item>(name) == nullptr)
     {
         items.push_back(SpecifyObject<Item>(name));
         vertexcleanup();
 
-        auto item = util.getObjectByName<Item>(name);
+        auto item = system_util.getObjectByName<Item>(name);
         shader.setShaderProgram(item, vertexShader, fragmentShader);
         item->init(defaultPosition);
     }

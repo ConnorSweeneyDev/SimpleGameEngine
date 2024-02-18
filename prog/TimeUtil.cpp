@@ -2,7 +2,7 @@
 
 Time time_util;
 
-float Time::getDeltaTime() { return deltaTime; }
+const float Time::getDeltaTime() const { return deltaTime; }
 
 void Time::UpdateDeltaTime()
 {

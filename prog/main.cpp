@@ -4,9 +4,9 @@
 
 void InitializeProgram()
 {
-    util.sdlinit();
+    system_util.sdlinit();
     window.init();
-    util.gladinit();
+    system_util.gladinit();
 }
 
 void VertexSpecification()
@@ -61,7 +61,7 @@ void MainLoop()
 void CleanUpProgram()
 {
     render.CleanupObjects();
-    util.sdlcleanup();
+    system_util.sdlcleanup();
 }
 
 int main(int argc, char* argv[])

@@ -4,14 +4,14 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "Util.hpp"
+#include "SystemUtil.hpp"
 #include "TimeUtil.hpp"
 
 class Camera
 {
     public:
-        glm::mat4 getProjectionMatrix() const;
-        glm::mat4 getViewMatrix() const;
+        const glm::mat4 getProjectionMatrix() const;
+        const glm::mat4 getViewMatrix() const;
         
         void MoveUp(float speed);
         void MoveDown(float speed);

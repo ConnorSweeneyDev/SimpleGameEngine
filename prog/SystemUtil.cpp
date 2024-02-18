@@ -1,8 +1,8 @@
-#include "Util.hpp"
+#include "SystemUtil.hpp"
 
-Util util;
+SystemUtil system_util;
 
-void Util::getOpenGLVersionInfo()
+void SystemUtil::getOpenGLVersionInfo() const
 {
     std::cout << "GL Vendor: " << glGetString(GL_VENDOR) << std::endl
               << "GL Renderer: " << glGetString(GL_RENDERER) << std::endl
@@ -10,7 +10,7 @@ void Util::getOpenGLVersionInfo()
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 template <typename Type> std::shared_ptr<Type> getObjectByName(const std::string& name);
-template<> PlayerPtr Util::getObjectByName<Player>(const std::string& name)
+template<> PlayerPtr SystemUtil::getObjectByName<Player>(const std::string& name) const
 {
     for (auto &player : players)
     {
@@ -19,7 +19,7 @@ template<> PlayerPtr Util::getObjectByName<Player>(const std::string& name)
     }
     return nullptr;
 }
-template<> ItemPtr Util::getObjectByName<Item>(const std::string& name)
+template<> ItemPtr SystemUtil::getObjectByName<Item>(const std::string& name) const
 {
     for (auto &item : items)
     {
@@ -29,11 +29,11 @@ template<> ItemPtr Util::getObjectByName<Item>(const std::string& name)
     return nullptr;
 }
 
-void Util::ClearAllGLErrors()
+void SystemUtil::ClearAllGLErrors()
 {
     while (glGetError() != GL_NO_ERROR);
 }
-bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, int line)
+const bool SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const
 {
     while (GLenum error = glGetError())
     {
@@ -47,7 +47,7 @@ bool Util::CheckGLErrorStatus(const char* functionName, const char* fileName, in
     return false;
 }
 
-std::vector<std::string> Util::SplitStringByDelimiter(const std::string& string, std::string delimiter)
+std::vector<std::string> SystemUtil::SplitStringByDelimiter(const std::string& string, std::string delimiter) const
 {
     size_t pos_start = 0;
     size_t pos_end = 0;
@@ -66,7 +66,7 @@ std::vector<std::string> Util::SplitStringByDelimiter(const std::string& string,
     return result;
 }
 
-void Util::sdlinit()
+void SystemUtil::sdlinit()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -82,7 +82,7 @@ void Util::sdlinit()
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetSwapInterval(1); // Vsync
 }
-void Util::gladinit()
+void SystemUtil::gladinit()
 {
     if (!gladLoadGLLoader(SDL_GL_GetProcAddress))
     {
@@ -91,7 +91,7 @@ void Util::gladinit()
     }
 }
 
-void Util::sdlcleanup()
+void SystemUtil::sdlcleanup()
 {
     SDL_GL_DeleteContext(window.getGLContext());
     SDL_DestroyWindow(window.getWindow()); 
