@@ -21,9 +21,8 @@ std::string Shader::LoadShaderAsString(const std::string& fileName)
     if (file.is_open())
     {
         while (std::getline(file, line))
-        {
             result += line + "\n";
-        }
+
         file.close();
     }
     else
@@ -38,17 +37,11 @@ GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource)
     GLuint shaderObject;
 
     if (type == GL_VERTEX_SHADER)
-    {
         shaderObject = glCreateShader(GL_VERTEX_SHADER);
-    }
     else if (type == GL_FRAGMENT_SHADER)
-    {
         shaderObject = glCreateShader(GL_FRAGMENT_SHADER); 
-    }
     else
-    {
         shaderObject = glCreateShader(GL_NONE);
-    }
     
     const char* source = shaderSource.c_str();
     glShaderSource(
@@ -70,13 +63,9 @@ GLuint Shader::CompileShader(GLuint type, const std::string& shaderSource)
         glGetShaderInfoLog(shaderObject, length, &length, errorMessages);
 
         if (type == GL_VERTEX_SHADER)
-        {
             std::cout << "GL_VERTEX_SHADER compilation failed!\n" << errorMessages << std::endl;
-        }
         else if (type == GL_FRAGMENT_SHADER)
-        {
             std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << errorMessages << std::endl;
-        }
 
         delete[] errorMessages;
         glDeleteShader(shaderObject);

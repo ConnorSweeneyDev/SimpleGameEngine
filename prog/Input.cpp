@@ -12,14 +12,10 @@ void Input::PollWindow()
         if (event.type == SDL_KEYDOWN)
         {
             if (keyState[SDL_SCANCODE_ESCAPE])
-            {
                 window.HandleQuit();
-            }
 
             if (keyState[SDL_SCANCODE_F11])
-            {
                 window.HandleFullscreen(); // Custom borderless fullscreen to avoid tearing
-            }
         }
     }
 }
@@ -57,9 +53,7 @@ void Input::PollGame()
     if (item1)
     {
         if (keyState[SDL_SCANCODE_0])
-        {
             render.RemoveObject(item1);
-        }
     }
 
     auto player1 = system_util.getObjectByName<Player>("Player 1");
