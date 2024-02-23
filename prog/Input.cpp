@@ -6,24 +6,24 @@ void Input::PollWindow()
 {
     while (SDL_PollEvent(&event) != 0)
     {
-        if (event.type == SDL_QUIT)
-            window.HandleQuit();
-
-        if (event.type == SDL_KEYDOWN)
+        switch (event.type)
         {
-            if (keyState[SDL_SCANCODE_ESCAPE])
+            case SDL_QUIT:
                 window.HandleQuit();
+                break;
 
-            if (keyState[SDL_SCANCODE_F11])
-                window.HandleFullscreen(); // Custom borderless fullscreen to avoid tearing
+            case SDL_KEYDOWN:
+                if (keyState[SDL_SCANCODE_ESCAPE])
+                    window.HandleQuit();
+                if (keyState[SDL_SCANCODE_F11])
+                    window.HandleFullscreen(); // Custom borderless fullscreen to avoid tearing
+                break;
         }
     }
 }
 
 void Input::PollGame()
 {
-    keyState = SDL_GetKeyboardState(nullptr);
-
     if (keyState[SDL_SCANCODE_UP])
         camera.MoveUp(0.001f);
     if (keyState[SDL_SCANCODE_DOWN])
