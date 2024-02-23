@@ -53,11 +53,11 @@ void Window::HandleQuit()
 void Window::init()
 { 
     graphicsApplicationWindow = SDL_CreateWindow(
-                                                  "3D Game Engine",
-                                                  startingPosX, startingPosY,
-                                                  startingWidth, startingHeight,
-                                                  SDL_WINDOW_OPENGL
-                                                 );
+                                                 "3D Game Engine",
+                                                 startingPosX, startingPosY,
+                                                 startingWidth, startingHeight,
+                                                 SDL_WINDOW_OPENGL
+                                                );
     if (graphicsApplicationWindow == nullptr)
     {
         std::cout << "SDL_Window could not be created!" << std::endl;
