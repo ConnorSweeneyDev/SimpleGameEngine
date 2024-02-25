@@ -47,7 +47,7 @@ const bool SystemUtil::CheckGLErrorStatus(const char* functionName, const char* 
     return false;
 }
 
-std::vector<std::string> SystemUtil::SplitStringByDelimiter(const std::string& string, std::string delimiter) const
+std::vector<std::string> SystemUtil::SplitStringByDelimiter(const std::string& string, const std::string delimiter) const
 {
     size_t pos_start = 0;
     size_t pos_end = 0;

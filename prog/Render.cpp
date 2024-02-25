@@ -9,8 +9,7 @@ void Render::SpecifyObjects()
 
     items.push_back(SpecifyObject<Item>("Floor"));
 }
-
-template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string name)
+template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
 {
     auto object = std::make_shared<Type>(name);
     SpecifyVertices(object);
@@ -19,8 +18,8 @@ template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(std::string 
 template PlayerPtr Render::SpecifyObject<Player>(std::string name);
 template ItemPtr Render::SpecifyObject<Item>(std::string name);
 
-template<typename Type> void Render::AddObject(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition) { }
-template<> void Render::AddObject<Item>(std::string name, std::string vertexShader, std::string fragmentShader, std::vector<float> defaultPosition)
+template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition) { }
+template<> void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition)
 {
     if (system_util.getObjectByName<Item>(name) == nullptr)
     {
