@@ -14,6 +14,7 @@ C_SRCS = src/glad.c
 OUTPUT = 3DGameEngine.exe
 
 OBJ_DIR = prog/object
+$(shell if [ ! -d "$(OBJ_DIR)" ]; then mkdir -p $(OBJ_DIR); fi)
 OBJS = $(patsubst prog/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS)) $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(C_SRCS))
 
 all: $(OUTPUT)
