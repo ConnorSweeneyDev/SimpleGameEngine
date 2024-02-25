@@ -62,7 +62,7 @@ void Window::init()
     {
         std::cout << "SDL_Window could not be created!" << std::endl;
         exit(1);
-    }    
+    }
 
     GLContext = SDL_GL_CreateContext(graphicsApplicationWindow);
     if (GLContext == nullptr)
