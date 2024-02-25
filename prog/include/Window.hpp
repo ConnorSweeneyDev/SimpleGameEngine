@@ -23,6 +23,7 @@ class Window
     private:
         SDL_Window* graphicsApplicationWindow = nullptr;
         SDL_GLContext GLContext = nullptr;
+
         const int startingPosX = 100;
         const int startingPosY = 100;
         const int startingWidth = 1280;
