@@ -20,26 +20,24 @@ void Window::HandleFullscreen()
         HandleResize();
 
         fullscreen = false;
+        return;
     }
-    else
+
+    SDL_DisplayMode displayMode;
+    if (SDL_GetDesktopDisplayMode(0, &displayMode))
     {
-        SDL_DisplayMode displayMode;
-        if (SDL_GetDesktopDisplayMode(0, &displayMode))
-        {
-            std::cout << "Couldn't get desktop display mode!" << std::endl;
-        }
-        else
-        {
-            SDL_SetWindowSize(graphicsApplicationWindow, displayMode.w, displayMode.h);
-            SDL_SetWindowPosition(graphicsApplicationWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-
-            width = displayMode.w;
-            height = displayMode.h;
-            HandleResize();
-
-            fullscreen = true;
-        }
+        std::cout << "Couldn't get desktop display mode!" << std::endl;
+        return;
     }
+
+    SDL_SetWindowSize(graphicsApplicationWindow, displayMode.w, displayMode.h);
+    SDL_SetWindowPosition(graphicsApplicationWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+    width = displayMode.w;
+    height = displayMode.h;
+    HandleResize();
+
+    fullscreen = true;
 }
 void Window::HandleResize()
 {

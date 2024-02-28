@@ -69,35 +69,31 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
     
     glm::mat4 projection = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
-    if (uProjectionMatrixLocation >= 0)
-    {
-        glUniformMatrix4fv(
-                           uProjectionMatrixLocation,
-                           1,
-                           GL_FALSE,
-                           glm::value_ptr(projection) // Pointer to the data of projection, &projection[0][0] also works
-                          );
-    }
-    else
+    if (uProjectionMatrixLocation <= -1)
     {
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
+        exit(1);
     }
+    glUniformMatrix4fv(
+                       uProjectionMatrixLocation,
+                       1,
+                       GL_FALSE,
+                       glm::value_ptr(projection) // Pointer to the data of projection, &projection[0][0] also works
+                      );
 
     glm::mat4 view = camera.getViewMatrix();
     GLint uViewMatrixLocation = glGetUniformLocation(object->shaderProgram, "uViewMatrix");
-    if (uViewMatrixLocation >= 0)
-    {
-        glUniformMatrix4fv(
-                           uViewMatrixLocation,
-                           1,
-                           GL_FALSE,
-                           glm::value_ptr(view) // Pointer to the data of view, &view[0][0] also works
-                          );
-    }
-    else
+    if (uViewMatrixLocation <= -1)
     {
         std::cout << "uViewMatrix could not be found!" << std::endl;
+        exit(1);
     }
+    glUniformMatrix4fv(
+                       uViewMatrixLocation,
+                       1,
+                       GL_FALSE,
+                       glm::value_ptr(view) // Pointer to the data of view, &view[0][0] also works
+                      );
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(
@@ -124,19 +120,17 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
                        glm::vec3(object->scaleX, object->scaleY, object->scaleZ)
                       );
     GLint uModelMatrixLocation = glGetUniformLocation(object->shaderProgram, "uModelMatrix");
-    if (uModelMatrixLocation >= 0)
-    {
-        glUniformMatrix4fv(
-                           uModelMatrixLocation,
-                           1,
-                           GL_FALSE,
-                           glm::value_ptr(model) // Pointer to the data of model, &model[0][0] also works
-                          );
-    } 
-    else
+    if (uModelMatrixLocation <= -1)
     {
         std::cout << "uModelMatrix could not be found!" << std::endl;
-    }
+        exit(1);
+    } 
+    glUniformMatrix4fv(
+                       uModelMatrixLocation,
+                       1,
+                       GL_FALSE,
+                       glm::value_ptr(model) // Pointer to the data of model, &model[0][0] also works
+                      );
 }
 template void Render::PreDraw<Player>(PlayerPtr& object);
 template void Render::PreDraw<Item>(ItemPtr& object);

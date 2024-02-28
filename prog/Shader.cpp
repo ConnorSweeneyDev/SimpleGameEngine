@@ -18,18 +18,16 @@ std::string Shader::LoadShaderAsString(const std::string& fileName)
     std::ifstream file(fileName.c_str());
     std::string line;
 
-    if (file.is_open())
-    {
-        while (std::getline(file, line))
-            result += line + "\n";
-
-        file.close();
-    }
-    else
+    if (!file.is_open())
     {
         std::cout << "Unable to open file: " << fileName << "!" << std::endl;
+        exit(1);
     }
 
+    while (std::getline(file, line))
+        result += line + "\n";
+
+    file.close();
     return result;
 }
 GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
