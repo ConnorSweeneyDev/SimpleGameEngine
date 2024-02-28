@@ -34,13 +34,13 @@ template<> void Render::AddObject<Item>(const std::string name, const std::strin
 template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
 template<> void Render::RemoveObject<Player>(PlayerPtr& object)
 {
-    objectcleanup(object);
     players.erase(std::remove_if(players.begin(), players.end(), [&object](const PlayerPtr& player){ return player == object; }), players.end());
+    objectcleanup(object);
 }
 template<> void Render::RemoveObject<Item>(ItemPtr& object)
 {
-    objectcleanup(object);
     items.erase(std::remove_if(items.begin(), items.end(), [&object](const ItemPtr& item){ return item == object; }), items.end());
+    objectcleanup(object);
 }
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
