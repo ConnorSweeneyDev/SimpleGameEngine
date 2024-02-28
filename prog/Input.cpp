@@ -40,6 +40,7 @@ void Input::PollGame()
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
 
+    // Placeholders for adding and removing objects dynamically
     if (keyState[SDL_SCANCODE_9])
     {
         render.AddObject<Item>(
@@ -48,7 +49,6 @@ void Input::PollGame()
                                { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f }
                               );
     }
-
     auto item1 = system_util.getObjectByName<Item>("Item 1");
     if (item1)
     {

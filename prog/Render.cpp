@@ -18,6 +18,7 @@ template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::s
 template PlayerPtr Render::SpecifyObject<Player>(std::string name);
 template ItemPtr Render::SpecifyObject<Item>(std::string name);
 
+// AddObject only exists for Item, not player due to player's init function taking specific parameters
 template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition) { }
 template<> void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition)
 {
