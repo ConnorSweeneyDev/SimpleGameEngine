@@ -1,10 +1,15 @@
-# g++ -g -std=c++23 -Wall -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 prog/*.cpp src/glad.c -Lsrc/lib -lmingw32 -lSDL2main -lSDL2 -o 3DGameEngine.exe
+# g++ -g -O0 -std=c++20 -Wall -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 prog/*.cpp src/glad.c -Lsrc/lib -lmingw32 -lSDL2main -lSDL2 -o 3DGameEngine.exe
 
 CXX = g++
 CC = gcc
 
-CXXFLAGS = -g -std=c++23 -Wall
-CFLAGS = -g -Wall
+# RELEASE FLAGS:
+# CXXFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong -std=c++20 -Wall
+# CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wall
+
+# DEBUG FLAGS:
+CXXFLAGS = -g -O0 -std=c++20 -Wall
+CFLAGS = -g -O0 -Wall
 
 INCLUDES = -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2
 LIBS = -Lsrc/lib -lmingw32 -lSDL2main -lSDL2
