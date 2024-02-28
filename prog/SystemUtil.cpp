@@ -93,7 +93,6 @@ void SystemUtil::gladinit()
 
 void SystemUtil::sdlcleanup()
 {
-    SDL_GL_DeleteContext(window.getGLContext());
-    SDL_DestroyWindow(window.getWindow()); 
+    window.cleanup();
     SDL_Quit();
 }

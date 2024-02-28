@@ -71,3 +71,10 @@ void Window::init()
         exit(1);
     }
 }
+void Window::cleanup()
+{
+    SDL_GL_DeleteContext(GLContext);
+    SDL_DestroyWindow(graphicsApplicationWindow);
+
+    graphicsApplicationWindow = nullptr;
+}

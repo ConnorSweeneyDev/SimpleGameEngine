@@ -19,6 +19,7 @@ class Window
         void HandleQuit();
 
         void init();
+        void cleanup();
 
     private:
         SDL_Window* graphicsApplicationWindow = nullptr;
