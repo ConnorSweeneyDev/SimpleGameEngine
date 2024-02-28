@@ -9,10 +9,10 @@ class Window
 {
     public:
         SDL_Window* getWindow() const;
-        const SDL_GLContext getGLContext() const;
-        const int getWidth() const;
-        const int getHeight() const;
-        const bool getQuit() const;
+        const SDL_GLContext& getGLContext() const;
+        const int& getWidth() const;
+        const int& getHeight() const;
+        const bool& getQuit() const;
 
         void HandleFullscreen();
         void HandleResize();

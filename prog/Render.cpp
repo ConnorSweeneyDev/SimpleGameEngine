@@ -67,6 +67,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
     
+    camera.UpdateProjectionMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation <= -1)
@@ -81,6 +82,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
                        glm::value_ptr(projection) // Pointer to the data of projection, &projection[0][0] also works
                       );
 
+    camera.UpdateViewMatrix();
     glm::mat4 view = camera.getViewMatrix();
     GLint uViewMatrixLocation = glGetUniformLocation(object->shaderProgram, "uViewMatrix");
     if (uViewMatrixLocation <= -1)

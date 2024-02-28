@@ -10,9 +10,12 @@
 class Camera
 {
     public:
-        const glm::mat4 getProjectionMatrix() const;
-        const glm::mat4 getViewMatrix() const;
+        const glm::mat4& getProjectionMatrix() const;
+        const glm::mat4& getViewMatrix() const;
         
+        void UpdateProjectionMatrix();
+        void UpdateViewMatrix();
+
         void MoveUp(float speed);
         void MoveDown(float speed);
         void MoveLeft(float speed);
@@ -31,6 +34,9 @@ class Camera
         glm::vec3 position;
         glm::vec3 direction;
         glm::vec3 up;
+
+        glm::mat4 projectionMatrix;
+        glm::mat4 viewMatrix;
 
         std::vector<glm::vec3> initialPosition;
 };

@@ -2,8 +2,11 @@
 
 Camera camera;
 
-const glm::mat4 Camera::getProjectionMatrix() const { return glm::perspective(glm::radians(fov), (float)window.getWidth() / (float)window.getHeight(), nearClip, farClip); }
-const glm::mat4 Camera::getViewMatrix() const { return glm::lookAt(position, position + direction, up); }
+const glm::mat4& Camera::getProjectionMatrix() const { return projectionMatrix; }
+const glm::mat4& Camera::getViewMatrix() const { return viewMatrix; }
+
+void Camera::UpdateProjectionMatrix() { projectionMatrix = glm::perspective(glm::radians(fov), (float)window.getWidth() / (float)window.getHeight(), nearClip, farClip); }
+void Camera::UpdateViewMatrix() { viewMatrix = glm::lookAt(position, position + direction, up); }
 
 void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(); } // Movements are on the global axes, since the camera cannot rotate
 void Camera::MoveDown(float speed) { position.y -= speed * time_util.getDeltaTime(); }
@@ -28,4 +31,7 @@ void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, 
     initialPosition.push_back(this->position = position);
     initialPosition.push_back(this->direction = direction);
     initialPosition.push_back(this->up = up);
+
+    UpdateProjectionMatrix();
+    UpdateViewMatrix();
 }

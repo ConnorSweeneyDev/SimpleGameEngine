@@ -33,7 +33,7 @@ void SystemUtil::ClearAllGLErrors()
 {
     while (glGetError() != GL_NO_ERROR);
 }
-const bool SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const
+void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const
 {
     while (GLenum error = glGetError())
     {
@@ -41,10 +41,8 @@ const bool SystemUtil::CheckGLErrorStatus(const char* functionName, const char* 
                   << "    Function: " << functionName
                   << "    File: " << fileName
                   << "    Line: " << line << std::endl;
-        return true;
+        exit(1);
     }
-
-    return false;
 }
 
 std::vector<std::string> SystemUtil::SplitStringByDelimiter(const std::string& string, const std::string delimiter) const
