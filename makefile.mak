@@ -15,7 +15,6 @@ INCLUDES = -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Is
 LIBS = -Lsrc/lib -lmingw32 -lSDL2main -lSDL2
 CPP_SRCS = $(wildcard prog/*.cpp)
 C_SRCS = src/glad.c
-
 OUTPUT = 3DGameEngine.exe
 
 OBJ_DIR = prog/object
