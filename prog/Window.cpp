@@ -10,6 +10,12 @@ const bool& Window::getQuit() const { return quit; }
 
 void Window::HandleFullscreen()
 {
+    if (SDL_GetDesktopDisplayMode(0, &displayMode))
+    {
+        std::cout << "Couldn't get desktop display mode!" << std::endl;
+        exit(1);
+    }
+
     if (fullscreen)
     {
         SDL_SetWindowSize(graphicsApplicationWindow, startingWidth, startingHeight);
@@ -17,16 +23,8 @@ void Window::HandleFullscreen()
 
         width = startingWidth;
         height = startingHeight;
-        HandleResize();
 
         fullscreen = false;
-        return;
-    }
-
-    SDL_DisplayMode displayMode;
-    if (SDL_GetDesktopDisplayMode(0, &displayMode))
-    {
-        std::cout << "Couldn't get desktop display mode!" << std::endl;
         return;
     }
 
@@ -35,13 +33,8 @@ void Window::HandleFullscreen()
 
     width = displayMode.w;
     height = displayMode.h;
-    HandleResize();
 
     fullscreen = true;
-}
-void Window::HandleResize()
-{
-    glViewport(0, 0, width, height);
 }
 void Window::HandleQuit()
 {
@@ -56,6 +49,7 @@ void Window::init()
                                                  startingWidth, startingHeight,
                                                  SDL_WINDOW_OPENGL
                                                 );
+
     if (graphicsApplicationWindow == nullptr)
     {
         std::cout << "SDL_Window could not be created!" << std::endl;
@@ -67,6 +61,20 @@ void Window::init()
     {
         std::cout << "OpenGl context could not be created!" << std::endl;
         exit(1);
+    }
+
+    if (SDL_GetDesktopDisplayMode(0, &displayMode))
+    {
+        std::cout << "Couldn't get desktop display mode!" << std::endl;
+        exit(1);
+    }
+    if (fullscreen)
+    {
+        SDL_SetWindowSize(graphicsApplicationWindow, displayMode.w, displayMode.h);
+        SDL_SetWindowPosition(graphicsApplicationWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+        width = displayMode.w;
+        height = displayMode.h;
     }
 }
 void Window::cleanup()
