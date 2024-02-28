@@ -5,7 +5,7 @@ Camera camera;
 const glm::mat4 Camera::getProjectionMatrix() const { return glm::perspective(glm::radians(fov), (float)window.getWidth() / (float)window.getHeight(), nearClip, farClip); }
 const glm::mat4 Camera::getViewMatrix() const { return glm::lookAt(position, position + direction, up); }
 
-void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(); }       // Movements are on the global axes, since the camera cannot rotate
+void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(); } // Movements are on the global axes, since the camera cannot rotate
 void Camera::MoveDown(float speed) { position.y -= speed * time_util.getDeltaTime(); }
 void Camera::MoveLeft(float speed) { position.x -= speed * time_util.getDeltaTime(); }
 void Camera::MoveRight(float speed) { position.x += speed * time_util.getDeltaTime(); }
