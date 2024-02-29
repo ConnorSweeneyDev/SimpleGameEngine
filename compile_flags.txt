@@ -11,7 +11,7 @@ src/include/KHR
 -I
 src/include/SDL2
 -I
-src/include/STBI
+src/include/stbi
 -L
 src/lib
 -Wall
