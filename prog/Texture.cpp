@@ -24,6 +24,7 @@ template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Typ
 }
 template void Texture::AssignTextureToObject<Player>(PlayerPtr& object);
 template void Texture::AssignTextureToObject<Item>(ItemPtr& object);
+
 template <typename Type> float Texture::CalculateObjectWidth(std::shared_ptr<Type>& object) { return float(object->textureWidth) / float(object->textureHeight); }
 template float Texture::CalculateObjectWidth<Player>(PlayerPtr& object);
 template float Texture::CalculateObjectWidth<Item>(ItemPtr& object);
