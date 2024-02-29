@@ -10,6 +10,7 @@ class SystemUtil
 {
     public:
         void getOpenGLVersionInfo() const;
+
         template <typename Type> std::shared_ptr<Type> getObjectByName(const std::string& name) const;
  
         void ClearAllGLErrors();

@@ -174,13 +174,6 @@ void Render::CleanupObjects()
     items.clear();
 }
 
-template <typename Type> float Render::CalculateObjectWidth(std::shared_ptr<Type>& object)
-{
-    return float(object->textureWidth) / float(object->textureHeight);
-}
-template float Render::CalculateObjectWidth<Player>(PlayerPtr& object);
-template float Render::CalculateObjectWidth<Item>(ItemPtr& object);
-
 void Render::predrawinit()
 {
     glEnable(GL_DEPTH_TEST);

@@ -24,8 +24,6 @@ class Render
         void DrawObjects();
         void CleanupObjects();
 
-        template<typename Type> float CalculateObjectWidth(std::shared_ptr<Type>& object);
-        
         void predrawinit();
 
         template<typename Type> void objectcleanup(std::shared_ptr<Type>& object);

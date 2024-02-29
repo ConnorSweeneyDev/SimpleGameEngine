@@ -9,6 +9,7 @@ void SystemUtil::getOpenGLVersionInfo() const
               << "GL Version: " << glGetString(GL_VERSION) << std::endl
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
+
 template <typename Type> std::shared_ptr<Type> getObjectByName(const std::string& name);
 template<> PlayerPtr SystemUtil::getObjectByName<Player>(const std::string& name) const
 {
