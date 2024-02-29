@@ -11,9 +11,7 @@ template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Typ
 
     object->texturePath = "assets/" + object->name + ".png";
     if (!std::filesystem::exists(object->texturePath))
-    {
         object->texturePath = "assets/empty.png";
-    }
 
     unsigned char* imageData = stbi_load(object->texturePath.c_str(), &object->textureWidth, &object->textureHeight, &object->textureChannels, 0);
     if (!imageData)
