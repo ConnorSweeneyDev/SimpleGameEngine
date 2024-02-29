@@ -52,14 +52,14 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
     glGenBuffers(1, &object->vertexBufferObject);
     glBindBuffer(GL_ARRAY_BUFFER, object->vertexBufferObject);
     glBufferData(GL_ARRAY_BUFFER, defaultQuadVertices.size() * sizeof(GLfloat), defaultQuadVertices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0); // Vertex attribute pointer for the vertex position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)0);
+    glEnableVertexAttribArray(0); // Vertex attribute pointer for the vertex position
 
     glGenBuffers(1, &object->indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, defaultQuadIndices.size() * sizeof(GLfloat), defaultQuadIndices.data(), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)(sizeof(GLfloat)*3));
+    glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
 }
 template void Render::SpecifyVertices<Player>(PlayerPtr& object);
 template void Render::SpecifyVertices<Item>(ItemPtr& object);
