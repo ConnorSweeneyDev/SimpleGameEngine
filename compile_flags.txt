@@ -10,6 +10,8 @@ src/include/glm
 src/include/KHR
 -I
 src/include/SDL2
+-I
+src/include/STBI
 -L
 src/lib
 -Wall

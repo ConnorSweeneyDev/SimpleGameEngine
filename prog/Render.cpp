@@ -1,5 +1,8 @@
 #include "Render.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 Render render;
 
 void Render::SpecifyObjects()
