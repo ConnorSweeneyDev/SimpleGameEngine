@@ -15,5 +15,6 @@ class Shader
         GLuint CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
         
         void AssignShadersToObjects();
+        template <typename Type> void AssignTextureToObject(std::shared_ptr<Type>& object);
 };
 extern Shader shader;

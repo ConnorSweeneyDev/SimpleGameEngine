@@ -1,8 +1,5 @@
 #include "Render.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 Render render;
 
 void Render::SpecifyObjects()
@@ -22,8 +19,8 @@ template PlayerPtr Render::SpecifyObject<Player>(std::string name);
 template ItemPtr Render::SpecifyObject<Item>(std::string name);
 
 // AddObject only exists for Item, not player due to player's init function taking specific parameters
-template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition) { }
-template<> void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultPosition)
+template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry) { }
+template<> void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry)
 {
     if (system_util.getObjectByName<Item>(name) == nullptr)
     {
@@ -32,7 +29,7 @@ template<> void Render::AddObject<Item>(const std::string name, const std::strin
 
         auto item = system_util.getObjectByName<Item>(name);
         shader.setShaderProgram(item, vertexShader, fragmentShader);
-        item->init(defaultPosition);
+        item->init(defaultGeometry);
     }
 }
 template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
@@ -55,14 +52,24 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
     glGenBuffers(1, &object->vertexBufferObject);
     glBindBuffer(GL_ARRAY_BUFFER, object->vertexBufferObject);
     glBufferData(GL_ARRAY_BUFFER, defaultQuadVertices.size() * sizeof(GLfloat), defaultQuadVertices.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)0);
     glEnableVertexAttribArray(0); // Vertex attribute pointer for the vertex position
 
     glGenBuffers(1, &object->indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->indexBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, defaultQuadIndices.size() * sizeof(GLfloat), defaultQuadIndices.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, (GLvoid*)(sizeof(GLfloat)*3));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*3));
     glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
+
+    glGenTextures(1, &object->textureObject);
+    glBindTexture(GL_TEXTURE_2D, object->textureObject);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    texture.AssignTextureToObject(object);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
+    glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
 }
 template void Render::SpecifyVertices<Player>(PlayerPtr& object);
 template void Render::SpecifyVertices<Item>(ItemPtr& object);
@@ -74,10 +81,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
     glm::mat4 projection = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation <= -1)
-    {
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
-        exit(1);
-    }
     glUniformMatrix4fv(
                        uProjectionMatrixLocation,
                        1,
@@ -89,10 +93,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
     glm::mat4 view = camera.getViewMatrix();
     GLint uViewMatrixLocation = glGetUniformLocation(object->shaderProgram, "uViewMatrix");
     if (uViewMatrixLocation <= -1)
-    {
         std::cout << "uViewMatrix could not be found!" << std::endl;
-        exit(1);
-    }
     glUniformMatrix4fv(
                        uViewMatrixLocation,
                        1,
@@ -126,10 +127,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
                       );
     GLint uModelMatrixLocation = glGetUniformLocation(object->shaderProgram, "uModelMatrix");
     if (uModelMatrixLocation <= -1)
-    {
         std::cout << "uModelMatrix could not be found!" << std::endl;
-        exit(1);
-    } 
     glUniformMatrix4fv(
                        uModelMatrixLocation,
                        1,
@@ -142,6 +140,7 @@ template void Render::PreDraw<Item>(ItemPtr& object);
 template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
+    glBindTexture(GL_TEXTURE_2D, object->textureObject);
     glBindVertexArray(object->vertexArrayObject);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
@@ -175,10 +174,19 @@ void Render::CleanupObjects()
     items.clear();
 }
 
+template <typename Type> float Render::CalculateObjectWidth(std::shared_ptr<Type>& object)
+{
+    return float(object->textureWidth) / float(object->textureHeight);
+}
+template float Render::CalculateObjectWidth<Player>(PlayerPtr& object);
+template float Render::CalculateObjectWidth<Item>(ItemPtr& object);
+
 void Render::predrawinit()
 {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glViewport(
                0,
@@ -196,6 +204,7 @@ template<typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object
     glDeleteVertexArrays(1, &object->vertexArrayObject);
     glDeleteBuffers(1, &object->vertexBufferObject);
     glDeleteBuffers(1, &object->indexBufferObject);
+    glDeleteTextures(1, &object->textureObject);
     glDeleteProgram(object->shaderProgram);
 }
 template void Render::objectcleanup<Player>(PlayerPtr& object);
@@ -205,11 +214,14 @@ void Render::vertexcleanup()
     glBindVertexArray(0);
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 void Render::drawcleanup()
 {
     glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
     glUseProgram(0);
 }

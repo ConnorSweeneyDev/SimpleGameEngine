@@ -1,14 +1,15 @@
 #version 410 core
 
 in vec3 vColor;
+in vec2 vTextureCoords;
 
 out vec4 color;
 
-uniform mat4 uModelMatrix;
+uniform sampler2D uTexture;
 
 void main()
 {
-    vec4 newColor = uModelMatrix * vec4(vColor.r, vColor.g, vColor.b, 1.0f); // Order of multiplication matters
-
-    color = newColor;
+    color = texture(uTexture, vTextureCoords);
+    if (color.a == 0.0)
+        discard;
 }

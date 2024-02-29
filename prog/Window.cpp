@@ -13,7 +13,7 @@ void Window::HandleFullscreen()
     if (SDL_GetDesktopDisplayMode(0, &displayMode))
     {
         std::cout << "Couldn't get desktop display mode!" << std::endl;
-        exit(1);
+        return;
     }
 
     if (fullscreen)
@@ -43,12 +43,10 @@ void Window::HandleQuit()
 
 void Window::init()
 { 
-    graphicsApplicationWindow = SDL_CreateWindow(
-                                                 "3D Game Engine",
+    graphicsApplicationWindow = SDL_CreateWindow("3D Game Engine",
                                                  startingPosX, startingPosY,
                                                  startingWidth, startingHeight,
-                                                 SDL_WINDOW_OPENGL
-                                                );
+                                                 SDL_WINDOW_OPENGL);
 
     if (graphicsApplicationWindow == nullptr)
     {

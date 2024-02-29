@@ -9,22 +9,28 @@
 
 class Item
 {
-    friend class Render; friend class Shader;
+    friend class Render; friend class Shader; friend class Texture;
 
     public:
         Item(std::string name);
         
         const std::string& getName() const;
 
-        void init(std::vector<float> defaultPosition);
+        void init(std::vector<float> defaultGeometry);
 
     private:
         std::string name;
 
-        GLuint vertexArrayObject = 0;
-        GLuint vertexBufferObject = 0;
-        GLuint indexBufferObject = 0;
-        GLuint shaderProgram = 0;
+        GLuint vertexArrayObject;
+        GLuint vertexBufferObject;
+        GLuint indexBufferObject;
+        GLuint shaderProgram;
+        GLuint textureObject;
+        std::string texturePath;
+        int textureWidth;
+        int textureHeight;
+        int textureChannels;
+
         float translationX;
         float translationY;
         float translationZ;

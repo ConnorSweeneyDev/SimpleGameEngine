@@ -16,7 +16,7 @@ void Input::PollWindow()
                 if (keyState[SDL_SCANCODE_ESCAPE])
                     window.HandleQuit();
                 if (keyState[SDL_SCANCODE_F11])
-                    window.HandleFullscreen(); // Custom borderless fullscreen to avoid tearing
+                    window.HandleFullscreen();
                 break;
         }
     }
@@ -43,11 +43,9 @@ void Input::PollGame()
     // Placeholders for adding and removing objects dynamically
     if (keyState[SDL_SCANCODE_9])
     {
-        render.AddObject<Item>(
-                               "Item 1",
+        render.AddObject<Item>("Item 1",
                                "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl",
-                               { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f }
-                              );
+                               { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
     auto item1 = system_util.getObjectByName<Item>("Item 1");
     if (item1)

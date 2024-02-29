@@ -15,8 +15,6 @@ class SystemUtil
         void ClearAllGLErrors();
         void CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const;
 
-        std::vector<std::string> SplitStringByDelimiter(const std::string& string, const std::string delimiter) const;
-
         void sdlinit();
         void gladinit();
         

@@ -34,32 +34,30 @@ void Player::ResetStats()
 }
 void Player::ResetPosition()
 {
-    translationX = initialPosition[0];
-    translationY = initialPosition[1];
-    translationZ = initialPosition[2];
-    rotationX = initialPosition[3];
-    rotationY = initialPosition[4];
-    rotationZ = initialPosition[5];
-    scaleX = initialPosition[6];
-    scaleY = initialPosition[7];
-    scaleZ = initialPosition[8];
+    translationX = initialGeometry[0];
+    translationY = initialGeometry[1];
+    translationZ = initialGeometry[2];
+    rotationX = initialGeometry[3];
+    rotationY = initialGeometry[4];
+    rotationZ = initialGeometry[5];
+    scaleX = initialGeometry[6];
+    scaleY = initialGeometry[7];
+    scaleZ = initialGeometry[8];
 }
 
-void Player::init(
-                  float health, float speed,
-                  std::vector<float> defaultPosition
-                 )
+void Player::init(float health, float speed,
+                  std::vector<float> defaultGeometry)
 {
     initialStats.push_back(this->health = health);
     initialStats.push_back(this->speed = speed);
 
-    initialPosition.push_back(this->translationX = defaultPosition[0]);
-    initialPosition.push_back(this->translationY = defaultPosition[1]);
-    initialPosition.push_back(this->translationZ = defaultPosition[2]);
-    initialPosition.push_back(this->rotationX = defaultPosition[3]);
-    initialPosition.push_back(this->rotationY = defaultPosition[4]);
-    initialPosition.push_back(this->rotationZ = defaultPosition[5]);
-    initialPosition.push_back(this->scaleX = defaultPosition[6]);
-    initialPosition.push_back(this->scaleY = defaultPosition[7]);
-    initialPosition.push_back(this->scaleZ = defaultPosition[8]);
+    initialGeometry.push_back(this->translationX = defaultGeometry[0]);
+    initialGeometry.push_back(this->translationY = defaultGeometry[1]);
+    initialGeometry.push_back(this->translationZ = defaultGeometry[2]);
+    initialGeometry.push_back(this->rotationX = defaultGeometry[3]);
+    initialGeometry.push_back(this->rotationY = defaultGeometry[4]);
+    initialGeometry.push_back(this->rotationZ = defaultGeometry[5]);
+    initialGeometry.push_back(this->scaleX = defaultGeometry[6]);
+    initialGeometry.push_back(this->scaleY = defaultGeometry[7]);
+    initialGeometry.push_back(this->scaleZ = defaultGeometry[8]);
 }

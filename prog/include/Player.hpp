@@ -9,7 +9,7 @@
 
 class Player
 {
-    friend class Render; friend class Shader;
+    friend class Render; friend class Shader; friend class Texture;
 
     public:
         Player(std::string name);
@@ -42,7 +42,7 @@ class Player
 
         void init(
                   float health, float speed,
-                  std::vector<float> defaultPosition
+                  std::vector<float> defaultGeometry
                  );
 
     private:
@@ -52,10 +52,16 @@ class Player
         float speed;
         std::vector<float> initialStats;
 
-        GLuint vertexArrayObject = 0;
-        GLuint vertexBufferObject = 0;
-        GLuint indexBufferObject = 0;
-        GLuint shaderProgram = 0;
+        GLuint vertexArrayObject;
+        GLuint vertexBufferObject;
+        GLuint indexBufferObject;
+        GLuint shaderProgram;
+        GLuint textureObject;
+        std::string texturePath;
+        int textureWidth;
+        int textureHeight;
+        int textureChannels;
+
         float translationX;
         float translationY;
         float translationZ;
@@ -65,7 +71,7 @@ class Player
         float scaleX;
         float scaleY;
         float scaleZ;
-        std::vector<float> initialPosition;
+        std::vector<float> initialGeometry;
 };
 using PlayerPtr = std::shared_ptr<Player>;
 using PlayerPtrList = std::vector<PlayerPtr>;

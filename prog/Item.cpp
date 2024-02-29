@@ -6,15 +6,15 @@ Item::Item(std::string name) { this->name = name; }
 
 const std::string& Item::getName() const { return name; }
 
-void Item::init(std::vector<float> defaultPosition)
+void Item::init(std::vector<float> defaultGeometry)
 {
-    this->translationX = defaultPosition[0];
-    this->translationY = defaultPosition[1];
-    this->translationZ = defaultPosition[2];
-    this->rotationX = defaultPosition[3];
-    this->rotationY = defaultPosition[4];
-    this->rotationZ = defaultPosition[5];
-    this->scaleX = defaultPosition[6];
-    this->scaleY = defaultPosition[7];
-    this->scaleZ = defaultPosition[8];
+    this->translationX = defaultGeometry[0];
+    this->translationY = defaultGeometry[1];
+    this->translationZ = defaultGeometry[2];
+    this->rotationX = defaultGeometry[3];
+    this->rotationY = defaultGeometry[4];
+    this->rotationZ = defaultGeometry[5];
+    this->scaleX = defaultGeometry[6];
+    this->scaleY = defaultGeometry[7];
+    this->scaleZ = defaultGeometry[8];
 }

@@ -41,27 +41,8 @@ void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileNa
                   << "    Function: " << functionName
                   << "    File: " << fileName
                   << "    Line: " << line << std::endl;
-        exit(1);
+        return;
     }
-}
-
-std::vector<std::string> SystemUtil::SplitStringByDelimiter(const std::string& string, const std::string delimiter) const
-{
-    size_t pos_start = 0;
-    size_t pos_end = 0;
-    size_t delimiter_length = delimiter.length();
-    std::string token;
-    std::vector<std::string> result;
-
-    while ((pos_end = string.find(delimiter, pos_start)) != std::string::npos)
-    {
-        token = string.substr(pos_start, pos_end - pos_start);
-        pos_start = pos_end + delimiter_length;
-        result.push_back(token);
-    }
-
-    result.push_back(string.substr(pos_start));
-    return result;
 }
 
 void SystemUtil::sdlinit()
