@@ -8,6 +8,9 @@ void Render::SpecifyObjects()
     players.push_back(SpecifyObject<Player>("Player 2"));
 
     items.push_back(SpecifyObject<Item>("Floor"));
+    items.push_back(SpecifyObject<Item>("Background 1"));
+    items.push_back(SpecifyObject<Item>("Background 2"));
+    items.push_back(SpecifyObject<Item>("Background 3"));
 }
 template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
 {

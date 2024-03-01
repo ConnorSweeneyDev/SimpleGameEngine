@@ -7,12 +7,22 @@ Texture texture;
 
 template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Type>& object)
 {
-    stbi_set_flip_vertically_on_load(true);
-
-    object->texturePath = "assets/" + object->name + ".png";
-    if (!std::filesystem::exists(object->texturePath))
+    if (object->name == "Player 1")
+        object->texturePath = "assets/redhood.png";
+    else if (object->name == "Player 2")
+        object->texturePath = "assets/redhood.png";
+    else if (object->name == "Floor")
+        object->texturePath = "assets/oakfloor.png";
+    else if (object->name == "Background 1")
+        object->texturePath = "assets/background1.png";
+    else if (object->name == "Background 2")
+        object->texturePath = "assets/background2.png";
+    else if (object->name == "Background 3")
+        object->texturePath = "assets/background3.png";
+    else
         object->texturePath = "assets/empty.png";
 
+    stbi_set_flip_vertically_on_load(true);
     unsigned char* imageData = stbi_load(object->texturePath.c_str(), &object->textureWidth, &object->textureHeight, &object->textureChannels, 0);
     if (!imageData)
     {
@@ -25,7 +35,3 @@ template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Typ
 }
 template void Texture::AssignTextureToObject<Player>(PlayerPtr& object);
 template void Texture::AssignTextureToObject<Item>(ItemPtr& object);
-
-template <typename Type> float Texture::CalculateObjectWidth(std::shared_ptr<Type>& object) { return float(object->textureWidth) / float(object->textureHeight); }
-template float Texture::CalculateObjectWidth<Player>(PlayerPtr& object);
-template float Texture::CalculateObjectWidth<Item>(ItemPtr& object);
