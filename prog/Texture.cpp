@@ -11,14 +11,17 @@ template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Typ
         object->texturePath = "assets/redhood.png";
     else if (object->name == "Player 2")
         object->texturePath = "assets/redhood.png";
-    else if (object->name == "Floor")
-        object->texturePath = "assets/oakfloor.png";
+
     else if (object->name == "Background 1")
         object->texturePath = "assets/background1.png";
     else if (object->name == "Background 2")
         object->texturePath = "assets/background2.png";
     else if (object->name == "Background 3")
         object->texturePath = "assets/background3.png";
+    else if (object->name == "Shop")
+        object->texturePath = "assets/shop.png";
+    else if (object->name == "Floor")
+        object->texturePath = "assets/leaffloor.png";
     else
         object->texturePath = "assets/empty.png";
 
