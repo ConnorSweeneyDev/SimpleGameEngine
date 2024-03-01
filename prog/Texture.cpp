@@ -19,6 +19,7 @@ template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Typ
         std::cout << "Failed to load " << object->texturePath << "!" << std::endl;
         return;
     }
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, object->textureWidth, object->textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
     stbi_image_free(imageData);
 }
