@@ -6,10 +6,10 @@ Player::Player(std::string name) { this->name = name; }
 
 const std::string& Player::getName() const { return name; }
 
+void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
+void Player::MoveLeft() { translationX -= speed * time_util.getDeltaTime(); }
 void Player::MoveUp() { translationY += speed * time_util.getDeltaTime(); }
 void Player::MoveDown() { translationY -= speed * time_util.getDeltaTime(); }
-void Player::MoveLeft() { translationX -= speed * time_util.getDeltaTime(); }
-void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
 void Player::MoveForward() { translationZ -= speed * time_util.getDeltaTime(); }
 void Player::MoveBackward() { translationZ += speed * time_util.getDeltaTime(); }
 

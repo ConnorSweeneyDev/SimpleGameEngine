@@ -24,14 +24,14 @@ void Input::PollWindow()
 
 void Input::PollGame()
 {
+    if (keyState[SDL_SCANCODE_H])
+        camera.MoveRight(0.001f);
+    if (keyState[SDL_SCANCODE_F])
+        camera.MoveLeft(0.001f);
     if (keyState[SDL_SCANCODE_T])
         camera.MoveUp(0.001f);
     if (keyState[SDL_SCANCODE_G])
         camera.MoveDown(0.001f);
-    if (keyState[SDL_SCANCODE_F])
-        camera.MoveLeft(0.001f);
-    if (keyState[SDL_SCANCODE_H])
-        camera.MoveRight(0.001f);
     if (keyState[SDL_SCANCODE_Y])
         camera.MoveForward(0.001f);
     if (keyState[SDL_SCANCODE_R])
@@ -70,14 +70,14 @@ void Input::PollGame()
     auto player1 = system_util.getObjectByName<Player>("Player 1");
     if (player1)
     {
+        if (keyState[SDL_SCANCODE_D])
+            player1->MoveRight();
+        if (keyState[SDL_SCANCODE_A])
+            player1->MoveLeft();
         if (keyState[SDL_SCANCODE_W])
             player1->MoveUp();
         if (keyState[SDL_SCANCODE_S])
             player1->MoveDown();
-        if (keyState[SDL_SCANCODE_A])
-            player1->MoveLeft();
-        if (keyState[SDL_SCANCODE_D])
-            player1->MoveRight();
         if (keyState[SDL_SCANCODE_E])
             player1->MoveForward();
         if (keyState[SDL_SCANCODE_Q])
@@ -90,14 +90,14 @@ void Input::PollGame()
     auto player2 = system_util.getObjectByName<Player>("Player 2");
     if (player2)
     {
+        if (keyState[SDL_SCANCODE_L])
+            player2->MoveRight();
+        if (keyState[SDL_SCANCODE_J])
+            player2->MoveLeft();
         if (keyState[SDL_SCANCODE_I])
             player2->MoveUp();
         if (keyState[SDL_SCANCODE_K])
             player2->MoveDown();
-        if (keyState[SDL_SCANCODE_J])
-            player2->MoveLeft();
-        if (keyState[SDL_SCANCODE_L])
-            player2->MoveRight();
         if (keyState[SDL_SCANCODE_O])
             player2->MoveForward();
         if (keyState[SDL_SCANCODE_U])

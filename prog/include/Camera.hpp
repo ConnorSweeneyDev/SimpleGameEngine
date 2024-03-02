@@ -17,10 +17,10 @@ class Camera
         void UpdateProjectionMatrix();
         void UpdateViewMatrix();
 
+        void MoveRight(float speed);
+        void MoveLeft(float speed);
         void MoveUp(float speed);
         void MoveDown(float speed);
-        void MoveLeft(float speed);
-        void MoveRight(float speed);
         void MoveForward(float speed);
         void MoveBackward(float speed);
 

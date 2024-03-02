@@ -16,10 +16,10 @@ class Player
         
         const std::string& getName() const;
 
+        void MoveRight();
+        void MoveLeft();
         void MoveUp();
         void MoveDown();
-        void MoveLeft();
-        void MoveRight();
         void MoveForward();
         void MoveBackward();
 

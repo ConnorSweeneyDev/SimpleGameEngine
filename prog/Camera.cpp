@@ -9,10 +9,10 @@ void Camera::UpdateProjectionMatrix() { projectionMatrix = glm::perspective(glm:
 void Camera::UpdateViewMatrix() { viewMatrix = glm::lookAt(position, position + direction, up); }
 
 // Camera movement is on the global coordinate system
+void Camera::MoveRight(float speed) { position.x += speed * time_util.getDeltaTime(); }
+void Camera::MoveLeft(float speed) { position.x -= speed * time_util.getDeltaTime(); }
 void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(); }
 void Camera::MoveDown(float speed) { position.y -= speed * time_util.getDeltaTime(); }
-void Camera::MoveLeft(float speed) { position.x -= speed * time_util.getDeltaTime(); }
-void Camera::MoveRight(float speed) { position.x += speed * time_util.getDeltaTime(); }
 void Camera::MoveForward(float speed) { position.z -= speed * time_util.getDeltaTime(); }
 void Camera::MoveBackward(float speed) { position.z += speed * time_util.getDeltaTime(); }
 
