@@ -40,10 +40,8 @@ class Player
         void ResetStats();
         void ResetPosition();
 
-        void init(
-                  float health, float speed,
-                  std::vector<float> defaultGeometry
-                 );
+        void init(float health, float speed,
+                  std::vector<float> defaultGeometry);
 
     private:
         std::string name;

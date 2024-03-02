@@ -25,6 +25,9 @@ template <typename Type> void Texture::SpecifyTexture(std::shared_ptr<Type>& obj
     else
         object->texturePath = "assets/empty.png";
 }
+template void Texture::SpecifyTexture<Player>(PlayerPtr& object);
+template void Texture::SpecifyTexture<Item>(ItemPtr& object);
+
 template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Type>& object)
 {
     SpecifyTexture(object);

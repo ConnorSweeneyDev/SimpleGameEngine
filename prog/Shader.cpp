@@ -30,6 +30,7 @@ std::string Shader::LoadShaderAsString(const std::string& fileName)
     file.close();
     return result;
 }
+
 GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
 {
     GLuint shaderObject;
@@ -73,6 +74,7 @@ GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
 
     return shaderObject;
 }
+
 GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
 {
     GLuint programObject = glCreateProgram();

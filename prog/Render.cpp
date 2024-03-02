@@ -14,6 +14,7 @@ void Render::SpecifyObjects()
     items.push_back(SpecifyObject<Item>("Floor"));
 
 }
+
 template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
 {
     auto object = std::make_shared<Type>(name);
@@ -37,6 +38,7 @@ template<> void Render::AddObject<Item>(const std::string name, const std::strin
         item->init(defaultGeometry);
     }
 }
+
 template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
 template<> void Render::RemoveObject<Player>(PlayerPtr& object)
 {
@@ -78,6 +80,7 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
 }
 template void Render::SpecifyVertices<Player>(PlayerPtr& object);
 template void Render::SpecifyVertices<Item>(ItemPtr& object);
+
 template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
@@ -142,6 +145,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 }
 template void Render::PreDraw<Player>(PlayerPtr& object);
 template void Render::PreDraw<Item>(ItemPtr& object);
+
 template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
@@ -160,6 +164,7 @@ void Render::PreDrawObjects()
     for (auto& item : items)
         PreDraw(item);
 }
+
 void Render::DrawObjects()
 {
     for (auto& player : players)
@@ -168,6 +173,7 @@ void Render::DrawObjects()
     for (auto& item : items)
         Draw(item);
 }
+
 void Render::CleanupObjects()
 {
     for (auto& player : players)
@@ -208,6 +214,7 @@ template<typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object
 }
 template void Render::objectcleanup<Player>(PlayerPtr& object);
 template void Render::objectcleanup<Item>(ItemPtr& object);
+
 void Render::vertexcleanup()
 {
     glBindVertexArray(0);
@@ -218,6 +225,7 @@ void Render::vertexcleanup()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
 void Render::drawcleanup()
 {
     glBindVertexArray(0);

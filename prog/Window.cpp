@@ -36,6 +36,7 @@ void Window::HandleFullscreen()
 
     fullscreen = true;
 }
+
 void Window::HandleQuit()
 {
     quit = true;
@@ -75,6 +76,7 @@ void Window::init()
         height = displayMode.h;
     }
 }
+
 void Window::cleanup()
 {
     SDL_GL_DeleteContext(GLContext);

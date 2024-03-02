@@ -34,6 +34,7 @@ void SystemUtil::ClearAllGLErrors()
 {
     while (glGetError() != GL_NO_ERROR);
 }
+
 void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const
 {
     while (GLenum error = glGetError())
@@ -64,6 +65,7 @@ void SystemUtil::sdlinit()
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
     SDL_GL_SetSwapInterval(1); // Vsync
 }
+
 void SystemUtil::gladinit()
 {
     if (!gladLoadGLLoader(SDL_GL_GetProcAddress))

@@ -32,6 +32,7 @@ void Player::ResetStats()
     health = initialStats[0];
     speed = initialStats[1];
 }
+
 void Player::ResetPosition()
 {
     translationX = initialGeometry[0];
