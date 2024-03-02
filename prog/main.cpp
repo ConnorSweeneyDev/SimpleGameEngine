@@ -20,9 +20,9 @@ void CreateGraphicsPipeline()
     shader.AssignShadersToObjects();
 }
 
-void InitializeGame()
+void InitializeGameObjects()
 {
-    game.InitializeGameObjects();
+    game.objectinit();
 }
 
 void Input()
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 
     VertexSpecification();
     CreateGraphicsPipeline();
-    InitializeGame();
+    InitializeGameObjects();
 
     MainLoop();
 

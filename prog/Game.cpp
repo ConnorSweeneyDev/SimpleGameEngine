@@ -2,10 +2,13 @@
 
 Game game;
 
-void Game::InitializeGameObjects()
+void Game::InitializeCamera()
 {
     camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    
+}
+
+void Game::InitializePlayers()
+{
     for(auto& player : players)
     {
         if (player->getName() == "Player 1")
@@ -18,7 +21,10 @@ void Game::InitializeGameObjects()
             player->init(100, 0.001,
                          { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
     }
+}
 
+void Game::InitializeItems()
+{
     for(auto& item : items)
     {
         if (item->getName() == "Background 1")
@@ -34,4 +40,11 @@ void Game::InitializeGameObjects()
         else
             item->init({ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
     }
+}
+
+void Game::objectinit()
+{
+    InitializeCamera();
+    InitializePlayers();
+    InitializeItems();
 }

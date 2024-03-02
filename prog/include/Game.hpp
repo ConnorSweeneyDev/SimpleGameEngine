@@ -6,6 +6,10 @@
 class Game
 {
     public:
-        void InitializeGameObjects();
+        void InitializeCamera();
+        void InitializePlayers();
+        void InitializeItems();
+
+        void objectinit();
 };
 extern Game game;
