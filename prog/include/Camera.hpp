@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/rotate_vector.hpp"
 
 #include "SystemUtil.hpp"
 #include "TimeUtil.hpp"
@@ -22,6 +23,13 @@ class Camera
         void MoveRight(float speed);
         void MoveForward(float speed);
         void MoveBackward(float speed);
+
+        void RotateXPos(float speed);
+        void RotateXNeg(float speed);
+        void RotateYPos(float speed);
+        void RotateYNeg(float speed);
+        void RotateZPos(float speed);
+        void RotateZNeg(float speed);
         
         void ResetPosition();
 

@@ -24,18 +24,31 @@ void Input::PollWindow()
 
 void Input::PollGame()
 {
-    if (keyState[SDL_SCANCODE_UP])
+    if (keyState[SDL_SCANCODE_T])
         camera.MoveUp(0.001f);
-    if (keyState[SDL_SCANCODE_DOWN])
+    if (keyState[SDL_SCANCODE_G])
         camera.MoveDown(0.001f);
-    if (keyState[SDL_SCANCODE_LEFT])
+    if (keyState[SDL_SCANCODE_F])
         camera.MoveLeft(0.001f);
-    if (keyState[SDL_SCANCODE_RIGHT])
+    if (keyState[SDL_SCANCODE_H])
         camera.MoveRight(0.001f);
-    if (keyState[SDL_SCANCODE_RSHIFT])
+    if (keyState[SDL_SCANCODE_Y])
         camera.MoveForward(0.001f);
-    if (keyState[SDL_SCANCODE_RCTRL])
+    if (keyState[SDL_SCANCODE_R])
         camera.MoveBackward(0.001f);
+
+    if (keyState[SDL_SCANCODE_UP])
+        camera.RotateXPos(0.001f);
+    if (keyState[SDL_SCANCODE_DOWN])
+        camera.RotateXNeg(0.001f);
+    if (keyState[SDL_SCANCODE_LEFT])
+        camera.RotateYPos(0.001f);
+    if (keyState[SDL_SCANCODE_RIGHT])
+        camera.RotateYNeg(0.001f);
+    if (keyState[SDL_SCANCODE_RSHIFT])
+        camera.RotateZPos(0.001f);
+    if (keyState[SDL_SCANCODE_RCTRL])
+        camera.RotateZNeg(0.001f);
 
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
