@@ -17,16 +17,8 @@ void Camera::MoveForward(float speed) { position.z -= speed * time_util.getDelta
 void Camera::MoveBackward(float speed) { position.z += speed * time_util.getDeltaTime(); }
 
 // Camera rotation is relative to itself
-void Camera::RotateXPos(float speed)
-{
-    direction = glm::rotate(direction, speed * time_util.getDeltaTime(),  glm::cross(direction, up));
-    up = glm::rotate(up, speed * time_util.getDeltaTime(), glm::cross(direction, up));
-}
-void Camera::RotateXNeg(float speed)
-{
-    direction = glm::rotate(direction, -speed * time_util.getDeltaTime(), glm::cross(direction, up));
-    up = glm::rotate(up, -speed * time_util.getDeltaTime(), glm::cross(direction, up));
-}
+void Camera::RotateXPos(float speed) { direction = glm::rotate(direction, speed * time_util.getDeltaTime(),  glm::cross(direction, up)); }
+void Camera::RotateXNeg(float speed) { direction = glm::rotate(direction, -speed * time_util.getDeltaTime(), glm::cross(direction, up)); }
 void Camera::RotateYPos(float speed) { direction = glm::rotate(direction, speed * time_util.getDeltaTime(), up); }
 void Camera::RotateYNeg(float speed) { direction = glm::rotate(direction, -speed * time_util.getDeltaTime(), up); }
 void Camera::RotateZPos(float speed) { up = glm::rotate(glm::mat4(1.0f), speed * time_util.getDeltaTime(), direction) * glm::vec4(up, 1.0f); }
