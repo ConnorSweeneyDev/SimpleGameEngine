@@ -12,7 +12,6 @@ void Render::SpecifyObjects()
     items.push_back(SpecifyObject<Item>("Background 3"));
     items.push_back(SpecifyObject<Item>("Shop"));
     items.push_back(SpecifyObject<Item>("Floor"));
-
 }
 
 template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
