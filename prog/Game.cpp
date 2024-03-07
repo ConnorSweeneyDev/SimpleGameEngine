@@ -28,11 +28,11 @@ void Game::InitializeItems()
     for(auto& item : items)
     {
         if (item->getName() == "Background 1")
-            item->init({ 0.0f, 1.2f, -0.45f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
+            item->init({ 0.0f, 1.5f, -0.45f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
         else if (item->getName() == "Background 2")
-            item->init({ 0.0f, 1.2f, -0.3f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
+            item->init({ 0.0f, 1.5f, -0.3f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
         else if (item->getName() == "Background 3")
-            item->init({ 0.0f, 1.2f, -0.15f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
+            item->init({ 0.0f, 1.5f, -0.15f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
         else if (item->getName() == "Shop")
             item->init({ 0.0f, 0.28f, -0.05f, 0.0f, 0.0f, 0.0f, 3.0f, 2.0f, 1.0f });
         else if (item->getName() == "Floor")
