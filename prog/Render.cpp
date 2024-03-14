@@ -24,31 +24,39 @@ template PlayerPtr Render::SpecifyObject<Player>(std::string name);
 template ItemPtr Render::SpecifyObject<Item>(std::string name);
 
 // AddObject only exists for Item, not player due to player's init function taking specific parameters will be changed to a different Type later
-template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry) { }
-template<> void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry)
+// (Might not need to be a template function)
+template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry)
 {
-    if (system_util.getObjectByName<Item>(name) == nullptr)
+    if constexpr (std::is_same<Type, Item>::value)
     {
-        items.push_back(SpecifyObject<Item>(name));
-        vertexcleanup();
+        if (system_util.getObjectByName<Item>(name) == nullptr)
+        {
+            items.push_back(SpecifyObject<Item>(name));
+            vertexcleanup();
 
-        auto item = system_util.getObjectByName<Item>(name);
-        shader.setShaderProgram(item, vertexShader, fragmentShader);
-        item->init(defaultGeometry);
+            auto item = system_util.getObjectByName<Item>(name);
+            shader.setShaderProgram(item, vertexShader, fragmentShader);
+            item->init(defaultGeometry);
+        }
     }
 }
+template void Render::AddObject<Item>(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry);
 
-template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object) { }
-template<> void Render::RemoveObject<Player>(PlayerPtr& object)
+template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object)
 {
-    players.erase(std::remove_if(players.begin(), players.end(), [&object](const PlayerPtr& player){ return player == object; }), players.end());
-    objectcleanup(object);
+    if constexpr (std::is_same<Type, Player>::value)
+    {
+        players.erase(std::remove_if(players.begin(), players.end(), [&object](const PlayerPtr& player){ return player == object; }), players.end());
+        objectcleanup(object);
+    }
+    else if constexpr (std::is_same<Type, Item>::value)
+    {
+        items.erase(std::remove_if(items.begin(), items.end(), [&object](const ItemPtr& item){ return item == object; }), items.end());
+        objectcleanup(object);
+    }
 }
-template<> void Render::RemoveObject<Item>(ItemPtr& object)
-{
-    items.erase(std::remove_if(items.begin(), items.end(), [&object](const ItemPtr& item){ return item == object; }), items.end());
-    objectcleanup(object);
-}
+template void Render::RemoveObject<Player>(PlayerPtr& object);
+template void Render::RemoveObject<Item>(ItemPtr& object);
 
 template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
 {

@@ -10,25 +10,24 @@ void SystemUtil::getOpenGLVersionInfo() const
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 
-template <typename Type> std::shared_ptr<Type> getObjectByName(const std::string& name);
-template<> PlayerPtr SystemUtil::getObjectByName<Player>(const std::string& name) const
+template <typename Type> std::shared_ptr<Type> SystemUtil::getObjectByName(const std::string& name) const
 {
-    for (auto &player : players)
+    if constexpr (std::is_same<Type, Player>::value)
     {
-        if (player->getName() == name)
-            return player;
+        for (auto &player : players)
+            if (player->getName() == name)
+                return player;
+    }
+    else if constexpr (std::is_same<Type, Item>::value)
+    {
+        for (auto &item : items)
+            if (item->getName() == name)
+                return item;
     }
     return nullptr;
 }
-template<> ItemPtr SystemUtil::getObjectByName<Item>(const std::string& name) const
-{
-    for (auto &item : items)
-    {
-        if (item->getName() == name)
-            return item;
-    }
-    return nullptr;
-}
+template std::shared_ptr<Player> SystemUtil::getObjectByName<Player>(const std::string& name) const;
+template std::shared_ptr<Item> SystemUtil::getObjectByName<Item>(const std::string& name) const;
 
 void SystemUtil::ClearAllGLErrors()
 {
@@ -39,10 +38,7 @@ void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileNa
 {
     while (GLenum error = glGetError())
     {
-        std::cout << "OpenGL Error " << std::hex << error << std::dec << "!" // OpenGL errors are in hex
-                  << "    Function: " << functionName
-                  << "    File: " << fileName
-                  << "    Line: " << line << std::endl;
+        std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << functionName << " | File: " << fileName << " | Line: " << line << std::endl;
         return;
     }
 }
@@ -63,7 +59,7 @@ void SystemUtil::sdlinit()
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1); // Antialiasing
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 8);
-    SDL_GL_SetSwapInterval(1); // Vsync
+    SDL_GL_SetSwapInterval(0); // Vsync
 }
 
 void SystemUtil::gladinit()
