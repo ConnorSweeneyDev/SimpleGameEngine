@@ -97,58 +97,42 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation <= -1)
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
-    glUniformMatrix4fv(
-                       uProjectionMatrixLocation,
+    glUniformMatrix4fv(uProjectionMatrixLocation,
                        1,
                        GL_FALSE,
-                       glm::value_ptr(projection) // Pointer to the data of projection, &projection[0][0] also works
-                      );
+                       glm::value_ptr(projection)); // Pointer to the data of projection, &projection[0][0] also works
 
     camera.UpdateViewMatrix();
     glm::mat4 view = camera.getViewMatrix();
     GLint uViewMatrixLocation = glGetUniformLocation(object->shaderProgram, "uViewMatrix");
     if (uViewMatrixLocation <= -1)
         std::cout << "uViewMatrix could not be found!" << std::endl;
-    glUniformMatrix4fv(
-                       uViewMatrixLocation,
+    glUniformMatrix4fv(uViewMatrixLocation,
                        1,
                        GL_FALSE,
-                       glm::value_ptr(view) // Pointer to the data of view, &view[0][0] also works
-                      );
+                       glm::value_ptr(view)); // Pointer to the data of view, &view[0][0] also works
 
     glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(
-                           model,
-                           glm::vec3(object->translationX, object->translationY, object->translationZ)
-                          );
-    model = glm::rotate(
-                        model,
+    model = glm::translate(model,
+                           glm::vec3(object->translationX, object->translationY, object->translationZ));
+    model = glm::rotate(model,
                         glm::radians(object->rotationX),
-                        glm::vec3(1.0f, 0.0f, 0.0f)
-                       );
-    model = glm::rotate(
-                        model,
+                        glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model,
                         glm::radians(object->rotationY),
-                        glm::vec3(0.0f, 1.0f, 0.0f)
-                       );
-    model = glm::rotate(
-                        model,
+                        glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model,
                         glm::radians(object->rotationZ),
-                        glm::vec3(0.0f, 0.0f, 1.0f)
-                       );
-    model = glm::scale(
-                       model,
-                       glm::vec3(object->scaleX, object->scaleY, object->scaleZ)
-                      );
+                        glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(model,
+                       glm::vec3(object->scaleX, object->scaleY, object->scaleZ));
     GLint uModelMatrixLocation = glGetUniformLocation(object->shaderProgram, "uModelMatrix");
     if (uModelMatrixLocation <= -1)
         std::cout << "uModelMatrix could not be found!" << std::endl;
-    glUniformMatrix4fv(
-                       uModelMatrixLocation,
+    glUniformMatrix4fv(uModelMatrixLocation,
                        1,
                        GL_FALSE,
-                       glm::value_ptr(model) // Pointer to the data of model, &model[0][0] also works
-                      );
+                       glm::value_ptr(model)); // Pointer to the data of model, &model[0][0] also works
 }
 template void Render::PreDraw<Player>(PlayerPtr& object);
 template void Render::PreDraw<Item>(ItemPtr& object);
@@ -200,12 +184,7 @@ void Render::predrawinit()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glViewport(
-               0,
-               0,
-               window.getWidth(),
-               window.getHeight()
-              );
+    glViewport(0, 0, window.getWidth(), window.getHeight());
 
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
