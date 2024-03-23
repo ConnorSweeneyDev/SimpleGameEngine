@@ -23,14 +23,6 @@ class Camera
         void MoveDown(float speed);
         void MoveForward(float speed);
         void MoveBackward(float speed);
-
-        void RotateXPos(float speed);
-        void RotateXNeg(float speed);
-        void RotateYPos(float speed);
-        void RotateYNeg(float speed);
-        void RotateZPos(float speed);
-        void RotateZNeg(float speed);
-        
         void ResetPosition();
 
         void init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);

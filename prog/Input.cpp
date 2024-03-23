@@ -37,19 +37,6 @@ void Input::PollGame()
     if (keyState[SDL_SCANCODE_R])
         camera.MoveBackward(0.001f);
 
-    if (keyState[SDL_SCANCODE_UP])
-        camera.RotateXPos(0.001f);
-    if (keyState[SDL_SCANCODE_DOWN])
-        camera.RotateXNeg(0.001f);
-    if (keyState[SDL_SCANCODE_LEFT])
-        camera.RotateYPos(0.001f);
-    if (keyState[SDL_SCANCODE_RIGHT])
-        camera.RotateYNeg(0.001f);
-    if (keyState[SDL_SCANCODE_RSHIFT])
-        camera.RotateZPos(0.001f);
-    if (keyState[SDL_SCANCODE_RCTRL])
-        camera.RotateZNeg(0.001f);
-
     if (keyState[SDL_SCANCODE_SPACE])
         camera.ResetPosition();
 
