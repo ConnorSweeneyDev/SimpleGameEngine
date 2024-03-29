@@ -51,7 +51,7 @@ class Render
         std::vector<GLuint> defaultQuadIndices =
         {
             0, 1, 2, // Triangle 1
-            3, 2, 1  // Triangle 2
+            2, 1, 3  // Triangle 2
         };
 };
 extern Render render;
