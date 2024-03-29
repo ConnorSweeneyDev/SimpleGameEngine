@@ -22,6 +22,7 @@ template <typename Type> void Texture::SpecifyTexture(std::shared_ptr<Type>& obj
         object->texturePath = "assets/shop.png";
     else if (object->name == "Floor")
         object->texturePath = "assets/leaffloor.png";
+
     else
         object->texturePath = "assets/empty.png";
 }
