@@ -23,20 +23,6 @@ class Player
         void MoveForward();
         void MoveBackward();
 
-        void RotateXPos(float speed);
-        void RotateXNeg(float speed);
-        void RotateYPos(float speed);
-        void RotateYNeg(float speed);
-        void RotateZPos(float speed);
-        void RotateZNeg(float speed);
-
-        void ScaleXPos(float speed);
-        void ScaleXNeg(float speed);
-        void ScaleYPos(float speed);
-        void ScaleYNeg(float speed);
-        void ScaleZPos(float speed);
-        void ScaleZNeg(float speed);
-
         void ResetStats();
         void ResetPosition();
 
