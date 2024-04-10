@@ -9,7 +9,7 @@ CC = gcc
 
 # DEBUG FLAGS:
 CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
-CFLAGS = -g -O0 -Wall
+CFLAGS = -g -O0
 
 INCLUDES = -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 -Isrc/include/stbi
 LIBS = -Lsrc/lib -lmingw32 -lSDL2main -lSDL2
