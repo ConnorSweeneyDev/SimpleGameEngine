@@ -8,6 +8,8 @@ const int& Window::getWidth() const { return width; }
 const int& Window::getHeight() const { return height; }
 const bool& Window::getQuit() const { return quit; }
 
+void Window::HandleQuit() { quit = true; }
+
 void Window::HandleFullscreen()
 {
     if (SDL_GetDesktopDisplayMode(0, &displayMode))
@@ -23,7 +25,6 @@ void Window::HandleFullscreen()
 
         width = startingWidth;
         height = startingHeight;
-
         fullscreen = false;
         return;
     }
@@ -33,21 +34,12 @@ void Window::HandleFullscreen()
 
     width = displayMode.w;
     height = displayMode.h;
-
     fullscreen = true;
-}
-
-void Window::HandleQuit()
-{
-    quit = true;
 }
 
 void Window::init()
 { 
-    graphicsApplicationWindow = SDL_CreateWindow("3D Game Engine",
-                                                 startingPosX, startingPosY,
-                                                 startingWidth, startingHeight,
-                                                 SDL_WINDOW_OPENGL);
+    graphicsApplicationWindow = SDL_CreateWindow("3D Game Engine", startingPosX, startingPosY, startingWidth, startingHeight, SDL_WINDOW_OPENGL);
 
     if (graphicsApplicationWindow == nullptr)
     {

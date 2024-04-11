@@ -29,11 +29,7 @@ template <typename Type> std::shared_ptr<Type> SystemUtil::getObjectByName(const
 template std::shared_ptr<Player> SystemUtil::getObjectByName<Player>(const std::string& name) const;
 template std::shared_ptr<Item> SystemUtil::getObjectByName<Item>(const std::string& name) const;
 
-void SystemUtil::ClearAllGLErrors()
-{
-    while (glGetError() != GL_NO_ERROR);
-}
-
+void SystemUtil::ClearAllGLErrors() { while (glGetError() != GL_NO_ERROR); }
 void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const
 {
     while (GLenum error = glGetError())

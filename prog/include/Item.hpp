@@ -43,5 +43,4 @@ class Item
 };
 using ItemPtr = std::shared_ptr<Item>;
 using ItemPtrList = std::vector<ItemPtr>;
-
 extern ItemPtrList items;

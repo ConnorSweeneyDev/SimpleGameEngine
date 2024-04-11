@@ -14,8 +14,8 @@ class Window
         const int& getHeight() const;
         const bool& getQuit() const;
 
-        void HandleFullscreen();
         void HandleQuit();
+        void HandleFullscreen();
 
         void init();
         void cleanup();

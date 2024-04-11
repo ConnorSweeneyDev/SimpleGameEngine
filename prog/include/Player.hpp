@@ -59,5 +59,4 @@ class Player
 };
 using PlayerPtr = std::shared_ptr<Player>;
 using PlayerPtrList = std::vector<PlayerPtr>;
-
 extern PlayerPtrList players;

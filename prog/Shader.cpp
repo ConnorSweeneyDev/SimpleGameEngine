@@ -43,12 +43,7 @@ GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
         shaderObject = glCreateShader(GL_NONE);
     
     const char* source = shaderSource.c_str();
-    glShaderSource(
-                   shaderObject,
-                   1,
-                   &source,
-                   nullptr
-                  );
+    glShaderSource(shaderObject, 1, &source, nullptr);
     glCompileShader(shaderObject);
     
     int result;

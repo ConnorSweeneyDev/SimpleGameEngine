@@ -15,6 +15,7 @@ void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(
 void Camera::MoveDown(float speed) { position.y -= speed * time_util.getDeltaTime(); }
 void Camera::MoveForward(float speed) { position.z -= speed * time_util.getDeltaTime(); }
 void Camera::MoveBackward(float speed) { position.z += speed * time_util.getDeltaTime(); }
+
 void Camera::ResetPosition()
 {
     position = initialPosition[0];
