@@ -89,8 +89,8 @@ GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const 
 void Shader::AssignShadersToObjects()
 {
     for(auto& player : players)
-        shader.setShaderProgram(player, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+        shader.setShaderProgram(player, "prog/shader/vertexShader.glsl", "prog/shader/fragmentShader.glsl");
 
     for(auto& item : items)
-        shader.setShaderProgram(item, "prog/shaders/vertexShader.glsl", "prog/shaders/fragmentShader.glsl");
+        shader.setShaderProgram(item, "prog/shader/vertexShader.glsl", "prog/shader/fragmentShader.glsl");
 }
