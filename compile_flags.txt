@@ -15,6 +15,9 @@ src/include/stbi
 -L
 src/lib
 -Wall
+-Wextra
+-Wpedantic
+-Wno-unused-parameter
 -l
 Mingw32
 -l
