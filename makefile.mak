@@ -1,6 +1,6 @@
 # g++ -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 -Isrc/include/stbi prog/*.cpp src/glad.c -Lsrc/lib -lmingw32 -lSDL2main -lSDL2 -o 3DGameEngine.exe
 
-RM = rm -rf
+RM = rm -r
 
 CXX = g++
 CC = gcc
@@ -43,4 +43,6 @@ $(OBJ_DIR)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_DIR)/* $(OUTPUT) $(FLAGS_DIR)
+	@if [ -d "$(OBJ_DIR)" ]; then $(RM) $(OBJ_DIR); fi
+	@if [ $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
+	@if [ $(FLAGS_DIR) ]; then $(RM) $(FLAGS_DIR); fi
