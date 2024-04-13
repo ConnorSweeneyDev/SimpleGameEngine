@@ -25,4 +25,4 @@
 *.app
 
 # Specific files
-*.vim
+compile_flags.txt
