@@ -1,6 +1,7 @@
 # g++ -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 -Isrc/include/stbi prog/*.cpp src/glad.c -Lsrc/lib -lmingw32 -lSDL2main -lSDL2 -o 3DGameEngine.exe
 
 RM = rm -rf
+
 CXX = g++
 CC = gcc
 
@@ -12,15 +13,15 @@ CC = gcc
 CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
 CFLAGS = -g -O0
 
-INCLUDES = -Iprog/include -Isrc/include -Isrc/include/glad -Isrc/include/glm -Isrc/include/KHR -Isrc/include/SDL2 -Isrc/include/stbi
-LIBS = -Lsrc/lib -lmingw32 -lSDL2main -lSDL2
-CPP_SRCS = $(wildcard prog/*.cpp)
-C_SRCS = src/glad.c
+INCLUDES = -Iprog/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
+LIBS = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
+CPP_SRCS = $(wildcard prog/source/*.cpp)
+C_SRCS = external/source/glad.c
 OUTPUT = 3DGameEngine.exe
 
-OBJ_DIR = prog/object
+OBJ_DIR = object
 $(shell if [ ! -d "$(OBJ_DIR)" ]; then mkdir -p $(OBJ_DIR); fi)
-OBJS = $(patsubst prog/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS)) $(patsubst src/%.c,$(OBJ_DIR)/%.o,$(C_SRCS))
+OBJS = $(patsubst prog/source/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS)) $(patsubst external/source/%.c,$(OBJ_DIR)/%.o,$(C_SRCS))
 
 FLAGS_DIR = compile_flags.txt
 
@@ -36,9 +37,9 @@ compile_flags:
 
 $(OUTPUT): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(OUTPUT)
-$(OBJ_DIR)/%.o: prog/%.cpp
+$(OBJ_DIR)/%.o: prog/source/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-$(OBJ_DIR)/%.o: src/%.c
+$(OBJ_DIR)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
