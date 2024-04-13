@@ -5,7 +5,7 @@ CC = gcc
 
 # RELEASE FLAGS:
 # CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong -Wall -Wextra -Wpedantic
-# CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-all -Wall
+# CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-all
 
 # DEBUG FLAGS:
 CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
@@ -33,3 +33,11 @@ $(OBJ_DIR)/%.o: src/%.c
 
 clean:
 	$(RM) $(OBJ_DIR)/*.o $(OUTPUT)
+
+FLAGS_DIR = compile_flags.txt
+flags:
+	@echo -n > $(FLAGS_DIR)
+	@for flag in $(CXXFLAGS); do echo $$flag; done >> $(FLAGS_DIR) 
+	@for flag in $(INCLUDES); do echo $$flag; done >> $(FLAGS_DIR)
+	@for flag in $(LIBS); do echo $$flag; done >> $(FLAGS_DIR) 
+	@echo -o$(OUTPUT) >> $(FLAGS_DIR) 
