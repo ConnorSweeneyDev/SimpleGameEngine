@@ -29,10 +29,10 @@ all: $(OUTPUT) compile_flags
 
 compile_flags:
 	@echo -n > $(FLAGS_DIR)
-	@for flag in $(CXXFLAGS); do echo $$flag; done >> $(FLAGS_DIR) 
+	@for flag in $(CXXFLAGS); do echo $$flag; done >> $(FLAGS_DIR)
 	@for flag in $(INCLUDES); do echo $$flag; done >> $(FLAGS_DIR)
-	@for flag in $(LIBS); do echo $$flag; done >> $(FLAGS_DIR) 
-	@echo -o$(OUTPUT) >> $(FLAGS_DIR) 
+	@for flag in $(LIBS); do echo $$flag; done >> $(FLAGS_DIR)
+	@echo -o$(OUTPUT) >> $(FLAGS_DIR)
 	@echo "$(FLAGS_DIR) updated."
 
 $(OUTPUT): $(OBJS)
