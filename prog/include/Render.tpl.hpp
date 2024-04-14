@@ -85,7 +85,7 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
 template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
-    
+
     camera.UpdateProjectionMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
