@@ -1,4 +1,8 @@
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Camera.hpp"
+#include "Window.hpp"
+#include "TimeUtil.hpp"
 
 Camera camera;
 

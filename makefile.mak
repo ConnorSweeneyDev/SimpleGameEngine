@@ -25,7 +25,7 @@ OBJS = $(patsubst prog/source/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS)) $(patsubst exter
 
 FLAGS_DIR = compile_flags.txt
 
-all: $(OUTPUT) compile_flags
+all: compile_flags $(OUTPUT)
 
 compile_flags:
 	@echo -n > $(FLAGS_DIR)
@@ -44,5 +44,5 @@ $(OBJ_DIR)/%.o: external/source/%.c
 
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then $(RM) $(OBJ_DIR); fi
-	@if [ $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
-	@if [ $(FLAGS_DIR) ]; then $(RM) $(FLAGS_DIR); fi
+	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
+	@if [ -f $(FLAGS_DIR) ]; then $(RM) $(FLAGS_DIR); fi

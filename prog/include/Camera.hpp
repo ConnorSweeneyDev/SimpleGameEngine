@@ -2,11 +2,7 @@
 
 #include <vector>
 
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtx/rotate_vector.hpp"
-
-#include "SystemUtil.hpp"
-#include "TimeUtil.hpp"
+#include <glm/glm.hpp>
 
 class Camera
 {

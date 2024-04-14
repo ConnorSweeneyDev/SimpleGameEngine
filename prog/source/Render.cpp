@@ -1,4 +1,17 @@
+#include <iostream>
+#include <algorithm>
+
+#include "glm/gtx/transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include "Render.hpp"
+#include "Window.hpp"
+#include "SystemUtil.hpp"
+#include "Camera.hpp"
+#include "Player.hpp"
+#include "Item.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
 
 Render render;
 

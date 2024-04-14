@@ -1,4 +1,10 @@
 #include "Input.hpp"
+#include "Window.hpp"
+#include "Render.hpp"
+#include "SystemUtil.hpp"
+#include "Camera.hpp"
+#include "Player.hpp"
+#include "Item.hpp"
 
 Input input;
 

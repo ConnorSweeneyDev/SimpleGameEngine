@@ -1,9 +1,6 @@
 #pragma once
 
-#include <filesystem>
-
-#include "Player.hpp"
-#include "Item.hpp"
+#include <memory>
 
 class Texture
 {

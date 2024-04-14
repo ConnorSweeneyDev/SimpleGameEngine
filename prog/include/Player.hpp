@@ -3,9 +3,7 @@
 #include <vector>
 #include <memory>
 
-#include <glm/gtc/type_ptr.hpp>
-
-#include "Camera.hpp"
+#include <glad/glad.h>
 
 class Player
 {

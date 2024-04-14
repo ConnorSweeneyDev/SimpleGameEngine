@@ -1,3 +1,5 @@
+#include "SDL2/SDL_timer.h"
+
 #include "TimeUtil.hpp"
 
 Time time_util;

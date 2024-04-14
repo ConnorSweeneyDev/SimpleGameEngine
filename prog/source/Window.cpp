@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Window.hpp"
 
 Window window;

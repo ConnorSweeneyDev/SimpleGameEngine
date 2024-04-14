@@ -1,4 +1,9 @@
+#include <iostream>
+
 #include "SystemUtil.hpp"
+#include "Window.hpp"
+#include "Player.hpp"
+#include "Item.hpp"
 
 SystemUtil system_util;
 

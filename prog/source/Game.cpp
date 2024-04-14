@@ -1,4 +1,7 @@
 #include "Game.hpp"
+#include "Camera.hpp"
+#include "Player.hpp"
+#include "Item.hpp"
 
 Game game;
 

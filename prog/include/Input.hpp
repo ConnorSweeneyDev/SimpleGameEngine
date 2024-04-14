@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Player.hpp"
-#include "Render.hpp"
+#include "SDL_events.h"
 
 class Input
 {

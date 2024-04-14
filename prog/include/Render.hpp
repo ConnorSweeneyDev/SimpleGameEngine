@@ -1,11 +1,9 @@
 #pragma once
 
-#include <algorithm>
+#include <memory>
+#include <vector>
 
-#include "Player.hpp"
-#include "Item.hpp"
-#include "Shader.hpp"
-#include "Texture.hpp"
+#include <glad/glad.h>
 
 class Render
 {
