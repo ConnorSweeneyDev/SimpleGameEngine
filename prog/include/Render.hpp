@@ -53,3 +53,5 @@ class Render
         };
 };
 extern Render render;
+
+#include "Render.tpl.hpp"

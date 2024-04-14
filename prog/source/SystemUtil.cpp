@@ -1,9 +1,9 @@
 #include <iostream>
 
+#include <glad/glad.h>
+
 #include "SystemUtil.hpp"
 #include "Window.hpp"
-#include "Player.hpp"
-#include "Item.hpp"
 
 SystemUtil system_util;
 
@@ -14,25 +14,6 @@ void SystemUtil::getOpenGLVersionInfo() const
               << "GL Version: " << glGetString(GL_VERSION) << std::endl
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
-
-template <typename Type> std::shared_ptr<Type> SystemUtil::getObjectByName(const std::string& name) const
-{
-    if constexpr (std::is_same<Type, Player>::value)
-    {
-        for (auto &player : players)
-            if (player->getName() == name)
-                return player;
-    }
-    else if constexpr (std::is_same<Type, Item>::value)
-    {
-        for (auto &item : items)
-            if (item->getName() == name)
-                return item;
-    }
-    return nullptr;
-}
-template std::shared_ptr<Player> SystemUtil::getObjectByName<Player>(const std::string& name) const;
-template std::shared_ptr<Item> SystemUtil::getObjectByName<Item>(const std::string& name) const;
 
 void SystemUtil::ClearAllGLErrors() { while (glGetError() != GL_NO_ERROR); }
 void SystemUtil::CheckGLErrorStatus(const char* functionName, const char* fileName, int line) const

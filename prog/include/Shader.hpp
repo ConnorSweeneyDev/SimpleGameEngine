@@ -16,3 +16,5 @@ class Shader
         void AssignShadersToObjects();
 };
 extern Shader shader;
+
+#include "Shader.tpl.hpp"

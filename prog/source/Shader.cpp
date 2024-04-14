@@ -7,15 +7,6 @@
 
 Shader shader;
 
-template <typename Type> void Shader::setShaderProgram(std::shared_ptr<Type>& object, const std::string vertexShaderPath, const std::string fragmentShaderPath)
-{
-    std::string vertexShaderSource = shader.LoadShaderAsString(vertexShaderPath);
-    std::string fragmentShaderSource = shader.LoadShaderAsString(fragmentShaderPath);
-    object->shaderProgram = shader.CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
-}
-template void Shader::setShaderProgram<Player>(PlayerPtr& object, const std::string vertexShaderPath, const std::string fragmentShaderPath);
-template void Shader::setShaderProgram<Item>(ItemPtr& object, const std::string vertexShaderPath, const std::string fragmentShaderPath);
-
 std::string Shader::LoadShaderAsString(const std::string& fileName)
 {
     std::string result;

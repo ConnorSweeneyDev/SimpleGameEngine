@@ -18,3 +18,5 @@ class SystemUtil
         void sdlcleanup();
 };
 extern SystemUtil system_util;
+
+#include "SystemUtil.tpl.hpp"

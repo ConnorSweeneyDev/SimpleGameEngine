@@ -10,3 +10,5 @@ class Texture
         template <typename Type> void AssignTextureToObject(std::shared_ptr<Type>& object);
 };
 extern Texture texture;
+
+#include "Texture.tpl.hpp"
