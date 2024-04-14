@@ -23,6 +23,3 @@
 *.exe
 *.out
 *.app
-
-# Specific files
-compile_flags.txt
