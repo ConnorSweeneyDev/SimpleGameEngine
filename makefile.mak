@@ -45,4 +45,3 @@ $(OBJ_DIR)/%.o: external/source/%.c
 clean:
 	@if [ -d "$(OBJ_DIR)" ]; then $(RM) $(OBJ_DIR); fi
 	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
-	@if [ -f $(FLAGS_DIR) ]; then $(RM) $(FLAGS_DIR); fi
