@@ -54,7 +54,7 @@ void MainLoop()
         time_util.UpdateDeltaTime();
 
         Input();
-        
+
         PreDraw();
         Draw();
 

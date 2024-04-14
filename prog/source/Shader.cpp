@@ -41,7 +41,7 @@ GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
     const char* source = shaderSource.c_str();
     glShaderSource(shaderObject, 1, &source, nullptr);
     glCompileShader(shaderObject);
-    
+
     int result;
     glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &result);
 
@@ -69,13 +69,11 @@ GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
 GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
 {
     GLuint programObject = glCreateProgram();
-
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
     GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
     glAttachShader(programObject, vertexShader);
     glAttachShader(programObject, fragmentShader);
-    
     glLinkProgram(programObject);
     glValidateProgram(programObject);
 
