@@ -9,8 +9,8 @@ class Window
         const SDL_GLContext& getGLContext() const;
         const int& getWidth() const;
         const int& getHeight() const;
-        const bool& getQuit() const;
 
+        const bool& ShouldQuit() const;
         void HandleQuit();
         void HandleFullscreen();
 

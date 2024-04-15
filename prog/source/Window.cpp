@@ -8,7 +8,8 @@ SDL_Window* Window::getWindow() const { return graphicsApplicationWindow; }
 const SDL_GLContext& Window::getGLContext() const { return GLContext; }
 const int& Window::getWidth() const { return width; }
 const int& Window::getHeight() const { return height; }
-const bool& Window::getQuit() const { return quit; }
+
+const bool& Window::ShouldQuit() const { return quit; }
 
 void Window::HandleQuit() { quit = true; }
 

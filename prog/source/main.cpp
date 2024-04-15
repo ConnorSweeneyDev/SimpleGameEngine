@@ -49,7 +49,7 @@ void Draw()
 
 void MainLoop()
 {
-    while (!window.getQuit())
+    while (!window.ShouldQuit())
     {
         time_util.UpdateDeltaTime();
 

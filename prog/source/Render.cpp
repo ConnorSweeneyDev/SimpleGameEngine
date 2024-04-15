@@ -1,5 +1,7 @@
 #include "Render.hpp"
 #include "Window.hpp"
+#include "Item.hpp"
+#include "Player.hpp"
 
 Render render;
 
