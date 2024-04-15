@@ -1,9 +1,9 @@
-#include "Game.hpp"
 #include "SystemUtil.hpp"
 #include "TimeUtil.hpp"
 #include "Window.hpp"
 #include "Render.hpp"
 #include "Shader.hpp"
+#include "Game.hpp"
 #include "Input.hpp"
 
 void InitializeProgram()
