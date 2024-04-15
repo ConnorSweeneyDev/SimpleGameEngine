@@ -52,7 +52,6 @@ void MainLoop()
     while (!window.ShouldQuit())
     {
         time_util.UpdateDeltaTime();
-
         Input();
 
         PreDraw();
