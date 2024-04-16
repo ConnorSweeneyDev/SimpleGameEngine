@@ -17,4 +17,4 @@ class Shader
 };
 extern Shader shader;
 
-#include "Shader.tpl.hpp"
+#include "shader.tpl.hpp"

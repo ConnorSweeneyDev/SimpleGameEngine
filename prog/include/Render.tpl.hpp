@@ -7,13 +7,13 @@
 
 #include "glm/gtc/type_ptr.hpp"
 
-#include "Render.hpp"
-#include "SystemUtil.hpp"
-#include "Shader.hpp"
-#include "Texture.hpp"
-#include "Camera.hpp"
-#include "Item.hpp"
-#include "Player.hpp"
+#include "render.hpp"
+#include "system_util.hpp"
+#include "shader.hpp"
+#include "texture.hpp"
+#include "camera.hpp"
+#include "item.hpp"
+#include "player.hpp"
 
 template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
 {

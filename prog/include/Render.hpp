@@ -54,4 +54,4 @@ class Render
 };
 extern Render render;
 
-#include "Render.tpl.hpp"
+#include "render.tpl.hpp"

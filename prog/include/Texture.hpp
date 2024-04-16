@@ -11,4 +11,4 @@ class Texture
 };
 extern Texture texture;
 
-#include "Texture.tpl.hpp"
+#include "texture.tpl.hpp"

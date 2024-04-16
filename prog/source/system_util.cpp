@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include <glad/glad.h>
 
-#include "SystemUtil.hpp"
-#include "Window.hpp"
+#include "system_util.hpp"
+#include "window.hpp"
 
 SystemUtil system_util;
 

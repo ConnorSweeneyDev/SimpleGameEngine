@@ -1,10 +1,10 @@
-#include "SystemUtil.hpp"
-#include "TimeUtil.hpp"
-#include "Window.hpp"
-#include "Render.hpp"
-#include "Shader.hpp"
-#include "Game.hpp"
-#include "Input.hpp"
+#include "system_util.hpp"
+#include "time_util.hpp"
+#include "window.hpp"
+#include "render.hpp"
+#include "shader.hpp"
+#include "game.hpp"
+#include "input.hpp"
 
 void InitializeProgram()
 {

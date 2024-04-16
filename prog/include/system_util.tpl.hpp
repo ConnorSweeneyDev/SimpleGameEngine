@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "SystemUtil.hpp"
-#include "Player.hpp"
-#include "Item.hpp"
+#include "system_util.hpp"
+#include "player.hpp"
+#include "item.hpp"
 
 template <typename Type> std::shared_ptr<Type> SystemUtil::getObjectByName(const std::string& name) const
 {

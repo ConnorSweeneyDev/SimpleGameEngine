@@ -1,5 +1,5 @@
-#include "Player.hpp"
-#include "TimeUtil.hpp"
+#include "player.hpp"
+#include "time_util.hpp"
 
 PlayerPtrList players;
 

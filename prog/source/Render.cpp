@@ -1,7 +1,7 @@
-#include "Render.hpp"
-#include "Window.hpp"
-#include "Item.hpp"
-#include "Player.hpp"
+#include "render.hpp"
+#include "window.hpp"
+#include "item.hpp"
+#include "player.hpp"
 
 Render render;
 
