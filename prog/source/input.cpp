@@ -49,7 +49,7 @@ void Input::PollGame()
     // Placeholders for adding and removing objects dynamically
     if (keyState[SDL_SCANCODE_9])
     {
-        render.AddObject<Item>("Item 1", "prog/shader/vertexShader.glsl", "prog/shader/fragmentShader.glsl",
+        render.AddObject<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl",
                                { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
     auto item1 = system_util.getObjectByName<Item>("Item 1");
