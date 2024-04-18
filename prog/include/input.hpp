@@ -1,0 +1,15 @@
+#pragma once
+
+#include "SDL_events.h"
+
+class Input
+{
+    public:
+        void PollWindow();
+        void PollGame();
+
+    private:
+        SDL_Event event;
+        const Uint8* keyState = SDL_GetKeyboardState(nullptr);
+};
+extern Input input;
