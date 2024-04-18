@@ -1,5 +1,3 @@
-# g++ -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter -Iprog/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi prog/source/*.cpp external/source/glad.c -Lexternal/lib -lmingw32 -lSDL2main -lSDL2 -o 3DGameEngine.exe
-
 RM = rm -r
 
 CXX = g++
