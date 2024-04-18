@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "Shader.hpp"
-#include "Player.hpp"
-#include "Item.hpp"
+#include "shader.hpp"
+#include "player.hpp"
+#include "item.hpp"
 
 Shader shader;
 

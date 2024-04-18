@@ -1,7 +1,7 @@
-#include "Game.hpp"
-#include "Camera.hpp"
-#include "Player.hpp"
-#include "Item.hpp"
+#include "game.hpp"
+#include "camera.hpp"
+#include "player.hpp"
+#include "item.hpp"
 
 Game game;
 

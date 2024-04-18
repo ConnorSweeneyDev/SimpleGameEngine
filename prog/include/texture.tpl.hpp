@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include "stb_image.h"
 
-#include "Texture.hpp"
+#include "texture.hpp"
 
 template <typename Type> void Texture::SpecifyTexture(std::shared_ptr<Type>& object)
 {

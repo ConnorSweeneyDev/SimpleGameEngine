@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "Shader.hpp"
+#include "shader.hpp"
 
 template <typename Type> void Shader::setShaderProgram(std::shared_ptr<Type>& object, const std::string vertexShaderPath, const std::string fragmentShaderPath)
 {
