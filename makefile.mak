@@ -17,11 +17,11 @@ CPP_SRCS = $(wildcard prog/source/*.cpp)
 C_SRCS = external/source/glad.c
 OUTPUT = 3DGameEngine.exe
 
-OBJ_DIR = object
-$(shell if [ ! -d "$(OBJ_DIR)" ]; then mkdir -p $(OBJ_DIR); fi)
-OBJS = $(patsubst prog/source/%.cpp,$(OBJ_DIR)/%.o,$(CPP_SRCS)) $(patsubst external/source/%.c,$(OBJ_DIR)/%.o,$(C_SRCS))
-
+OBJECT_DIR = object
 FLAGS_DIR = compile_flags.txt
+
+$(shell if [ ! -d "$(OBJECT_DIR)" ]; then mkdir -p $(OBJECT_DIR); fi)
+OBJS = $(patsubst prog/source/%.cpp,$(OBJECT_DIR)/%.o,$(CPP_SRCS)) $(patsubst external/source/%.c,$(OBJECT_DIR)/%.o,$(C_SRCS))
 
 all: compile_flags $(OUTPUT)
 
@@ -35,11 +35,11 @@ compile_flags:
 
 $(OUTPUT): $(OBJS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(OUTPUT)
-$(OBJ_DIR)/%.o: prog/source/%.cpp
+$(OBJECT_DIR)/%.o: prog/source/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-$(OBJ_DIR)/%.o: external/source/%.c
+$(OBJECT_DIR)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@if [ -d "$(OBJ_DIR)" ]; then $(RM) $(OBJ_DIR); fi
+	@if [ -d "$(OBJECT_DIR)" ]; then $(RM) $(OBJECT_DIR); fi
 	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
