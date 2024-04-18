@@ -12,16 +12,16 @@ CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
 CFLAGS = -g -O0
 
 INCLUDES = -Iprog/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
-LIBS = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
-CPP_SRCS = $(wildcard prog/source/*.cpp)
-C_SRCS = external/source/glad.c
+LIBRARIES = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
+CPP_SOURCES = $(wildcard prog/source/*.cpp)
+C_SOURCES = external/source/glad.c
 OUTPUT = 3DGameEngine.exe
 
-OBJECT_DIR = object
+OBJECTS_DIR = object
 FLAGS_DIR = compile_flags.txt
 
-$(shell if [ ! -d "$(OBJECT_DIR)" ]; then mkdir -p $(OBJECT_DIR); fi)
-OBJS = $(patsubst prog/source/%.cpp,$(OBJECT_DIR)/%.o,$(CPP_SRCS)) $(patsubst external/source/%.c,$(OBJECT_DIR)/%.o,$(C_SRCS))
+$(shell if [ ! -d "$(OBJECTS_DIR)" ]; then mkdir -p $(OBJECTS_DIR); fi)
+OBJECTS = $(patsubst prog/source/%.cpp,$(OBJECTS_DIR)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIR)/%.o,$(C_SOURCES))
 
 all: compile_flags $(OUTPUT)
 
@@ -29,17 +29,17 @@ compile_flags:
 	@echo -n > $(FLAGS_DIR)
 	@for flag in $(CXXFLAGS); do echo $$flag; done >> $(FLAGS_DIR)
 	@for flag in $(INCLUDES); do echo $$flag; done >> $(FLAGS_DIR)
-	@for flag in $(LIBS); do echo $$flag; done >> $(FLAGS_DIR)
+	@for flag in $(LIBRARIES); do echo $$flag; done >> $(FLAGS_DIR)
 	@echo -o$(OUTPUT) >> $(FLAGS_DIR)
 	@echo "$(FLAGS_DIR) updated."
 
-$(OUTPUT): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(OUTPUT)
-$(OBJECT_DIR)/%.o: prog/source/%.cpp
+$(OUTPUT): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
+$(OBJECTS_DIR)/%.o: prog/source/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
-$(OBJECT_DIR)/%.o: external/source/%.c
+$(OBJECTS_DIR)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@if [ -d "$(OBJECT_DIR)" ]; then $(RM) $(OBJECT_DIR); fi
+	@if [ -d "$(OBJECTS_DIR)" ]; then $(RM) $(OBJECTS_DIR); fi
 	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
