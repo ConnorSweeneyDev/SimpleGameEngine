@@ -22,9 +22,9 @@ void Camera::move_backward(float speed) { position.z += speed * time_util.get_de
 
 void Camera::reset_position()
 {
-    position = initialPosition[0];
-    direction = initialPosition[1];
-    up = initialPosition[2];
+    position = initialOrientation[0];
+    direction = initialOrientation[1];
+    up = initialOrientation[2];
 }
 
 void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
@@ -33,9 +33,9 @@ void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, 
     this->nearClip = nearClip;
     this->farClip = farClip;
 
-    initialPosition.push_back(this->position = position);
-    initialPosition.push_back(this->direction = direction);
-    initialPosition.push_back(this->up = up);
+    initialOrientation.push_back(this->position = position);
+    initialOrientation.push_back(this->direction = direction);
+    initialOrientation.push_back(this->up = up);
 
     update_projection_matrix();
     update_view_matrix();

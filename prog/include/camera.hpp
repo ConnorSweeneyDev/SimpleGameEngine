@@ -35,6 +35,6 @@ class Camera
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
 
-        std::vector<glm::vec3> initialPosition;
+        std::vector<glm::vec3> initialOrientation;
 };
 extern Camera camera;
