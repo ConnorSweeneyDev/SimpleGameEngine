@@ -20,7 +20,7 @@ class Camera
         void move_forward(float speed);
         void move_backward(float speed);
 
-        void reset_position();
+        void reset_orientation();
 
         void init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 

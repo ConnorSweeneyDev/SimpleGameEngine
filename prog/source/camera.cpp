@@ -20,7 +20,7 @@ void Camera::move_down(float speed) { position.y -= speed * time_util.get_delta_
 void Camera::move_forward(float speed) { position.z -= speed * time_util.get_delta_time(); }
 void Camera::move_backward(float speed) { position.z += speed * time_util.get_delta_time(); }
 
-void Camera::reset_position()
+void Camera::reset_orientation()
 {
     position = initialOrientation[0];
     direction = initialOrientation[1];

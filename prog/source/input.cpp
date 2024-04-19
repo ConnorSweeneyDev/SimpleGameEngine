@@ -44,7 +44,7 @@ void Input::poll_game()
         camera.move_backward(0.001f);
 
     if (keyState[SDL_SCANCODE_SPACE])
-        camera.reset_position();
+        camera.reset_orientation();
 
     // Placeholders for adding and removing objects dynamically
     if (keyState[SDL_SCANCODE_9])
