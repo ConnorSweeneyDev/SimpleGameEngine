@@ -5,22 +5,22 @@ PlayerPtrList players;
 
 Player::Player(std::string name) { this->name = name; }
 
-const std::string& Player::getName() const { return name; }
+const std::string& Player::get_name() const { return name; }
 
-void Player::MoveRight() { translationX += speed * time_util.getDeltaTime(); }
-void Player::MoveLeft() { translationX -= speed * time_util.getDeltaTime(); }
-void Player::MoveUp() { translationY += speed * time_util.getDeltaTime(); }
-void Player::MoveDown() { translationY -= speed * time_util.getDeltaTime(); }
-void Player::MoveForward() { translationZ -= speed * time_util.getDeltaTime(); }
-void Player::MoveBackward() { translationZ += speed * time_util.getDeltaTime(); }
+void Player::move_right() { translationX += speed * time_util.get_delta_time(); }
+void Player::move_left() { translationX -= speed * time_util.get_delta_time(); }
+void Player::move_up() { translationY += speed * time_util.get_delta_time(); }
+void Player::move_down() { translationY -= speed * time_util.get_delta_time(); }
+void Player::move_forward() { translationZ -= speed * time_util.get_delta_time(); }
+void Player::move_backward() { translationZ += speed * time_util.get_delta_time(); }
 
-void Player::ResetStats()
+void Player::reset_stats()
 {
     health = initialStats[0];
     speed = initialStats[1];
 }
 
-void Player::ResetPosition()
+void Player::reset_position()
 {
     translationX = initialGeometry[0];
     translationY = initialGeometry[1];

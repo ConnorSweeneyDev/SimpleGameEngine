@@ -5,9 +5,9 @@
 class Texture
 {
     public:
-        template <typename Type> void SpecifyTexture(std::shared_ptr<Type>& object);
+        template <typename Type> void specify_texture(std::shared_ptr<Type>& object);
 
-        template <typename Type> void AssignTextureToObject(std::shared_ptr<Type>& object);
+        template <typename Type> void assign_texture_to_object(std::shared_ptr<Type>& object);
 };
 extern Texture texture;
 

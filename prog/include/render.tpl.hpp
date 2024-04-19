@@ -15,46 +15,46 @@
 #include "item.hpp"
 #include "player.hpp"
 
-template<typename Type> std::shared_ptr<Type> Render::SpecifyObject(const std::string name)
+template <typename Type> std::shared_ptr<Type> Render::specify_object(const std::string name)
 {
     auto object = std::make_shared<Type>(name);
-    SpecifyVertices(object);
+    specify_vertices(object);
     return object;
 }
 
-// AddObject only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
+// add_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
 // (Might not need to be a template function)
-template<typename Type> void Render::AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry)
+template <typename Type> void Render::add_object(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry)
 {
     if constexpr (std::is_same<Type, Item>::value)
     {
-        if (system_util.getObjectByName<Item>(name) == nullptr)
+        if (system_util.get_object_by_name<Item>(name) == nullptr)
         {
-            items.push_back(SpecifyObject<Item>(name));
-            vertexcleanup();
+            items.push_back(specify_object<Item>(name));
+            vertex_cleanup();
 
-            auto item = system_util.getObjectByName<Item>(name);
-            shader.setShaderProgram(item, vertexShader, fragmentShader);
+            auto item = system_util.get_object_by_name<Item>(name);
+            shader.set_shader_program(item, vertexShader, fragmentShader);
             item->init(defaultGeometry);
         }
     }
 }
 
-template<typename Type> void Render::RemoveObject(std::shared_ptr<Type>& object)
+template <typename Type> void Render::remove_object(std::shared_ptr<Type>& object)
 {
     if constexpr (std::is_same<Type, Player>::value)
     {
         players.erase(std::remove_if(players.begin(), players.end(), [&object](const PlayerPtr& player){ return player == object; }), players.end());
-        objectcleanup(object);
+        object_cleanup(object);
     }
     else if constexpr (std::is_same<Type, Item>::value)
     {
         items.erase(std::remove_if(items.begin(), items.end(), [&object](const ItemPtr& item){ return item == object; }), items.end());
-        objectcleanup(object);
+        object_cleanup(object);
     }
 }
 
-template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& object)
+template <typename Type> void Render::specify_vertices(std::shared_ptr<Type>& object)
 {
     glGenVertexArrays(1, &object->vertexArrayObject);
     glBindVertexArray(object->vertexArrayObject);
@@ -77,24 +77,24 @@ template<typename Type> void Render::SpecifyVertices(std::shared_ptr<Type>& obje
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    texture.AssignTextureToObject(object);
+    texture.assign_texture_to_object(object);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
     glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
 }
 
-template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
+template <typename Type> void Render::pre_draw(std::shared_ptr<Type>& object)
 {
     glUseProgram(object->shaderProgram);
 
-    camera.UpdateProjectionMatrix();
-    glm::mat4 projection = camera.getProjectionMatrix();
+    camera.update_projection_matrix();
+    glm::mat4 projection = camera.get_projection_matrix();
     GLint uProjectionMatrixLocation = glGetUniformLocation(object->shaderProgram, "uProjectionMatrix");
     if (uProjectionMatrixLocation <= -1)
         std::cout << "uProjectionMatrix could not be found!" << std::endl;
     glUniformMatrix4fv(uProjectionMatrixLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
-    camera.UpdateViewMatrix();
-    glm::mat4 view = camera.getViewMatrix();
+    camera.update_view_matrix();
+    glm::mat4 view = camera.get_view_matrix();
     GLint uViewMatrixLocation = glGetUniformLocation(object->shaderProgram, "uViewMatrix");
     if (uViewMatrixLocation <= -1)
         std::cout << "uViewMatrix could not be found!" << std::endl;
@@ -112,7 +112,7 @@ template<typename Type> void Render::PreDraw(std::shared_ptr<Type>& object)
     glUniformMatrix4fv(uModelMatrixLocation, 1, GL_FALSE, glm::value_ptr(model));
 }
 
-template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
+template <typename Type> void Render::draw(std::shared_ptr<Type>& object)
 {
     glBindVertexArray(object->vertexArrayObject);
     glUseProgram(object->shaderProgram);
@@ -120,7 +120,7 @@ template<typename Type> void Render::Draw(std::shared_ptr<Type>& object)
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
 }
 
-template<typename Type> void Render::objectcleanup(std::shared_ptr<Type>& object)
+template <typename Type> void Render::object_cleanup(std::shared_ptr<Type>& object)
 {
     glDeleteVertexArrays(1, &object->vertexArrayObject);
     glDeleteBuffers(1, &object->vertexBufferObject);

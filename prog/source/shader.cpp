@@ -7,7 +7,7 @@
 
 Shader shader;
 
-std::string Shader::LoadShaderAsString(const std::string& fileName)
+std::string Shader::load_shader_as_string(const std::string& fileName)
 {
     std::string result;
 
@@ -27,7 +27,7 @@ std::string Shader::LoadShaderAsString(const std::string& fileName)
     return result;
 }
 
-GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
+GLuint Shader::compile_shader(const GLuint type, const std::string& shaderSource)
 {
     GLuint shaderObject;
 
@@ -66,11 +66,11 @@ GLuint Shader::CompileShader(const GLuint type, const std::string& shaderSource)
     return shaderObject;
 }
 
-GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
+GLuint Shader::create_shader_program(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
 {
     GLuint programObject = glCreateProgram();
-    GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+    GLuint vertexShader = compile_shader(GL_VERTEX_SHADER, vertexShaderSource);
+    GLuint fragmentShader = compile_shader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
     glAttachShader(programObject, vertexShader);
     glAttachShader(programObject, fragmentShader);
@@ -80,11 +80,11 @@ GLuint Shader::CreateShaderProgram(const std::string& vertexShaderSource, const 
     return programObject;
 }
 
-void Shader::AssignShadersToObjects()
+void Shader::assign_shaders_to_objects()
 {
     for(auto& player : players)
-        shader.setShaderProgram(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+        shader.set_shader_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 
     for(auto& item : items)
-        shader.setShaderProgram(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+        shader.set_shader_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 }

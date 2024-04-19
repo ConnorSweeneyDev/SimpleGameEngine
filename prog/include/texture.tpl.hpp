@@ -7,7 +7,7 @@
 
 #include "texture.hpp"
 
-template <typename Type> void Texture::SpecifyTexture(std::shared_ptr<Type>& object)
+template <typename Type> void Texture::specify_texture(std::shared_ptr<Type>& object)
 {
     if (object->name == "Player 1")
         object->texturePath = "assets/redhood.png";
@@ -29,9 +29,9 @@ template <typename Type> void Texture::SpecifyTexture(std::shared_ptr<Type>& obj
         object->texturePath = "assets/empty.png";
 }
 
-template <typename Type> void Texture::AssignTextureToObject(std::shared_ptr<Type>& object)
+template <typename Type> void Texture::assign_texture_to_object(std::shared_ptr<Type>& object)
 {
-    SpecifyTexture(object);
+    specify_texture(object);
 
     stbi_set_flip_vertically_on_load(true);
     unsigned char* imageData = stbi_load(object->texturePath.c_str(), &object->textureWidth, &object->textureHeight, &object->textureChannels, 0);

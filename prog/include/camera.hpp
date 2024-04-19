@@ -7,19 +7,20 @@
 class Camera
 {
     public:
-        const glm::mat4& getProjectionMatrix() const;
-        const glm::mat4& getViewMatrix() const;
+        const glm::mat4& get_projection_matrix() const;
+        const glm::mat4& get_view_matrix() const;
         
-        void UpdateProjectionMatrix();
-        void UpdateViewMatrix();
+        void update_projection_matrix();
+        void update_view_matrix();
 
-        void MoveRight(float speed);
-        void MoveLeft(float speed);
-        void MoveUp(float speed);
-        void MoveDown(float speed);
-        void MoveForward(float speed);
-        void MoveBackward(float speed);
-        void ResetPosition();
+        void move_right(float speed);
+        void move_left(float speed);
+        void move_up(float speed);
+        void move_down(float speed);
+        void move_forward(float speed);
+        void move_backward(float speed);
+
+        void reset_position();
 
         void init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 

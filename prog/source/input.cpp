@@ -8,94 +8,94 @@
 
 Input input;
 
-void Input::PollWindow()
+void Input::poll_window()
 {
     while (SDL_PollEvent(&event) != 0)
     {
         switch (event.type)
         {
             case SDL_QUIT:
-                window.HandleQuit();
+                window.handle_quit();
                 break;
 
             case SDL_KEYDOWN:
                 if (keyState[SDL_SCANCODE_ESCAPE])
-                    window.HandleQuit();
+                    window.handle_quit();
                 if (keyState[SDL_SCANCODE_F11])
-                    window.HandleFullscreen();
+                    window.handle_fullscreen();
                 break;
         }
     }
 }
 
-void Input::PollGame()
+void Input::poll_game()
 {
     if (keyState[SDL_SCANCODE_H])
-        camera.MoveRight(0.001f);
+        camera.move_right(0.001f);
     if (keyState[SDL_SCANCODE_F])
-        camera.MoveLeft(0.001f);
+        camera.move_left(0.001f);
     if (keyState[SDL_SCANCODE_T])
-        camera.MoveUp(0.001f);
+        camera.move_up(0.001f);
     if (keyState[SDL_SCANCODE_G])
-        camera.MoveDown(0.001f);
+        camera.move_down(0.001f);
     if (keyState[SDL_SCANCODE_Y])
-        camera.MoveForward(0.001f);
+        camera.move_forward(0.001f);
     if (keyState[SDL_SCANCODE_R])
-        camera.MoveBackward(0.001f);
+        camera.move_backward(0.001f);
 
     if (keyState[SDL_SCANCODE_SPACE])
-        camera.ResetPosition();
+        camera.reset_position();
 
     // Placeholders for adding and removing objects dynamically
     if (keyState[SDL_SCANCODE_9])
     {
-        render.AddObject<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl",
+        render.add_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl",
                                { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
-    auto item1 = system_util.getObjectByName<Item>("Item 1");
+    auto item1 = system_util.get_object_by_name<Item>("Item 1");
     if (item1)
     {
         if (keyState[SDL_SCANCODE_0])
-            render.RemoveObject(item1);
+            render.remove_object(item1);
     }
 
-    auto player1 = system_util.getObjectByName<Player>("Player 1");
+    auto player1 = system_util.get_object_by_name<Player>("Player 1");
     if (player1)
     {
         if (keyState[SDL_SCANCODE_D])
-            player1->MoveRight();
+            player1->move_right();
         if (keyState[SDL_SCANCODE_A])
-            player1->MoveLeft();
+            player1->move_left();
         if (keyState[SDL_SCANCODE_W])
-            player1->MoveUp();
+            player1->move_up();
         if (keyState[SDL_SCANCODE_S])
-            player1->MoveDown();
+            player1->move_down();
         if (keyState[SDL_SCANCODE_E])
-            player1->MoveForward();
+            player1->move_forward();
         if (keyState[SDL_SCANCODE_Q])
-            player1->MoveBackward();    
+            player1->move_backward();    
 
         if (keyState[SDL_SCANCODE_SPACE])
-            player1->ResetPosition();
+            player1->reset_position();
     }
     
-    auto player2 = system_util.getObjectByName<Player>("Player 2");
+    auto player2 = system_util.get_object_by_name<Player>("Player 2");
     if (player2)
     {
         if (keyState[SDL_SCANCODE_L])
-            player2->MoveRight();
+            player2->move_right();
         if (keyState[SDL_SCANCODE_J])
-            player2->MoveLeft();
+            player2->move_left();
         if (keyState[SDL_SCANCODE_I])
-            player2->MoveUp();
+            player2->move_up();
         if (keyState[SDL_SCANCODE_K])
-            player2->MoveDown();
+            player2->move_down();
         if (keyState[SDL_SCANCODE_O])
-            player2->MoveForward();
+            player2->move_forward();
         if (keyState[SDL_SCANCODE_U])
-            player2->MoveBackward();
+            player2->move_backward();
 
         if (keyState[SDL_SCANCODE_SPACE])
-            player2->ResetPosition();
+            player2->reset_position();
     }
 }

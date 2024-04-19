@@ -4,16 +4,16 @@
 
 Window window;
 
-SDL_Window* Window::getWindow() const { return graphicsApplicationWindow; }
-const SDL_GLContext& Window::getGLContext() const { return GLContext; }
-const int& Window::getWidth() const { return width; }
-const int& Window::getHeight() const { return height; }
+SDL_Window* Window::get_window() const { return graphicsApplicationWindow; }
+const SDL_GLContext& Window::get_gl_context() const { return glContext; }
+const int& Window::get_width() const { return width; }
+const int& Window::get_height() const { return height; }
 
-const bool& Window::ShouldQuit() const { return quit; }
+const bool& Window::should_quit() const { return quit; }
 
-void Window::HandleQuit() { quit = true; }
+void Window::handle_quit() { quit = true; }
 
-void Window::HandleFullscreen()
+void Window::handle_fullscreen()
 {
     if (SDL_GetDesktopDisplayMode(0, &displayMode))
     {
@@ -50,8 +50,8 @@ void Window::init()
         exit(1);
     }
 
-    GLContext = SDL_GL_CreateContext(graphicsApplicationWindow);
-    if (GLContext == nullptr)
+    glContext = SDL_GL_CreateContext(graphicsApplicationWindow);
+    if (glContext == nullptr)
     {
         std::cout << "OpenGl context could not be created!" << std::endl;
         exit(1);
@@ -74,7 +74,7 @@ void Window::init()
 
 void Window::cleanup()
 {
-    SDL_GL_DeleteContext(GLContext);
+    SDL_GL_DeleteContext(glContext);
     SDL_DestroyWindow(graphicsApplicationWindow);
 
     graphicsApplicationWindow = nullptr;

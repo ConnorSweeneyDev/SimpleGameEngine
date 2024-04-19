@@ -12,17 +12,17 @@ class Player
     public:
         Player(std::string name);
         
-        const std::string& getName() const;
+        const std::string& get_name() const;
 
-        void MoveRight();
-        void MoveLeft();
-        void MoveUp();
-        void MoveDown();
-        void MoveForward();
-        void MoveBackward();
+        void move_right();
+        void move_left();
+        void move_up();
+        void move_down();
+        void move_forward();
+        void move_backward();
 
-        void ResetStats();
-        void ResetPosition();
+        void reset_stats();
+        void reset_position();
 
         void init(float health, float speed,
                   std::vector<float> defaultGeometry);

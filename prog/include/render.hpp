@@ -8,23 +8,23 @@
 class Render
 {
     public:
-        void SpecifyObjects();
-        template<typename Type> std::shared_ptr<Type> SpecifyObject(const std::string name);
+        void specify_objects();
+        template <typename Type> std::shared_ptr<Type> specify_object(const std::string name);
 
-        template<typename Type> void AddObject(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry);
-        template<typename Type> void RemoveObject(std::shared_ptr<Type>& object);
-        template<typename Type> void SpecifyVertices(std::shared_ptr<Type>& object);
-        template<typename Type> void PreDraw(std::shared_ptr<Type>& object); 
-        template<typename Type> void Draw(std::shared_ptr<Type>& object);
+        template <typename Type> void add_object(const std::string name, const std::string vertexShader, const std::string fragmentShader, const std::vector<float> defaultGeometry);
+        template <typename Type> void remove_object(std::shared_ptr<Type>& object);
+        template <typename Type> void specify_vertices(std::shared_ptr<Type>& object);
+        template <typename Type> void pre_draw(std::shared_ptr<Type>& object); 
+        template <typename Type> void draw(std::shared_ptr<Type>& object);
 
-        void PreDrawObjects();
-        void DrawObjects();
-        void CleanupObjects();
+        void pre_draw_objects();
+        void draw_objects();
+        void cleanup_objects();
 
-        void predrawinit();
-        template<typename Type> void objectcleanup(std::shared_ptr<Type>& object);
-        void vertexcleanup();
-        void drawcleanup();
+        void pre_draw_init();
+        template <typename Type> void object_cleanup(std::shared_ptr<Type>& object);
+        void vertex_cleanup();
+        void draw_cleanup();
     
     private:
         std::vector<GLfloat> defaultQuadVertices =

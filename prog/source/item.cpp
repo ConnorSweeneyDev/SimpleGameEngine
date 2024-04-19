@@ -4,7 +4,7 @@ ItemPtrList items;
 
 Item::Item(std::string name) { this->name = name; }
 
-const std::string& Item::getName() const { return name; }
+const std::string& Item::get_name() const { return name; }
 
 void Item::init(std::vector<float> defaultGeometry)
 {

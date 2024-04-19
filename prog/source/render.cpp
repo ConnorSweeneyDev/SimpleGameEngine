@@ -5,48 +5,48 @@
 
 Render render;
 
-void Render::SpecifyObjects()
+void Render::specify_objects()
 { 
-    players.push_back(SpecifyObject<Player>("Player 1"));
-    players.push_back(SpecifyObject<Player>("Player 2"));
+    players.push_back(specify_object<Player>("Player 1"));
+    players.push_back(specify_object<Player>("Player 2"));
 
-    items.push_back(SpecifyObject<Item>("Background 1"));
-    items.push_back(SpecifyObject<Item>("Background 2"));
-    items.push_back(SpecifyObject<Item>("Background 3"));
-    items.push_back(SpecifyObject<Item>("Shop"));
-    items.push_back(SpecifyObject<Item>("Floor"));
+    items.push_back(specify_object<Item>("Background 1"));
+    items.push_back(specify_object<Item>("Background 2"));
+    items.push_back(specify_object<Item>("Background 3"));
+    items.push_back(specify_object<Item>("Shop"));
+    items.push_back(specify_object<Item>("Floor"));
 }
 
-void Render::PreDrawObjects()
+void Render::pre_draw_objects()
 {
     for (auto& player : players)
-        PreDraw(player);
+        pre_draw(player);
 
     for (auto& item : items)
-        PreDraw(item);
+        pre_draw(item);
 }
 
-void Render::DrawObjects()
+void Render::draw_objects()
 {
     for (auto& player : players)
-        Draw(player);
+        draw(player);
 
     for (auto& item : items)
-        Draw(item);
+        draw(item);
 }
 
-void Render::CleanupObjects()
+void Render::cleanup_objects()
 {
     for (auto& player : players)
-        objectcleanup(player);
+        object_cleanup(player);
     players.clear();
 
     for (auto& item : items)
-        objectcleanup(item);
+        object_cleanup(item);
     items.clear();
 }
 
-void Render::predrawinit()
+void Render::pre_draw_init()
 {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
@@ -54,13 +54,13 @@ void Render::predrawinit()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glViewport(0, 0, window.getWidth(), window.getHeight());
+    glViewport(0, 0, window.get_width(), window.get_height());
 
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 }
 
-void Render::vertexcleanup()
+void Render::vertex_cleanup()
 {
     glBindVertexArray(0);
     glDisableVertexAttribArray(0);
@@ -71,7 +71,7 @@ void Render::vertexcleanup()
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Render::drawcleanup()
+void Render::draw_cleanup()
 {
     glBindVertexArray(0);
     glUseProgram(0);

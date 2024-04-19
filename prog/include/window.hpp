@@ -5,22 +5,21 @@
 class Window
 {
     public:
-        SDL_Window* getWindow() const;
-        const SDL_GLContext& getGLContext() const;
-        const int& getWidth() const;
-        const int& getHeight() const;
+        SDL_Window* get_window() const;
+        const SDL_GLContext& get_gl_context() const;
+        const int& get_width() const;
+        const int& get_height() const;
 
-        const bool& ShouldQuit() const;
-        void HandleQuit();
-        void HandleFullscreen();
+        const bool& should_quit() const;
+        void handle_quit();
+        void handle_fullscreen();
 
         void init();
         void cleanup();
 
     private:
-        SDL_Window* graphicsApplicationWindow = nullptr;
-        SDL_GLContext GLContext = nullptr;
-        SDL_DisplayMode displayMode;
+        bool quit = false;
+        bool fullscreen = false;
 
         const int startingPosX = 100;
         const int startingPosY = 100;
@@ -28,7 +27,9 @@ class Window
         const int startingHeight = 720;
         int width = startingWidth;
         int height = startingHeight;
-        bool quit = false;
-        bool fullscreen = false;
+
+        SDL_Window* graphicsApplicationWindow = nullptr;
+        SDL_GLContext glContext = nullptr;
+        SDL_DisplayMode displayMode;
 };
 extern Window window;

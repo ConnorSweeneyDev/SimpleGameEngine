@@ -3,10 +3,10 @@
 class Game
 {
     public:
-        void InitializeCamera();
-        void InitializePlayers();
-        void InitializeItems();
+        void initialize_camera();
+        void initialize_players();
+        void initialize_items();
 
-        void objectinit();
+        void object_init();
 };
 extern Game game;

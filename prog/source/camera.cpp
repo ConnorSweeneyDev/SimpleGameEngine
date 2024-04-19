@@ -6,21 +6,21 @@
 
 Camera camera;
 
-const glm::mat4& Camera::getProjectionMatrix() const { return projectionMatrix; }
-const glm::mat4& Camera::getViewMatrix() const { return viewMatrix; }
+const glm::mat4& Camera::get_projection_matrix() const { return projectionMatrix; }
+const glm::mat4& Camera::get_view_matrix() const { return viewMatrix; }
 
-void Camera::UpdateProjectionMatrix() { projectionMatrix = glm::perspective(glm::radians(fov), (float)window.getWidth() / (float)window.getHeight(), nearClip, farClip); }
-void Camera::UpdateViewMatrix() { viewMatrix = glm::lookAt(position, position + direction, up); }
+void Camera::update_projection_matrix() { projectionMatrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), nearClip, farClip); }
+void Camera::update_view_matrix() { viewMatrix = glm::lookAt(position, position + direction, up); }
 
 // Camera movement is on the global coordinate system
-void Camera::MoveRight(float speed) { position.x += speed * time_util.getDeltaTime(); }
-void Camera::MoveLeft(float speed) { position.x -= speed * time_util.getDeltaTime(); }
-void Camera::MoveUp(float speed) { position.y += speed * time_util.getDeltaTime(); }
-void Camera::MoveDown(float speed) { position.y -= speed * time_util.getDeltaTime(); }
-void Camera::MoveForward(float speed) { position.z -= speed * time_util.getDeltaTime(); }
-void Camera::MoveBackward(float speed) { position.z += speed * time_util.getDeltaTime(); }
+void Camera::move_right(float speed) { position.x += speed * time_util.get_delta_time(); }
+void Camera::move_left(float speed) { position.x -= speed * time_util.get_delta_time(); }
+void Camera::move_up(float speed) { position.y += speed * time_util.get_delta_time(); }
+void Camera::move_down(float speed) { position.y -= speed * time_util.get_delta_time(); }
+void Camera::move_forward(float speed) { position.z -= speed * time_util.get_delta_time(); }
+void Camera::move_backward(float speed) { position.z += speed * time_util.get_delta_time(); }
 
-void Camera::ResetPosition()
+void Camera::reset_position()
 {
     position = initialPosition[0];
     direction = initialPosition[1];
@@ -37,6 +37,6 @@ void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, 
     initialPosition.push_back(this->direction = direction);
     initialPosition.push_back(this->up = up);
 
-    UpdateProjectionMatrix();
-    UpdateViewMatrix();
+    update_projection_matrix();
+    update_view_matrix();
 }

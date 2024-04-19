@@ -2,11 +2,11 @@
 
 #include "time_util.hpp"
 
-Time time_util;
+TimeUtil time_util;
 
-const float& Time::getDeltaTime() const { return deltaTime; }
+const float& TimeUtil::get_delta_time() const { return deltaTime; }
 
-void Time::UpdateDeltaTime()
+void TimeUtil::update_delta_time()
 {
     currentTime = SDL_GetTicks64();
     deltaTime = (currentTime - lastTime);

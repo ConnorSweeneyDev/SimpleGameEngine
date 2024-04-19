@@ -12,7 +12,7 @@ class Item
     public:
         Item(std::string name);
         
-        const std::string& getName() const;
+        const std::string& get_name() const;
 
         void init(std::vector<float> defaultGeometry);
 

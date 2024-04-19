@@ -6,78 +6,78 @@
 #include "game.hpp"
 #include "input.hpp"
 
-void InitializeProgram()
+void initialize_program()
 {
-    system_util.sdlinit();
+    system_util.sdl_init();
     window.init();
-    system_util.gladinit();
+    system_util.glad_init();
 }
 
-void VertexSpecification()
+void vertex_specification()
 {
-    render.SpecifyObjects();
-    render.vertexcleanup();
+    render.specify_objects();
+    render.vertex_cleanup();
 }
 
-void CreateGraphicsPipeline()
+void create_graphics_pipeline()
 {
-    shader.AssignShadersToObjects();
+    shader.assign_shaders_to_objects();
 }
 
-void InitializeGameObjects()
+void initialize_game()
 {
-    game.objectinit();
+    game.object_init();
 }
 
-void Input()
+void read_input()
 {
-    input.PollWindow();
-    input.PollGame();
+    input.poll_window();
+    input.poll_game();
 }
 
-void PreDraw()
+void pre_draw()
 {
-    render.predrawinit();
-    render.PreDrawObjects();
+    render.pre_draw_init();
+    render.pre_draw_objects();
 }
 
-void Draw()
+void draw()
 {
-    render.DrawObjects();
-    render.drawcleanup();
+    render.draw_objects();
+    render.draw_cleanup();
 }
 
-void MainLoop()
+void game_loop()
 {
-    while (!window.ShouldQuit())
+    while (!window.should_quit())
     {
-        time_util.UpdateDeltaTime();
-        Input();
+        time_util.update_delta_time();
+        read_input();
 
-        PreDraw();
-        Draw();
+        pre_draw();
+        draw();
 
-        SDL_GL_SwapWindow(window.getWindow());
+        SDL_GL_SwapWindow(window.get_window());
     }
 }
 
-void CleanUpProgram()
+void cleanup_program()
 {
-    render.CleanupObjects();
-    system_util.sdlcleanup();
+    render.cleanup_objects();
+    system_util.sdl_cleanup();
 }
 
 int main(int argc, char* argv[])
 {
-    InitializeProgram();
+    initialize_program();
 
-    VertexSpecification();
-    CreateGraphicsPipeline();
-    InitializeGameObjects();
+    vertex_specification();
+    create_graphics_pipeline();
+    initialize_game();
 
-    MainLoop();
+    game_loop();
 
-    CleanUpProgram();
+    cleanup_program();
 
     return 0;
 }
