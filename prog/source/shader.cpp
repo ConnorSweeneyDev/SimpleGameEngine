@@ -7,16 +7,16 @@
 
 Shader shader;
 
-std::string Shader::load_shader_as_string(const std::string& fileName)
+std::string Shader::load_shader_as_string(const std::string& file_name)
 {
     std::string result;
 
-    std::ifstream file(fileName.c_str());
+    std::ifstream file(file_name.c_str());
     std::string line;
 
     if (!file.is_open())
     {
-        std::cout << "Unable to open file: " << fileName << "!" << std::endl;
+        std::cout << "Unable to open file: " << file_name << "!" << std::endl;
         return result;
     }
 
@@ -27,57 +27,57 @@ std::string Shader::load_shader_as_string(const std::string& fileName)
     return result;
 }
 
-GLuint Shader::compile_shader(const GLuint type, const std::string& shaderSource)
+GLuint Shader::compile_shader(const GLuint type, const std::string& shader_source)
 {
-    GLuint shaderObject;
+    GLuint shader_object;
 
     if (type == GL_VERTEX_SHADER)
-        shaderObject = glCreateShader(GL_VERTEX_SHADER);
+        shader_object = glCreateShader(GL_VERTEX_SHADER);
     else if (type == GL_FRAGMENT_SHADER)
-        shaderObject = glCreateShader(GL_FRAGMENT_SHADER); 
+        shader_object = glCreateShader(GL_FRAGMENT_SHADER); 
     else
-        shaderObject = glCreateShader(GL_NONE);
+        shader_object = glCreateShader(GL_NONE);
     
-    const char* source = shaderSource.c_str();
-    glShaderSource(shaderObject, 1, &source, nullptr);
-    glCompileShader(shaderObject);
+    const char* source = shader_source.c_str();
+    glShaderSource(shader_object, 1, &source, nullptr);
+    glCompileShader(shader_object);
 
     int result;
-    glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &result);
+    glGetShaderiv(shader_object, GL_COMPILE_STATUS, &result);
 
     if (result == GL_FALSE)
     {
         int length;
-        glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &length);
-        char* errorMessages = new char[length];
-        glGetShaderInfoLog(shaderObject, length, &length, errorMessages);
+        glGetShaderiv(shader_object, GL_INFO_LOG_LENGTH, &length);
+        char* error_messages = new char[length];
+        glGetShaderInfoLog(shader_object, length, &length, error_messages);
 
         if (type == GL_VERTEX_SHADER)
-            std::cout << "GL_VERTEX_SHADER compilation failed!\n" << errorMessages;
+            std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
         else if (type == GL_FRAGMENT_SHADER)
-            std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << errorMessages;
+            std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
 
-        delete[] errorMessages;
-        glDeleteShader(shaderObject);
+        delete[] error_messages;
+        glDeleteShader(shader_object);
 
         return 0;
     }
 
-    return shaderObject;
+    return shader_object;
 }
 
-GLuint Shader::create_shader_program(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
+GLuint Shader::create_shader_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source)
 {
-    GLuint programObject = glCreateProgram();
-    GLuint vertexShader = compile_shader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint fragmentShader = compile_shader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+    GLuint program_object = glCreateProgram();
+    GLuint vertex_shader = compile_shader(GL_VERTEX_SHADER, vertex_shader_source);
+    GLuint fragment_shader = compile_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
 
-    glAttachShader(programObject, vertexShader);
-    glAttachShader(programObject, fragmentShader);
-    glLinkProgram(programObject);
-    glValidateProgram(programObject);
+    glAttachShader(program_object, vertex_shader);
+    glAttachShader(program_object, fragment_shader);
+    glLinkProgram(program_object);
+    glValidateProgram(program_object);
 
-    return programObject;
+    return program_object;
 }
 
 void Shader::assign_shaders_to_objects()

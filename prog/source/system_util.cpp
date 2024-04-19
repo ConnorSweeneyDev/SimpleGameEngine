@@ -6,9 +6,9 @@
 #include "system_util.hpp"
 #include "window.hpp"
 
-SystemUtil system_util;
+System_util system_util;
 
-void SystemUtil::get_open_gl_version_info() const
+void System_util::display_open_gl_version_info() const
 {
     std::cout << "GL Vendor: " << glGetString(GL_VENDOR) << std::endl
               << "GL Renderer: " << glGetString(GL_RENDERER) << std::endl
@@ -16,17 +16,18 @@ void SystemUtil::get_open_gl_version_info() const
               << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
 }
 
-void SystemUtil::clear_all_gl_errors() { while (glGetError() != GL_NO_ERROR); }
-void SystemUtil::check_gl_error_status(const char* functionName, const char* fileName, int line) const
+void System_util::clear_all_gl_errors() { while (glGetError() != GL_NO_ERROR); }
+
+void System_util::check_gl_error_status(const char* function_name, const char* file_name, int line) const
 {
     while (GLenum error = glGetError())
     {
-        std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << functionName << " | File: " << fileName << " | Line: " << line << std::endl;
+        std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << function_name << " | File: " << file_name << " | Line: " << line << std::endl;
         return;
     }
 }
 
-void SystemUtil::sdl_init()
+void System_util::sdl_init()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -45,7 +46,7 @@ void SystemUtil::sdl_init()
     SDL_GL_SetSwapInterval(0); // Vsync
 }
 
-void SystemUtil::glad_init()
+void System_util::glad_init()
 {
     if (!gladLoadGLLoader(SDL_GL_GetProcAddress))
     {
@@ -54,7 +55,7 @@ void SystemUtil::glad_init()
     }
 }
 
-void SystemUtil::sdl_cleanup()
+void System_util::sdl_cleanup()
 {
     window.cleanup();
     SDL_Quit();

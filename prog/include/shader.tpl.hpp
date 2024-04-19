@@ -4,9 +4,9 @@
 
 #include "shader.hpp"
 
-template <typename Type> void Shader::set_shader_program(std::shared_ptr<Type>& object, const std::string vertexShaderPath, const std::string fragmentShaderPath)
+template <typename Type> void Shader::set_shader_program(std::shared_ptr<Type>& object, const std::string vertex_shader_path, const std::string fragment_shader_path)
 {
-    std::string vertexShaderSource = shader.load_shader_as_string(vertexShaderPath);
-    std::string fragmentShaderSource = shader.load_shader_as_string(fragmentShaderPath);
-    object->shaderProgram = shader.create_shader_program(vertexShaderSource, fragmentShaderSource);
+    std::string vertex_shader_source = shader.load_shader_as_string(vertex_shader_path);
+    std::string fragment_shader_source = shader.load_shader_as_string(fragment_shader_path);
+    object->shader_program = shader.create_shader_program(vertex_shader_source, fragment_shader_source);
 }

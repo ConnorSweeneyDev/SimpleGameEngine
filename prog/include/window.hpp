@@ -21,15 +21,15 @@ class Window
         bool quit = false;
         bool fullscreen = false;
 
-        const int startingPosX = 100;
-        const int startingPosY = 100;
-        const int startingWidth = 1280;
-        const int startingHeight = 720;
-        int width = startingWidth;
-        int height = startingHeight;
+        const int starting_pos_x = 100;
+        const int starting_pos_y = 100;
+        const int starting_width = 1280;
+        const int starting_height = 720;
+        int width = starting_width;
+        int height = starting_height;
 
-        SDL_Window* graphicsApplicationWindow = nullptr;
-        SDL_GLContext glContext = nullptr;
-        SDL_DisplayMode displayMode;
+        SDL_Window* application_window = nullptr;
+        SDL_GLContext gl_context = nullptr;
+        SDL_DisplayMode display_mode;
 };
 extern Window window;

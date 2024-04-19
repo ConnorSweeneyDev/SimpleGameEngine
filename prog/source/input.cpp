@@ -19,9 +19,9 @@ void Input::poll_window()
                 break;
 
             case SDL_KEYDOWN:
-                if (keyState[SDL_SCANCODE_ESCAPE])
+                if (key_state[SDL_SCANCODE_ESCAPE])
                     window.handle_quit();
-                if (keyState[SDL_SCANCODE_F11])
+                if (key_state[SDL_SCANCODE_F11])
                     window.handle_fullscreen();
                 break;
         }
@@ -30,72 +30,72 @@ void Input::poll_window()
 
 void Input::poll_game()
 {
-    if (keyState[SDL_SCANCODE_H])
+    if (key_state[SDL_SCANCODE_H])
         camera.move_right(0.001f);
-    if (keyState[SDL_SCANCODE_F])
+    if (key_state[SDL_SCANCODE_F])
         camera.move_left(0.001f);
-    if (keyState[SDL_SCANCODE_T])
+    if (key_state[SDL_SCANCODE_T])
         camera.move_up(0.001f);
-    if (keyState[SDL_SCANCODE_G])
+    if (key_state[SDL_SCANCODE_G])
         camera.move_down(0.001f);
-    if (keyState[SDL_SCANCODE_Y])
+    if (key_state[SDL_SCANCODE_Y])
         camera.move_forward(0.001f);
-    if (keyState[SDL_SCANCODE_R])
+    if (key_state[SDL_SCANCODE_R])
         camera.move_backward(0.001f);
 
-    if (keyState[SDL_SCANCODE_SPACE])
+    if (key_state[SDL_SCANCODE_SPACE])
         camera.reset_orientation();
 
     // Placeholders for adding and removing objects dynamically
-    if (keyState[SDL_SCANCODE_9])
+    if (key_state[SDL_SCANCODE_9])
     {
         render.add_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl",
                                { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
-    auto item1 = system_util.get_object_by_name<Item>("Item 1");
-    if (item1)
+    auto item_1 = system_util.get_object_by_name<Item>("Item 1");
+    if (item_1)
     {
-        if (keyState[SDL_SCANCODE_0])
-            render.remove_object(item1);
+        if (key_state[SDL_SCANCODE_0])
+            render.remove_object(item_1);
     }
 
-    auto player1 = system_util.get_object_by_name<Player>("Player 1");
-    if (player1)
+    auto player_1 = system_util.get_object_by_name<Player>("Player 1");
+    if (player_1)
     {
-        if (keyState[SDL_SCANCODE_D])
-            player1->move_right();
-        if (keyState[SDL_SCANCODE_A])
-            player1->move_left();
-        if (keyState[SDL_SCANCODE_W])
-            player1->move_up();
-        if (keyState[SDL_SCANCODE_S])
-            player1->move_down();
-        if (keyState[SDL_SCANCODE_E])
-            player1->move_forward();
-        if (keyState[SDL_SCANCODE_Q])
-            player1->move_backward();    
+        if (key_state[SDL_SCANCODE_D])
+            player_1->move_right();
+        if (key_state[SDL_SCANCODE_A])
+            player_1->move_left();
+        if (key_state[SDL_SCANCODE_W])
+            player_1->move_up();
+        if (key_state[SDL_SCANCODE_S])
+            player_1->move_down();
+        if (key_state[SDL_SCANCODE_E])
+            player_1->move_forward();
+        if (key_state[SDL_SCANCODE_Q])
+            player_1->move_backward();    
 
-        if (keyState[SDL_SCANCODE_SPACE])
-            player1->reset_position();
+        if (key_state[SDL_SCANCODE_SPACE])
+            player_1->reset_position();
     }
     
-    auto player2 = system_util.get_object_by_name<Player>("Player 2");
-    if (player2)
+    auto player_2 = system_util.get_object_by_name<Player>("Player 2");
+    if (player_2)
     {
-        if (keyState[SDL_SCANCODE_L])
-            player2->move_right();
-        if (keyState[SDL_SCANCODE_J])
-            player2->move_left();
-        if (keyState[SDL_SCANCODE_I])
-            player2->move_up();
-        if (keyState[SDL_SCANCODE_K])
-            player2->move_down();
-        if (keyState[SDL_SCANCODE_O])
-            player2->move_forward();
-        if (keyState[SDL_SCANCODE_U])
-            player2->move_backward();
+        if (key_state[SDL_SCANCODE_L])
+            player_2->move_right();
+        if (key_state[SDL_SCANCODE_J])
+            player_2->move_left();
+        if (key_state[SDL_SCANCODE_I])
+            player_2->move_up();
+        if (key_state[SDL_SCANCODE_K])
+            player_2->move_down();
+        if (key_state[SDL_SCANCODE_O])
+            player_2->move_forward();
+        if (key_state[SDL_SCANCODE_U])
+            player_2->move_backward();
 
-        if (keyState[SDL_SCANCODE_SPACE])
-            player2->reset_position();
+        if (key_state[SDL_SCANCODE_SPACE])
+            player_2->reset_position();
     }
 }

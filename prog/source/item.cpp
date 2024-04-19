@@ -1,20 +1,20 @@
 #include "item.hpp"
 
-ItemPtrList items;
+Item_ptr_list items;
 
 Item::Item(std::string name) { this->name = name; }
 
 const std::string& Item::get_name() const { return name; }
 
-void Item::init(std::vector<float> defaultGeometry)
+void Item::init(std::vector<float> default_geometry)
 {
-    this->translationX = defaultGeometry[0];
-    this->translationY = defaultGeometry[1];
-    this->translationZ = defaultGeometry[2];
-    this->rotationX = defaultGeometry[3];
-    this->rotationY = defaultGeometry[4];
-    this->rotationZ = defaultGeometry[5];
-    this->scaleX = defaultGeometry[6];
-    this->scaleY = defaultGeometry[7];
-    this->scaleZ = defaultGeometry[8];
+    this->translation_x = default_geometry[0];
+    this->translation_y = default_geometry[1];
+    this->translation_z = default_geometry[2];
+    this->rotation_x = default_geometry[3];
+    this->rotation_y = default_geometry[4];
+    this->rotation_z = default_geometry[5];
+    this->scale_x = default_geometry[6];
+    this->scale_y = default_geometry[7];
+    this->scale_z = default_geometry[8];
 }

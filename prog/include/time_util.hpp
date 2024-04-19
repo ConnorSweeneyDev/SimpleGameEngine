@@ -1,6 +1,6 @@
 #pragma once
 
-class TimeUtil
+class Time_util
 {
     public:
         const float& get_delta_time() const;
@@ -8,8 +8,8 @@ class TimeUtil
         void update_delta_time();
 
     private:
-        float deltaTime = 0.0f;
-        float currentTime = 0.0f;
-        float lastTime = 0.0f;
+        float delta_time = 0.0f;
+        float current_time = 0.0f;
+        float last_time = 0.0f;
 };
-extern TimeUtil time_util;
+extern Time_util time_util;

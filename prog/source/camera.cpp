@@ -6,11 +6,11 @@
 
 Camera camera;
 
-const glm::mat4& Camera::get_projection_matrix() const { return projectionMatrix; }
-const glm::mat4& Camera::get_view_matrix() const { return viewMatrix; }
+const glm::mat4& Camera::get_projection_matrix() const { return projection_matrix; }
+const glm::mat4& Camera::get_view_matrix() const { return view_matrix; }
 
-void Camera::update_projection_matrix() { projectionMatrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), nearClip, farClip); }
-void Camera::update_view_matrix() { viewMatrix = glm::lookAt(position, position + direction, up); }
+void Camera::update_projection_matrix() { projection_matrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), near_clip, far_clip); }
+void Camera::update_view_matrix() { view_matrix = glm::lookAt(position, position + direction, up); }
 
 // Camera movement is on the global coordinate system
 void Camera::move_right(float speed) { position.x += speed * time_util.get_delta_time(); }
@@ -22,20 +22,20 @@ void Camera::move_backward(float speed) { position.z += speed * time_util.get_de
 
 void Camera::reset_orientation()
 {
-    position = initialOrientation[0];
-    direction = initialOrientation[1];
-    up = initialOrientation[2];
+    position = initial_orientation[0];
+    direction = initial_orientation[1];
+    up = initial_orientation[2];
 }
 
-void Camera::init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
+void Camera::init(float fov, float near_clip, float far_clip, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
 {
     this->fov = fov;
-    this->nearClip = nearClip;
-    this->farClip = farClip;
+    this->near_clip = near_clip;
+    this->far_clip = far_clip;
 
-    initialOrientation.push_back(this->position = position);
-    initialOrientation.push_back(this->direction = direction);
-    initialOrientation.push_back(this->up = up);
+    initial_orientation.push_back(this->position = position);
+    initial_orientation.push_back(this->direction = direction);
+    initial_orientation.push_back(this->up = up);
 
     update_projection_matrix();
     update_view_matrix();

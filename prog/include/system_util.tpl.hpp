@@ -6,7 +6,7 @@
 #include "player.hpp"
 #include "item.hpp"
 
-template <typename Type> std::shared_ptr<Type> SystemUtil::get_object_by_name(const std::string& name) const
+template <typename Type> std::shared_ptr<Type> System_util::get_object_by_name(const std::string& name) const
 {
     if constexpr (std::is_same<Type, Player>::value)
     {

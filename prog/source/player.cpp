@@ -1,51 +1,51 @@
 #include "player.hpp"
 #include "time_util.hpp"
 
-PlayerPtrList players;
+Player_ptr_list players;
 
 Player::Player(std::string name) { this->name = name; }
 
 const std::string& Player::get_name() const { return name; }
 
-void Player::move_right() { translationX += speed * time_util.get_delta_time(); }
-void Player::move_left() { translationX -= speed * time_util.get_delta_time(); }
-void Player::move_up() { translationY += speed * time_util.get_delta_time(); }
-void Player::move_down() { translationY -= speed * time_util.get_delta_time(); }
-void Player::move_forward() { translationZ -= speed * time_util.get_delta_time(); }
-void Player::move_backward() { translationZ += speed * time_util.get_delta_time(); }
+void Player::move_right() { translation_x += speed * time_util.get_delta_time(); }
+void Player::move_left() { translation_x -= speed * time_util.get_delta_time(); }
+void Player::move_up() { translation_y += speed * time_util.get_delta_time(); }
+void Player::move_down() { translation_y -= speed * time_util.get_delta_time(); }
+void Player::move_forward() { translation_z -= speed * time_util.get_delta_time(); }
+void Player::move_backward() { translation_z += speed * time_util.get_delta_time(); }
 
 void Player::reset_stats()
 {
-    health = initialStats[0];
-    speed = initialStats[1];
+    health = initial_stats[0];
+    speed = initial_stats[1];
 }
 
 void Player::reset_position()
 {
-    translationX = initialGeometry[0];
-    translationY = initialGeometry[1];
-    translationZ = initialGeometry[2];
-    rotationX = initialGeometry[3];
-    rotationY = initialGeometry[4];
-    rotationZ = initialGeometry[5];
-    scaleX = initialGeometry[6];
-    scaleY = initialGeometry[7];
-    scaleZ = initialGeometry[8];
+    translation_x = initial_geometry[0];
+    translation_y = initial_geometry[1];
+    translation_z = initial_geometry[2];
+    rotation_x = initial_geometry[3];
+    rotation_y = initial_geometry[4];
+    rotation_z = initial_geometry[5];
+    scale_x = initial_geometry[6];
+    scale_y = initial_geometry[7];
+    scale_z = initial_geometry[8];
 }
 
 void Player::init(float health, float speed,
-                  std::vector<float> defaultGeometry)
+                  std::vector<float> default_geometry)
 {
-    initialStats.push_back(this->health = health);
-    initialStats.push_back(this->speed = speed);
+    initial_stats.push_back(this->health = health);
+    initial_stats.push_back(this->speed = speed);
 
-    initialGeometry.push_back(this->translationX = defaultGeometry[0]);
-    initialGeometry.push_back(this->translationY = defaultGeometry[1]);
-    initialGeometry.push_back(this->translationZ = defaultGeometry[2]);
-    initialGeometry.push_back(this->rotationX = defaultGeometry[3]);
-    initialGeometry.push_back(this->rotationY = defaultGeometry[4]);
-    initialGeometry.push_back(this->rotationZ = defaultGeometry[5]);
-    initialGeometry.push_back(this->scaleX = defaultGeometry[6]);
-    initialGeometry.push_back(this->scaleY = defaultGeometry[7]);
-    initialGeometry.push_back(this->scaleZ = defaultGeometry[8]);
+    initial_geometry.push_back(this->translation_x = default_geometry[0]);
+    initial_geometry.push_back(this->translation_y = default_geometry[1]);
+    initial_geometry.push_back(this->translation_z = default_geometry[2]);
+    initial_geometry.push_back(this->rotation_x = default_geometry[3]);
+    initial_geometry.push_back(this->rotation_y = default_geometry[4]);
+    initial_geometry.push_back(this->rotation_z = default_geometry[5]);
+    initial_geometry.push_back(this->scale_x = default_geometry[6]);
+    initial_geometry.push_back(this->scale_y = default_geometry[7]);
+    initial_geometry.push_back(this->scale_z = default_geometry[8]);
 }

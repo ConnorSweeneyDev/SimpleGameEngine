@@ -4,8 +4,8 @@
 
 Window window;
 
-SDL_Window* Window::get_window() const { return graphicsApplicationWindow; }
-const SDL_GLContext& Window::get_gl_context() const { return glContext; }
+SDL_Window* Window::get_window() const { return application_window; }
+const SDL_GLContext& Window::get_gl_context() const { return gl_context; }
 const int& Window::get_width() const { return width; }
 const int& Window::get_height() const { return height; }
 
@@ -15,7 +15,7 @@ void Window::handle_quit() { quit = true; }
 
 void Window::handle_fullscreen()
 {
-    if (SDL_GetDesktopDisplayMode(0, &displayMode))
+    if (SDL_GetDesktopDisplayMode(0, &display_mode))
     {
         std::cout << "Couldn't get desktop display mode!" << std::endl;
         return;
@@ -23,59 +23,59 @@ void Window::handle_fullscreen()
 
     if (fullscreen)
     {
-        SDL_SetWindowSize(graphicsApplicationWindow, startingWidth, startingHeight);
-        SDL_SetWindowPosition(graphicsApplicationWindow, startingPosX, startingPosY);
+        SDL_SetWindowSize(application_window, starting_width, starting_height);
+        SDL_SetWindowPosition(application_window, starting_pos_x, starting_pos_y);
 
-        width = startingWidth;
-        height = startingHeight;
+        width = starting_width;
+        height = starting_height;
         fullscreen = false;
         return;
     }
 
-    SDL_SetWindowSize(graphicsApplicationWindow, displayMode.w, displayMode.h);
-    SDL_SetWindowPosition(graphicsApplicationWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    SDL_SetWindowSize(application_window, display_mode.w, display_mode.h);
+    SDL_SetWindowPosition(application_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-    width = displayMode.w;
-    height = displayMode.h;
+    width = display_mode.w;
+    height = display_mode.h;
     fullscreen = true;
 }
 
 void Window::init()
 { 
-    graphicsApplicationWindow = SDL_CreateWindow("3D Game Engine", startingPosX, startingPosY, startingWidth, startingHeight, SDL_WINDOW_OPENGL);
+    application_window = SDL_CreateWindow("3D Game Engine", starting_pos_x, starting_pos_y, starting_width, starting_height, SDL_WINDOW_OPENGL);
 
-    if (graphicsApplicationWindow == nullptr)
+    if (application_window == nullptr)
     {
         std::cout << "SDL_Window could not be created!" << std::endl;
         exit(1);
     }
 
-    glContext = SDL_GL_CreateContext(graphicsApplicationWindow);
-    if (glContext == nullptr)
+    gl_context = SDL_GL_CreateContext(application_window);
+    if (gl_context == nullptr)
     {
         std::cout << "OpenGl context could not be created!" << std::endl;
         exit(1);
     }
 
-    if (SDL_GetDesktopDisplayMode(0, &displayMode))
+    if (SDL_GetDesktopDisplayMode(0, &display_mode))
     {
         std::cout << "Couldn't get desktop display mode!" << std::endl;
         exit(1);
     }
     if (fullscreen)
     {
-        SDL_SetWindowSize(graphicsApplicationWindow, displayMode.w, displayMode.h);
-        SDL_SetWindowPosition(graphicsApplicationWindow, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        SDL_SetWindowSize(application_window, display_mode.w, display_mode.h);
+        SDL_SetWindowPosition(application_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-        width = displayMode.w;
-        height = displayMode.h;
+        width = display_mode.w;
+        height = display_mode.h;
     }
 }
 
 void Window::cleanup()
 {
-    SDL_GL_DeleteContext(glContext);
-    SDL_DestroyWindow(graphicsApplicationWindow);
+    SDL_GL_DeleteContext(gl_context);
+    SDL_DestroyWindow(application_window);
 
-    graphicsApplicationWindow = nullptr;
+    application_window = nullptr;
 }

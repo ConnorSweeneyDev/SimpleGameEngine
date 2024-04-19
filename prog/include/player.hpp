@@ -25,36 +25,36 @@ class Player
         void reset_position();
 
         void init(float health, float speed,
-                  std::vector<float> defaultGeometry);
+                  std::vector<float> default_geometry);
 
     private:
         std::string name;
 
         float health;
         float speed;
-        std::vector<float> initialStats;
+        std::vector<float> initial_stats;
 
-        GLuint vertexArrayObject;
-        GLuint vertexBufferObject;
-        GLuint indexBufferObject;
-        GLuint shaderProgram;
-        GLuint textureObject;
-        std::string texturePath;
-        int textureWidth;
-        int textureHeight;
-        int textureChannels;
+        GLuint vertex_array_object;
+        GLuint vertex_buffer_object;
+        GLuint index_buffer_object;
+        GLuint shader_program;
+        GLuint texture_object;
+        std::string texture_path;
+        int texture_width;
+        int texture_height;
+        int texture_channels;
 
-        float translationX;
-        float translationY;
-        float translationZ;
-        float rotationX;
-        float rotationY;
-        float rotationZ;
-        float scaleX;
-        float scaleY;
-        float scaleZ;
-        std::vector<float> initialGeometry;
+        float translation_x;
+        float translation_y;
+        float translation_z;
+        float rotation_x;
+        float rotation_y;
+        float rotation_z;
+        float scale_x;
+        float scale_y;
+        float scale_z;
+        std::vector<float> initial_geometry;
 };
-using PlayerPtr = std::shared_ptr<Player>;
-using PlayerPtrList = std::vector<PlayerPtr>;
-extern PlayerPtrList players;
+using Player_ptr = std::shared_ptr<Player>;
+using Player_ptr_list = std::vector<Player_ptr>;
+extern Player_ptr_list players;

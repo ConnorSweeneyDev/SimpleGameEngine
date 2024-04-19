@@ -22,19 +22,19 @@ class Camera
 
         void reset_orientation();
 
-        void init(float fov, float nearClip, float farClip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+        void init(float fov, float near_clip, float far_clip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
     private:
         float fov;
-        float nearClip;
-        float farClip;
+        float near_clip;
+        float far_clip;
         glm::vec3 position;
         glm::vec3 direction;
         glm::vec3 up;
 
-        glm::mat4 projectionMatrix;
-        glm::mat4 viewMatrix;
+        glm::mat4 projection_matrix;
+        glm::mat4 view_matrix;
 
-        std::vector<glm::vec3> initialOrientation;
+        std::vector<glm::vec3> initial_orientation;
 };
 extern Camera camera;
