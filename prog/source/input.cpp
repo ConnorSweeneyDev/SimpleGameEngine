@@ -46,11 +46,10 @@ void Input::poll_game()
     if (key_state[SDL_SCANCODE_SPACE])
         camera.reset_orientation();
 
-    // Placeholders for adding and removing objects dynamically
+    // Tests for adding and removing objects dynamically
     if (key_state[SDL_SCANCODE_9])
     {
-        render.add_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl",
-                               { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
+        render.add_dynamic_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
     }
     auto item_1 = system_util.get_object_by_name<Item>("Item 1");
     if (item_1)
@@ -98,4 +97,10 @@ void Input::poll_game()
         if (key_state[SDL_SCANCODE_SPACE])
             player_2->reset_position();
     }
+}
+
+void Input::read()
+{
+    poll_window();
+    poll_game();
 }

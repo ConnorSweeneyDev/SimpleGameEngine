@@ -7,6 +7,15 @@
 
 Shader shader;
 
+void Shader::specify_shaders()
+{
+    for(auto& player : players)
+        set_shader_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+
+    for(auto& item : items)
+        set_shader_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+}
+
 std::string Shader::load_shader_as_string(const std::string& file_name)
 {
     std::string result;
@@ -78,13 +87,4 @@ GLuint Shader::create_shader_program(const std::string& vertex_shader_source, co
     glValidateProgram(program_object);
 
     return program_object;
-}
-
-void Shader::assign_shaders_to_objects()
-{
-    for(auto& player : players)
-        shader.set_shader_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
-
-    for(auto& item : items)
-        shader.set_shader_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 }

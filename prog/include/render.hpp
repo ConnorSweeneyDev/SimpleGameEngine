@@ -10,8 +10,10 @@ class Render
     public:
         void specify_objects();
         template <typename Type> std::shared_ptr<Type> specify_object(const std::string name);
+        template <typename Type> std::shared_ptr<Type> specify_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry);
 
-        template <typename Type> void add_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry);
+        template <typename Type> void add_object(const std::string name);
+        template <typename Type> void add_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry);
         template <typename Type> void remove_object(std::shared_ptr<Type>& object);
         template <typename Type> void specify_vertices(std::shared_ptr<Type>& object);
         template <typename Type> void pre_draw(std::shared_ptr<Type>& object); 

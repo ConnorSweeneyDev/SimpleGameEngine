@@ -6,27 +6,36 @@
 #include "stb_image.h"
 
 #include "texture.hpp"
+#include "player.hpp"
+#include "item.hpp"
 
 template <typename Type> void Texture::specify_texture(std::shared_ptr<Type>& object)
 {
-    if (object->name == "Player 1")
-        object->texture_path = "assets/redhood.png";
-    else if (object->name == "Player 2")
-        object->texture_path = "assets/redhood.png";
+    if constexpr (std::is_same<Type, Player>::value)
+    {
+        if (object->name == "Player 1")
+            object->texture_path = "assets/redhood.png";
+        else if (object->name == "Player 2")
+            object->texture_path = "assets/redhood.png";
+        else
+            object->texture_path = "assets/empty.png";
+    }
 
-    else if (object->name == "Background 1")
-        object->texture_path = "assets/background1.png";
-    else if (object->name == "Background 2")
-        object->texture_path = "assets/background2.png";
-    else if (object->name == "Background 3")
-        object->texture_path = "assets/background3.png";
-    else if (object->name == "Shop")
-        object->texture_path = "assets/shop.png";
-    else if (object->name == "Floor")
-        object->texture_path = "assets/leaffloor.png";
-
-    else
-        object->texture_path = "assets/empty.png";
+    else if constexpr (std::is_same<Type, Item>::value)
+    {
+        if (object->name == "Background 1")
+            object->texture_path = "assets/background1.png";
+        else if (object->name == "Background 2")
+            object->texture_path = "assets/background2.png";
+        else if (object->name == "Background 3")
+            object->texture_path = "assets/background3.png";
+        else if (object->name == "Shop")
+            object->texture_path = "assets/shop.png";
+        else if (object->name == "Floor")
+            object->texture_path = "assets/leaffloor.png";
+        else
+            object->texture_path = "assets/empty.png";
+    }
 }
 
 template <typename Type> void Texture::assign_texture_to_object(std::shared_ptr<Type>& object)

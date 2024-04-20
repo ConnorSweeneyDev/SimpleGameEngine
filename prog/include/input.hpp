@@ -8,6 +8,8 @@ class Input
         void poll_window();
         void poll_game();
 
+        void read();
+
     private:
         SDL_Event event;
         const Uint8* key_state = SDL_GetKeyboardState(nullptr);

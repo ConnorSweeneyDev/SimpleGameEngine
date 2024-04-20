@@ -7,14 +7,14 @@ Render render;
 
 void Render::specify_objects()
 { 
-    players.push_back(specify_object<Player>("Player 1"));
-    players.push_back(specify_object<Player>("Player 2"));
+    add_object<Player>("Player 1");
+    add_object<Player>("Player 2");
 
-    items.push_back(specify_object<Item>("Background 1"));
-    items.push_back(specify_object<Item>("Background 2"));
-    items.push_back(specify_object<Item>("Background 3"));
-    items.push_back(specify_object<Item>("Shop"));
-    items.push_back(specify_object<Item>("Floor"));
+    add_object<Item>("Background 1");
+    add_object<Item>("Background 2");
+    add_object<Item>("Background 3");
+    add_object<Item>("Shop");
+    add_object<Item>("Floor");
 }
 
 void Render::pre_draw_objects()

@@ -13,26 +13,24 @@ void initialize_program()
     system_util.glad_init();
 }
 
-void vertex_specification()
+void create_objects()
 {
     render.specify_objects();
-    render.vertex_cleanup();
 }
 
 void create_graphics_pipeline()
 {
-    shader.assign_shaders_to_objects();
+    shader.specify_shaders();
 }
 
 void initialize_game()
 {
-    game.object_init();
+    game.specify_game_state();
 }
 
 void read_input()
 {
-    input.poll_window();
-    input.poll_game();
+    input.read();
 }
 
 void pre_draw()
@@ -43,8 +41,12 @@ void pre_draw()
 
 void draw()
 {
+    pre_draw();
+
     render.draw_objects();
     render.draw_cleanup();
+
+    SDL_GL_SwapWindow(window.get_window());
 }
 
 void game_loop()
@@ -52,12 +54,10 @@ void game_loop()
     while (!window.should_quit())
     {
         time_util.update_delta_time();
+
         read_input();
 
-        pre_draw();
         draw();
-
-        SDL_GL_SwapWindow(window.get_window());
     }
 }
 
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 {
     initialize_program();
 
-    vertex_specification();
+    create_objects();
     create_graphics_pipeline();
     initialize_game();
 

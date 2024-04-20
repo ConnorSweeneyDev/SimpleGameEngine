@@ -19,7 +19,7 @@ void Game::initialize_players()
                          { -1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
         else if (player->get_name() == "Player 2")
             player->init(200, 0.0005,
-                         { 1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f });
+                         { 1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f }); // Facing the other way, should change to 1.0f and flip the texture instead
         else
             player->init(100, 0.001,
                          { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
@@ -45,7 +45,7 @@ void Game::initialize_items()
     }
 }
 
-void Game::object_init()
+void Game::specify_game_state()
 {
     initialize_camera();
     initialize_players();

@@ -7,6 +7,6 @@ class Game
         void initialize_players();
         void initialize_items();
 
-        void object_init();
+        void specify_game_state();
 };
 extern Game game;

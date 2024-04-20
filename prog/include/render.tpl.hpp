@@ -19,23 +19,41 @@ template <typename Type> std::shared_ptr<Type> Render::specify_object(const std:
 {
     auto object = std::make_shared<Type>(name);
     specify_vertices(object);
+
+    vertex_cleanup();
     return object;
 }
 
-// add_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
+template <typename Type> std::shared_ptr<Type> Render::specify_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+{
+    auto object = specify_object<Type>(name);
+    specify_vertices(object);
+    shader.set_shader_program(object, vertex_shader, fragment_shader);
+    object->init(default_geometry);
+
+    vertex_cleanup();
+    return object;
+}
+
+template <typename Type> void Render::add_object(const std::string name)
+{
+    if constexpr (std::is_same<Type, Player>::value)
+        players.push_back(specify_object<Player>(name));
+
+    else if constexpr (std::is_same<Type, Item>::value)
+        items.push_back(specify_object<Item>(name));
+}
+
+// add_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
 // (Might not need to be a template function)
-template <typename Type> void Render::add_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+template <typename Type> void Render::add_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
 {
     if constexpr (std::is_same<Type, Item>::value)
     {
         if (system_util.get_object_by_name<Item>(name) == nullptr)
         {
-            items.push_back(specify_object<Item>(name));
+            items.push_back(specify_dynamic_object<Item>(name, vertex_shader, fragment_shader, default_geometry));
             vertex_cleanup();
-
-            auto item = system_util.get_object_by_name<Item>(name);
-            shader.set_shader_program(item, vertex_shader, fragment_shader);
-            item->init(default_geometry);
         }
     }
 }
