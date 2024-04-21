@@ -3,15 +3,15 @@
 #include "player.hpp"
 #include "item.hpp"
 
-namespace cse
+namespace csg
 {
     Game game;
 
     void Game::specify_scene()
     {
-        camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        cse::camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-        for(auto& player : players)
+        for(auto& player : cse::players)
         {
             if (player->get_name() == "Player 1")
                 player->init(50, 0.002,
@@ -24,7 +24,7 @@ namespace cse
                              { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
         }
 
-        for(auto& item : items)
+        for(auto& item : cse::items)
         {
             if (item->get_name() == "Background 1")
                 item->init({ 0.0f, 1.5f, -0.45f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
