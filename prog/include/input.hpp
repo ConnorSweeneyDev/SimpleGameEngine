@@ -2,16 +2,19 @@
 
 #include "SDL_events.h"
 
-class Input
+namespace cse
 {
-    public:
-        void poll_window();
-        void poll_game();
+    class Input
+    {
+        public:
+            void poll_window();
+            void poll_game();
 
-        void read();
+            void read();
 
-    private:
-        SDL_Event event;
-        const Uint8* key_state = SDL_GetKeyboardState(nullptr);
-};
-extern Input input;
+        private:
+            SDL_Event event;
+            const Uint8* key_state = SDL_GetKeyboardState(nullptr);
+    };
+    extern Input input;
+}

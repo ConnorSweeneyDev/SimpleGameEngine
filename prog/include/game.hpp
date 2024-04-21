@@ -1,8 +1,11 @@
 #pragma once
 
-class Game
+namespace cse
 {
-    public:
-        void specify_scene();
-};
-extern Game game;
+    class Game
+    {
+        public:
+            void specify_scene();
+    };
+    extern Game game;
+}

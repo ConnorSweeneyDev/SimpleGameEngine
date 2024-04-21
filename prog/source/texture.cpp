@@ -2,4 +2,7 @@
 
 #include "texture.hpp"
 
-Texture texture;
+namespace cse
+{
+    Texture texture;
+}

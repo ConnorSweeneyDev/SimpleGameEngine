@@ -3,86 +3,89 @@
 #include "item.hpp"
 #include "player.hpp"
 
-Render render;
-
-void Render::specify_objects()
-{ 
-    add_object<Player>("Player 1");
-    add_object<Player>("Player 2");
-
-    add_object<Item>("Background 1");
-    add_object<Item>("Background 2");
-    add_object<Item>("Background 3");
-    add_object<Item>("Shop");
-    add_object<Item>("Floor");
-}
-
-void Render::pre_draw_objects()
+namespace cse
 {
-    for (auto& player : players)
-        pre_draw(player);
+    Render render;
 
-    for (auto& item : items)
-        pre_draw(item);
-}
+    void Render::specify_objects()
+    { 
+        add_object<Player>("Player 1");
+        add_object<Player>("Player 2");
 
-void Render::draw_objects()
-{
-    for (auto& player : players)
-        draw(player);
+        add_object<Item>("Background 1");
+        add_object<Item>("Background 2");
+        add_object<Item>("Background 3");
+        add_object<Item>("Shop");
+        add_object<Item>("Floor");
+    }
 
-    for (auto& item : items)
-        draw(item);
-}
+    void Render::pre_draw_objects()
+    {
+        for (auto& player : players)
+            pre_draw(player);
 
-void Render::cleanup_objects()
-{
-    for (auto& player : players)
-        object_cleanup(player);
-    players.clear();
+        for (auto& item : items)
+            pre_draw(item);
+    }
 
-    for (auto& item : items)
-        object_cleanup(item);
-    items.clear();
-}
+    void Render::draw_objects()
+    {
+        for (auto& player : players)
+            draw(player);
 
-void Render::draw()
-{
-    pre_draw_init();
-    pre_draw_objects();
-    draw_objects();
-    draw_cleanup();
-    SDL_GL_SwapWindow(window.get_window());
-}
+        for (auto& item : items)
+            draw(item);
+    }
 
-void Render::pre_draw_init()
-{
-    glEnable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    glEnable(GL_MULTISAMPLE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    void Render::cleanup_objects()
+    {
+        for (auto& player : players)
+            object_cleanup(player);
+        players.clear();
 
-    glViewport(0, 0, window.get_width(), window.get_height());
+        for (auto& item : items)
+            object_cleanup(item);
+        items.clear();
+    }
 
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-}
+    void Render::draw()
+    {
+        pre_draw_init();
+        pre_draw_objects();
+        draw_objects();
+        draw_cleanup();
+        SDL_GL_SwapWindow(window.get_window());
+    }
 
-void Render::vertex_cleanup()
-{
-    glBindVertexArray(0);
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(2);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
+    void Render::pre_draw_init()
+    {
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        glEnable(GL_MULTISAMPLE);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-void Render::draw_cleanup()
-{
-    glBindVertexArray(0);
-    glUseProgram(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+        glViewport(0, 0, window.get_width(), window.get_height());
+
+        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    }
+
+    void Render::vertex_cleanup()
+    {
+        glBindVertexArray(0);
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    void Render::draw_cleanup()
+    {
+        glBindVertexArray(0);
+        glUseProgram(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }

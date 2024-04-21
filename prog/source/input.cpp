@@ -1,106 +1,109 @@
 #include "input.hpp"
 #include "window.hpp"
 #include "render.hpp"
-#include "system_util.hpp"
+#include "platform.hpp"
 #include "camera.hpp"
 #include "player.hpp"
 #include "item.hpp"
 
-Input input;
-
-void Input::poll_window()
+namespace cse
 {
-    while (SDL_PollEvent(&event) != 0)
-    {
-        switch (event.type)
-        {
-            case SDL_QUIT:
-                window.handle_quit();
-                break;
+    Input input;
 
-            case SDL_KEYDOWN:
-                if (key_state[SDL_SCANCODE_ESCAPE])
+    void Input::poll_window()
+    {
+        while (SDL_PollEvent(&event) != 0)
+        {
+            switch (event.type)
+            {
+                case SDL_QUIT:
                     window.handle_quit();
-                if (key_state[SDL_SCANCODE_F11])
-                    window.handle_fullscreen();
-                break;
+                    break;
+
+                case SDL_KEYDOWN:
+                    if (key_state[SDL_SCANCODE_ESCAPE])
+                        window.handle_quit();
+                    if (key_state[SDL_SCANCODE_F11])
+                        window.handle_fullscreen();
+                    break;
+            }
         }
     }
-}
 
-void Input::poll_game()
-{
-    if (key_state[SDL_SCANCODE_H])
-        camera.move_right(0.001f);
-    if (key_state[SDL_SCANCODE_F])
-        camera.move_left(0.001f);
-    if (key_state[SDL_SCANCODE_T])
-        camera.move_up(0.001f);
-    if (key_state[SDL_SCANCODE_G])
-        camera.move_down(0.001f);
-    if (key_state[SDL_SCANCODE_Y])
-        camera.move_forward(0.001f);
-    if (key_state[SDL_SCANCODE_R])
-        camera.move_backward(0.001f);
-
-    if (key_state[SDL_SCANCODE_SPACE])
-        camera.reset_orientation();
-
-    // Tests for adding and removing objects dynamically
-    if (key_state[SDL_SCANCODE_9])
+    void Input::poll_game()
     {
-        render.add_dynamic_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
-    }
-    auto item_1 = system_util.get_object_by_name<Item>("Item 1");
-    if (item_1)
-    {
-        if (key_state[SDL_SCANCODE_0])
-            render.remove_object(item_1);
-    }
-
-    auto player_1 = system_util.get_object_by_name<Player>("Player 1");
-    if (player_1)
-    {
-        if (key_state[SDL_SCANCODE_D])
-            player_1->move_right();
-        if (key_state[SDL_SCANCODE_A])
-            player_1->move_left();
-        if (key_state[SDL_SCANCODE_W])
-            player_1->move_up();
-        if (key_state[SDL_SCANCODE_S])
-            player_1->move_down();
-        if (key_state[SDL_SCANCODE_E])
-            player_1->move_forward();
-        if (key_state[SDL_SCANCODE_Q])
-            player_1->move_backward();    
+        if (key_state[SDL_SCANCODE_H])
+            camera.move_right(0.001f);
+        if (key_state[SDL_SCANCODE_F])
+            camera.move_left(0.001f);
+        if (key_state[SDL_SCANCODE_T])
+            camera.move_up(0.001f);
+        if (key_state[SDL_SCANCODE_G])
+            camera.move_down(0.001f);
+        if (key_state[SDL_SCANCODE_Y])
+            camera.move_forward(0.001f);
+        if (key_state[SDL_SCANCODE_R])
+            camera.move_backward(0.001f);
 
         if (key_state[SDL_SCANCODE_SPACE])
-            player_1->reset_position();
+            camera.reset_orientation();
+
+        // Tests for adding and removing objects dynamically
+        if (key_state[SDL_SCANCODE_9])
+        {
+            render.add_dynamic_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
+        }
+        auto item_1 = render.get_object_by_name<Item>("Item 1");
+        if (item_1)
+        {
+            if (key_state[SDL_SCANCODE_0])
+                render.remove_object(item_1);
+        }
+
+        auto player_1 = render.get_object_by_name<Player>("Player 1");
+        if (player_1)
+        {
+            if (key_state[SDL_SCANCODE_D])
+                player_1->move_right();
+            if (key_state[SDL_SCANCODE_A])
+                player_1->move_left();
+            if (key_state[SDL_SCANCODE_W])
+                player_1->move_up();
+            if (key_state[SDL_SCANCODE_S])
+                player_1->move_down();
+            if (key_state[SDL_SCANCODE_E])
+                player_1->move_forward();
+            if (key_state[SDL_SCANCODE_Q])
+                player_1->move_backward();    
+
+            if (key_state[SDL_SCANCODE_SPACE])
+                player_1->reset_position();
+        }
+        
+        auto player_2 = render.get_object_by_name<Player>("Player 2");
+        if (player_2)
+        {
+            if (key_state[SDL_SCANCODE_L])
+                player_2->move_right();
+            if (key_state[SDL_SCANCODE_J])
+                player_2->move_left();
+            if (key_state[SDL_SCANCODE_I])
+                player_2->move_up();
+            if (key_state[SDL_SCANCODE_K])
+                player_2->move_down();
+            if (key_state[SDL_SCANCODE_O])
+                player_2->move_forward();
+            if (key_state[SDL_SCANCODE_U])
+                player_2->move_backward();
+
+            if (key_state[SDL_SCANCODE_SPACE])
+                player_2->reset_position();
+        }
     }
-    
-    auto player_2 = system_util.get_object_by_name<Player>("Player 2");
-    if (player_2)
+
+    void Input::read()
     {
-        if (key_state[SDL_SCANCODE_L])
-            player_2->move_right();
-        if (key_state[SDL_SCANCODE_J])
-            player_2->move_left();
-        if (key_state[SDL_SCANCODE_I])
-            player_2->move_up();
-        if (key_state[SDL_SCANCODE_K])
-            player_2->move_down();
-        if (key_state[SDL_SCANCODE_O])
-            player_2->move_forward();
-        if (key_state[SDL_SCANCODE_U])
-            player_2->move_backward();
-
-        if (key_state[SDL_SCANCODE_SPACE])
-            player_2->reset_position();
+        poll_window();
+        poll_game();
     }
-}
-
-void Input::read()
-{
-    poll_window();
-    poll_game();
 }

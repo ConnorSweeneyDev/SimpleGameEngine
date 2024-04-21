@@ -1,5 +1,5 @@
-#include "system_util.hpp"
-#include "time_util.hpp"
+#include "platform.hpp"
+#include "time.hpp"
 #include "window.hpp"
 #include "render.hpp"
 #include "shader.hpp"
@@ -8,33 +8,33 @@
 
 void platform_init()
 {
-    system_util.sdl_init();
-    window.init();
-    system_util.glad_init();
+    cse::platform.sdl_init();
+    cse::window.init();
+    cse::platform.glad_init();
 }
 
 void game_specification()
 {
-    render.specify_objects(); //<-- Go here to add objects
-  //texture.specify_textures(); <-- Go here to set textures
-    shader.specify_shaders(); //<-- Go here to set shaders
-    game.specify_scene();     //<-- Go here to setup the scene
+    cse::render.specify_objects(); //<-- Go here to add objects
+  //cse::texture.specify_textures(); <-- Go here to set textures
+    cse::shader.specify_shaders(); //<-- Go here to set shaders
+    cse::game.specify_scene();     //<-- Go here to setup the scene
 }
 
 void game_loop()
 {
-    while (!window.should_quit())
+    while (!cse::window.should_quit())
     {
-        time_util.update_delta_time();
-        input.read();
-        render.draw();
+        cse::time.update_delta_time();
+        cse::input.read();
+        cse::render.draw();
     }
 }
 
 void program_cleanup()
 {
-    render.cleanup_objects();
-    window.cleanup();
+    cse::render.cleanup_objects();
+    cse::window.cleanup();
 }
 
 int main(int argc, char* argv[])
