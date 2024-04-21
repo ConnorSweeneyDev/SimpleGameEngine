@@ -9,10 +9,10 @@ Shader shader;
 
 void Shader::specify_shaders()
 {
-    for(auto& player : players)
+    for (auto& player : players)
         set_shader_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 
-    for(auto& item : items)
+    for (auto& item : items)
         set_shader_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 }
 
