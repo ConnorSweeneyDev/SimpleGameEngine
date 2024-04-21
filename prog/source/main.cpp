@@ -6,46 +6,26 @@
 #include "game.hpp"
 #include "input.hpp"
 
-void initialize_program()
+void platform_init()
 {
     system_util.sdl_init();
     window.init();
     system_util.glad_init();
 }
 
-void create_objects()
+void game_init()
 {
     render.specify_objects();
-}
-
-void create_graphics_pipeline()
-{
     shader.specify_shaders();
-}
-
-void initialize_game()
-{
     game.specify_game_state();
-}
-
-void read_input()
-{
-    input.read();
-}
-
-void pre_draw()
-{
-    render.pre_draw_init();
-    render.pre_draw_objects();
 }
 
 void draw()
 {
-    pre_draw();
-
+    render.pre_draw_init();
+    render.pre_draw_objects();
     render.draw_objects();
     render.draw_cleanup();
-
     SDL_GL_SwapWindow(window.get_window());
 }
 
@@ -54,30 +34,25 @@ void game_loop()
     while (!window.should_quit())
     {
         time_util.update_delta_time();
-
-        read_input();
+        input.read();
 
         draw();
     }
 }
 
-void cleanup_program()
+void program_cleanup()
 {
     render.cleanup_objects();
-    system_util.sdl_cleanup();
+    window.cleanup();
 }
 
 int main(int argc, char* argv[])
 {
-    initialize_program();
-
-    create_objects();
-    create_graphics_pipeline();
-    initialize_game();
+    platform_init();
+    game_init();
 
     game_loop();
 
-    cleanup_program();
-
+    program_cleanup();
     return 0;
 }

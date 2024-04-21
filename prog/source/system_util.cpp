@@ -54,9 +54,3 @@ void System_util::glad_init()
         exit(1);
     }
 }
-
-void System_util::sdl_cleanup()
-{
-    window.cleanup();
-    SDL_Quit();
-}

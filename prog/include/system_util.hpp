@@ -15,7 +15,6 @@ class System_util
 
         void sdl_init();
         void glad_init();
-        void sdl_cleanup();
 };
 extern System_util system_util;
 

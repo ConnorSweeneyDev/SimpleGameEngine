@@ -78,4 +78,6 @@ void Window::cleanup()
     SDL_DestroyWindow(application_window);
 
     application_window = nullptr;
+
+    SDL_Quit();
 }
