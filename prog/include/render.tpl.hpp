@@ -24,15 +24,20 @@ template <typename Type> std::shared_ptr<Type> Render::specify_object(const std:
     return object;
 }
 
+// specify_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
+// (Might not need to be a template function)
 template <typename Type> std::shared_ptr<Type> Render::specify_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
 {
-    auto object = specify_object<Type>(name);
-    specify_vertices(object);
-    shader.set_shader_program(object, vertex_shader, fragment_shader);
-    object->init(default_geometry);
+    if constexpr (std::is_same<Type, Item>::value)
+    {
+        auto object = specify_object<Type>(name);
+        specify_vertices(object);
+        shader.set_shader_program(object, vertex_shader, fragment_shader);
+        object->init(default_geometry);
 
-    vertex_cleanup();
-    return object;
+        vertex_cleanup();
+        return object;
+    }
 }
 
 template <typename Type> void Render::add_object(const std::string name)
