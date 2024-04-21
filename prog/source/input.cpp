@@ -9,7 +9,7 @@ namespace cse
 {
     Input input;
 
-    void Input::poll_window()
+    void Input::read()
     {
         while (SDL_PollEvent(&event) != 0)
         {
@@ -27,10 +27,7 @@ namespace cse
                     break;
             }
         }
-    }
 
-    void Input::poll_game()
-    {
         if (key_state[SDL_SCANCODE_H])
             camera.move_right(0.001f);
         if (key_state[SDL_SCANCODE_F])
@@ -98,11 +95,5 @@ namespace cse
             if (key_state[SDL_SCANCODE_SPACE])
                 player_2->reset_position();
         }
-    }
-
-    void Input::read()
-    {
-        poll_window();
-        poll_game();
     }
 }

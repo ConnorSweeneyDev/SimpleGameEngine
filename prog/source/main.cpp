@@ -15,11 +15,10 @@ void platform_init()
 
 void game_specification()
 {
-    cse::render.specify_objects(); //<-- Go here to add objects
-  //cse::texture.specify_textures(); <-- Go here to set textures
-    cse::shader.specify_shaders(); //<-- Go here to set shaders
-
-    csg::game.specify_scene();     //<-- Go here to setup the scene
+    cse::render.specify_objects();     //<-- Go here to add objects
+  //cse::texture.specify_textures();   //<-- Go here to set textures
+    cse::shader.specify_shaders();     //<-- Go here to set shaders
+    csg::game.specify_scene();         //<-- Go here to setup the scene
 }
 
 void game_loop()
@@ -27,7 +26,7 @@ void game_loop()
     while (!cse::window.should_quit())
     {
         cse::time.update_delta_time();
-        cse::input.read();
+        cse::input.read();             //<-- Go here to set keybindings
         cse::render.draw();
     }
 }

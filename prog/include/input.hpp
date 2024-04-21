@@ -7,9 +7,6 @@ namespace cse
     class Input
     {
         public:
-            void poll_window();
-            void poll_game();
-
             void read();
 
         private:
