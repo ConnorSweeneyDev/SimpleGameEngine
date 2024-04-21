@@ -9,7 +9,7 @@
 #include "player.hpp"
 #include "item.hpp"
 
-template <typename Type> void Texture::specify_texture(std::shared_ptr<Type>& object)
+template <typename Type> void Texture::specify_textures(std::shared_ptr<Type>& object)
 {
     if constexpr (std::is_same<Type, Player>::value)
     {
@@ -38,9 +38,9 @@ template <typename Type> void Texture::specify_texture(std::shared_ptr<Type>& ob
     }
 }
 
-template <typename Type> void Texture::assign_texture_to_object(std::shared_ptr<Type>& object)
+template <typename Type> void Texture::load_textures(std::shared_ptr<Type>& object)
 {
-    specify_texture(object);
+    specify_textures(object);
 
     stbi_set_flip_vertically_on_load(true);
     unsigned char* image_data = stbi_load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);

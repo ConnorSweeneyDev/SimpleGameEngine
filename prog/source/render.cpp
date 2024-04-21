@@ -46,6 +46,15 @@ void Render::cleanup_objects()
     items.clear();
 }
 
+void Render::draw()
+{
+    pre_draw_init();
+    pre_draw_objects();
+    draw_objects();
+    draw_cleanup();
+    SDL_GL_SwapWindow(window.get_window());
+}
+
 void Render::pre_draw_init()
 {
     glEnable(GL_DEPTH_TEST);

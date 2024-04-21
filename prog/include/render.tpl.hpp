@@ -100,7 +100,7 @@ template <typename Type> void Render::specify_vertices(std::shared_ptr<Type>& ob
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    texture.assign_texture_to_object(object);
+    texture.load_textures(object);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
     glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
 }

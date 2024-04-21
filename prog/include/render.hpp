@@ -22,6 +22,7 @@ class Render
         void pre_draw_objects();
         void draw_objects();
         void cleanup_objects();
+        void draw();
 
         void pre_draw_init();
         template <typename Type> void object_cleanup(std::shared_ptr<Type>& object);

@@ -13,20 +13,12 @@ void platform_init()
     system_util.glad_init();
 }
 
-void game_init()
+void game_specification()
 {
-    render.specify_objects();
-    shader.specify_shaders();
-    game.specify_game_state();
-}
-
-void draw()
-{
-    render.pre_draw_init();
-    render.pre_draw_objects();
-    render.draw_objects();
-    render.draw_cleanup();
-    SDL_GL_SwapWindow(window.get_window());
+    render.specify_objects(); //<-- Go here to add objects
+  //texture.specify_textures(); <-- Go here to set textures
+    shader.specify_shaders(); //<-- Go here to set shaders
+    game.specify_scene();     //<-- Go here to setup the scene
 }
 
 void game_loop()
@@ -35,8 +27,7 @@ void game_loop()
     {
         time_util.update_delta_time();
         input.read();
-
-        draw();
+        render.draw();
     }
 }
 
@@ -49,8 +40,8 @@ void program_cleanup()
 int main(int argc, char* argv[])
 {
     platform_init();
-    game_init();
 
+    game_specification();
     game_loop();
 
     program_cleanup();
