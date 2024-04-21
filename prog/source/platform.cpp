@@ -4,7 +4,6 @@
 #include <glad/glad.h>
 
 #include "platform.hpp"
-#include "window.hpp"
 
 namespace cse
 {

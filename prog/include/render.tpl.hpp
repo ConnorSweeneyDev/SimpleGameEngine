@@ -8,7 +8,6 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "render.hpp"
-#include "platform.hpp"
 #include "shader.hpp"
 #include "texture.hpp"
 #include "camera.hpp"

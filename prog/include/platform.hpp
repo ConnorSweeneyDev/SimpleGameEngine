@@ -1,7 +1,4 @@
 #pragma once
-
-#include <memory>
-
 #define check_gl(function) cse::platform.clear_all_gl_errors(); function; cse::platform.check_gl_error_status(#function, __FILE__, __LINE__);
 
 namespace cse

@@ -1,7 +1,6 @@
 #include "input.hpp"
 #include "window.hpp"
 #include "render.hpp"
-#include "platform.hpp"
 #include "camera.hpp"
 #include "player.hpp"
 #include "item.hpp"
