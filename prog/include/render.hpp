@@ -20,13 +20,13 @@ namespace cse
             template <typename Type> void add_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry);
             template <typename Type> void remove_object(std::shared_ptr<Type>& object);
             template <typename Type> void specify_vertices(std::shared_ptr<Type>& object);
+
             template <typename Type> void pre_draw(std::shared_ptr<Type>& object); 
             template <typename Type> void draw(std::shared_ptr<Type>& object);
-
             void pre_draw_objects();
             void draw_objects();
             void cleanup_objects();
-            void draw();
+            void update();
 
             void pre_draw_init();
             template <typename Type> void object_cleanup(std::shared_ptr<Type>& object);

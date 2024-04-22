@@ -27,7 +27,7 @@ void game_loop()
     {
         cse::time.update_delta_time();
         cse::input.read();             //<-- Go here to set keybindings
-        cse::render.draw();
+        cse::render.update();
     }
 }
 

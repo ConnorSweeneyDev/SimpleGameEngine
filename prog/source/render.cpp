@@ -48,7 +48,7 @@ namespace cse
         items.clear();
     }
 
-    void Render::draw()
+    void Render::update()
     {
         pre_draw_init();
         pre_draw_objects();
