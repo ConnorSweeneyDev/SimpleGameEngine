@@ -1,6 +1,6 @@
 #pragma once
 
-namespace csg
+namespace cse
 {
     class Game
     {

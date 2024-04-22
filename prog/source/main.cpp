@@ -18,7 +18,7 @@ void game_specification()
     cse::render.specify_objects();     //<-- Go here to add objects
   //cse::texture.specify_textures();   //<-- Go here to set textures
     cse::shader.specify_shaders();     //<-- Go here to set shaders
-    csg::game.specify_scene();         //<-- Go here to setup the scene
+    cse::game.specify_scene();         //<-- Go here to setup the scene
 }
 
 void game_loop()
