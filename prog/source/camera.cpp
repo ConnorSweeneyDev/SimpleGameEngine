@@ -14,7 +14,6 @@ namespace cse
     void Camera::update_projection_matrix() { projection_matrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), near_clip, far_clip); }
     void Camera::update_view_matrix() { view_matrix = glm::lookAt(position, position + direction, up); }
 
-    // Camera movement is on the global coordinate system
     void Camera::move_right(float speed) { position.x += speed * time.get_delta_time(); }
     void Camera::move_left(float speed) { position.x -= speed * time.get_delta_time(); }
     void Camera::move_up(float speed) { position.y += speed * time.get_delta_time(); }
