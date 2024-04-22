@@ -57,17 +57,18 @@ namespace cse
             int offset = 0;
             int section_width = 50;
             int section_height = 50;
-            unsigned char* source_image_data = image_data + (section_width * offset) * 4;
-            unsigned char* destination_image_data = new unsigned char[section_width * section_height * 4];
+            int channels = object->texture_channels;
+            unsigned char* source_image_data = image_data + (section_width * offset) * channels;
+            unsigned char* destination_image_data = new unsigned char[section_width * section_height * channels];
 
             for (int y = 0; y < section_height; ++y)
             {
                 for (int x = 0; x < section_width; ++x)
                 {
-                    int source_index = (y * object->texture_width + x) * 4;
-                    int destination_index = (y * section_width + x) * 4;
+                    int source_index = (y * object->texture_width + x) * channels;
+                    int destination_index = (y * section_width + x) * channels;
 
-                    destination_image_data[destination_index] = source_image_data[source_index];
+                    destination_image_data[destination_index + 0] = source_image_data[source_index + 0];
                     destination_image_data[destination_index + 1] = source_image_data[source_index + 1];
                     destination_image_data[destination_index + 2] = source_image_data[source_index + 2];
                     destination_image_data[destination_index + 3] = source_image_data[source_index + 3];
