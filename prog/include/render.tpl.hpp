@@ -8,11 +8,11 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "render.hpp"
-#include "shader.hpp"
 #include "texture.hpp"
+#include "shader.hpp"
 #include "camera.hpp"
-#include "item.hpp"
 #include "player.hpp"
+#include "item.hpp"
 
 namespace cse
 {
