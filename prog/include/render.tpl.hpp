@@ -111,6 +111,17 @@ namespace cse
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, default_quad_indices.size() * sizeof(GLfloat), default_quad_indices.data(), GL_STATIC_DRAW);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*3));
         glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
+
+        glGenTextures(1, &object->texture_object);
+        glBindTexture(GL_TEXTURE_2D, object->texture_object);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
+        glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
+
+        vertex_cleanup();
     }
 
     template <typename Type> void Render::pre_draw(std::shared_ptr<Type>& object)

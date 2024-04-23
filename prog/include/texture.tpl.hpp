@@ -6,24 +6,12 @@
 #include "stb_image.h"
 
 #include "texture.hpp"
-#include "render.hpp"
-#include "player.hpp"
-#include "item.hpp"
 
 namespace cse
 {
     template <typename Type> void Texture::load_texture(std::shared_ptr<Type>& object)
     {
-        glBindVertexArray(object->vertex_array_object);
-        glBindBuffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
-
-        glGenTextures(1, &object->texture_object);
-        glBindTexture(GL_TEXTURE_2D, object->texture_object);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        texture_load_init(object);
 
         stbi_set_flip_vertically_on_load(true);
         unsigned char* image_data = stbi_load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
@@ -65,9 +53,23 @@ namespace cse
         }
         stbi_image_free(image_data);
 
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
-        glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
+        texture_load_cleanup(object);
+    }
 
-        render.vertex_cleanup();
+    template <typename Type> void Texture::texture_load_init(std::shared_ptr<Type>& object)
+    {
+        glBindVertexArray(object->vertex_array_object);
+        glBindBuffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
+        glBindTexture(GL_TEXTURE_2D, object->texture_object);
+    }
+
+    template <typename Type> void Texture::texture_load_cleanup(std::shared_ptr<Type>& object)
+    {
+        glBindVertexArray(0);
+        glDisableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }

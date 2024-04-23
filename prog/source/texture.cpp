@@ -1,6 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "texture.hpp"
+#include "player.hpp"
+#include "item.hpp"
 
 namespace cse
 {
