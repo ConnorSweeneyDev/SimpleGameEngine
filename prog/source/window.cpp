@@ -78,7 +78,6 @@ namespace cse
     {
         SDL_GL_DeleteContext(gl_context);
         SDL_DestroyWindow(application_window);
-
         application_window = nullptr;
 
         SDL_Quit();
