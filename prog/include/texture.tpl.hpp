@@ -67,7 +67,6 @@ namespace cse
     template <typename Type> void Texture::texture_load_cleanup(std::shared_ptr<Type>& object)
     {
         glBindVertexArray(0);
-        glDisableVertexAttribArray(2);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindTexture(GL_TEXTURE_2D, 0);
