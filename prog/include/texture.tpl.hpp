@@ -6,43 +6,24 @@
 #include "stb_image.h"
 
 #include "texture.hpp"
+#include "render.hpp"
 #include "player.hpp"
 #include "item.hpp"
 
 namespace cse
 {
-    template <typename Type> void Texture::specify_textures(std::shared_ptr<Type>& object)
+    template <typename Type> void Texture::load_texture(std::shared_ptr<Type>& object)
     {
-        if constexpr (std::is_same<Type, Player>::value)
-        {
-            if (object->name == "Player 1")
-                object->texture_path = "assets/redhood.png";
-            else if (object->name == "Player 2")
-                object->texture_path = "assets/redhood.png";
-            else
-                object->texture_path = "assets/empty.png";
-        }
+        glBindVertexArray(object->vertex_array_object);
+        glBindBuffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
 
-        else if constexpr (std::is_same<Type, Item>::value)
-        {
-            if (object->name == "Background 1")
-                object->texture_path = "assets/background1.png";
-            else if (object->name == "Background 2")
-                object->texture_path = "assets/background2.png";
-            else if (object->name == "Background 3")
-                object->texture_path = "assets/background3.png";
-            else if (object->name == "Shop")
-                object->texture_path = "assets/shop.png";
-            else if (object->name == "Floor")
-                object->texture_path = "assets/leaffloor.png";
-            else
-                object->texture_path = "assets/empty.png";
-        }
-    }
-
-    template <typename Type> void Texture::load_textures(std::shared_ptr<Type>& object)
-    {
-        specify_textures(object);
+        glGenTextures(1, &object->texture_object);
+        glBindTexture(GL_TEXTURE_2D, object->texture_object);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
         stbi_set_flip_vertically_on_load(true);
         unsigned char* image_data = stbi_load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
@@ -83,5 +64,10 @@ namespace cse
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_width, object->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
         }
         stbi_image_free(image_data);
+
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
+        glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
+
+        render.vertex_cleanup();
     }
 }

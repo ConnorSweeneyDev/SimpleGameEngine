@@ -38,22 +38,22 @@ namespace cse
         auto object = std::make_shared<Type>(name);
         specify_vertices(object);
 
-        vertex_cleanup();
         return object;
     }
 
     // specify_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
     // (Might not need to be a template function)
-    template <typename Type> std::shared_ptr<Type> Render::specify_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+    template <typename Type> std::shared_ptr<Type> Render::specify_dynamic_object(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
             auto object = specify_object<Type>(name);
             specify_vertices(object);
+            object->texture_path = texture_path;
+            texture.load_texture(object);
             shader.set_shader_program(object, vertex_shader, fragment_shader);
             object->init(default_geometry);
 
-            vertex_cleanup();
             return object;
         }
     }
@@ -69,13 +69,13 @@ namespace cse
 
     // add_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
     // (Might not need to be a template function)
-    template <typename Type> void Render::add_dynamic_object(const std::string name, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+    template <typename Type> void Render::add_dynamic_object(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
             if (render.get_object_by_name<Item>(name) == nullptr)
             {
-                items.push_back(specify_dynamic_object<Item>(name, vertex_shader, fragment_shader, default_geometry));
+                items.push_back(specify_dynamic_object<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
                 vertex_cleanup();
             }
         }
@@ -111,16 +111,6 @@ namespace cse
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, default_quad_indices.size() * sizeof(GLfloat), default_quad_indices.data(), GL_STATIC_DRAW);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*3));
         glEnableVertexAttribArray(1); // Vertex attribute pointer for the vertex color
-
-        glGenTextures(1, &object->texture_object);
-        glBindTexture(GL_TEXTURE_2D, object->texture_object);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        texture.load_textures(object);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*8, (GLvoid*)(sizeof(GLfloat)*6));
-        glEnableVertexAttribArray(2); // Vertex attribute pointer for the vertex texture coordinates
     }
 
     template <typename Type> void Render::pre_draw(std::shared_ptr<Type>& object)

@@ -47,13 +47,24 @@ namespace cse
         // Tests for adding and removing objects dynamically
         if (key_state[SDL_SCANCODE_9])
         {
-            render.add_dynamic_object<Item>("Item 1", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
+            render.add_dynamic_object<Item>("Item 1", "assets/redhood.png", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
         }
         auto item_1 = render.get_object_by_name<Item>("Item 1");
         if (item_1)
         {
             if (key_state[SDL_SCANCODE_0])
                 render.remove_object(item_1);
+        }
+
+        if (key_state[SDL_SCANCODE_7])
+        {
+            render.add_dynamic_object<Item>("Item 2", "assets/lamp.png", "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl", { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f });
+        }
+        auto item_2 = render.get_object_by_name<Item>("Item 2");
+        if (item_2)
+        {
+            if (key_state[SDL_SCANCODE_8])
+                render.remove_object(item_2);
         }
 
         auto player_1 = render.get_object_by_name<Player>("Player 1");
