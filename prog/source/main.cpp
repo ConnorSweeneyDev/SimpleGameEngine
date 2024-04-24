@@ -1,7 +1,7 @@
 #include "platform.hpp"
-#include "time.hpp"
 #include "window.hpp"
 #include "render.hpp"
+#include "time.hpp"
 #include "shader.hpp"
 #include "game.hpp"
 #include "input.hpp"
