@@ -15,7 +15,7 @@ INCLUDES = -Iprog/include -Iexternal/include -Iexternal/include/glad -Iexternal/
 LIBRARIES = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
 CPP_SOURCES = $(wildcard prog/source/*.cpp)
 C_SOURCES = external/source/glad.c
-OUTPUT = 3DGameEngine.exe
+OUTPUT = bin/3DGameEngine.exe
 
 OBJECTS_DIR = object
 FLAGS_DIR = compile_flags.txt
