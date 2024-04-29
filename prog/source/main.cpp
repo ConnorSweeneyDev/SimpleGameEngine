@@ -3,7 +3,7 @@
 #include "render.hpp"
 #include "time.hpp"
 #include "shader.hpp"
-#include "game.hpp"
+#include "scene.hpp"
 #include "input.hpp"
 
 void platform_init()
@@ -15,10 +15,11 @@ void platform_init()
 
 void game_specification()
 {
-    cse::render.specify_objects();     // Go here to add objects
-    cse::texture.specify_textures();   // Go here to set textures
-    cse::shader.specify_shaders();     // Go here to set shaders
-    cse::game.specify_scene();         // Go here to setup the scene
+    cse::render.specify_objects();      // Go here to add objects
+    cse::texture.specify_textures();    // Go here to set textures
+    cse::shader.specify_shaders();      // Go here to set shaders
+
+    csg::scene::specify();               // Go here to setup the scene
 }
 
 void game_loop()
@@ -26,7 +27,7 @@ void game_loop()
     while (!cse::window.should_quit)
     {
         cse::time::update_delta_time();
-        cse::input.read();             // Go here to set keybindings
+        cse::input::read();             // Go here to set keybindings
         cse::render.update();
     }
 }

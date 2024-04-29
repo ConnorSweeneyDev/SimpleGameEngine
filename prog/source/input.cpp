@@ -5,11 +5,12 @@
 #include "player.hpp"
 #include "item.hpp"
 
-namespace cse
+namespace cse::input
 {
-    Input input;
+    SDL_Event event = { 0 };
+    const Uint8* key_state = SDL_GetKeyboardState(nullptr);
 
-    void Input::read()
+    void read()
     {
         while (SDL_PollEvent(&event) != 0)
         {

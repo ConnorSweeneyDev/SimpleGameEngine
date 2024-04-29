@@ -2,16 +2,7 @@
 
 #include "SDL_events.h"
 
-namespace cse
+namespace cse::input
 {
-    class Input
-    {
-        public:
-            void read();
-
-        private:
-            SDL_Event event;
-            const Uint8* key_state = SDL_GetKeyboardState(nullptr);
-    };
-    extern Input input;
+    void read();
 }
