@@ -9,12 +9,12 @@ namespace cse
 
     const std::string& Player::get_name() const { return name; }
 
-    void Player::move_right() { translation_x += speed * time.get_delta_time(); }
-    void Player::move_left() { translation_x -= speed * time.get_delta_time(); }
-    void Player::move_up() { translation_y += speed * time.get_delta_time(); }
-    void Player::move_down() { translation_y -= speed * time.get_delta_time(); }
-    void Player::move_forward() { translation_z -= speed * time.get_delta_time(); }
-    void Player::move_backward() { translation_z += speed * time.get_delta_time(); }
+    void Player::move_right() { translation_x += speed * time::delta_time; }
+    void Player::move_left() { translation_x -= speed * time::delta_time; }
+    void Player::move_up() { translation_y += speed * time::delta_time; }
+    void Player::move_down() { translation_y -= speed * time::delta_time; }
+    void Player::move_forward() { translation_z -= speed * time::delta_time; }
+    void Player::move_backward() { translation_z += speed * time::delta_time; }
 
     void Player::reset_stats()
     {

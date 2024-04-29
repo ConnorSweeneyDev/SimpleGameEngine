@@ -2,13 +2,13 @@
 
 #include "time.hpp"
 
-namespace cse
+namespace cse::time
 {
-    Time time;
+    float delta_time = 0.0f;
+    float current_time = 0.0f;
+    float last_time = 0.0f;
 
-    const float& Time::get_delta_time() const { return delta_time; }
-
-    void Time::update_delta_time()
+    void update_delta_time()
     {
         current_time = SDL_GetTicks64();
         delta_time = (current_time - last_time);
