@@ -1,7 +1,7 @@
 #include "player.hpp"
 #include "time.hpp"
 
-namespace cse
+namespace cse::object
 {
     Player_ptr_list players;
 

@@ -7,7 +7,7 @@
 
 #include "texture.hpp"
 
-namespace cse
+namespace cse::object
 {
     template <typename Type> void Texture::load(std::shared_ptr<Type>& object)
     {

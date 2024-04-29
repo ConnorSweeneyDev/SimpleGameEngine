@@ -9,33 +9,33 @@
 void platform_init()
 {
     cse::platform::sdl_init();
-    cse::window.init();
+    cse::platform::window.init();
     cse::platform::glad_init();
 }
 
 void game_specification()
 {
-    cse::render.specify_objects();      // Go here to add objects
-    cse::texture.specify();             // Go here to set textures
-    cse::shader.specify();              // Go here to set shaders
+    cse::object::render.specify();      // Go here to add objects
+    cse::object::texture.specify();     // Go here to set textures
+    cse::object::shader.specify();      // Go here to set shaders
 
     csg::scene::specify();              // Go here to setup the scene
 }
 
 void game_loop()
 {
-    while (!cse::window.should_quit)
+    while (!cse::platform::window.should_quit)
     {
         cse::time::update_delta_time();
         cse::input::read();             // Go here to set keybindings
-        cse::render.update();
+        cse::object::render.update();
     }
 }
 
 void program_cleanup()
 {
-    cse::render.cleanup_objects();
-    cse::window.cleanup();
+    cse::object::render.cleanup_all();
+    cse::platform::window.cleanup();
 }
 
 int main(int argc, char* argv[])

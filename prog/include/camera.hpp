@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-namespace cse
+namespace cse::object
 {
     class Camera
     {

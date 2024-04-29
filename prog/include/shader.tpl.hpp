@@ -4,7 +4,7 @@
 
 #include "shader.hpp"
 
-namespace cse
+namespace cse::object
 {
     template <typename Type> void Shader::set_program(std::shared_ptr<Type>& object, const std::string vertex_shader_path, const std::string fragment_shader_path)
     {

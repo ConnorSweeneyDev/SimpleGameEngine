@@ -1,6 +1,6 @@
 #include "item.hpp"
 
-namespace cse
+namespace cse::object
 {
     Item_ptr_list items;
 

@@ -4,7 +4,7 @@
 #include "player.hpp"
 #include "item.hpp"
 
-namespace cse
+namespace cse::object
 {
     Texture texture;
 

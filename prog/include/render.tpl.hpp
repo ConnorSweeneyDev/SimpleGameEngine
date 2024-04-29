@@ -14,9 +14,9 @@
 #include "player.hpp"
 #include "item.hpp"
 
-namespace cse
+namespace cse::object
 {
-    template <typename Type> std::shared_ptr<Type> Render::get_object_by_name(const std::string& name) const
+    template <typename Type> std::shared_ptr<Type> Render::get_by_name(const std::string& name) const
     {
         if constexpr (std::is_same<Type, Player>::value)
         {
@@ -33,7 +33,7 @@ namespace cse
         return nullptr;
     }
 
-    template <typename Type> std::shared_ptr<Type> Render::specify_object(const std::string name)
+    template <typename Type> std::shared_ptr<Type> Render::specify(const std::string name)
     {
         auto object = std::make_shared<Type>(name);
         specify_vertices(object);
@@ -41,13 +41,13 @@ namespace cse
         return object;
     }
 
-    // specify_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
+    // specify_dynamic only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
     // (Might not need to be a template function)
-    template <typename Type> std::shared_ptr<Type> Render::specify_dynamic_object(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+    template <typename Type> std::shared_ptr<Type> Render::specify_dynamic(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
-            auto object = specify_object<Type>(name);
+            auto object = specify<Type>(name);
             specify_vertices(object);
             object->texture_path = texture_path;
             texture.load(object);
@@ -58,40 +58,40 @@ namespace cse
         }
     }
 
-    template <typename Type> void Render::add_object(const std::string name)
+    template <typename Type> void Render::add(const std::string name)
     {
         if constexpr (std::is_same<Type, Player>::value)
-            players.push_back(specify_object<Player>(name));
+            players.push_back(specify<Player>(name));
 
         else if constexpr (std::is_same<Type, Item>::value)
-            items.push_back(specify_object<Item>(name));
+            items.push_back(specify<Item>(name));
     }
 
-    // add_dynamic_object only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
+    // add_dynamic only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
     // (Might not need to be a template function)
-    template <typename Type> void Render::add_dynamic_object(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+    template <typename Type> void Render::add_dynamic(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
-            if (get_object_by_name<Item>(name) == nullptr)
+            if (get_by_name<Item>(name) == nullptr)
             {
-                items.push_back(specify_dynamic_object<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
+                items.push_back(specify_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
                 vertex_cleanup();
             }
         }
     }
 
-    template <typename Type> void Render::remove_object(std::shared_ptr<Type>& object)
+    template <typename Type> void Render::remove(std::shared_ptr<Type>& object)
     {
         if constexpr (std::is_same<Type, Player>::value)
         {
             players.erase(std::remove_if(players.begin(), players.end(), [&object](const Player_ptr& player){ return player == object; }), players.end());
-            object_cleanup(object);
+            cleanup(object);
         }
         else if constexpr (std::is_same<Type, Item>::value)
         {
             items.erase(std::remove_if(items.begin(), items.end(), [&object](const Item_ptr& item){ return item == object; }), items.end());
-            object_cleanup(object);
+            cleanup(object);
         }
     }
 
@@ -124,7 +124,7 @@ namespace cse
         vertex_cleanup();
     }
 
-    template <typename Type> void Render::pre_draw(std::shared_ptr<Type>& object)
+    template <typename Type> void Render::pre_draw_vertices(std::shared_ptr<Type>& object)
     {
         glUseProgram(object->shader_program);
 
@@ -154,7 +154,7 @@ namespace cse
         glUniformMatrix4fv(u_model_matrix_location, 1, GL_FALSE, glm::value_ptr(model));
     }
 
-    template <typename Type> void Render::draw(std::shared_ptr<Type>& object)
+    template <typename Type> void Render::draw_vertices(std::shared_ptr<Type>& object)
     {
         glBindVertexArray(object->vertex_array_object);
         glUseProgram(object->shader_program);
@@ -162,7 +162,7 @@ namespace cse
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)0);
     }
 
-    template <typename Type> void Render::object_cleanup(std::shared_ptr<Type>& object)
+    template <typename Type> void Render::cleanup(std::shared_ptr<Type>& object)
     {
         glDeleteVertexArrays(1, &object->vertex_array_object);
         glDeleteBuffers(1, &object->vertex_buffer_object);

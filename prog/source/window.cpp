@@ -2,13 +2,9 @@
 
 #include "window.hpp"
 
-namespace cse
+namespace cse::platform
 {
     Window window;
-
-    SDL_Window* Window::get_window() const { return application_window; }
-    const int& Window::get_width() const { return width; }
-    const int& Window::get_height() const { return height; }
 
     void Window::handle_fullscreen()
     {
@@ -20,8 +16,8 @@ namespace cse
 
         if (fullscreen)
         {
-            SDL_SetWindowSize(application_window, starting_width, starting_height);
-            SDL_SetWindowPosition(application_window, starting_pos_x, starting_pos_y);
+            SDL_SetWindowSize(application, starting_width, starting_height);
+            SDL_SetWindowPosition(application, starting_pos_x, starting_pos_y);
 
             width = starting_width;
             height = starting_height;
@@ -29,8 +25,8 @@ namespace cse
             return;
         }
 
-        SDL_SetWindowSize(application_window, display_mode.w, display_mode.h);
-        SDL_SetWindowPosition(application_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        SDL_SetWindowSize(application, display_mode.w, display_mode.h);
+        SDL_SetWindowPosition(application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
         width = display_mode.w;
         height = display_mode.h;
@@ -39,15 +35,15 @@ namespace cse
 
     void Window::init()
     { 
-        application_window = SDL_CreateWindow("3D Game Engine", starting_pos_x, starting_pos_y, starting_width, starting_height, SDL_WINDOW_OPENGL);
+        application = SDL_CreateWindow("3D Game Engine", starting_pos_x, starting_pos_y, starting_width, starting_height, SDL_WINDOW_OPENGL);
 
-        if (application_window == nullptr)
+        if (application == nullptr)
         {
             std::cout << "SDL_Window could not be created!" << std::endl;
             exit(1);
         }
 
-        gl_context = SDL_GL_CreateContext(application_window);
+        gl_context = SDL_GL_CreateContext(application);
         if (gl_context == nullptr)
         {
             std::cout << "OpenGl context could not be created!" << std::endl;
@@ -61,8 +57,8 @@ namespace cse
         }
         if (fullscreen)
         {
-            SDL_SetWindowSize(application_window, display_mode.w, display_mode.h);
-            SDL_SetWindowPosition(application_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+            SDL_SetWindowSize(application, display_mode.w, display_mode.h);
+            SDL_SetWindowPosition(application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
             width = display_mode.w;
             height = display_mode.h;
@@ -72,8 +68,8 @@ namespace cse
     void Window::cleanup()
     {
         SDL_GL_DeleteContext(gl_context);
-        SDL_DestroyWindow(application_window);
-        application_window = nullptr;
+        SDL_DestroyWindow(application);
+        application = nullptr;
 
         SDL_Quit();
     }

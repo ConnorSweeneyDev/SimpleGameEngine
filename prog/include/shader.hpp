@@ -4,7 +4,7 @@
 
 #include <glad/glad.h>
 
-namespace cse
+namespace cse::object
 {
     class Shader
     {

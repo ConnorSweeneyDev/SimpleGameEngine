@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace cse
+namespace cse::object
 {
     class Texture
     {

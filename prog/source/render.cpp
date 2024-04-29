@@ -3,58 +3,58 @@
 #include "item.hpp"
 #include "player.hpp"
 
-namespace cse
+namespace cse::object
 {
     Render render;
 
-    void Render::specify_objects()
+    void Render::specify()
     { 
-        add_object<Player>("Player 1");
-        add_object<Player>("Player 2");
+        add<Player>("Player 1");
+        add<Player>("Player 2");
 
-        add_object<Item>("Background 1");
-        add_object<Item>("Background 2");
-        add_object<Item>("Background 3");
-        add_object<Item>("Shop");
-        add_object<Item>("Floor");
+        add<Item>("Background 1");
+        add<Item>("Background 2");
+        add<Item>("Background 3");
+        add<Item>("Shop");
+        add<Item>("Floor");
     }
 
-    void Render::pre_draw_objects()
+    void Render::pre_draw()
     {
         for (auto& player : players)
-            pre_draw(player);
+            pre_draw_vertices(player);
 
         for (auto& item : items)
-            pre_draw(item);
+            pre_draw_vertices(item);
     }
 
-    void Render::draw_objects()
+    void Render::draw()
     {
         for (auto& player : players)
-            draw(player);
+            draw_vertices(player);
 
         for (auto& item : items)
-            draw(item);
+            draw_vertices(item);
     }
 
-    void Render::cleanup_objects()
+    void Render::cleanup_all()
     {
         for (auto& player : players)
-            object_cleanup(player);
+            cleanup(player);
         players.clear();
 
         for (auto& item : items)
-            object_cleanup(item);
+            cleanup(item);
         items.clear();
     }
 
     void Render::update()
     {
         pre_draw_init();
-        pre_draw_objects();
-        draw_objects();
+        pre_draw();
+        draw();
         draw_cleanup();
-        SDL_GL_SwapWindow(window.get_window());
+        SDL_GL_SwapWindow(platform::window.application);
     }
 
     void Render::pre_draw_init()
@@ -65,7 +65,7 @@ namespace cse
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glViewport(0, 0, window.get_width(), window.get_height());
+        glViewport(0, 0, platform::window.width, platform::window.height);
 
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);

@@ -4,11 +4,16 @@
 #include "window.hpp"
 #include "time.hpp"
 
-namespace cse
+namespace cse::object
 {
     Camera camera;
 
-    void Camera::update_projection_matrix() { projection_matrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), near_clip, far_clip); }
+    void Camera::update_projection_matrix()
+    {
+        projection_matrix = glm::perspective(glm::radians(fov),
+                                            (float)platform::window.width / (float)platform::window.height,
+                                            near_clip, far_clip);
+    }
     void Camera::update_view_matrix() { view_matrix = glm::lookAt(position, position + direction, up); }
 
     void Camera::move_right(float speed) { position.x += speed * time::delta_time; }
