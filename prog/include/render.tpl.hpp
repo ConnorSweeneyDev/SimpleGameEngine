@@ -73,7 +73,7 @@ namespace cse
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
-            if (render.get_object_by_name<Item>(name) == nullptr)
+            if (get_object_by_name<Item>(name) == nullptr)
             {
                 items.push_back(specify_dynamic_object<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
                 vertex_cleanup();

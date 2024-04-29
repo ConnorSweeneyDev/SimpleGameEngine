@@ -16,12 +16,12 @@ namespace cse
             switch (event.type)
             {
                 case SDL_QUIT:
-                    window.handle_quit();
+                    window.should_quit = true;
                     break;
 
                 case SDL_KEYDOWN:
                     if (key_state[SDL_SCANCODE_ESCAPE])
-                        window.handle_quit();
+                        window.should_quit = true;
                     if (key_state[SDL_SCANCODE_F11])
                         window.handle_fullscreen();
                     break;

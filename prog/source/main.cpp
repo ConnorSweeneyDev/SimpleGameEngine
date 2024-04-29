@@ -8,9 +8,9 @@
 
 void platform_init()
 {
-    cse::platform.sdl_init();
+    cse::platform::sdl_init();
     cse::window.init();
-    cse::platform.glad_init();
+    cse::platform::glad_init();
 }
 
 void game_specification()
@@ -23,7 +23,7 @@ void game_specification()
 
 void game_loop()
 {
-    while (!cse::window.should_quit())
+    while (!cse::window.should_quit)
     {
         cse::time.update_delta_time();
         cse::input.read();             // Go here to set keybindings

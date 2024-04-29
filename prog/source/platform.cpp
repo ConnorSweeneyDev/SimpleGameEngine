@@ -5,11 +5,9 @@
 
 #include "platform.hpp"
 
-namespace cse
+namespace cse::platform
 {
-    Platform platform;
-
-    void Platform::display_open_gl_version_info() const
+    void display_open_gl_version_info()
     {
         std::cout << "GL Vendor: " << glGetString(GL_VENDOR) << std::endl
                   << "GL Renderer: " << glGetString(GL_RENDERER) << std::endl
@@ -17,9 +15,9 @@ namespace cse
                   << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl; 
     }
 
-    void Platform::clear_all_gl_errors() { while (glGetError() != GL_NO_ERROR); }
+    void clear_all_gl_errors() { while (glGetError() != GL_NO_ERROR); }
 
-    void Platform::check_gl_error_status(const char* function_name, const char* file_name, int line) const
+    void check_gl_error_status(const char* function_name, const char* file_name, int line)
     {
         while (GLenum error = glGetError())
         {
@@ -28,7 +26,7 @@ namespace cse
         }
     }
 
-    void Platform::sdl_init()
+    void sdl_init()
     {
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
@@ -47,7 +45,7 @@ namespace cse
         SDL_GL_SetSwapInterval(0); // Vsync
     }
 
-    void Platform::glad_init()
+    void glad_init()
     {
         if (!gladLoadGLLoader(SDL_GL_GetProcAddress))
         {

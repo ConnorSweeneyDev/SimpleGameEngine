@@ -7,13 +7,8 @@ namespace cse
     Window window;
 
     SDL_Window* Window::get_window() const { return application_window; }
-    const SDL_GLContext& Window::get_gl_context() const { return gl_context; }
     const int& Window::get_width() const { return width; }
     const int& Window::get_height() const { return height; }
-
-    const bool& Window::should_quit() const { return quit; }
-
-    void Window::handle_quit() { quit = true; }
 
     void Window::handle_fullscreen()
     {

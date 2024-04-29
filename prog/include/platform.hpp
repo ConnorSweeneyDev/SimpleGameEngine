@@ -1,18 +1,13 @@
 #pragma once
 
-namespace cse
+namespace cse::platform
 {
-    class Platform
-    {
-        public:
-            void display_open_gl_version_info() const;
-            void clear_all_gl_errors();
-            void check_gl_error_status(const char* function_name, const char* file_name, int line) const;
+    void display_open_gl_version_info();
+    void clear_all_gl_errors();
+    void check_gl_error_status(const char* function_name, const char* file_name, int line);
 
-            void sdl_init();
-            void glad_init();
-    };
-    extern Platform platform;
+    void sdl_init();
+    void glad_init();
 }
 
-#define check_gl(function) cse::platform.clear_all_gl_errors(); function; cse::platform.check_gl_error_status(#function, __FILE__, __LINE__);
+#define check_gl(function) cse::platform::clear_all_gl_errors(); function; cse::platform::check_gl_error_status(#function, __FILE__, __LINE__);
