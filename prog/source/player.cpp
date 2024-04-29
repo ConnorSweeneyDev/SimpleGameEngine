@@ -7,8 +7,6 @@ namespace cse
 
     Player::Player(std::string name) { this->name = name; }
 
-    const std::string& Player::get_name() const { return name; }
-
     void Player::move_right() { translation_x += speed * time::delta_time; }
     void Player::move_left() { translation_x -= speed * time::delta_time; }
     void Player::move_up() { translation_y += speed * time::delta_time; }

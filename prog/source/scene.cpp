@@ -11,10 +11,10 @@ namespace csg::scene
 
         for(auto& player : cse::players)
         {
-            if (player->get_name() == "Player 1")
+            if (player->name == "Player 1")
                 player->init(50, 0.002,
                              { -1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
-            else if (player->get_name() == "Player 2")
+            else if (player->name == "Player 2")
                 player->init(200, 0.0005,
                              { 1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f }); // Facing the other way, should change to 1.0f and flip the texture instead
             else
@@ -24,15 +24,15 @@ namespace csg::scene
 
         for(auto& item : cse::items)
         {
-            if (item->get_name() == "Background 1")
+            if (item->name == "Background 1")
                 item->init({ 0.0f, 1.5f, -0.45f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
-            else if (item->get_name() == "Background 2")
+            else if (item->name == "Background 2")
                 item->init({ 0.0f, 1.5f, -0.3f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
-            else if (item->get_name() == "Background 3")
+            else if (item->name == "Background 3")
                 item->init({ 0.0f, 1.5f, -0.15f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f });
-            else if (item->get_name() == "Shop")
+            else if (item->name == "Shop")
                 item->init({ 0.0f, 0.28f, -0.05f, 0.0f, 0.0f, 0.0f, 3.0f, 2.0f, 1.0f });
-            else if (item->get_name() == "Floor")
+            else if (item->name == "Floor")
                 item->init({ 0.0f, -1.2f, 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 1.0f, 1.0f });
             else
                 item->init({ 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });

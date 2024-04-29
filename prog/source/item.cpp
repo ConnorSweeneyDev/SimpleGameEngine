@@ -6,8 +6,6 @@ namespace cse
 
     Item::Item(std::string name) { this->name = name; }
 
-    const std::string& Item::get_name() const { return name; }
-
     void Item::init(std::vector<float> default_geometry)
     {
         this->translation_x = default_geometry[0];

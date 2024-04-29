@@ -14,8 +14,6 @@ namespace cse
         public:
             Player(std::string name);
             
-            const std::string& get_name() const;
-
             void move_right();
             void move_left();
             void move_up();
@@ -29,9 +27,9 @@ namespace cse
             void init(float health, float speed,
                       std::vector<float> default_geometry);
 
-        private:
             std::string name;
 
+        private:
             float health;
             float speed;
             std::vector<float> initial_stats;

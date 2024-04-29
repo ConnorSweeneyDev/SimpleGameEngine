@@ -21,13 +21,13 @@ namespace cse
         if constexpr (std::is_same<Type, Player>::value)
         {
             for (auto &player : players)
-                if (player->get_name() == name)
+                if (player->name == name)
                     return player;
         }
         else if constexpr (std::is_same<Type, Item>::value)
         {
             for (auto &item : items)
-                if (item->get_name() == name)
+                if (item->name == name)
                     return item;
         }
         return nullptr;

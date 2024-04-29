@@ -14,13 +14,11 @@ namespace cse
         public:
             Item(std::string name);
             
-            const std::string& get_name() const;
-
             void init(std::vector<float> default_geometry);
 
-        private:
             std::string name;
 
+        private:
             GLuint vertex_array_object;
             GLuint vertex_buffer_object;
             GLuint index_buffer_object;
