@@ -8,9 +8,6 @@ namespace cse
 {
     Camera camera;
 
-    const glm::mat4& Camera::get_projection_matrix() const { return projection_matrix; }
-    const glm::mat4& Camera::get_view_matrix() const { return view_matrix; }
-
     void Camera::update_projection_matrix() { projection_matrix = glm::perspective(glm::radians(fov), (float)window.get_width() / (float)window.get_height(), near_clip, far_clip); }
     void Camera::update_view_matrix() { view_matrix = glm::lookAt(position, position + direction, up); }
 

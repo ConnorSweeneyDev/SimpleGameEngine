@@ -129,14 +129,14 @@ namespace cse
         glUseProgram(object->shader_program);
 
         camera.update_projection_matrix();
-        glm::mat4 projection = camera.get_projection_matrix();
+        glm::mat4 projection = camera.projection_matrix;
         GLint u_projection_matrix_location = glGetUniformLocation(object->shader_program, "u_projection_matrix");
         if (u_projection_matrix_location <= -1)
             std::cout << "u_projection_matrix could not be found!" << std::endl;
         glUniformMatrix4fv(u_projection_matrix_location, 1, GL_FALSE, glm::value_ptr(projection));
 
         camera.update_view_matrix();
-        glm::mat4 view = camera.get_view_matrix();
+        glm::mat4 view = camera.view_matrix;
         GLint u_view_matrix_location = glGetUniformLocation(object->shader_program, "u_view_matrix");
         if (u_view_matrix_location <= -1)
             std::cout << "u_view_matrix could not be found!" << std::endl;
