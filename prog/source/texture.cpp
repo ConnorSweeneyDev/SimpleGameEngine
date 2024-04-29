@@ -8,7 +8,7 @@ namespace cse
 {
     Texture texture;
 
-    void Texture::specify_textures()
+    void Texture::specify()
     {
         for (auto& player : players)
         {
