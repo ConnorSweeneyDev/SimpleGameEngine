@@ -19,7 +19,7 @@ void game_specification()
     cse::texture.specify_textures();    // Go here to set textures
     cse::shader.specify_shaders();      // Go here to set shaders
 
-    csg::scene::specify();               // Go here to setup the scene
+    csg::scene::specify();              // Go here to setup the scene
 }
 
 void game_loop()
