@@ -9,9 +9,9 @@
 
 namespace cse
 {
-    template <typename Type> void Texture::load_texture(std::shared_ptr<Type>& object)
+    template <typename Type> void Texture::load(std::shared_ptr<Type>& object)
     {
-        texture_load_init(object);
+        load_init(object);
 
         stbi_set_flip_vertically_on_load(true);
         unsigned char* image_data = stbi_load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
@@ -53,10 +53,10 @@ namespace cse
         }
         stbi_image_free(image_data);
 
-        texture_load_cleanup(object);
+        load_cleanup(object);
     }
 
-    template <typename Type> void Texture::texture_load_init(std::shared_ptr<Type>& object)
+    template <typename Type> void Texture::load_init(std::shared_ptr<Type>& object)
     {
         glBindVertexArray(object->vertex_array_object);
         glBindBuffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
@@ -64,7 +64,7 @@ namespace cse
         glBindTexture(GL_TEXTURE_2D, object->texture_object);
     }
 
-    template <typename Type> void Texture::texture_load_cleanup(std::shared_ptr<Type>& object)
+    template <typename Type> void Texture::load_cleanup(std::shared_ptr<Type>& object)
     {
         glBindVertexArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);

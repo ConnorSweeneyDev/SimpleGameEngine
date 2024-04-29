@@ -19,7 +19,7 @@ namespace cse
             else
                 player->texture_path = "assets/empty.png";
 
-            load_texture(player);
+            load(player);
         }
 
         for (auto& item : items)
@@ -37,7 +37,7 @@ namespace cse
             else
                 item->texture_path = "assets/empty.png";
 
-            load_texture(item);
+            load(item);
         }
     }
 }

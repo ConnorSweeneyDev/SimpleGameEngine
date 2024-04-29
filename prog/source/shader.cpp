@@ -9,16 +9,16 @@ namespace cse
 {
     Shader shader;
 
-    void Shader::specify_shaders()
+    void Shader::specify()
     {
         for (auto& player : players)
-            set_shader_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+            set_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
 
         for (auto& item : items)
-            set_shader_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+            set_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
     }
 
-    std::string Shader::load_shader_as_string(const std::string& file_name)
+    std::string Shader::load_as_string(const std::string& file_name)
     {
         std::string result;
 
@@ -38,7 +38,7 @@ namespace cse
         return result;
     }
 
-    GLuint Shader::compile_shader(const GLuint type, const std::string& shader_source)
+    GLuint Shader::compile(const GLuint type, const std::string& shader_source)
     {
         GLuint shader_object;
 
@@ -77,11 +77,11 @@ namespace cse
         return shader_object;
     }
 
-    GLuint Shader::create_shader_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source)
+    GLuint Shader::create_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source)
     {
         GLuint program_object = glCreateProgram();
-        GLuint vertex_shader = compile_shader(GL_VERTEX_SHADER, vertex_shader_source);
-        GLuint fragment_shader = compile_shader(GL_FRAGMENT_SHADER, fragment_shader_source);
+        GLuint vertex_shader = compile(GL_VERTEX_SHADER, vertex_shader_source);
+        GLuint fragment_shader = compile(GL_FRAGMENT_SHADER, fragment_shader_source);
 
         glAttachShader(program_object, vertex_shader);
         glAttachShader(program_object, fragment_shader);

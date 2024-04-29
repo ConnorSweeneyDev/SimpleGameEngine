@@ -50,8 +50,8 @@ namespace cse
             auto object = specify_object<Type>(name);
             specify_vertices(object);
             object->texture_path = texture_path;
-            texture.load_texture(object);
-            shader.set_shader_program(object, vertex_shader, fragment_shader);
+            texture.load(object);
+            shader.set_program(object, vertex_shader, fragment_shader);
             object->init(default_geometry);
 
             return object;
