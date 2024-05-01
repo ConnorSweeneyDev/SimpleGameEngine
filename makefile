@@ -11,9 +11,9 @@ CC = gcc
 CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
 CFLAGS = -g -O0
 
-INCLUDES = -Iprog/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
+INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
 LIBRARIES = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
-CPP_SOURCES = $(wildcard prog/source/*.cpp)
+CPP_SOURCES = $(wildcard program/source/*.cpp)
 C_SOURCES = external/source/glad.c
 OUTPUT = bin/3DGameEngine.exe
 
@@ -21,7 +21,7 @@ OBJECTS_DIR = object
 FLAGS_DIR = compile_flags.txt
 
 $(shell if [ ! -d "$(OBJECTS_DIR)" ]; then mkdir -p $(OBJECTS_DIR); fi)
-OBJECTS = $(patsubst prog/source/%.cpp,$(OBJECTS_DIR)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIR)/%.o,$(C_SOURCES))
+OBJECTS = $(patsubst program/source/%.cpp,$(OBJECTS_DIR)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIR)/%.o,$(C_SOURCES))
 
 all: compile_flags $(OUTPUT)
 
@@ -35,7 +35,7 @@ compile_flags:
 
 $(OUTPUT): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
-$(OBJECTS_DIR)/%.o: prog/source/%.cpp
+$(OBJECTS_DIR)/%.o: program/source/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 $(OBJECTS_DIR)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

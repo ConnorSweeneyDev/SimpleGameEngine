@@ -12,10 +12,10 @@ namespace cse::object
     void Shader::specify()
     {
         for (auto& player : players)
-            set_program(player, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+            set_program(player, "program/shader/vertex_shader.glsl", "program/shader/fragment_shader.glsl");
 
         for (auto& item : items)
-            set_program(item, "prog/shader/vertex_shader.glsl", "prog/shader/fragment_shader.glsl");
+            set_program(item, "program/shader/vertex_shader.glsl", "program/shader/fragment_shader.glsl");
     }
 
     std::string Shader::load_as_string(const std::string& file_name)

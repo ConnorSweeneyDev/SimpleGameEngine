@@ -5,7 +5,7 @@
 -Wextra
 -Wpedantic
 -Wno-unused-parameter
--Iprog/include
+-Iprogram/include
 -Iexternal/include
 -Iexternal/include/glad
 -Iexternal/include/glm
