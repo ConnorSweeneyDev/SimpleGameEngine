@@ -12,10 +12,10 @@ CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
 CFLAGS = -g -O0
 
 INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
-LIBRARIES = -Lexternal/lib -lmingw32 -lSDL2main -lSDL2
+LIBRARIES = -Lexternal/library -lmingw32 -lSDL2main -lSDL2
 CPP_SOURCES = $(wildcard program/source/*.cpp)
 C_SOURCES = external/source/glad.c
-OUTPUT = bin/3DGameEngine.exe
+OUTPUT = binary/3DGameEngine.exe
 
 OBJECTS_DIR = object
 FLAGS_DIR = compile_flags.txt
