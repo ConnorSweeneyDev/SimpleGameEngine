@@ -18,7 +18,7 @@ namespace cse::platform
             int width = starting_width;
             int height = starting_height;
 
-            SDL_Window* application = nullptr;
+            SDL_Window* application;
 
         private:
             bool fullscreen = false;
@@ -26,8 +26,8 @@ namespace cse::platform
             const int starting_pos_x = 100;
             const int starting_pos_y = 100;
 
-            SDL_GLContext gl_context = nullptr;
-            SDL_DisplayMode display_mode = {0, 0, 0, 0, 0};
+            SDL_GLContext gl_context;
+            SDL_DisplayMode display_mode;
     };
     extern Window window;
 }

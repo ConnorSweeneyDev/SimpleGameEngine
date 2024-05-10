@@ -23,18 +23,18 @@ namespace cse::object
 
             void init(float fov, float near_clip, float far_clip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
 
-            glm::mat4 projection_matrix = glm::mat4(1.0f);
-            glm::mat4 view_matrix = glm::mat4(1.0f);
+            glm::mat4 projection_matrix;
+            glm::mat4 view_matrix;
 
         private:
-            float fov = 0.0f;
-            float near_clip = 0.0f;
-            float far_clip = 0.0f;
-            glm::vec3 position = glm::vec3(0.0f);
-            glm::vec3 direction = glm::vec3(0.0f);
-            glm::vec3 up = glm::vec3(0.0f);
+            float fov;
+            float near_clip;
+            float far_clip;
+            glm::vec3 position;
+            glm::vec3 direction;
+            glm::vec3 up;
 
-            std::vector<glm::vec3> initial_orientation = std::vector<glm::vec3>();
+            std::vector<glm::vec3> initial_orientation;
     };
     extern Camera camera;
 }
