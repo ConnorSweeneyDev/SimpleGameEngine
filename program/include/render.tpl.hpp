@@ -130,17 +130,17 @@ namespace cse::object
 
         camera.update_projection_matrix();
         glm::mat4 projection = camera.projection_matrix;
-        GLint u_projection_matrix_location = glGetUniformLocation(object->shader_program, "u_projection_matrix");
-        if (u_projection_matrix_location <= -1)
-            std::cout << "u_projection_matrix could not be found!" << std::endl;
-        glUniformMatrix4fv(u_projection_matrix_location, 1, GL_FALSE, glm::value_ptr(projection));
+        GLint uniform_projection_matrix_location = glGetUniformLocation(object->shader_program, "uniform_projection_matrix");
+        if (uniform_projection_matrix_location <= -1)
+            std::cout << "uniform_projection_matrix could not be found!" << std::endl;
+        glUniformMatrix4fv(uniform_projection_matrix_location, 1, GL_FALSE, glm::value_ptr(projection));
 
         camera.update_view_matrix();
         glm::mat4 view = camera.view_matrix;
-        GLint u_view_matrix_location = glGetUniformLocation(object->shader_program, "u_view_matrix");
-        if (u_view_matrix_location <= -1)
-            std::cout << "u_view_matrix could not be found!" << std::endl;
-        glUniformMatrix4fv(u_view_matrix_location, 1, GL_FALSE, glm::value_ptr(view));
+        GLint uniform_view_matrix_location = glGetUniformLocation(object->shader_program, "uniform_view_matrix");
+        if (uniform_view_matrix_location <= -1)
+            std::cout << "uniform_view_matrix could not be found!" << std::endl;
+        glUniformMatrix4fv(uniform_view_matrix_location, 1, GL_FALSE, glm::value_ptr(view));
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(object->translation_x, object->translation_y, object->translation_z));
@@ -148,10 +148,10 @@ namespace cse::object
         model = glm::rotate(model, glm::radians(object->rotation_y), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::rotate(model, glm::radians(object->rotation_z), glm::vec3(0.0f, 0.0f, 1.0f));
         model = glm::scale(model, glm::vec3(object->scale_x, object->scale_y, object->scale_z));
-        GLint u_model_matrix_location = glGetUniformLocation(object->shader_program, "u_model_matrix");
-        if (u_model_matrix_location <= -1)
-            std::cout << "u_model_matrix could not be found!" << std::endl;
-        glUniformMatrix4fv(u_model_matrix_location, 1, GL_FALSE, glm::value_ptr(model));
+        GLint uniform_model_matrix_location = glGetUniformLocation(object->shader_program, "uniform_model_matrix");
+        if (uniform_model_matrix_location <= -1)
+            std::cout << "uniform_model_matrix could not be found!" << std::endl;
+        glUniformMatrix4fv(uniform_model_matrix_location, 1, GL_FALSE, glm::value_ptr(model));
     }
 
     template <typename Type> void Render::draw_vertices(std::shared_ptr<Type>& object)

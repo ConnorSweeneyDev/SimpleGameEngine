@@ -1,3 +1,5 @@
+#include "SDL2/SDL_events.h"
+
 #include "input.hpp"
 #include "window.hpp"
 #include "render.hpp"
@@ -7,7 +9,7 @@
 
 namespace cse::input
 {
-    SDL_Event event = { 0 };
+    SDL_Event event;
     const Uint8* key_state = SDL_GetKeyboardState(nullptr);
 
     void read()
