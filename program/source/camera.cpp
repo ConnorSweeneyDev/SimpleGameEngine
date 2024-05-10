@@ -1,4 +1,5 @@
 #include <glm/gtc/matrix_transform.hpp>
+#include "rename.hpp"
 
 #include "camera.hpp"
 #include "window.hpp"
@@ -14,7 +15,7 @@ namespace cse::object
                                             (float)platform::window.width / (float)platform::window.height,
                                             near_clip, far_clip);
     }
-    void Camera::update_view_matrix() { view_matrix = glm::lookAt(position, position + direction, up); }
+    void Camera::update_view_matrix() { view_matrix = glm::look_at(position, position + direction, up); }
 
     void Camera::move_right(float speed) { position.x += speed * time::delta_time; }
     void Camera::move_left(float speed) { position.x -= speed * time::delta_time; }
@@ -30,7 +31,7 @@ namespace cse::object
         up = initial_orientation[2];
     }
 
-    void Camera::init(float fov, float near_clip, float far_clip, glm::vec3 position, glm::vec3 direction, glm::vec3 up)
+    void Camera::init(float fov, float near_clip, float far_clip, glm::Vec_3 position, glm::Vec_3 direction, glm::Vec_3 up)
     {
         this->fov = fov;
         this->near_clip = near_clip;

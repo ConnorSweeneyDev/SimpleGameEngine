@@ -2,7 +2,6 @@
 
 namespace cse::platform
 {
-    void display_open_gl_version_info();
     void clear_all_gl_errors();
     void check_gl_error_status(const char* function_name, const char* file_name, int line);
 

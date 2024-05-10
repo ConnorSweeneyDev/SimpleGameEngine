@@ -3,6 +3,7 @@
 #include <memory>
 
 #include <glad/glad.h>
+#include "rename.hpp"
 
 namespace cse::object
 {
@@ -14,8 +15,8 @@ namespace cse::object
 
         private:
             std::string load_as_string(const std::string& file_name);
-            GLuint compile(const GLuint type, const std::string& shader_source); 
-            GLuint create_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source);
+            gl::Uint compile(const gl::Uint type, const std::string& shader_source); 
+            gl::Uint create_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source);
             
     };
     extern Shader shader;

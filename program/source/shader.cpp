@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 
+#include <glad/glad.h>
+#include "rename.hpp"
+
 #include "shader.hpp"
 #include "player.hpp"
 #include "item.hpp"
@@ -38,30 +41,30 @@ namespace cse::object
         return result;
     }
 
-    GLuint Shader::compile(const GLuint type, const std::string& shader_source)
+    gl::Uint Shader::compile(const gl::Uint type, const std::string& shader_source)
     {
-        GLuint shader_object;
+        gl::Uint shader_object;
 
         if (type == GL_VERTEX_SHADER)
-            shader_object = glCreateShader(GL_VERTEX_SHADER);
+            shader_object = gl::create_shader(GL_VERTEX_SHADER);
         else if (type == GL_FRAGMENT_SHADER)
-            shader_object = glCreateShader(GL_FRAGMENT_SHADER); 
+            shader_object = gl::create_shader(GL_FRAGMENT_SHADER); 
         else
-            shader_object = glCreateShader(GL_NONE);
+            shader_object = gl::create_shader(GL_NONE);
         
         const char* source = shader_source.c_str();
-        glShaderSource(shader_object, 1, &source, nullptr);
-        glCompileShader(shader_object);
+        gl::shader_source(shader_object, 1, &source, nullptr);
+        gl::compile_shader(shader_object);
 
         int result;
-        glGetShaderiv(shader_object, GL_COMPILE_STATUS, &result);
+        gl::get_shaderiv(shader_object, GL_COMPILE_STATUS, &result);
 
         if (result == GL_FALSE)
         {
             int length;
-            glGetShaderiv(shader_object, GL_INFO_LOG_LENGTH, &length);
+            gl::get_shaderiv(shader_object, GL_INFO_LOG_LENGTH, &length);
             char* error_messages = new char[length];
-            glGetShaderInfoLog(shader_object, length, &length, error_messages);
+            gl::get_shader_info_log(shader_object, length, &length, error_messages);
 
             if (type == GL_VERTEX_SHADER)
                 std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
@@ -69,7 +72,7 @@ namespace cse::object
                 std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
 
             delete[] error_messages;
-            glDeleteShader(shader_object);
+            gl::delete_shader(shader_object);
 
             return 0;
         }
@@ -77,16 +80,16 @@ namespace cse::object
         return shader_object;
     }
 
-    GLuint Shader::create_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source)
+    gl::Uint Shader::create_program(const std::string& vertex_shader_source, const std::string& fragment_shader_source)
     {
-        GLuint program_object = glCreateProgram();
-        GLuint vertex_shader = compile(GL_VERTEX_SHADER, vertex_shader_source);
-        GLuint fragment_shader = compile(GL_FRAGMENT_SHADER, fragment_shader_source);
+        gl::Uint program_object = gl::create_program();
+        gl::Uint vertex_shader = compile(GL_VERTEX_SHADER, vertex_shader_source);
+        gl::Uint fragment_shader = compile(GL_FRAGMENT_SHADER, fragment_shader_source);
 
-        glAttachShader(program_object, vertex_shader);
-        glAttachShader(program_object, fragment_shader);
-        glLinkProgram(program_object);
-        glValidateProgram(program_object);
+        gl::attach_shader(program_object, vertex_shader);
+        gl::attach_shader(program_object, fragment_shader);
+        gl::link_program(program_object);
+        gl::validate_program(program_object);
 
         return program_object;
     }

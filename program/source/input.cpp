@@ -1,4 +1,5 @@
 #include "SDL2/SDL_events.h"
+#include "rename.hpp"
 
 #include "input.hpp"
 #include "window.hpp"
@@ -9,12 +10,12 @@
 
 namespace cse::input
 {
-    SDL_Event event;
-    const Uint8* key_state = SDL_GetKeyboardState(nullptr);
+    sdl::Event event;
+    const Uint8* key_state = sdl::get_keyboard_state(nullptr);
 
     void read()
     {
-        while (SDL_PollEvent(&event) != 0)
+        while (sdl::poll_event(&event) != 0)
         {
             switch (event.type)
             {

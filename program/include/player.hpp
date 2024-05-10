@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <glad/glad.h>
+#include "rename.hpp"
 
 namespace cse::object
 {
@@ -34,11 +35,11 @@ namespace cse::object
             float speed;
             std::vector<float> initial_stats;
 
-            GLuint vertex_array_object;
-            GLuint vertex_buffer_object;
-            GLuint index_buffer_object;
-            GLuint shader_program;
-            GLuint texture_object;
+            gl::Uint vertex_array_object;
+            gl::Uint vertex_buffer_object;
+            gl::Uint index_buffer_object;
+            gl::Uint shader_program;
+            gl::Uint texture_object;
             std::string texture_path;
             int texture_width;
             int texture_height;

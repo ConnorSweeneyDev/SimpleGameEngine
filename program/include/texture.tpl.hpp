@@ -4,6 +4,7 @@
 
 #include <glad/glad.h>
 #include "stb_image.h"
+#include "rename.hpp"
 
 #include "texture.hpp"
 
@@ -13,8 +14,8 @@ namespace cse::object
     {
         load_init(object);
 
-        stbi_set_flip_vertically_on_load(true);
-        unsigned char* image_data = stbi_load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
+        stbi::set_flip_vertically_on_load(true);
+        unsigned char* image_data = stbi::load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
         if (!image_data)
         {
             std::cout << "Failed to load " << object->texture_path << "!" << std::endl;
@@ -44,31 +45,31 @@ namespace cse::object
                 }
             }
 
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, section_width, section_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, destination_image_data);
+            gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, section_width, section_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, destination_image_data);
             delete[] destination_image_data;
         }
         else
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_width, object->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+            gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_width, object->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
         }
-        stbi_image_free(image_data);
+        stbi::image_free(image_data);
 
         load_cleanup(object);
     }
 
     template <typename Type> void Texture::load_init(std::shared_ptr<Type>& object)
     {
-        glBindVertexArray(object->vertex_array_object);
-        glBindBuffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
-        glBindTexture(GL_TEXTURE_2D, object->texture_object);
+        gl::bind_vertex_array(object->vertex_array_object);
+        gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
+        gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
+        gl::bind_texture(GL_TEXTURE_2D, object->texture_object);
     }
 
     template <typename Type> void Texture::load_cleanup(std::shared_ptr<Type>& object)
     {
-        glBindVertexArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        gl::bind_vertex_array(0);
+        gl::bind_buffer(GL_ARRAY_BUFFER, 0);
+        gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        gl::bind_texture(GL_TEXTURE_2D, 0);
     }
 }

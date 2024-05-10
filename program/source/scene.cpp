@@ -1,3 +1,5 @@
+#include "rename.hpp"
+
 #include "scene.hpp"
 #include "camera.hpp"
 #include "player.hpp"
@@ -7,7 +9,7 @@ namespace csg::scene
 {
     void specify()
     {
-        cse::object::camera.init(45.0f, 0.1f, 10.0f, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        cse::object::camera.init(45.0f, 0.1f, 10.0f, glm::Vec_3(0.0f, 0.0f, 3.0f), glm::Vec_3(0.0f, 0.0f, -1.0f), glm::Vec_3(0.0f, 1.0f, 0.0f));
 
         for(auto& player : cse::object::players)
         {

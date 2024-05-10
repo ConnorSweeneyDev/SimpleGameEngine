@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <glm/glm.hpp>
+#include "rename.hpp"
 
 namespace cse::object
 {
@@ -21,20 +22,20 @@ namespace cse::object
 
             void reset_orientation();
 
-            void init(float fov, float near_clip, float far_clip, glm::vec3 position, glm::vec3 direction, glm::vec3 up);
+            void init(float fov, float near_clip, float far_clip, glm::Vec_3 position, glm::Vec_3 direction, glm::Vec_3 up);
 
-            glm::mat4 projection_matrix;
-            glm::mat4 view_matrix;
+            glm::Mat_4 projection_matrix;
+            glm::Mat_4 view_matrix;
 
         private:
             float fov;
             float near_clip;
             float far_clip;
-            glm::vec3 position;
-            glm::vec3 direction;
-            glm::vec3 up;
+            glm::Vec_3 position;
+            glm::Vec_3 direction;
+            glm::Vec_3 up;
 
-            std::vector<glm::vec3> initial_orientation;
+            std::vector<glm::Vec_3> initial_orientation;
     };
     extern Camera camera;
 }

@@ -1,3 +1,5 @@
+#include "rename.hpp"
+
 #include "render.hpp"
 #include "window.hpp"
 #include "item.hpp"
@@ -54,7 +56,7 @@ namespace cse::object
         pre_draw();
         draw();
         draw_cleanup();
-        SDL_GL_SwapWindow(platform::window.application);
+        sdl::gl_swap_window(platform::window.application);
     }
 
     void Render::pre_draw_init()

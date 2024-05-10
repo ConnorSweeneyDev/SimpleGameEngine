@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <glad/glad.h>
+#include "rename.hpp"
 
 namespace cse::object
 {
@@ -37,7 +38,7 @@ namespace cse::object
             void vertex_cleanup();
             void draw_cleanup();
 
-            std::vector<GLfloat> default_quad_vertices =
+            std::vector<gl::Float> default_quad_vertices =
             {
                 // Vertex 0
                 -0.5f, -0.5f, 0.0f, // Bottom left vertex position
@@ -56,7 +57,7 @@ namespace cse::object
                 1.0f, 0.0f, 0.0f,   // Top right vertex color
                 1.0f, 1.0f          // Top right vertex texture coordinates
             };
-            std::vector<GLuint> default_quad_indices =
+            std::vector<gl::Uint> default_quad_indices =
             {
                 0, 1, 2, // Triangle 1
                 2, 1, 3  // Triangle 2
