@@ -5,8 +5,8 @@
 #include <memory>
 #include <vector>
 
-#include "glm/gtc/type_ptr.hpp"
-#include "glad/glad.h"
+#include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 #include "rename.hpp"
 
 #include "render.hpp"

@@ -46,6 +46,12 @@ namespace gl
     using Enum = GLenum;
 
     Enum get_error(void);
+    void enable(Enum cap);
+    void disable(Enum cap);
+    void blend_func(Enum sfactor, Enum dfactor);
+    void viewport(Int x, Int y, Size_i width, Size_i height);
+    void clear_color(Float red, Float green, Float blue, Float alpha);
+    void clear(Enum mask);
     Uint create_shader(Enum type);
     void shader_source(Uint shader, int count, const char** string, const int* length);
     void compile_shader(Uint shader);
@@ -72,6 +78,7 @@ namespace gl
     void uniform_matrix_4fv(Int location, Size_i count, bool transpose, const Float* value);
     void draw_elements(Enum mode, Size_i count, Enum type, const Void* indices);
     void delete_vertex_arrays(Size_i n, const Uint* arrays);
+    void disable_vertex_attrib_array(Uint index);
     void delete_buffers(Size_i n, const Uint* buffers);
     void delete_textures(Size_i n, const Uint* textures);
     void delete_program(Uint program);

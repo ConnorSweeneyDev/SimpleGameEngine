@@ -56,38 +56,39 @@ namespace cse::object
         pre_draw();
         draw();
         draw_cleanup();
+
         sdl::gl_swap_window(platform::window.application);
     }
 
     void Render::pre_draw_init()
     {
-        glEnable(GL_DEPTH_TEST);
-        glDisable(GL_CULL_FACE);
-        glEnable(GL_MULTISAMPLE);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        gl::enable(GL_DEPTH_TEST);
+        gl::disable(GL_CULL_FACE);
+        gl::enable(GL_MULTISAMPLE);
+        gl::enable(GL_BLEND);
+        gl::blend_func(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glViewport(0, 0, platform::window.width, platform::window.height);
+        gl::viewport(0, 0, platform::window.width, platform::window.height);
 
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+        gl::clear_color(0.2f, 0.2f, 0.2f, 1.0f);
+        gl::clear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     }
 
     void Render::vertex_cleanup()
     {
-        glBindVertexArray(0);
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glDisableVertexAttribArray(2);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        gl::bind_vertex_array(0);
+        gl::disable_vertex_attrib_array(0);
+        gl::disable_vertex_attrib_array(1);
+        gl::disable_vertex_attrib_array(2);
+        gl::bind_buffer(GL_ARRAY_BUFFER, 0);
+        gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        gl::bind_texture(GL_TEXTURE_2D, 0);
     }
 
     void Render::draw_cleanup()
     {
-        glBindVertexArray(0);
-        glUseProgram(0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        gl::bind_vertex_array(0);
+        gl::use_program(0);
+        gl::bind_texture(GL_TEXTURE_2D, 0);
     }
 }

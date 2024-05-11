@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
 #include <memory>
+
+#include "rename.hpp"
 
 #include "shader.hpp"
 

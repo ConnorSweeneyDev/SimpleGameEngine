@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
-#include "SDL2/SDL_timer.h"
+#include <SDL2/SDL_timer.h>
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "stb_image.h"
@@ -34,6 +34,12 @@ namespace glad
 namespace gl
 {
     Enum get_error(void) { return glGetError(); }
+    void enable(Enum cap) { glEnable(cap); }
+    void disable(Enum cap) { glDisable(cap); }
+    void blend_func(Enum sfactor, Enum dfactor) { glBlendFunc(sfactor, dfactor); }
+    void viewport(Int x, Int y, Size_i width, Size_i height) { glViewport(x, y, width, height); }
+    void clear_color(Float red, Float green, Float blue, Float alpha) { glClearColor(red, green, blue, alpha); }
+    void clear(Enum mask) { glClear(mask); }
     Uint create_shader(Enum type) { return glCreateShader(type); }
     void shader_source(Uint shader, int count, const char** string, const int* length) { glShaderSource(shader, count, string, length); }
     void compile_shader(Uint shader) { glCompileShader(shader); }
@@ -60,6 +66,7 @@ namespace gl
     void uniform_matrix_4fv(Int location, Size_i count, bool transpose, const Float* value) { glUniformMatrix4fv(location, count, transpose, value); }
     void draw_elements(Enum mode, Size_i count, Enum type, const Void* indices) { glDrawElements(mode, count, type, indices); }
     void delete_vertex_arrays(Size_i n, const Uint* arrays) { glDeleteVertexArrays(n, arrays); }
+    void disable_vertex_attrib_array(Uint index) { glDisableVertexAttribArray(index); }
     void delete_buffers(Size_i n, const Uint* buffers) { glDeleteBuffers(n, buffers); }
     void delete_textures(Size_i n, const Uint* textures) { glDeleteTextures(n, textures); }
     void delete_program(Uint program) { glDeleteProgram(program); }
