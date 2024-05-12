@@ -86,10 +86,10 @@ namespace gl
 
 namespace glm
 {
-    using Vec_3 = vec3;
-    using Mat_4 = mat4;
+    using Vec3 = vec3;
+    using Mat4 = mat4;
 
-    Mat_4 look_at(Vec_3 eye, Vec_3 center, Vec_3 up);
+    Mat4 look_at(Vec3 eye, Vec3 center, Vec3 up);
 }
 
 namespace stbi

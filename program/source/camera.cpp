@@ -31,7 +31,7 @@ namespace cse::object
         up = initial_orientation[2];
     }
 
-    void Camera::init(const float fov, const float near_clip, const float far_clip, const glm::Vec_3 position, const glm::Vec_3 direction, const glm::Vec_3 up)
+    void Camera::init(const float fov, const float near_clip, const float far_clip, const glm::Vec3 position, const glm::Vec3 direction, const glm::Vec3 up)
     {
         this->fov = fov;
         this->near_clip = near_clip;

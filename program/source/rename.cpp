@@ -74,7 +74,7 @@ namespace gl
 
 namespace glm
 {
-    Mat_4 look_at(Vec_3 eye, Vec_3 center, Vec_3 up) { return lookAt(eye, center, up); }
+    Mat4 look_at(Vec3 eye, Vec3 center, Vec3 up) { return lookAt(eye, center, up); }
 }
 
 namespace stbi

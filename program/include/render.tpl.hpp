@@ -126,25 +126,25 @@ namespace cse::object
         gl::use_program(object->shader_program);
 
         camera.update_projection_matrix();
-        glm::Mat_4 projection = camera.projection_matrix;
+        glm::Mat4 projection = camera.projection_matrix;
         gl::Int uniform_projection_matrix_location = gl::get_uniform_location(object->shader_program, "uniform_projection_matrix");
         if (uniform_projection_matrix_location <= -1)
             std::cout << "uniform_projection_matrix could not be found!" << std::endl;
         gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, GL_FALSE, glm::value_ptr(projection));
 
         camera.update_view_matrix();
-        glm::Mat_4 view = camera.view_matrix;
+        glm::Mat4 view = camera.view_matrix;
         gl::Int uniform_view_matrix_location = gl::get_uniform_location(object->shader_program, "uniform_view_matrix");
         if (uniform_view_matrix_location <= -1)
             std::cout << "uniform_view_matrix could not be found!" << std::endl;
         gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, GL_FALSE, glm::value_ptr(view));
 
-        glm::Mat_4 model = glm::Mat_4(1.0f);
-        model = glm::translate(model, glm::Vec_3(object->translation_x, object->translation_y, object->translation_z));
-        model = glm::rotate(model, glm::radians(object->rotation_x), glm::Vec_3(1.0f, 0.0f, 0.0f));
-        model = glm::rotate(model, glm::radians(object->rotation_y), glm::Vec_3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, glm::radians(object->rotation_z), glm::Vec_3(0.0f, 0.0f, 1.0f));
-        model = glm::scale(model, glm::Vec_3(object->scale_x, object->scale_y, object->scale_z));
+        glm::Mat4 model = glm::Mat4(1.0f);
+        model = glm::translate(model, glm::Vec3(object->translation_x, object->translation_y, object->translation_z));
+        model = glm::rotate(model, glm::radians(object->rotation_x), glm::Vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(object->rotation_y), glm::Vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(object->rotation_z), glm::Vec3(0.0f, 0.0f, 1.0f));
+        model = glm::scale(model, glm::Vec3(object->scale_x, object->scale_y, object->scale_z));
         gl::Int uniform_model_matrix_location = gl::get_uniform_location(object->shader_program, "uniform_model_matrix");
         if (uniform_model_matrix_location <= -1)
             std::cout << "uniform_model_matrix could not be found!" << std::endl;
