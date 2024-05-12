@@ -17,12 +17,12 @@ namespace cse::object
     }
     void Camera::update_view_matrix() { view_matrix = glm::look_at(position, position + direction, up); }
 
-    void Camera::move_right(float speed) { position.x += speed * time::delta_time; }
-    void Camera::move_left(float speed) { position.x -= speed * time::delta_time; }
-    void Camera::move_up(float speed) { position.y += speed * time::delta_time; }
-    void Camera::move_down(float speed) { position.y -= speed * time::delta_time; }
-    void Camera::move_forward(float speed) { position.z -= speed * time::delta_time; }
-    void Camera::move_backward(float speed) { position.z += speed * time::delta_time; }
+    void Camera::move_right(const float speed) { position.x += speed * time::delta_time; }
+    void Camera::move_left(const float speed) { position.x -= speed * time::delta_time; }
+    void Camera::move_up(const float speed) { position.y += speed * time::delta_time; }
+    void Camera::move_down(const float speed) { position.y -= speed * time::delta_time; }
+    void Camera::move_forward(const float speed) { position.z -= speed * time::delta_time; }
+    void Camera::move_backward(const float speed) { position.z += speed * time::delta_time; }
 
     void Camera::reset_orientation()
     {
@@ -31,7 +31,7 @@ namespace cse::object
         up = initial_orientation[2];
     }
 
-    void Camera::init(float fov, float near_clip, float far_clip, glm::Vec_3 position, glm::Vec_3 direction, glm::Vec_3 up)
+    void Camera::init(const float fov, const float near_clip, const float far_clip, const glm::Vec_3 position, const glm::Vec_3 direction, const glm::Vec_3 up)
     {
         this->fov = fov;
         this->near_clip = near_clip;

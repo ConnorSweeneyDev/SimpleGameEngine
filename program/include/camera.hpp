@@ -13,16 +13,16 @@ namespace cse::object
             void update_projection_matrix();
             void update_view_matrix();
 
-            void move_right(float speed);
-            void move_left(float speed);
-            void move_up(float speed);
-            void move_down(float speed);
-            void move_forward(float speed);
-            void move_backward(float speed);
+            void move_right(const float speed);
+            void move_left(const float speed);
+            void move_up(const float speed);
+            void move_down(const float speed);
+            void move_forward(const float speed);
+            void move_backward(const float speed);
 
             void reset_orientation();
 
-            void init(float fov, float near_clip, float far_clip, glm::Vec_3 position, glm::Vec_3 direction, glm::Vec_3 up);
+            void init(const float fov, const float near_clip, const float far_clip, const glm::Vec_3 position, const glm::Vec_3 direction, const glm::Vec_3 up);
 
             glm::Mat_4 projection_matrix;
             glm::Mat_4 view_matrix;

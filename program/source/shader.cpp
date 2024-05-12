@@ -21,16 +21,16 @@ namespace cse::object
             set_program(item, "program/shader/vertex_shader.glsl", "program/shader/fragment_shader.glsl");
     }
 
-    std::string Shader::load_as_string(const std::string& file_name)
+    std::string Shader::load_as_string(const std::string& shader_path)
     {
         std::string result;
 
-        std::ifstream file(file_name.c_str());
+        std::ifstream file(shader_path.c_str());
         std::string line;
 
         if (!file.is_open())
         {
-            std::cout << "Unable to open file: " << file_name << "!" << std::endl;
+            std::cout << "Unable to open file: " << shader_path << "!" << std::endl;
             return result;
         }
 

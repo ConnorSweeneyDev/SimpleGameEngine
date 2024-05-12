@@ -10,11 +10,11 @@ namespace cse::platform
 {
     void clear_all_gl_errors() { while (gl::get_error() != GL_NO_ERROR); }
 
-    void check_gl_error_status(const char* function_name, const char* file_name, int line)
+    void check_gl_error_status(const char* function_name, const char* file_name, const int line_number)
     {
         while (GLenum error = gl::get_error())
         {
-            std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << function_name << " | File: " << file_name << " | Line: " << line << std::endl;
+            std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << function_name << " | File: " << file_name << " | Line: " << line_number << std::endl;
             return;
         }
     }

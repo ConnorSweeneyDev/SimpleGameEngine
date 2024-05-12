@@ -11,7 +11,7 @@ namespace cse::object
     class Render
     {
         public:
-            template <typename Type> std::shared_ptr<Type> get_by_name(const std::string& name) const;
+            template <typename Type> std::shared_ptr<Type> get_by_name(const std::string name) const;
 
             void specify();
 

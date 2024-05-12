@@ -18,7 +18,7 @@
 
 namespace cse::object
 {
-    template <typename Type> std::shared_ptr<Type> Render::get_by_name(const std::string& name) const
+    template <typename Type> std::shared_ptr<Type> Render::get_by_name(const std::string name) const
     {
         if constexpr (std::is_same<Type, Player>::value)
         {
@@ -74,13 +74,8 @@ namespace cse::object
     template <typename Type> void Render::add_dynamic(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
-        {
             if (get_by_name<Item>(name) == nullptr)
-            {
                 items.push_back(specify_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
-                vertex_cleanup();
-            }
-        }
     }
 
     template <typename Type> void Render::remove(std::shared_ptr<Type>& object)

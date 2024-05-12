@@ -13,7 +13,7 @@ namespace cse::object
         friend class Render; friend class Shader; friend class Texture;
 
         public:
-            Player(std::string name);
+            Player(const std::string name);
             
             void move_right();
             void move_left();
@@ -25,8 +25,8 @@ namespace cse::object
             void reset_stats();
             void reset_position();
 
-            void init(float health, float speed,
-                      std::vector<float> default_geometry);
+            void init(const float health, const float speed,
+                      const std::vector<float> default_geometry);
 
             std::string name;
 

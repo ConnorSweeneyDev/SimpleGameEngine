@@ -5,7 +5,7 @@ namespace cse::object
 {
     Player_ptr_list players;
 
-    Player::Player(std::string name) { this->name = name; }
+    Player::Player(const std::string name) { this->name = name; }
 
     void Player::move_right() { translation_x += speed * time::delta_time; }
     void Player::move_left() { translation_x -= speed * time::delta_time; }
@@ -33,8 +33,8 @@ namespace cse::object
         scale_z = initial_geometry[8];
     }
 
-    void Player::init(float health, float speed,
-                      std::vector<float> default_geometry)
+    void Player::init(const float health, const float speed,
+                      const std::vector<float> default_geometry)
     {
         initial_stats.push_back(this->health = health);
         initial_stats.push_back(this->speed = speed);

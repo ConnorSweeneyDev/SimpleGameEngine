@@ -4,9 +4,9 @@ namespace cse::object
 {
     Item_ptr_list items;
 
-    Item::Item(std::string name) { this->name = name; }
+    Item::Item(const std::string name) { this->name = name; }
 
-    void Item::init(std::vector<float> default_geometry)
+    void Item::init(const std::vector<float> default_geometry)
     {
         this->translation_x = default_geometry[0];
         this->translation_y = default_geometry[1];
