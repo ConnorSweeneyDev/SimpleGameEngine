@@ -13,7 +13,7 @@ namespace cse::input
     sdl::Event event;
     const Uint8* key_state = sdl::get_keyboard_state(nullptr);
 
-    void read()
+    void read_system()
     {
         while (sdl::poll_event(&event) != 0)
         {
@@ -31,7 +31,10 @@ namespace cse::input
                     break;
             }
         }
+    }
 
+    void read_key()
+    {
         if (key_state[SDL_SCANCODE_H])
             object::camera.move_right(0.001f);
         if (key_state[SDL_SCANCODE_F])
@@ -110,5 +113,11 @@ namespace cse::input
             if (key_state[SDL_SCANCODE_SPACE])
                 player_2->reset_position();
         }
+    }
+
+    void read()
+    {
+        read_system();
+        read_key();
     }
 }
