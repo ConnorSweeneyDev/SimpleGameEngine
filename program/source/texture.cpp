@@ -40,4 +40,12 @@ namespace cse::object
             load(item);
         }
     }
+
+    void Texture::load_cleanup()
+    {
+        gl::bind_vertex_array(0);
+        gl::bind_buffer(GL_ARRAY_BUFFER, 0);
+        gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        gl::bind_texture(GL_TEXTURE_2D, 0);
+    }
 }

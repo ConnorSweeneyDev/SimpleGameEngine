@@ -54,7 +54,7 @@ namespace cse::object
         }
         stbi::image_free(image_data);
 
-        load_cleanup(object);
+        load_cleanup();
     }
 
     template <typename Type> void Texture::load_init(std::shared_ptr<Type>& object)
@@ -63,13 +63,5 @@ namespace cse::object
         gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
         gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
         gl::bind_texture(GL_TEXTURE_2D, object->texture_object);
-    }
-
-    template <typename Type> void Texture::load_cleanup(std::shared_ptr<Type>& object)
-    {
-        gl::bind_vertex_array(0);
-        gl::bind_buffer(GL_ARRAY_BUFFER, 0);
-        gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        gl::bind_texture(GL_TEXTURE_2D, 0);
     }
 }

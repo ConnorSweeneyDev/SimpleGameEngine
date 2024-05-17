@@ -12,7 +12,7 @@ namespace cse::object
 
         private:
             template <typename Type> void load_init(std::shared_ptr<Type>& object);
-            template <typename Type> void load_cleanup(std::shared_ptr<Type>& object);
+            void load_cleanup();
     };
     extern Texture texture;
 }
