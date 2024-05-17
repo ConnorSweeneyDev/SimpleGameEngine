@@ -14,13 +14,13 @@ namespace csg::scene
         for(auto& player : cse::object::players)
         {
             if (player->name == "Player 1")
-                player->init(50, 0.002,
+                player->init(50, 0.002f,
                              { -1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
             else if (player->name == "Player 2")
-                player->init(200, 0.0005,
+                player->init(200, 0.0005f,
                              { 1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f }); // Facing the other way, should change to 1.0f and flip the texture instead
             else
-                player->init(100, 0.001,
+                player->init(100, 0.001f,
                              { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f });
         }
 

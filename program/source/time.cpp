@@ -10,7 +10,7 @@ namespace cse::time
 
     void update_delta_time()
     {
-        current_time = sdl::get_ticks_64();
+        current_time = (float)sdl::get_ticks_64();
         delta_time = (current_time - last_time);
         last_time = current_time;
     }

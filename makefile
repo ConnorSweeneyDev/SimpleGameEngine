@@ -8,7 +8,7 @@ CC = gcc
 # CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-all
 
 # DEBUG FLAGS:
-CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wno-unused-parameter
+CXXFLAGS = -g -O0 -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wno-unused-parameter -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
 CFLAGS = -g -O0
 
 INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi

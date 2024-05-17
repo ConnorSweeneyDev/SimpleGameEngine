@@ -99,13 +99,13 @@ namespace cse::object
 
         gl::gen_buffers(1, &object->vertex_buffer_object);
         gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
-        gl::buffer_data(GL_ARRAY_BUFFER, default_quad_vertices.size() * sizeof(gl::Float), default_quad_vertices.data(), GL_STATIC_DRAW);
+        gl::buffer_data(GL_ARRAY_BUFFER, (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float), default_quad_vertices.data(), GL_STATIC_DRAW);
         gl::vertex_attrib_pointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (GLvoid*)0);
         gl::enable_vertex_attrib_array(0); // Vertex attribute pointer for the vertex position
 
         gl::gen_buffers(1, &object->index_buffer_object);
         gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
-        gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER, default_quad_indices.size() * sizeof(gl::Float), default_quad_indices.data(), GL_STATIC_DRAW);
+        gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER, (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float), default_quad_indices.data(), GL_STATIC_DRAW);
         gl::vertex_attrib_pointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (GLvoid*)(sizeof(GLfloat)*3));
         gl::enable_vertex_attrib_array(1); // Vertex attribute pointer for the vertex color
 

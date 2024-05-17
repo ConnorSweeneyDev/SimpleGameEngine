@@ -29,7 +29,7 @@ namespace cse::object
             int section_height = 50;
             int channels = object->texture_channels;
             unsigned char* source_image_data = image_data + (section_width * offset) * channels;
-            unsigned char* destination_image_data = new unsigned char[section_width * section_height * channels];
+            unsigned char* destination_image_data = new unsigned char[(size_t)(section_width * section_height * channels)];
 
             for (int y = 0; y < section_height; ++y)
             {

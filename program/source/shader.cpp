@@ -63,7 +63,7 @@ namespace cse::object
         {
             int length;
             gl::get_shaderiv(shader_object, GL_INFO_LOG_LENGTH, &length);
-            char* error_messages = new char[length];
+            char* error_messages = new char[(size_t)length];
             gl::get_shader_info_log(shader_object, length, &length, error_messages);
 
             if (type == GL_VERTEX_SHADER)

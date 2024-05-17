@@ -3,8 +3,6 @@
 #include <string>
 #include <memory>
 
-#include "rename.hpp"
-
 #include "shader.hpp"
 
 namespace cse::object
