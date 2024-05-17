@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include "platform.hpp"
 #include "window.hpp"
 #include "render.hpp"
@@ -38,7 +40,7 @@ void program_cleanup()
     cse::platform::window.cleanup();
 }
 
-int main(int argc, char* argv[])
+int main()
 {
     platform_init();
 
