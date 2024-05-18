@@ -5,7 +5,7 @@ namespace cse::object
 {
     Player_ptr_list players;
 
-    Player::Player(const std::string name) { this->name = name; }
+    Player::Player(const std::string i_name) : name(i_name) {}
 
     void Player::move_right() { translation_x += speed * time::delta_time; }
     void Player::move_left() { translation_x -= speed * time::delta_time; }
@@ -33,20 +33,20 @@ namespace cse::object
         scale_z = initial_geometry[8];
     }
 
-    void Player::init(const float health, const float speed,
-                      const std::vector<float> default_geometry)
+    void Player::init(const float i_health, const float i_speed,
+                      const std::vector<float> i_default_geometry)
     {
-        initial_stats.push_back(this->health = health);
-        initial_stats.push_back(this->speed = speed);
+        initial_stats.push_back(health = i_health);
+        initial_stats.push_back(speed = i_speed);
 
-        initial_geometry.push_back(this->translation_x = default_geometry[0]);
-        initial_geometry.push_back(this->translation_y = default_geometry[1]);
-        initial_geometry.push_back(this->translation_z = default_geometry[2]);
-        initial_geometry.push_back(this->rotation_x = default_geometry[3]);
-        initial_geometry.push_back(this->rotation_y = default_geometry[4]);
-        initial_geometry.push_back(this->rotation_z = default_geometry[5]);
-        initial_geometry.push_back(this->scale_x = default_geometry[6]);
-        initial_geometry.push_back(this->scale_y = default_geometry[7]);
-        initial_geometry.push_back(this->scale_z = default_geometry[8]);
+        initial_geometry.push_back(translation_x = i_default_geometry[0]);
+        initial_geometry.push_back(translation_y = i_default_geometry[1]);
+        initial_geometry.push_back(translation_z = i_default_geometry[2]);
+        initial_geometry.push_back(rotation_x = i_default_geometry[3]);
+        initial_geometry.push_back(rotation_y = i_default_geometry[4]);
+        initial_geometry.push_back(rotation_z = i_default_geometry[5]);
+        initial_geometry.push_back(scale_x = i_default_geometry[6]);
+        initial_geometry.push_back(scale_y = i_default_geometry[7]);
+        initial_geometry.push_back(scale_z = i_default_geometry[8]);
     }
 }

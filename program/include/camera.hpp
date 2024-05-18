@@ -22,7 +22,7 @@ namespace cse::object
 
             void reset_orientation();
 
-            void init(const float fov, const float near_clip, const float far_clip, const glm::Vec3 position, const glm::Vec3 direction, const glm::Vec3 up);
+            void init(const float i_fov, const float i_near_clip, const float i_far_clip, const glm::Vec3 i_position, const glm::Vec3 i_direction, const glm::Vec3 i_up);
 
             glm::Mat4 projection_matrix;
             glm::Mat4 view_matrix;

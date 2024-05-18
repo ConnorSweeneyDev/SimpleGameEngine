@@ -13,9 +13,9 @@ namespace cse::object
         friend class Render; friend class Shader; friend class Texture;
 
         public:
-            Item(const std::string name);
+            Item(const std::string i_name);
             
-            void init(const std::vector<float> default_geometry);
+            void init(const std::vector<float> i_default_geometry);
 
             std::string name;
 

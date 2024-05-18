@@ -31,15 +31,15 @@ namespace cse::object
         up = initial_orientation[2];
     }
 
-    void Camera::init(const float fov, const float near_clip, const float far_clip, const glm::Vec3 position, const glm::Vec3 direction, const glm::Vec3 up)
+    void Camera::init(const float i_fov, const float i_near_clip, const float i_far_clip, const glm::Vec3 i_position, const glm::Vec3 i_direction, const glm::Vec3 i_up)
     {
-        this->fov = fov;
-        this->near_clip = near_clip;
-        this->far_clip = far_clip;
+        fov = i_fov;
+        near_clip = i_near_clip;
+        far_clip = i_far_clip;
 
-        initial_orientation.push_back(this->position = position);
-        initial_orientation.push_back(this->direction = direction);
-        initial_orientation.push_back(this->up = up);
+        initial_orientation.push_back(position = i_position);
+        initial_orientation.push_back(direction = i_direction);
+        initial_orientation.push_back(up = i_up);
 
         update_projection_matrix();
         update_view_matrix();
