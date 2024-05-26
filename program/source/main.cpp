@@ -1,6 +1,6 @@
 #define SDL_MAIN_HANDLED
 
-#include "platform.hpp"
+#include "system.hpp"
 #include "window.hpp"
 #include "render.hpp"
 #include "time.hpp"

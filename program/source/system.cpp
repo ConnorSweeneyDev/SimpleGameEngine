@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include "rename.hpp"
 
-#include "platform.hpp"
+#include "system.hpp"
 
 namespace cse::platform
 {
