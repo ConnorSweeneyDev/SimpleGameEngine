@@ -10,8 +10,17 @@
 
 namespace cse::input
 {
+    void read_system();
+    void read_key();
+
     sdl::Event event;
     const sdl::Uint8* key_state = sdl::get_keyboard_state(nullptr);
+
+    void read()
+    {
+        read_system();
+        read_key();
+    }
 
     void read_system()
     {
@@ -113,11 +122,5 @@ namespace cse::input
             if (key_state[SDL_SCANCODE_SPACE])
                 player_2->reset_position();
         }
-    }
-
-    void read()
-    {
-        read_system();
-        read_key();
     }
 }
