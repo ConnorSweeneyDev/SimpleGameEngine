@@ -24,6 +24,7 @@ namespace sdl
     int gl_set_swap_interval(int interval) { return SDL_GL_SetSwapInterval(interval); }
     void gl_swap_window(Window* window) { SDL_GL_SwapWindow(window); }
     void gl_delete_context(Gl_context context) { SDL_GL_DeleteContext(context); }
+    void *SDLCALL gl_get_proc_address(const char* proc) { return SDL_GL_GetProcAddress(proc); }
 }
 
 namespace glad

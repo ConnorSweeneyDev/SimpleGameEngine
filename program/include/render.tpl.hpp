@@ -100,13 +100,13 @@ namespace cse::object
         gl::gen_buffers(1, &object->vertex_buffer_object);
         gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
         gl::buffer_data(GL_ARRAY_BUFFER, (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float), default_quad_vertices.data(), GL_STATIC_DRAW);
-        gl::vertex_attrib_pointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (GLvoid*)0);
+        gl::vertex_attrib_pointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (gl::Void*)0);
         gl::enable_vertex_attrib_array(0); // Vertex attribute pointer for the vertex position
 
         gl::gen_buffers(1, &object->index_buffer_object);
         gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
         gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER, (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float), default_quad_indices.data(), GL_STATIC_DRAW);
-        gl::vertex_attrib_pointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (GLvoid*)(sizeof(GLfloat)*3));
+        gl::vertex_attrib_pointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (gl::Void*)(sizeof(gl::Float)*3));
         gl::enable_vertex_attrib_array(1); // Vertex attribute pointer for the vertex color
 
         gl::gen_textures(1, &object->texture_object);
@@ -115,7 +115,7 @@ namespace cse::object
         gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        gl::vertex_attrib_pointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (GLvoid*)(sizeof(gl::Float)*6));
+        gl::vertex_attrib_pointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gl::Float)*8, (gl::Void*)(sizeof(gl::Float)*6));
         gl::enable_vertex_attrib_array(2); // Vertex attribute pointer for the vertex texture coordinates
 
         vertex_cleanup();

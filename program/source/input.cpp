@@ -11,7 +11,7 @@
 namespace cse::input
 {
     sdl::Event event;
-    const Uint8* key_state = sdl::get_keyboard_state(nullptr);
+    const sdl::Uint8* key_state = sdl::get_keyboard_state(nullptr);
 
     void read_system()
     {

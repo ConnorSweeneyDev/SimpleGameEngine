@@ -6,6 +6,9 @@
 
 namespace sdl
 {
+    using Uint8 = uint8_t;
+    using Uint32 = uint32_t;
+    using Uint64 = uint64_t;
     using Window = SDL_Window;
     using Display_mode = SDL_DisplayMode;
     using Event = SDL_Event;
@@ -27,6 +30,7 @@ namespace sdl
     int gl_set_swap_interval(int interval);
     void gl_swap_window(Window* window);
     void gl_delete_context(Gl_context context);
+    void *SDLCALL gl_get_proc_address(const char* proc);
 }
 
 namespace glad

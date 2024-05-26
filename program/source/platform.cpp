@@ -12,7 +12,7 @@ namespace cse::platform
 
     void check_gl_error_status(const char* function_name, const char* file_name, const int line_number)
     {
-        while (GLenum error = gl::get_error())
+        while (gl::Enum error = gl::get_error())
         {
             std::cout << "OpenGL Error " << std::hex << error << std::dec << " | Function: " << function_name << " | File: " << file_name << " | Line: " << line_number << std::endl;
             return;
@@ -40,7 +40,7 @@ namespace cse::platform
 
     void glad_init()
     {
-        if (!glad::load_gl_loader(SDL_GL_GetProcAddress))
+        if (!glad::load_gl_loader(sdl::gl_get_proc_address))
         {
             std::cout << "Glad could not be initialized!" << std::endl;
             exit(1);
