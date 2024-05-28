@@ -10,40 +10,24 @@
 
 namespace cse::input
 {
-    void read_system();
-    void read_key();
-
     sdl::Event event;
     const sdl::Uint8* key_state = sdl::get_keyboard_state(nullptr);
 
     void read()
     {
-        read_system();
-        read_key();
-    }
-
-    void read_system()
-    {
         while (sdl::poll_event(&event) != 0)
         {
-            switch (event.type)
+            if (event.type == SDL_QUIT)
+                platform::window.should_quit = true;
+            else if (event.type == SDL_KEYDOWN)
             {
-                case SDL_QUIT:
+                if (key_state[SDL_SCANCODE_ESCAPE])
                     platform::window.should_quit = true;
-                    break;
-
-                case SDL_KEYDOWN:
-                    if (key_state[SDL_SCANCODE_ESCAPE])
-                        platform::window.should_quit = true;
-                    if (key_state[SDL_SCANCODE_F11])
-                        platform::window.handle_fullscreen();
-                    break;
+                if (key_state[SDL_SCANCODE_F11])
+                    platform::window.handle_fullscreen();
             }
         }
-    }
 
-    void read_key()
-    {
         if (key_state[SDL_SCANCODE_H])
             object::camera.move_right(0.001f);
         if (key_state[SDL_SCANCODE_F])
