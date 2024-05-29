@@ -13,8 +13,8 @@ namespace cse::object
     template <typename Type> void Texture::load(std::shared_ptr<Type>& object)
     {
         load_init(object);
-
         stbi::set_flip_vertically_on_load(true);
+
         unsigned char* image_data = stbi::load(object->texture_path.c_str(), &object->texture_width, &object->texture_height, &object->texture_channels, 0);
         if (!image_data)
         {
@@ -52,8 +52,8 @@ namespace cse::object
         {
             gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_width, object->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
         }
-        stbi::image_free(image_data);
 
+        stbi::image_free(image_data);
         load_cleanup();
     }
 
