@@ -40,7 +40,6 @@ namespace cse::platform
     void Window::init()
     { 
         application = sdl::create_window("3D Game Engine", starting_pos_x, starting_pos_y, starting_width, starting_height, SDL_WINDOW_OPENGL);
-
         if (application == nullptr)
         {
             std::cout << "SDL window could not be created!" << std::endl;
@@ -59,7 +58,6 @@ namespace cse::platform
             std::cout << "Couldn't get desktop display mode!" << std::endl;
             exit(1);
         }
-
         if (fullscreen)
         {
             sdl::set_window_size(application, display_mode.w, display_mode.h);
