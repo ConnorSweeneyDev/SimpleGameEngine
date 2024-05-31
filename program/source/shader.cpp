@@ -21,7 +21,7 @@ namespace cse::object
             set_program(item, "program/shader/vertex_shader.glsl", "program/shader/fragment_shader.glsl");
     }
 
-    std::string Shader::load_as_string(const std::string& shader_path)
+    const std::string Shader::load_as_string(const std::string& shader_path)
     {
         std::string result;
 

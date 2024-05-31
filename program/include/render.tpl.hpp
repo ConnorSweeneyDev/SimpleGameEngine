@@ -18,7 +18,7 @@
 
 namespace cse::object
 {
-    template <typename Type> std::shared_ptr<Type> Render::get_by_name(const std::string name) const
+    template <typename Type> const std::shared_ptr<Type> Render::get_by_name(const std::string name) const
     {
         if constexpr (std::is_same<Type, Player>::value)
         {
@@ -35,7 +35,7 @@ namespace cse::object
         return nullptr;
     }
 
-    template <typename Type> std::shared_ptr<Type> Render::specify(const std::string name)
+    template <typename Type> const std::shared_ptr<Type> Render::specify(const std::string name)
     {
         auto object = std::make_shared<Type>(name);
         specify_vertices(object);
@@ -45,7 +45,7 @@ namespace cse::object
 
     // specify_dynamic only exists for Item, not player due to player's init function taking specific parameters - will be changed to a different Type later
     // (Might not need to be a template function)
-    template <typename Type> std::shared_ptr<Type> Render::specify_dynamic(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
+    template <typename Type> const std::shared_ptr<Type> Render::specify_dynamic(const std::string name, const std::string texture_path, const std::string vertex_shader, const std::string fragment_shader, const std::vector<float> default_geometry)
     {
         if constexpr (std::is_same<Type, Item>::value)
         {
