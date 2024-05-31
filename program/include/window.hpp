@@ -23,7 +23,6 @@ namespace cse::platform
 
         private:
             bool fullscreen = false;
-
             const int starting_pos_x = 100;
             const int starting_pos_y = 100;
 
