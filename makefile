@@ -26,7 +26,7 @@ else
         LIBRARIES = -Lexternal/library/SDLLinux -lSDL2
         $(shell if [ -d "$(BINARY_DIR)" ]; then $(RM) $(BINARY_DIR); fi)
         $(shell mkdir -p $(BINARY_DIR))
-		$(shell if [ -d "$(SDL_INCLUDE_DIR)" ]; then $(RM) $(SDL_INCLUDE_DIR); fi)
+        $(shell if [ -d "$(SDL_INCLUDE_DIR)" ]; then $(RM) $(SDL_INCLUDE_DIR); fi)
     endif
 	#MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
