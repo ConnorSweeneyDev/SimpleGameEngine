@@ -20,6 +20,7 @@ else
     ifeq ($(UNAME_S), Linux)
         LIBRARIES = -Lexternal/library/SDLLinux -lSDL2
     endif
+	#MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
         #LIBRARIES = -Lexternal/library/SDLMac -lSDL2
     #endif
