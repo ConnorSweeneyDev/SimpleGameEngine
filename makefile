@@ -13,6 +13,7 @@ CFLAGS = -g -O0
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
 
 BINARY_DIR = binary
+SDL_INCLUDE_DIR = external/include/SDL2
 ifeq ($(OS), Windows_NT)
     INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
     SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
@@ -25,6 +26,7 @@ else
         LIBRARIES = -Lexternal/library/SDLLinux -lSDL2
         $(shell if [ -d "$(BINARY_DIR)" ]; then $(RM) $(BINARY_DIR); fi)
         $(shell mkdir -p $(BINARY_DIR))
+		$(shell if [ -d "$(SDL_INCLUDE_DIR)" ]; then $(RM) $(SDL_INCLUDE_DIR); fi)
     endif
 	#MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
