@@ -14,16 +14,15 @@ WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-ali
 
 BINARY_DIR = binary
 ifeq ($(OS), Windows_NT)
-	INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
-	SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
+    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
+    SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
     LIBRARIES = -Lexternal/library/SDLWindows -lSDL2
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
-		INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/stbi
-		SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/stbi
+        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/stbi
+        SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/stbi
         LIBRARIES = -Lexternal/library/SDLLinux -lSDL2
-		$(shell if [ -d "$(BINARY_DIR)" ]; then $(RM) $(BINARY_DIR); fi)
     endif
 	#MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
