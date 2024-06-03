@@ -26,7 +26,7 @@ FORMAT_DIR = .clang-format
 $(shell if [ ! -d "$(OBJECTS_DIR)" ]; then mkdir -p $(OBJECTS_DIR); fi)
 OBJECTS = $(patsubst program/source/%.cpp,$(OBJECTS_DIR)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIR)/%.o,$(C_SOURCES))
 
-all: compile_commands clangd clang-format $(OUTPUT)
+all: compile_commands clang-format $(OUTPUT)
 
 compile_commands:
 	@echo -n > $(COMMANDS_DIR)
@@ -36,12 +36,6 @@ compile_commands:
 	@sed -i "$$ s/,$$//" $(COMMANDS_DIR)
 	@echo "]" >> $(COMMANDS_DIR)
 	@echo "$(COMMANDS_DIR) updated."
-
-clangd:
-	@echo -n > $(CLANGD_DIR)
-	@echo "Diagnostics:" >> $(CLANGD_DIR)
-	@echo "    UnusedIncludes: None" >> $(CLANGD_DIR)
-	@echo "$(CLANGD_DIR) updated."
 
 clang-format:
 	@echo -n > $(FORMAT_DIR)
