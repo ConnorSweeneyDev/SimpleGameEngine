@@ -1,10 +1,4 @@
 # 3DGameEngine
-You will need access to the following commands to build on any platform:
-- `gcc`
-- `g++`
-- `make`
-- `clang-format`
-
 After following the platform specific instructions you can run `make all` to build the project.
 
 ### Windows
@@ -13,8 +7,13 @@ of MinGW as me or replace the dlls in the binary folder with the ones from your 
 the above commands.
 
 ### Linux
-For linux you need to have `libsdl2-dev` installed. On Ubuntu it can be installed with `sudo apt install libsdl2-dev`. You can ensure that `clang-format` is installed
-using `sudo apt install clang`, `sudo apt install llvm` and finally `sudo apt install clang-format`. You can install `make` and `g++` with apt as well.
+Run the following commands to ensure your environment is set up correctly:
+- `sudo apt install g++`
+- `sudo apt install make`
+- `sudo apt install clang`
+- `sudo apt install llvm`
+- `sudo apt install clang-format`
+- `sudo apt install libsdl2-dev`
 
 ### Mac
 Not yet supported.
