@@ -2,5 +2,5 @@
 
 namespace cse::input
 {
-    void read();
+  void read();
 }

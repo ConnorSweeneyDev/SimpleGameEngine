@@ -2,5 +2,5 @@
 
 namespace csg::scene
 {
-    void specify();
+  void specify();
 }

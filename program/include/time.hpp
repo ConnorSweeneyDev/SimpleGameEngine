@@ -2,7 +2,7 @@
 
 namespace cse::time
 {
-    void update_delta_time();
+  void update_delta_time();
 
-    extern float delta_time;
+  extern float delta_time;
 }

@@ -9,7 +9,6 @@ uniform sampler2D uniform_texture;
 
 void main()
 {
-    color = texture(uniform_texture, vertex_texture);
-    if (color.a == 0.0)
-        discard;
+  color = texture(uniform_texture, vertex_texture);
+  if (color.a == 0.0) discard;
 }
