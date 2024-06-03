@@ -64,6 +64,7 @@ clang-format:
 	@echo "AlwaysBreakTemplateDeclarations: false" >> $(FORMAT_DIR)
 	@echo "..." >> $(FORMAT_DIR)
 	@echo "$(FORMAT_DIR) updated."
+	@clang-format -i program/**/*
 
 $(OUTPUT): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYS_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
