@@ -11,17 +11,17 @@ CXXFLAGS = -g -O0 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTI
 CFLAGS = -g -O0
 
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
-SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2/windows -isystemexternal/include/SDL2/linux -isystemexternal/include/stbi
+SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
 
 ifeq ($(OS), Windows_NT)
-    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2/windows -Iexternal/include/stbi
-    LIBRARIES = -Lexternal/library/SDL2/windows -lSDL2
+    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
+    LIBRARIES = -Lexternal/library/sdl2/windows -lSDL2
     OUTPUT = binary/windows/3DGameEngine.exe
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
-        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2/linux -Iexternal/include/stbi
-        LIBRARIES = -Lexternal/library/SDL2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
+        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
+        LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
         OUTPUT = binary/linux/3DGameEngine
     endif
     #MAC IS NOT SUPPORTED YET
