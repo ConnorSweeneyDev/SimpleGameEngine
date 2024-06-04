@@ -9,11 +9,8 @@ give you access to the unix tools that are used in the makefile.
 
 ### Linux
 Run the following commands to ensure your environment is set up correctly:
-- `sudo apt install g++`
-- `sudo apt install make`
-- `sudo apt install llvm`
-- `sudo apt install clang`
-- `sudo apt install clang-format`
+- `sudo apt install g++ make llvm clang clang-format`
+- `sudo apt install libsdl2-dev`
 
 ### Mac
 Not yet supported.
@@ -29,7 +26,6 @@ On top of the previous windows setup, go to the releases page and download the f
 
 ### Linux
 On top of having run the previous linux commands, run the following commands to ensure your environment is set up correctly:
-- `sudo apt install libsdl2-dev`
 - `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list`
 - `sudo apt update`
 - `sudo apt build-dep libsdl2-dev`
@@ -42,7 +38,7 @@ Now you can download a .tar.gz file from the releases page and extract it, to bu
 - Run `make` to build the project.
 
 Now you have two important directories, `[SDL VERSION]/include` and `[SDL VERSION]/build/build/.libs`. The contents of these can replace the contents of this project's
-`external/include/SDL2/linux` and `external/library/SDL2/linux` respectively. You don't need to include .d files in the library directory.
+`external/include/SDL2/linux` and `external/library/SDL2/linux` respectively. You don't need to include .d or .o files in the library directory.
 
 ### Mac
 Not yet supported.
