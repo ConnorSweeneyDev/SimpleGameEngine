@@ -11,8 +11,8 @@ give you access to the unix tools that are used in the makefile.
 Run the following commands to ensure your environment is set up correctly:
 - `sudo apt install g++`
 - `sudo apt install make`
-- `sudo apt install clang`
 - `sudo apt install llvm`
+- `sudo apt install clang`
 - `sudo apt install clang-format`
 
 ### Mac
