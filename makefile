@@ -1,3 +1,5 @@
+CURRENT_DIRECTORY = $(shell pwd)
+
 RM = rm -r
 CXX = g++
 CC = gcc
@@ -14,15 +16,16 @@ WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-ali
 SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
 
 ifeq ($(OS), Windows_NT)
-    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
-    LIBRARIES = -Lexternal/library/SDL2 -lSDL2
+    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2/windows -Iexternal/include/stbi
+    LIBRARIES = -Lexternal/library/SDL2/windows -lSDL2
     OUTPUT = binary/windows/3DGameEngine.exe
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
-        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/stbi
-        LIBRARIES = -lSDL2
+        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR Iexternal/include/SDL2/linux -Iexternal/include/stbi
+        LIBRARIES = -Lexternal/library/SDL2/linux -lSDL2 -Wl,-rpath=$(CURRENT_DIRECTORY)/external/library/SDL2/linux
         OUTPUT = binary/linux/3DGameEngine
+        $(shell if [ ! -d "binary/linux" ]; then mkdir -p binary/linux; fi)
     endif
     #MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
