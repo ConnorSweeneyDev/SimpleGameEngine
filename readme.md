@@ -10,7 +10,7 @@ give you access to the unix tools that are used in the makefile.
 ### Linux
 Run the following commands to ensure your environment is set up correctly:
 - `sudo apt install g++ make llvm clang clang-format`
-- `sudo apt install libsdl2-dev`
+- Only run `sudo apt install alsa xorg openbox` if you dont already have a window and audio manager.
 
 ### Mac
 Not yet supported.
