@@ -42,7 +42,7 @@ Now you can download a .tar.gz file from the releases page and extract it, to bu
 - Run `make` to build the project.
 
 Now you have two important directories, `[SDL VERSION]/include` and `[SDL VERSION]/build/build/.libs`. The contents of these can replace the contents of this project's
-`external/include/SDL2/linux` and `external/library/SDL2/linux` respectively.
+`external/include/SDL2/linux` and `external/library/SDL2/linux` respectively. You don't need to include .d files in the library directory.
 
 ### Mac
 Not yet supported.
