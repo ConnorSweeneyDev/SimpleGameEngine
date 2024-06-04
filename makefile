@@ -1,5 +1,3 @@
-CURRENT_DIRECTORY = $(shell pwd)
-
 RM = rm -r
 CXX = g++
 CC = gcc
