@@ -23,7 +23,7 @@ else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
         INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2/linux -Iexternal/include/stbi
-        LIBRARIES = -Lexternal/library/SDL2/linux -lSDL2 -Wl,-rpath=$$ORIGIN
+        LIBRARIES = -Lexternal/library/SDL2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
         OUTPUT = binary/linux/3DGameEngine
         $(shell if [ ! -d "binary/linux" ]; then mkdir -p binary/linux; fi)
     endif
