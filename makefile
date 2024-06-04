@@ -13,17 +13,18 @@ CFLAGS = -g -O0
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
 SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/KHR -isystemexternal/include/SDL2 -isystemexternal/include/stbi
 
-BINARY_DIR = binary
 ifeq ($(OS), Windows_NT)
-    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
-    LIBRARIES = -Lexternal/library/SDLWindows -lSDL2
+    INCLUDES = -Iprogram/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/SDL2 -Iexternal/include/stbi
+    LIBRARIES = -Lexternal/library/SDL2 -lSDL2
+    OUTPUT = binary/windows/3DGameEngine.exe
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux)
-        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/stbi
-        LIBRARIES = -Lexternal/library/SDLLinux -lSDL2
+        INCLUDES = -Iprogram/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/KHR -Iexternal/include/stbi
+        LIBRARIES = -lSDL2
+        OUTPUT = binary/linux/3DGameEngine
     endif
-	#MAC IS NOT SUPPORTED YET
+    #MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
         #LIBRARIES = -Lexternal/library/SDLMac -lSDL2
     #endif
@@ -31,7 +32,6 @@ endif
 
 CPP_SOURCES = $(wildcard program/source/*.cpp)
 C_SOURCES = $(wildcard external/source/*.c)
-OUTPUT = binary/3DGameEngine.exe
 
 OBJECTS_DIR = object
 COMMANDS_DIR = compile_commands.json
