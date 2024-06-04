@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include <glad/glad.h>
+#include <glad.h>
 
 #include "item.hpp"
 #include "player.hpp"

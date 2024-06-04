@@ -1,5 +1,5 @@
 #include "rename.hpp"
-#include <glm/gtc/matrix_transform.hpp>
+#include <gtc/matrix_transform.hpp>
 
 #include "camera.hpp"
 #include "time.hpp"

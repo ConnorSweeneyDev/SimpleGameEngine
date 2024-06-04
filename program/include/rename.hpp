@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SDL2/SDL_events.h>
-#include <glad/glad.h>
-#include <glm/glm.hpp>
+#include <SDL_events.h>
+#include <glad.h>
+#include <glm.hpp>
 
 namespace sdl
 {

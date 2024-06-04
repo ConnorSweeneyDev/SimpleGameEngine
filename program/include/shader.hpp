@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "rename.hpp"
-#include <glad/glad.h>
+#include <glad.h>
 
 namespace cse::object
 {

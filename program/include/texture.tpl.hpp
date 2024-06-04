@@ -4,7 +4,7 @@
 
 #include "rename.hpp"
 #include "stb_image.h"
-#include <glad/glad.h>
+#include <glad.h>
 
 #include "texture.hpp"
 

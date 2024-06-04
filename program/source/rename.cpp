@@ -1,11 +1,10 @@
-#include "stb_image.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_timer.h>
-#include <glad/glad.h>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "rename.hpp"
+#include "stb_image.h"
+#include <SDL.h>
+#include <SDL_events.h>
+#include <SDL_timer.h>
+#include <glad.h>
+#include <gtc/matrix_transform.hpp>
 
 namespace sdl
 {

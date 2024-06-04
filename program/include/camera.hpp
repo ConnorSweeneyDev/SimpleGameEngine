@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "rename.hpp"
-#include <glm/glm.hpp>
+#include <glm.hpp>
 
 namespace cse::object
 {

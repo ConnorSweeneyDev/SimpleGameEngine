@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include <SDL2/SDL.h>
-#include <glad/glad.h>
+#include <SDL.h>
+#include <glad.h>
 
 #include "window.hpp"
 

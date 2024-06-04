@@ -1,7 +1,7 @@
 #pragma once
 
 #include "rename.hpp"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace cse::platform
 {

@@ -6,8 +6,8 @@
 #include <vector>
 
 #include "rename.hpp"
-#include <glad/glad.h>
-#include <glm/gtc/type_ptr.hpp>
+#include <glad.h>
+#include <gtc/type_ptr.hpp>
 
 #include "camera.hpp"
 #include "item.hpp"
