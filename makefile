@@ -26,7 +26,6 @@ else
     endif
     #MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
-        #LIBRARIES = -Lexternal/library/SDLMac -lSDL2
     #endif
 endif
 
