@@ -15,6 +15,7 @@ namespace sdl
   using Gl_context = SDL_GLContext;
   using Gl_attr = SDL_GLattr;
 
+  void set_main_ready(void);
   int init(Uint32 flags);
   int get_desktop_display_mode(int display_index, Display_mode *mode);
   Window *create_window(const char *title, int x, int y, int w, int h, Uint32 flags);

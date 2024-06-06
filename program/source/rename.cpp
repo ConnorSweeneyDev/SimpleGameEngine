@@ -8,6 +8,7 @@
 
 namespace sdl
 {
+  void set_main_ready(void) { SDL_SetMainReady(); }
   int init(Uint32 flags) { return SDL_Init(flags); }
   int get_desktop_display_mode(int display_index, Display_mode *mode)
   {

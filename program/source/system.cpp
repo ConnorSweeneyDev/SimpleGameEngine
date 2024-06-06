@@ -27,6 +27,7 @@ namespace cse::platform
 
   void sdl_init()
   {
+    sdl::set_main_ready();
     if (sdl::init(SDL_INIT_EVERYTHING) < 0)
     {
       std::cout << "SDL2 could not be initialized!" << std::endl;
