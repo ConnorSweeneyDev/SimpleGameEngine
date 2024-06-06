@@ -32,15 +32,15 @@ On top of having followed the build instructions for linux, do the following to 
 - Run `sudo apt update` if you just ran the previous command.
 - Run `sudo apt build-dep libsdl2-dev`.
 
-Now you can download a `.tar.gz` file from the releases page and extract it, to build it from source. This can be done by doing the following:
-- Run `tar -xvzf [SDL VERSION].tar.gz` to extract.
-- Run `cd [SDL VERSION] && mkdir build && cd build` as SDL won't build in the root.
+Now you can download the `SDL2-[VERSION].tar.gz` file from the releases page and extract it, to build it from source. This can be done by doing the following:
+- Run `tar -xvzf SDL2-[VERSION].tar.gz` to extract.
+- Run `cd SDL2-[VERSION] && mkdir build && cd build` as SDL won't build in the root.
 - Run `../configure` to make SDL configure your environment for you.
 - Run `make` to build the project.
 
 Now you have two important directories:
-- `[SDL VERSION]/include` which contains files that can replace the contents of the `external/include/SDL2/linux` directory of this project.
-- `[SDL VERSION]/build/build/.libs` - which contains files (excluding the `.d` and `.o` files) that can replace the `external/library/SDL2/linux` directory of this project.
+- `SDL2-[VERSION]/include` which contains files that can replace the contents of the `external/include/SDL2/linux` directory of this project.
+- `SDL2-[VERSION]/build/build/.libs` - which contains files (excluding the `.d` and `.o` files) that can replace the `external/library/SDL2/linux` directory of this project.
   This directory has the caveat that you need to move `libSDL2-2.0.so.0` from the library directory into `binary/linux`.
 
 ### Mac
