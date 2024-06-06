@@ -1,7 +1,8 @@
 # 3DGameEngine
-After following the platform specific instructions you can run `make all` to build the executable.
+After following the platform specific instructions you can run `make` to build the binary.
 
 ## Building the project
+
 ### Windows
 You must either have the same [version](https://github.com/brechtsanders/winlibs_mingw/releases/download/13.2.0posix-17.0.6-11.0.1-ucrt-r5/winlibs-x86_64-posix-seh-gcc-13.2.0-llvm-17.0.6-mingw-w64ucrt-11.0.1-r5.zip)
 of MinGW as me, or replace `libgcc_s_seh-1.dll` and `libstdc++-6.dll` in the `binary/windows` folder with the ones from your MinGW installation, as long as it is a 64-bit version. This will also
@@ -19,6 +20,7 @@ Not yet supported.
 
 ## Updating SDL
 Since the library files are all within the project, to update SDL for each platform some extra steps are required. The releases can be found [here](https://github.com/libsdl-org/SDL/releases).
+
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
 - `bin` which contains SDL2.dll, which goes in the `binary/windows` folder of this project.
