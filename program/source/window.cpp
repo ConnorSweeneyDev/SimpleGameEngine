@@ -112,7 +112,6 @@ namespace cse::platform
 #endif
 #ifdef __linux__
     sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 #endif
     // #ifdef __APPLE__
     // Mac not yet supported.
