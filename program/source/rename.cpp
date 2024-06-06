@@ -32,6 +32,10 @@ namespace sdl
   {
     SDL_SetWindowBordered(window, bordered);
   }
+  void set_window_resizable(Window *window, Bool resizable)
+  {
+    SDL_SetWindowResizable(window, resizable);
+  }
   void set_window_size(Window *window, int w, int h) { SDL_SetWindowSize(window, w, h); }
   void set_window_position(Window *window, int x, int y) { SDL_SetWindowPosition(window, x, y); }
   void get_window_position(Window *window, int *x, int *y) { SDL_GetWindowPosition(window, x, y); }

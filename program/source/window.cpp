@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include <SDL.h>
+#include <SDL_video.h>
 #include <glad.h>
 
 #include "window.hpp"
@@ -56,6 +56,7 @@ namespace cse::platform
       std::cout << "SDL window could not be created!" << std::endl;
       exit(1);
     }
+    sdl::set_window_resizable(application, SDL_FALSE);
 
     gl_context = sdl::gl_create_context(application);
     if (gl_context == nullptr)

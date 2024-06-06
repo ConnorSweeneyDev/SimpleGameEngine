@@ -26,6 +26,7 @@ namespace sdl
   void destroy_window(Window *window);
   int set_window_fullscreen(Window *window, Uint32 flags);
   void set_window_bordered(Window *window, Bool bordered);
+  void set_window_resizable(Window *window, Bool resizable);
   void set_window_size(Window *window, int w, int h);
   void set_window_position(Window *window, int x, int y);
   void get_window_position(Window *window, int *x, int *y);
