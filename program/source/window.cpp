@@ -12,6 +12,7 @@ namespace cse::platform
 
   void Window::handle_move()
   {
+    if (fullscreen) return;
     sdl::get_window_position(window.application, &window.position_x, &window.position_y);
     display_index = (size_t)sdl::get_window_display_index(window.application);
   }
