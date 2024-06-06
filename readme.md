@@ -8,8 +8,11 @@ of MinGW as me, or replace `libgcc_s_seh-1.dll` and `libstdc++-6.dll` in the `bi
 give you access to the unix tools that are used in the makefile.
 
 ### Linux
-Run the following commands to ensure your environment is set up correctly:
-- `sudo apt install g++ make llvm clang clang-format`
+Do the following to ensure your environment is set up correctly:
+
+For Debian:
+- Only run `sudo apt update && upgrade` if you haven`t already.
+- Run `sudo apt install g++ make llvm clang clang-format`.
 - Only run `sudo apt install alsa xorg openbox` if you dont already have a window and audio manager.
 
 ### Mac
@@ -20,25 +23,27 @@ Since the library files are all within the project, to update SDL for each platf
 
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
-- `bin` which contains SDL2.dll, which goes in the `binary/windows` directory of this project.
-- `include/SDL2` which contains files that can replace the contents of the `external/include/SDL2/windows` directory of this project.
-- `lib` which contains the files to replace the contents of the `external/library/SDL2/windows` directory of this project.
+- `bin` which contains SDL2.dll, which goes in the `binary/windows` folder of this project.
+- `include/SDL2` which contains files that can replace the contents of the `external/include/SDL2/windows` folder of this project.
+- `lib` which contains the files to replace the contents of the `external/library/SDL2/windows` folder of this project.
 
-### Linux
-On top of having run the previous linux commands, run the following commands to ensure your environment is set up correctly:
-- `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list`
-- `sudo apt update`
-- `sudo apt build-dep libsdl2-dev`
+### Linux (Debian-Based Only)
+On top of having followed the build instructions for linux, do the following to ensure your environment is set up correctly:
+- Only run `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list` if you haven't already.
+- Run `sudo apt update` if you just ran the previous command.
+- Run `sudo apt build-dep libsdl2-dev`.
 
 Now you can download a .tar.gz file from the releases page and extract it, to build it from source. This can be done by doing the following:
 - Run `tar -xvzf [SDL VERSION].tar.gz` to extract.
-- Run `cd [SDL VERSION]` to enter the extracted folder.
-- Run `mkdir build && cd build` to go into the directory that will be used to build.
+- Run `cd [SDL VERSION]`.
+- Run `mkdir build && cd build` as SDL won't build in the root.
 - Run `../configure` to make SDL configure your environment for you.
 - Run `make` to build the project.
 
-Now you have two important directories, `[SDL VERSION]/include` and `[SDL VERSION]/build/build/.libs`. The contents of these can replace the contents of this project's
-`external/include/SDL2/linux` and `external/library/SDL2/linux` respectively. You don't need to include .d or .o files in the library directory.
+Now you have two important directories:
+- `[SDL VERSION]/include` which contains files that can replace the contents of the `external/include/SDL2/linux` directory of this project.
+- `[SDL VERSION]/build/build/.libs` - which contains files (excluding the `.d` and `.o` files) that can replace the `external/library/SDL2/linux` directory of this project.
+  This directory has the caveat that you need to move `libSDL2-2.0.so.0` from the library directory into `binary/linux`.
 
 ### Mac
 Not yet supported.
