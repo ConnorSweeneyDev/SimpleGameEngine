@@ -13,7 +13,7 @@ Do the following to ensure your environment is set up correctly:
 
 - Only run `sudo apt update && sudo apt upgrade` if you haven`t already.
 - Run `sudo apt install git g++ make llvm clang clang-format`.
-- Only run `sudo apt install alsa xorg openbox` if you don't already have a window and audio manager.
+- Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window manager.
 
 ### Mac
 Not yet supported.
