@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "rename.hpp"
 #include <SDL.h>
 
@@ -21,6 +23,8 @@ namespace cse::platform
 
   private:
     bool fullscreen = false;
+
+    std::vector<sdl::Rect> display_bounds;
     const int starting_pos_x = 100;
     const int starting_pos_y = 100;
     const int starting_width = 1280;

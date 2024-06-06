@@ -10,6 +10,11 @@ namespace sdl
 {
   void set_main_ready(void) { SDL_SetMainReady(); }
   int init(Uint32 flags) { return SDL_Init(flags); }
+  int get_num_video_displays(void) { return SDL_GetNumVideoDisplays(); }
+  int get_display_bounds(int display_index, Rect *rect)
+  {
+    return SDL_GetDisplayBounds(display_index, rect);
+  }
   int get_desktop_display_mode(int display_index, Display_mode *mode)
   {
     return SDL_GetDesktopDisplayMode(display_index, mode);

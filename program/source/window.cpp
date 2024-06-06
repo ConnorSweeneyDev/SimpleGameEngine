@@ -20,6 +20,7 @@ namespace cse::platform
 #endif
 #ifdef __linux__
     sdl::set_window_fullscreen(window.application, 0);
+    sdl::set_window_position(window.application, starting_pos_x, starting_pos_y);
     gl::viewport(0, 0, starting_width, starting_height);
 #endif
     // #ifdef __APPLE__
@@ -40,6 +41,7 @@ namespace cse::platform
 #endif
 #ifdef __linux__
     sdl::set_window_fullscreen(window.application, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    sdl::set_window_position(window.application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     gl::viewport(0, 0, display_mode.w, display_mode.h);
 #endif
     // #ifdef __APPLE__
@@ -70,9 +72,16 @@ namespace cse::platform
   {
     width = starting_width;
     height = starting_height;
+    for (int i = 0; i < sdl::get_num_video_displays(); i++)
+    {
+      sdl::Rect display_bound;
+      sdl::get_display_bounds(i, &display_bound);
+      display_bounds.push_back(display_bound);
+    }
 
-    application = sdl::create_window("3D Game Engine", starting_pos_x, starting_pos_y,
-                                     starting_width, starting_height, SDL_WINDOW_OPENGL);
+    application = sdl::create_window("3D Game Engine", display_bounds[0].x + starting_pos_x,
+                                     display_bounds[0].y + starting_pos_y, starting_width,
+                                     starting_height, SDL_WINDOW_OPENGL);
     if (application == nullptr)
     {
       std::cout << "SDL window could not be created!" << std::endl;

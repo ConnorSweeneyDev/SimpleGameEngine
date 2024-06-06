@@ -10,6 +10,7 @@ namespace sdl
   using Uint32 = uint32_t;
   using Uint64 = uint64_t;
   using Bool = SDL_bool;
+  using Rect = SDL_Rect;
   using Window = SDL_Window;
   using Display_mode = SDL_DisplayMode;
   using Event = SDL_Event;
@@ -18,6 +19,8 @@ namespace sdl
 
   void set_main_ready(void);
   int init(Uint32 flags);
+  int get_num_video_displays(void);
+  int get_display_bounds(int display_index, Rect *rect);
   int get_desktop_display_mode(int display_index, Display_mode *mode);
   Window *create_window(const char *title, int x, int y, int w, int h, Uint32 flags);
   void destroy_window(Window *window);
