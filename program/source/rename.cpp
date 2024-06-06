@@ -34,6 +34,8 @@ namespace sdl
   }
   void set_window_size(Window *window, int w, int h) { SDL_SetWindowSize(window, w, h); }
   void set_window_position(Window *window, int x, int y) { SDL_SetWindowPosition(window, x, y); }
+  void get_window_position(Window *window, int *x, int *y) { SDL_GetWindowPosition(window, x, y); }
+  int get_window_display_index(Window *window) { return SDL_GetWindowDisplayIndex(window); }
   void quit(void) { SDL_Quit(); }
   int poll_event(Event *event) { return SDL_PollEvent(event); }
   const Uint8 *get_keyboard_state(int *num_keys) { return SDL_GetKeyboardState(num_keys); }

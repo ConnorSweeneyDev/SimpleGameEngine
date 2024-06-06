@@ -28,6 +28,8 @@ namespace sdl
   void set_window_bordered(Window *window, Bool bordered);
   void set_window_size(Window *window, int w, int h);
   void set_window_position(Window *window, int x, int y);
+  void get_window_position(Window *window, int *x, int *y);
+  int get_window_display_index(Window *window);
   void quit(void);
   int poll_event(Event *event);
   const Uint8 *get_keyboard_state(int *num_keys);

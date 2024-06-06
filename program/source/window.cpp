@@ -12,8 +12,8 @@ namespace cse::platform
 
   void Window::handle_move()
   {
-    SDL_GetWindowPosition(window.application, &window.position_x, &window.position_y);
-    display_index = (size_t)SDL_GetWindowDisplayIndex(window.application);
+    sdl::get_window_position(window.application, &window.position_x, &window.position_y);
+    display_index = (size_t)sdl::get_window_display_index(window.application);
   }
 
   void Window::handle_fullscreen()
@@ -90,7 +90,6 @@ namespace cse::platform
 #ifdef __linux__
     sdl::set_window_fullscreen(application, 0);
     sdl::set_window_position(application, position_x, position_y);
-    gl::viewport(0, 0, starting_width, starting_height);
 #endif
     // #ifdef __APPLE__
     // Mac not yet supported.
@@ -112,7 +111,6 @@ namespace cse::platform
 #ifdef __linux__
     sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);
     sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-    gl::viewport(0, 0, display_mode.w, display_mode.h);
 #endif
     // #ifdef __APPLE__
     // Mac not yet supported.
