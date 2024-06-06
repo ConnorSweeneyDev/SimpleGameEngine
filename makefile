@@ -3,12 +3,12 @@ CXX = g++
 CC = gcc
 
 #RELEASE FLAGS:
-#CXXFLAGS = -s - O3 - std = c++ 20 - DNDEBUG - D_FORTIFY_SOURCE = 2 - fstack - protector - strong
-#CFLAGS = -s - O3 - DNDEBUG - D_FORTIFY_SOURCE = 2 - fstack - protector - strong
+#CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+#CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 
 #DEBUG FLAGS:
-CXXFLAGS = -g -O0 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
-CFLAGS = -g -O0
+CXXFLAGS = -g -O2 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
 SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
@@ -22,7 +22,7 @@ else
     ifeq ($(UNAME_S), Linux)
         INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
         LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
-        OUTPUT = binary/linux/3DGameEngine
+        OUTPUT = binary/linux/3DGameEngine.out
     endif
     #MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
