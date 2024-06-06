@@ -10,10 +10,9 @@ give you access to the unix tools that are used in the makefile.
 ### Linux
 Do the following to ensure your environment is set up correctly:
 
-**For Debian:**
-- Only run `sudo apt update && upgrade` if you haven`t already.
-- Run `sudo apt install g++ make llvm clang clang-format`.
-- Only run `sudo apt install alsa xorg openbox` if you dont already have a window and audio manager.
+- Only run `sudo apt update && sudo apt upgrade` if you haven`t already.
+- Run `sudo apt install git g++ make llvm clang clang-format`.
+- Only run `sudo apt install alsa xorg openbox` if you don't already have a window and audio manager.
 
 ### Mac
 Not yet supported.
@@ -27,7 +26,7 @@ On top of the previous windows setup, go to the releases page and download the f
 - `include/SDL2` which contains files that can replace the contents of the `external/include/SDL2/windows` folder of this project.
 - `lib` which contains the files to replace the contents of the `external/library/SDL2/windows` folder of this project.
 
-### Linux (Debian-Based Only)
+### Linux
 On top of having followed the build instructions for linux, do the following to ensure your environment is set up correctly:
 - Only run `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list` if you haven't already.
 - Run `sudo apt update` if you just ran the previous command.
