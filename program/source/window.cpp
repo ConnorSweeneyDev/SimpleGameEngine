@@ -10,69 +10,32 @@ namespace cse::platform
 {
   Window window;
 
-  void fullscreen_disable(bool &fullscreen, int starting_width, int starting_height,
-                          int starting_pos_x, int starting_pos_y)
+  void Window::handle_move()
   {
-#ifdef _WIN32
-    sdl::set_window_bordered(window.application, SDL_TRUE);
-    sdl::set_window_size(window.application, starting_width, starting_height);
-    sdl::set_window_position(window.application, starting_pos_x, starting_pos_y);
-#endif
-#ifdef __linux__
-    sdl::set_window_fullscreen(window.application, 0);
-    sdl::set_window_position(window.application, starting_pos_x, starting_pos_y);
-    gl::viewport(0, 0, starting_width, starting_height);
-#endif
-    // #ifdef __APPLE__
-    // Mac not yet supported.
-    // #endif
-
-    window.width = starting_width;
-    window.height = starting_height;
-    fullscreen = false;
-  }
-
-  void fullscreen_enable(bool &fullscreen, sdl::Display_mode &display_mode)
-  {
-#ifdef _WIN32
-    sdl::set_window_bordered(window.application, SDL_FALSE);
-    sdl::set_window_size(window.application, display_mode.w, display_mode.h);
-    sdl::set_window_position(window.application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-#endif
-#ifdef __linux__
-    sdl::set_window_fullscreen(window.application, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    sdl::set_window_position(window.application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-    gl::viewport(0, 0, display_mode.w, display_mode.h);
-#endif
-    // #ifdef __APPLE__
-    // Mac not yet supported.
-    // #endif
-
-    window.width = display_mode.w;
-    window.height = display_mode.h;
-    fullscreen = true;
+    SDL_GetWindowPosition(window.application, &window.position_x, &window.position_y);
+    display_index = (size_t)SDL_GetWindowDisplayIndex(window.application);
   }
 
   void Window::handle_fullscreen()
   {
-    if (sdl::get_desktop_display_mode(0, &display_mode))
+    if (sdl::get_desktop_display_mode((int)display_index, &display_mode))
     {
       std::cout << "Couldn't get desktop display mode!" << std::endl;
       return;
     }
 
     if (fullscreen)
-      fullscreen_disable(fullscreen, starting_width, starting_height,
-                         display_bounds[0].x + starting_pos_x,
-                         display_bounds[0].y + starting_pos_y);
+      fullscreen_disable();
     else
-      fullscreen_enable(fullscreen, display_mode);
+      fullscreen_enable();
   }
 
   void Window::init()
   {
     width = starting_width;
     height = starting_height;
+    position_x = starting_position_x;
+    position_y = starting_position_y;
 
     for (int i = 0; i < sdl::get_num_video_displays(); i++)
     {
@@ -86,9 +49,10 @@ namespace cse::platform
       exit(1);
     }
 
-    application = sdl::create_window("3D Game Engine", display_bounds[0].x + starting_pos_x,
-                                     display_bounds[0].y + starting_pos_y, starting_width,
-                                     starting_height, SDL_WINDOW_OPENGL);
+    application =
+      sdl::create_window("3D Game Engine", display_bounds[display_index].x + starting_position_x,
+                         display_bounds[display_index].y + starting_position_y, starting_width,
+                         starting_height, SDL_WINDOW_OPENGL);
     if (application == nullptr)
     {
       std::cout << "SDL window could not be created!" << std::endl;
@@ -107,7 +71,7 @@ namespace cse::platform
       std::cout << "Couldn't get desktop display mode!" << std::endl;
       exit(1);
     }
-    if (fullscreen) fullscreen_enable(fullscreen, display_mode);
+    if (fullscreen) fullscreen_enable();
   }
 
   void Window::cleanup()
@@ -117,5 +81,48 @@ namespace cse::platform
     application = nullptr;
 
     sdl::quit();
+  }
+
+  void Window::fullscreen_disable()
+  {
+#ifdef _WIN32
+    sdl::set_window_bordered(application, SDL_TRUE);
+    sdl::set_window_size(application, starting_width, starting_height);
+    sdl::set_window_position(application, position_x, position_y);
+#endif
+#ifdef __linux__
+    sdl::set_window_fullscreen(application, 0);
+    sdl::set_window_position(application, position_x, position_y);
+    gl::viewport(0, 0, starting_width, starting_height);
+#endif
+    // #ifdef __APPLE__
+    // Mac not yet supported.
+    // #endif
+
+    width = starting_width;
+    height = starting_height;
+    fullscreen = false;
+  }
+
+  void Window::fullscreen_enable()
+  {
+#ifdef _WIN32
+    sdl::set_window_bordered(application, SDL_FALSE);
+    sdl::set_window_size(application, display_mode.w, display_mode.h);
+    sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED_DISPLAY((int)display_index),
+                             SDL_WINDOWPOS_CENTERED_DISPLAY((int)display_index));
+#endif
+#ifdef __linux__
+    sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    gl::viewport(0, 0, display_mode.w, display_mode.h);
+#endif
+    // #ifdef __APPLE__
+    // Mac not yet supported.
+    // #endif
+
+    width = display_mode.w;
+    height = display_mode.h;
+    fullscreen = true;
   }
 }

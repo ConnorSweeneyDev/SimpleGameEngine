@@ -19,6 +19,12 @@ namespace cse::input
     {
       if (event.type == SDL_QUIT)
         platform::window.should_quit = true;
+
+      else if (event.type == SDL_WINDOWEVENT)
+      {
+        if (event.window.event == SDL_WINDOWEVENT_MOVED) platform::window.handle_move();
+      }
+
       else if (event.type == SDL_KEYDOWN)
       {
         if (key_state[SDL_SCANCODE_ESCAPE]) platform::window.should_quit = true;

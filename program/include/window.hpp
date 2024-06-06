@@ -10,6 +10,7 @@ namespace cse::platform
   class Window
   {
   public:
+    void handle_move();
     void handle_fullscreen();
 
     void init();
@@ -22,11 +23,16 @@ namespace cse::platform
     sdl::Window *application;
 
   private:
-    bool fullscreen = false;
+    void fullscreen_disable();
+    void fullscreen_enable();
 
+    bool fullscreen = false;
     std::vector<sdl::Rect> display_bounds;
-    const int starting_pos_x = 100;
-    const int starting_pos_y = 100;
+    size_t display_index = 0;
+    int position_x;
+    int position_y;
+    const int starting_position_x = 100;
+    const int starting_position_y = 100;
     const int starting_width = 1280;
     const int starting_height = 720;
 
