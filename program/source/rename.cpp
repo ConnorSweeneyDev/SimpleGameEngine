@@ -19,6 +19,14 @@ namespace sdl
     return SDL_CreateWindow(title, x, y, w, h, flags);
   }
   void destroy_window(Window *window) { SDL_DestroyWindow(window); }
+  int set_window_fullscreen(Window *window, Uint32 flags)
+  {
+    return SDL_SetWindowFullscreen(window, flags);
+  }
+  void set_window_bordered(Window *window, Bool bordered)
+  {
+    SDL_SetWindowBordered(window, bordered);
+  }
   void set_window_size(Window *window, int w, int h) { SDL_SetWindowSize(window, w, h); }
   void set_window_position(Window *window, int x, int y) { SDL_SetWindowPosition(window, x, y); }
   void quit(void) { SDL_Quit(); }

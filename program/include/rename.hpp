@@ -9,6 +9,7 @@ namespace sdl
   using Uint8 = uint8_t;
   using Uint32 = uint32_t;
   using Uint64 = uint64_t;
+  using Bool = SDL_bool;
   using Window = SDL_Window;
   using Display_mode = SDL_DisplayMode;
   using Event = SDL_Event;
@@ -20,6 +21,8 @@ namespace sdl
   int get_desktop_display_mode(int display_index, Display_mode *mode);
   Window *create_window(const char *title, int x, int y, int w, int h, Uint32 flags);
   void destroy_window(Window *window);
+  int set_window_fullscreen(Window *window, Uint32 flags);
+  void set_window_bordered(Window *window, Bool bordered);
   void set_window_size(Window *window, int w, int h);
   void set_window_position(Window *window, int x, int y);
   void quit(void);
