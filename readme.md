@@ -10,7 +10,7 @@ give you access to the unix tools that are used in the makefile.
 ### Linux
 Do the following to ensure your environment is set up correctly:
 
-For Debian:
+**For Debian:**
 - Only run `sudo apt update && upgrade` if you haven`t already.
 - Run `sudo apt install g++ make llvm clang clang-format`.
 - Only run `sudo apt install alsa xorg openbox` if you dont already have a window and audio manager.
