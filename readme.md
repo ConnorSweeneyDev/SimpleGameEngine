@@ -32,10 +32,9 @@ On top of having followed the build instructions for linux, do the following to 
 - Run `sudo apt update` if you just ran the previous command.
 - Run `sudo apt build-dep libsdl2-dev`.
 
-Now you can download a .tar.gz file from the releases page and extract it, to build it from source. This can be done by doing the following:
+Now you can download a `.tar.gz` file from the releases page and extract it, to build it from source. This can be done by doing the following:
 - Run `tar -xvzf [SDL VERSION].tar.gz` to extract.
-- Run `cd [SDL VERSION]`.
-- Run `mkdir build && cd build` as SDL won't build in the root.
+- Run `cd [SDL VERSION] && mkdir build && cd build` as SDL won't build in the root.
 - Run `../configure` to make SDL configure your environment for you.
 - Run `make` to build the project.
 
