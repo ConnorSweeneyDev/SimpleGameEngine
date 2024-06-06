@@ -62,8 +62,9 @@ namespace cse::platform
     }
 
     if (fullscreen)
-      fullscreen_disable(fullscreen, starting_width, starting_height, starting_pos_x,
-                         starting_pos_y);
+      fullscreen_disable(fullscreen, starting_width, starting_height,
+                         display_bounds[0].x + starting_pos_x,
+                         display_bounds[0].y + starting_pos_y);
     else
       fullscreen_enable(fullscreen, display_mode);
   }
@@ -72,11 +73,17 @@ namespace cse::platform
   {
     width = starting_width;
     height = starting_height;
+
     for (int i = 0; i < sdl::get_num_video_displays(); i++)
     {
       sdl::Rect display_bound;
       sdl::get_display_bounds(i, &display_bound);
       display_bounds.push_back(display_bound);
+    }
+    if (display_bounds.empty())
+    {
+      std::cout << "Couldn't get display bounds!" << std::endl;
+      exit(1);
     }
 
     application = sdl::create_window("3D Game Engine", display_bounds[0].x + starting_pos_x,
