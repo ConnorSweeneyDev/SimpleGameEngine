@@ -34,8 +34,6 @@ namespace cse::platform
   {
     width = starting_width;
     height = starting_height;
-    position_x = starting_position_x;
-    position_y = starting_position_y;
 
     for (int i = 0; i < sdl::get_num_video_displays(); i++)
     {
@@ -49,10 +47,9 @@ namespace cse::platform
       exit(1);
     }
 
-    application =
-      sdl::create_window("3D Game Engine", display_bounds[display_index].x + starting_position_x,
-                         display_bounds[display_index].y + starting_position_y, starting_width,
-                         starting_height, SDL_WINDOW_OPENGL);
+    application = sdl::create_window("3D Game Engine", display_bounds[display_index].x + position_x,
+                                     display_bounds[display_index].y + position_y, starting_width,
+                                     starting_height, SDL_WINDOW_OPENGL);
     if (application == nullptr)
     {
       std::cout << "SDL window could not be created!" << std::endl;
