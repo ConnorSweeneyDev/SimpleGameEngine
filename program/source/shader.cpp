@@ -27,14 +27,13 @@ namespace cse::object
     std::string result;
 
     std::ifstream file(shader_path.c_str());
-    std::string line;
-
     if (!file.is_open())
     {
       std::cout << "Unable to open file: " << shader_path << "!" << std::endl;
       return result;
     }
 
+    std::string line;
     while (std::getline(file, line)) result += line + "\n";
 
     file.close();
