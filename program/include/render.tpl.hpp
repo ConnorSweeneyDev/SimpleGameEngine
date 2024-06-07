@@ -116,7 +116,7 @@ namespace cse::object
     gl::buffer_data(GL_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_vertices.data(), GL_STATIC_DRAW);
-    gl::vertex_attrib_pointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float) * 8, (gl::Void *)0);
+    gl::vertex_attrib_pointer(0, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)0);
     gl::enable_vertex_attrib_array(0); // Vertex position
 
     gl::gen_buffers(1, &object->index_buffer_object);
@@ -124,7 +124,7 @@ namespace cse::object
     gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_indices.data(), GL_STATIC_DRAW);
-    gl::vertex_attrib_pointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(gl::Float) * 8,
+    gl::vertex_attrib_pointer(1, 3, GL_FLOAT, false, sizeof(gl::Float) * 8,
                               (gl::Void *)(sizeof(gl::Float) * 3));
     gl::enable_vertex_attrib_array(1); // Vertex color
 
@@ -134,7 +134,7 @@ namespace cse::object
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    gl::vertex_attrib_pointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(gl::Float) * 8,
+    gl::vertex_attrib_pointer(2, 2, GL_FLOAT, false, sizeof(gl::Float) * 8,
                               (gl::Void *)(sizeof(gl::Float) * 6));
     gl::enable_vertex_attrib_array(2); // Vertex texture coordinates
 
@@ -151,7 +151,7 @@ namespace cse::object
       gl::get_uniform_location(object->shader_program, "uniform_projection_matrix");
     if (uniform_projection_matrix_location <= -1)
       std::cout << "uniform_projection_matrix could not be found!" << std::endl;
-    gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, GL_FALSE,
+    gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
                            glm::value_ptr(projection));
 
     camera.update_view_matrix();
@@ -160,7 +160,7 @@ namespace cse::object
       gl::get_uniform_location(object->shader_program, "uniform_view_matrix");
     if (uniform_view_matrix_location <= -1)
       std::cout << "uniform_view_matrix could not be found!" << std::endl;
-    gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, GL_FALSE, glm::value_ptr(view));
+    gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
     model = glm::translate(
@@ -173,7 +173,7 @@ namespace cse::object
       gl::get_uniform_location(object->shader_program, "uniform_model_matrix");
     if (uniform_model_matrix_location <= -1)
       std::cout << "uniform_model_matrix could not be found!" << std::endl;
-    gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, GL_FALSE, glm::value_ptr(model));
+    gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));
   }
 
   template <typename Type> void Render::draw_vertices(std::shared_ptr<Type> &object)
