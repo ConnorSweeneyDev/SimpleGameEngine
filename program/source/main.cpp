@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 
 #include "input.hpp"
 #include "render.hpp"
