@@ -1,5 +1,5 @@
 # 3DGameEngine
-After following the platform specific instructions you can run `make` in the project root to build the binary.
+fter following the platform specific instructions you can run `make` in the project root to build the binary.
 
 ## Building the project
 
