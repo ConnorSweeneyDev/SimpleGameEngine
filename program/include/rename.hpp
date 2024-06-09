@@ -17,6 +17,7 @@ namespace sdl
   using Gl_context = SDL_GLContext;
   using Gl_attr = SDL_GLattr;
 
+  const char *SDLCALL get_error(void);
   void set_main_ready(void);
   int init(Uint32 flags);
   int get_num_video_displays(void);

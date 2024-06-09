@@ -14,14 +14,14 @@ namespace cse::platform
   {
     if (fullscreen) return;
     sdl::get_window_position(window.application, &window.position_x, &window.position_y);
-    display_index = (size_t)sdl::get_window_display_index(window.application);
+    display_index = sdl::get_window_display_index(window.application);
   }
 
   void Window::handle_fullscreen()
   {
-    if (sdl::get_desktop_display_mode((int)display_index, &display_mode))
+    if (sdl::get_desktop_display_mode(display_index, &display_mode))
     {
-      std::cout << "Couldn't get desktop display mode!" << std::endl;
+      std::cout << "Couldn't get desktop display mode: " << sdl::get_error() << std::endl;
       return;
     }
 
@@ -44,16 +44,16 @@ namespace cse::platform
     }
     if (display_bounds.empty())
     {
-      std::cout << "Couldn't get display bounds!" << std::endl;
+      std::cout << "Couldn't get display bounds: " << sdl::get_error() << std::endl;
       exit(1);
     }
 
-    application = sdl::create_window("3D Game Engine", display_bounds[display_index].x + position_x,
-                                     display_bounds[display_index].y + position_y, starting_width,
+    application = sdl::create_window("3D Game Engine", display_bounds[(size_t)display_index].x + position_x,
+                                     display_bounds[(size_t)display_index].y + position_y, starting_width,
                                      starting_height, SDL_WINDOW_OPENGL);
     if (application == nullptr)
     {
-      std::cout << "SDL window could not be created!" << std::endl;
+      std::cout << "SDL window could not be created: " << sdl::get_error() << std::endl;
       exit(1);
     }
     sdl::set_window_resizable(application, SDL_FALSE);
@@ -61,13 +61,13 @@ namespace cse::platform
     gl_context = sdl::gl_create_context(application);
     if (gl_context == nullptr)
     {
-      std::cout << "OpenGl context could not be created!" << std::endl;
+      std::cout << "OpenGl context could not be created: " << sdl::get_error() << std::endl;
       exit(1);
     }
 
-    if (sdl::get_desktop_display_mode(0, &display_mode))
+    if (sdl::get_desktop_display_mode(display_index, &display_mode))
     {
-      std::cout << "Couldn't get desktop display mode!" << std::endl;
+      std::cout << "Couldn't get desktop display mode: " << sdl::get_error() << std::endl;
       exit(1);
     }
     if (fullscreen) fullscreen_enable();
@@ -107,8 +107,8 @@ namespace cse::platform
 #ifdef _WIN32
     sdl::set_window_bordered(application, SDL_FALSE);
     sdl::set_window_size(application, display_mode.w, display_mode.h + 1);
-    sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED_DISPLAY((int)display_index),
-                             SDL_WINDOWPOS_CENTERED_DISPLAY((int)display_index));
+    sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED_DISPLAY(display_index),
+                             SDL_WINDOWPOS_CENTERED_DISPLAY(display_index));
 #endif
 #ifdef __linux__
     sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);

@@ -11,9 +11,8 @@ namespace cse::object
 
   void Camera::update_projection_matrix()
   {
-    projection_matrix = glm::perspective(
-      glm::radians(fov), (float)platform::window.width / (float)platform::window.height, near_clip,
-      far_clip);
+    float aspect_ratio = (float)platform::window.width / (float)platform::window.height;
+    projection_matrix = glm::perspective(glm::radians(fov), aspect_ratio, near_clip, far_clip);
   }
   void Camera::update_view_matrix()
   {

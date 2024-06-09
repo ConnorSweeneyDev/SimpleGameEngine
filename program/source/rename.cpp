@@ -8,6 +8,7 @@
 
 namespace sdl
 {
+  const char *SDLCALL get_error(void) { return SDL_GetError(); }
   void set_main_ready(void) { SDL_SetMainReady(); }
   int init(Uint32 flags) { return SDL_Init(flags); }
   int get_num_video_displays(void) { return SDL_GetNumVideoDisplays(); }

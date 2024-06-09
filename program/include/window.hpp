@@ -27,8 +27,9 @@ namespace cse::platform
     void fullscreen_enable();
 
     bool fullscreen = false;
+    int display_index = 0;
     std::vector<sdl::Rect> display_bounds;
-    size_t display_index = 0;
+
     int position_x = 100;
     int position_y = 100;
     const int starting_width = 1280;

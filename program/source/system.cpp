@@ -30,7 +30,7 @@ namespace cse::platform
     sdl::set_main_ready();
     if (sdl::init(SDL_INIT_EVERYTHING) < 0)
     {
-      std::cout << "SDL2 could not be initialized!" << std::endl;
+      std::cout << "SDL2 could not be initialized: " << sdl::get_error() << std::endl;
       exit(1);
     }
 
@@ -49,7 +49,7 @@ namespace cse::platform
   {
     if (!glad::load_gl_loader(sdl::gl_get_proc_address))
     {
-      std::cout << "Glad could not be initialized!" << std::endl;
+      std::cout << "Glad could not be initialized: " << sdl::get_error() << std::endl;
       exit(1);
     }
   }
