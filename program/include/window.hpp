@@ -23,8 +23,8 @@ namespace cse::platform
     sdl::Window *application;
 
   private:
-    void fullscreen_disable();
-    void fullscreen_enable();
+    void disable_fullscreen();
+    void enable_fullscreen();
 
     bool fullscreen = false;
     int display_index = 0;

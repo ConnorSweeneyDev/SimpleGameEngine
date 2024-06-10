@@ -26,9 +26,9 @@ namespace cse::platform
     }
 
     if (fullscreen)
-      fullscreen_disable();
+      disable_fullscreen();
     else
-      fullscreen_enable();
+      enable_fullscreen();
   }
 
   void Window::init()
@@ -71,7 +71,7 @@ namespace cse::platform
       std::cout << "Couldn't get desktop display mode: " << sdl::get_error() << std::endl;
       exit(1);
     }
-    if (fullscreen) fullscreen_enable();
+    if (fullscreen) enable_fullscreen();
   }
 
   void Window::cleanup()
@@ -83,7 +83,7 @@ namespace cse::platform
     sdl::quit();
   }
 
-  void Window::fullscreen_disable()
+  void Window::disable_fullscreen()
   {
 #ifdef _WIN32
     sdl::set_window_bordered(application, SDL_TRUE);
@@ -103,7 +103,7 @@ namespace cse::platform
     fullscreen = false;
   }
 
-  void Window::fullscreen_enable()
+  void Window::enable_fullscreen()
   {
 #ifdef _WIN32
     sdl::set_window_bordered(application, SDL_FALSE);
