@@ -1,6 +1,6 @@
 #pragma once
 
-namespace cse::platform
+namespace cse::system
 {
   void clear_all_gl_errors();
   void check_gl_error_status(const char *function_name, const char *file_name,
@@ -12,5 +12,5 @@ namespace cse::platform
 #define check_gl(function)                                                                         \
   clear_all_gl_errors();                                                                           \
   function;                                                                                        \
-  platform::check_gl_error_status(#function, __FILE__, __LINE__);
+  system::check_gl_error_status(#function, __FILE__, __LINE__);
 }

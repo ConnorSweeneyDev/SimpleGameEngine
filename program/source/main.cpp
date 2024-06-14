@@ -8,11 +8,11 @@
 #include "time.hpp"
 #include "window.hpp"
 
-void platform_init()
+void system_init()
 {
-  cse::platform::sdl_init();
-  cse::platform::window.init();
-  cse::platform::glad_init();
+  cse::system::sdl_init();
+  cse::system::window.init();
+  cse::system::glad_init();
 }
 
 void game_specification()
@@ -26,7 +26,7 @@ void game_specification()
 
 void game_loop()
 {
-  while (!cse::platform::window.should_quit)
+  while (!cse::system::window.should_quit)
   {
     cse::time::update_delta_time();
     cse::input::read(); // Go here to set keybindings
@@ -37,12 +37,12 @@ void game_loop()
 void program_cleanup()
 {
   cse::object::render.cleanup_all();
-  cse::platform::window.cleanup();
+  cse::system::window.cleanup();
 }
 
 int main()
 {
-  platform_init();
+  system_init();
 
   game_specification();
   game_loop();

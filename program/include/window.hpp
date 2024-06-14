@@ -5,7 +5,7 @@
 #include "rename.hpp"
 #include <SDL.h>
 
-namespace cse::platform
+namespace cse::system
 {
   class Window
   {

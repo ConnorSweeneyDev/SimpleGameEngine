@@ -6,7 +6,7 @@
 
 #include "system.hpp"
 
-namespace cse::platform
+namespace cse::system
 {
   void clear_all_gl_errors()
   {

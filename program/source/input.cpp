@@ -18,17 +18,17 @@ namespace cse::input
     while (sdl::poll_event(&event) != 0)
     {
       if (event.type == SDL_QUIT)
-        platform::window.should_quit = true;
+        system::window.should_quit = true;
 
       else if (event.type == SDL_WINDOWEVENT)
       {
-        if (event.window.event == SDL_WINDOWEVENT_MOVED) platform::window.handle_move();
+        if (event.window.event == SDL_WINDOWEVENT_MOVED) system::window.handle_move();
       }
 
       else if (event.type == SDL_KEYDOWN)
       {
-        if (key_state[SDL_SCANCODE_ESCAPE]) platform::window.should_quit = true;
-        if (key_state[SDL_SCANCODE_F11]) platform::window.handle_fullscreen();
+        if (key_state[SDL_SCANCODE_ESCAPE]) system::window.should_quit = true;
+        if (key_state[SDL_SCANCODE_F11]) system::window.handle_fullscreen();
       }
     }
 

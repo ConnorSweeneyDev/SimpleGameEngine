@@ -49,7 +49,7 @@ namespace cse::object
     draw();
     draw_cleanup();
 
-    sdl::gl_swap_window(platform::window.application);
+    sdl::gl_swap_window(system::window.application);
   }
 
   void Render::pre_draw_init()
@@ -60,7 +60,7 @@ namespace cse::object
     gl::enable(GL_BLEND);
     gl::blend_func(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    gl::viewport(0, 0, platform::window.width, platform::window.height);
+    gl::viewport(0, 0, system::window.width, system::window.height);
 
     gl::clear_color(0.2f, 0.2f, 0.2f, 1.0f);
     gl::clear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
