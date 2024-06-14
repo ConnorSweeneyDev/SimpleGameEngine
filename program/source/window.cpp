@@ -107,7 +107,7 @@ namespace cse::system
   {
 #ifdef _WIN32
     sdl::set_window_bordered(application, SDL_FALSE);
-    sdl::set_window_size(application, display_mode.w, display_mode.h);
+    sdl::set_window_size(application, display_mode.w, display_mode.h + 1);
     sdl::set_window_position(application, SDL_WINDOWPOS_CENTERED_DISPLAY(display_index),
                              SDL_WINDOWPOS_CENTERED_DISPLAY(display_index));
 #endif
