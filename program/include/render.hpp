@@ -12,33 +12,30 @@ namespace cse::object
   {
   public:
     template <typename Type> const std::shared_ptr<Type> get_by_name(const std::string name) const;
+    template <typename Callable> void call_for_all(Callable callable) const;
 
     void specify();
-
     template <typename Type>
-    void add_dynamic(const std::string name, const std::string texture_path,
-                     const std::string vertex_shader, const std::string fragment_shader,
-                     const std::vector<float> default_geometry);
+    void specify_dynamic(const std::string name, const std::string texture_path,
+                         const std::string vertex_shader, const std::string fragment_shader,
+                         const std::vector<float> default_geometry);
     template <typename Type> void remove(std::shared_ptr<Type> &object);
 
     void cleanup_all();
     void update();
 
   private:
-    template <typename Type> const std::shared_ptr<Type> specify(const std::string name);
-    template <typename Type>
-    const std::shared_ptr<Type>
-    specify_dynamic(const std::string name, const std::string texture_path,
-                    const std::string vertex_shader, const std::string fragment_shader,
-                    const std::vector<float> default_geometry);
-
+    template <typename Type> const std::shared_ptr<Type> create(const std::string name);
     template <typename Type> void add(const std::string name);
-    template <typename Type> void specify_vertices(std::shared_ptr<Type> &object);
+    template <typename Type>
+    const std::shared_ptr<Type> add_dynamic(const std::string name, const std::string texture_path,
+                                            const std::string vertex_shader,
+                                            const std::string fragment_shader,
+                                            const std::vector<float> default_geometry);
 
+    template <typename Type> void specify_vertices(std::shared_ptr<Type> &object);
     template <typename Type> void pre_draw_vertices(std::shared_ptr<Type> &object);
     template <typename Type> void draw_vertices(std::shared_ptr<Type> &object);
-    void pre_draw();
-    void draw();
 
     void pre_draw_init();
     template <typename Type> void cleanup(std::shared_ptr<Type> &object);

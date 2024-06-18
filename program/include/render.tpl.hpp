@@ -34,57 +34,24 @@ namespace cse::object
     return nullptr;
   }
 
-  template <typename Type> const std::shared_ptr<Type> Render::specify(const std::string name)
+  template <typename Callable> void Render::call_for_all(Callable callable) const
   {
-    auto object = std::make_shared<Type>(name);
-    specify_vertices(object);
-
-    return object;
+    for (auto &player : players) callable(player);
+    for (auto &item : items) callable(item);
   }
 
-  // specify_dynamic only exists for Item, not player due to player's init
-  // function taking specific parameters - will be changed to a different Type
-  // later (Might not need to be a template function)
-  template <typename Type>
-  const std::shared_ptr<Type>
-  Render::specify_dynamic(const std::string name, const std::string texture_path,
-                          const std::string vertex_shader, const std::string fragment_shader,
-                          const std::vector<float> default_geometry)
-  {
-    if constexpr (std::is_same<Type, Item>::value)
-    {
-      auto object = specify<Type>(name);
-      specify_vertices(object);
-      object->texture_path = texture_path;
-      texture.load(object);
-      shader.set_program(object, vertex_shader, fragment_shader);
-      object->init(default_geometry);
-
-      return object;
-    }
-  }
-
-  template <typename Type> void Render::add(const std::string name)
-  {
-    if constexpr (std::is_same<Type, Player>::value)
-      players.push_back(specify<Player>(name));
-
-    else if constexpr (std::is_same<Type, Item>::value)
-      items.push_back(specify<Item>(name));
-  }
-
-  // add_dynamic only exists for Item, not player due to player's init function
+  // specify_dynamic only exists for Item, not player due to player's init function
   // taking specific parameters - will be changed to a different Type later
   // (Might not need to be a template function)
   template <typename Type>
-  void Render::add_dynamic(const std::string name, const std::string texture_path,
-                           const std::string vertex_shader, const std::string fragment_shader,
-                           const std::vector<float> default_geometry)
+  void Render::specify_dynamic(const std::string name, const std::string texture_path,
+                               const std::string vertex_shader, const std::string fragment_shader,
+                               const std::vector<float> default_geometry)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
-        items.push_back(specify_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader,
-                                              default_geometry));
+        items.push_back(
+          add_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
   }
 
   template <typename Type> void Render::remove(std::shared_ptr<Type> &object)
@@ -103,6 +70,45 @@ namespace cse::object
                                  [&object](const Item_ptr &item) { return item == object; }),
                   items.end());
       cleanup(object);
+    }
+  }
+
+  template <typename Type> const std::shared_ptr<Type> Render::create(const std::string name)
+  {
+    auto object = std::make_shared<Type>(name);
+    specify_vertices(object);
+
+    return object;
+  }
+
+  template <typename Type> void Render::add(const std::string name)
+  {
+    if constexpr (std::is_same<Type, Player>::value)
+      players.push_back(create<Player>(name));
+
+    else if constexpr (std::is_same<Type, Item>::value)
+      items.push_back(create<Item>(name));
+  }
+
+  // add_dynamic only exists for Item, not player due to player's init
+  // function taking specific parameters - will be changed to a different Type
+  // later (Might not need to be a template function)
+  template <typename Type>
+  const std::shared_ptr<Type>
+  Render::add_dynamic(const std::string name, const std::string texture_path,
+                      const std::string vertex_shader, const std::string fragment_shader,
+                      const std::vector<float> default_geometry)
+  {
+    if constexpr (std::is_same<Type, Item>::value)
+    {
+      auto object = create<Type>(name);
+      specify_vertices(object);
+      object->texture_path = texture_path;
+      texture.load(object);
+      shader.set_program(object, vertex_shader, fragment_shader);
+      object->init(default_geometry);
+
+      return object;
     }
   }
 

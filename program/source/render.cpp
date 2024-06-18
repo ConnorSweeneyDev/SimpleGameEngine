@@ -21,32 +21,19 @@ namespace cse::object
     add<Item>("Floor");
   }
 
-  void Render::pre_draw()
-  {
-    for (auto &player : players) pre_draw_vertices(player);
-    for (auto &item : items) pre_draw_vertices(item);
-  }
-
-  void Render::draw()
-  {
-    for (auto &player : players) draw_vertices(player);
-    for (auto &item : items) draw_vertices(item);
-  }
-
   void Render::cleanup_all()
   {
-    for (auto &player : players) cleanup(player);
-    players.clear();
+    call_for_all([this](auto object) { cleanup(object); });
 
-    for (auto &item : items) cleanup(item);
+    players.clear();
     items.clear();
   }
 
   void Render::update()
   {
     pre_draw_init();
-    pre_draw();
-    draw();
+    call_for_all([this](auto object) { pre_draw_vertices(object); });
+    call_for_all([this](auto object) { draw_vertices(object); });
     draw_cleanup();
 
     sdl::gl_swap_window(system::window.application);

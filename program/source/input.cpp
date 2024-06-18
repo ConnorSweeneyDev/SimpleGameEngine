@@ -44,7 +44,7 @@ namespace cse::input
     // Tests for adding and removing objects dynamically
     if (key_state[SDL_SCANCODE_9])
     {
-      object::render.add_dynamic<object::Item>(
+      object::render.specify_dynamic<object::Item>(
         "Item 1", "assets/redhood.png", "program/shader/vertex_shader.glsl",
         "program/shader/fragment_shader.glsl",
         {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
@@ -57,7 +57,7 @@ namespace cse::input
 
     if (key_state[SDL_SCANCODE_7])
     {
-      object::render.add_dynamic<object::Item>(
+      object::render.specify_dynamic<object::Item>(
         "Item 2", "assets/lamp.png", "program/shader/vertex_shader.glsl",
         "program/shader/fragment_shader.glsl",
         {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
