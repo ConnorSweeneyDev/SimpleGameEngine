@@ -85,7 +85,6 @@ namespace cse::object
   {
     if constexpr (std::is_same<Type, Player>::value)
       players.push_back(create<Player>(name));
-
     else if constexpr (std::is_same<Type, Item>::value)
       items.push_back(create<Item>(name));
   }
