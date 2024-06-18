@@ -10,25 +10,27 @@
 
 namespace cse::input
 {
-  sdl::Event event;
+  sdl::Event handler;
   const sdl::Uint8 *key_state = sdl::get_keyboard_state(nullptr);
 
   void read()
   {
-    while (sdl::poll_event(&event) != 0)
+    while (sdl::poll_event(&handler) != 0)
     {
-      if (event.type == SDL_QUIT)
-        system::window.should_quit = true;
-
-      else if (event.type == SDL_WINDOWEVENT)
+      switch (handler.type)
       {
-        if (event.window.event == SDL_WINDOWEVENT_MOVED) system::window.handle_move();
-      }
+        case SDL_QUIT: system::window.should_quit = true; break;
 
-      else if (event.type == SDL_KEYDOWN)
-      {
-        if (key_state[SDL_SCANCODE_ESCAPE]) system::window.should_quit = true;
-        if (key_state[SDL_SCANCODE_F11]) system::window.handle_fullscreen();
+        case SDL_WINDOWEVENT:
+          if (handler.window.event == SDL_WINDOWEVENT_MOVED) system::window.handle_move();
+          break;
+
+        case SDL_KEYDOWN:
+          if (key_state[SDL_SCANCODE_ESCAPE]) system::window.should_quit = true;
+          if (key_state[SDL_SCANCODE_F11]) system::window.handle_fullscreen();
+          break;
+
+        default: break;
       }
     }
 
@@ -38,7 +40,6 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_G]) object::camera.move_down(0.001f);
     if (key_state[SDL_SCANCODE_Y]) object::camera.move_forward(0.001f);
     if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.001f);
-
     if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_orientation();
 
     // Tests for adding and removing objects dynamically
@@ -77,7 +78,6 @@ namespace cse::input
       if (key_state[SDL_SCANCODE_S]) player_1->move_down();
       if (key_state[SDL_SCANCODE_E]) player_1->move_forward();
       if (key_state[SDL_SCANCODE_Q]) player_1->move_backward();
-
       if (key_state[SDL_SCANCODE_SPACE]) player_1->reset_position();
     }
 
@@ -90,7 +90,6 @@ namespace cse::input
       if (key_state[SDL_SCANCODE_K]) player_2->move_down();
       if (key_state[SDL_SCANCODE_O]) player_2->move_forward();
       if (key_state[SDL_SCANCODE_U]) player_2->move_backward();
-
       if (key_state[SDL_SCANCODE_SPACE]) player_2->reset_position();
     }
   }
