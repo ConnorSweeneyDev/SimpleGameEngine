@@ -24,8 +24,8 @@ Since the library files are all within the project, to update SDL for each platf
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
 - `bin` which contains the file that can replace the one in `binary/windows` folder of this project.
-- `include/SDL2` which contains files that can replace the contents of the `external/include/SDL2/windows` folder of this project.
-- `lib` which contains the files to replace the contents of the `external/library/SDL2/windows` folder of this project.
+- `include/SDL2` which contains files that can replace the contents of the `external/include/sdl2/windows` folder of this project.
+- `lib` which contains the files to replace the contents of the `external/library/sdl2/windows` folder of this project.
 
 ### Linux
 On top of having followed the build instructions for linux, do the following to ensure your environment is set up correctly:
@@ -40,8 +40,8 @@ Now you can download the `SDL2-[VERSION].tar.gz` file from the releases page and
 - Run `make` to build the project.
 
 Now you have two important directories:
-- `SDL2-[VERSION]/include` which contains files that can replace the contents of the `external/include/SDL2/linux` directory of this project.
-- `SDL2-[VERSION]/build/build/.libs` which contains files (only the `.h` files) that can replace the `external/library/SDL2/linux` directory of this project.
+- `SDL2-[VERSION]/include` which contains files that can replace the contents of the `external/include/sdl2/linux` directory of this project.
+- `SDL2-[VERSION]/build/build/.libs` which contains files (only the `.h` files) that can replace the `external/library/sdl2/linux` directory of this project.
   This directory has the caveat that you need to move `libSDL2-2.0.so.0` from the library directory into `binary/linux`.
 
 ### Mac
