@@ -20,7 +20,7 @@ Not yet supported.
 
 ## Updating SDL
 Since the library files are all within the project, to update SDL for each platform some extra steps are required. The releases can be found [here](https://github.com/libsdl-org/SDL/releases).
-Firstly, if you are getting a new version of glad/khr, after extracting the zip and replacing all of the files, you will need to remove all instances of `KHR/` from the `#include` statements in `glad.c` due to the directory structure.
+Firstly, if you are getting a new version of [glad/khr](https://glad.dav1d.de/), after extracting the zip and replacing all of the files, you will need to remove all instances of `KHR/` from the `#include` statements in `glad.c` due to the directory structure.
 
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
