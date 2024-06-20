@@ -24,9 +24,9 @@ else
     LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/3DGameEngine.out
   endif
-    #MAC IS NOT SUPPORTED YET
-    #ifeq ($(UNAME_S), Darwin)
-    #endif
+  #MAC IS NOT SUPPORTED YET
+  #ifeq ($(UNAME_S), Darwin)
+  #endif
 endif
 
 CPP_SOURCES = $(wildcard program/source/*.cpp)
