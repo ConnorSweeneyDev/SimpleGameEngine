@@ -23,7 +23,7 @@ Since the library files are all within the project, to update SDL for each platf
 
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
-- `bin` which contains SDL2.dll, which goes in the `binary/windows` folder of this project.
+- `bin` which contains `SDL2.dll`, which goes in the `binary/windows` folder of this project.
 - `include/SDL2` which contains files that can replace the contents of the `external/include/SDL2/windows` folder of this project.
 - `lib` which contains the files to replace the contents of the `external/library/SDL2/windows` folder of this project.
 
