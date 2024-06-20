@@ -14,16 +14,16 @@ WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-ali
 SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
 
 ifeq ($(OS), Windows_NT)
-    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
-    LIBRARIES = -Lexternal/library/sdl2/windows -lSDL2
-    OUTPUT = binary/windows/3DGameEngine.exe
+  INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
+  LIBRARIES = -Lexternal/library/sdl2/windows -lSDL2
+  OUTPUT = binary/windows/3DGameEngine.exe
 else
-    UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S), Linux)
-        INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
-        LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
-        OUTPUT = binary/linux/3DGameEngine.out
-    endif
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S), Linux)
+    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
+    LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
+    OUTPUT = binary/linux/3DGameEngine.out
+  endif
     #MAC IS NOT SUPPORTED YET
     #ifeq ($(UNAME_S), Darwin)
     #endif
