@@ -42,7 +42,7 @@ Now you can download the `SDL2-[VERSION].tar.gz` file from the releases page and
 
 Now you have two important directories:
 - `SDL2-[VERSION]/include` which contains files (only the `.h` files) that can replace the contents of the `external/include/sdl2/linux` directory of this project.
-- `SDL2-[VERSION]/build/build/.libs` which contains files that can replace the `external/library/sdl2/linux` directory of this project.
+- `SDL2-[VERSION]/build/build/.libs` which contains files (excluding the `.d` and `.o` files) that can replace the `external/library/sdl2/linux` directory of this project.
   This directory has the caveat that you need to move `libSDL2-2.0.so.0` from the library directory into `binary/linux`.
 
 ### Mac
