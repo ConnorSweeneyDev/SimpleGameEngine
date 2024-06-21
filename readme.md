@@ -31,7 +31,7 @@ On top of the previous windows setup, go to the releases page and download the f
 ### Linux
 On top of having followed the build instructions for linux, do the following to ensure your environment is set up correctly:
 - Only run `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list` if you haven't already.
-- Run `sudo apt update` if you just ran the previous command.
+- Only Run `sudo apt update` if you just ran the previous command.
 - Run `sudo apt build-dep libsdl2-dev`.
 
 Now you can download the `SDL2-[VERSION].tar.gz` file from the releases page and extract it, to build it from source. This can be done by doing the following:
