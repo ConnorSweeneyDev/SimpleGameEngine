@@ -26,7 +26,7 @@ Firstly, if you are getting a new version of [glad/khr](https://glad.dav1d.de/),
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
 - `bin` which contains the file that can replace the one in `binary/windows` folder of this project.
 - `include/SDL2` which contains files that can replace the contents of the `external/include/sdl2/windows` folder of this project.
-- `lib` which contains the files to replace the contents of the `external/library/sdl2/windows` folder of this project.
+- `lib` which contains the files (not the folders) to replace the contents of the `external/library/sdl2/windows` folder of this project.
 
 ### Linux
 On top of having followed the build instructions for linux, do the following to ensure your environment is set up correctly:
