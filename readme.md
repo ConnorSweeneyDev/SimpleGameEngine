@@ -20,7 +20,6 @@ Not yet supported.
 
 ## Updating SDL
 Since the library files are all within the project, to update SDL for each platform some extra steps are required. The releases can be found [here](https://github.com/libsdl-org/SDL/releases).
-Firstly, if you are getting a new version of [glad/khr](https://glad.dav1d.de/), after extracting the zip and replacing all of the files, you will need to remove all instances of `KHR/` from the `#include` statements in `glad.c` due to the directory structure.
 
 ### Windows
 On top of the previous windows setup, go to the releases page and download the file ending `mingw.zip`. Extract this and go to `x86_64-w64-mingw32` and you will have access to three important folders:
@@ -47,3 +46,14 @@ Now you have two important directories:
 
 ### Mac
 Not yet supported.
+
+### Updating glad/khr
+Go through the installation process for [glad/khr](https://glad.dav1d.de/) to get a zip file, put `glad.h` in the `external/include/glad` directory and `khrplatform.h` in the `external/include/khr` directory. Then put `glad.c` in the `external/source` directory.
+Ensure that after replacing all of those files, you remove all instances of `KHR/` from the `#include` statements in `glad.c` due to the directory structure.
+
+### Updating glm
+Go to the [releases](https://github.com/g-truc/glm/releases) page and download the one you want, extract it and replace the contents of the `external/include/glm` directory with the contents of the `glm` directory in the extracted folder.
+Make sure to delete the `CMakeLists.txt`, `copying.txt`, `glm.cppm` and `detail/glm.cpp` files as they are not needed.
+
+### Updating stbi
+Go to the stb_image.h [file](https://github.com/nothings/stb/blob/master/stb_image.h) and download it as a raw file, then replace the file in `external/include/stbi` directory with that file.
