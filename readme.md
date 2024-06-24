@@ -1,14 +1,15 @@
 # 3DGameEngine
-After following the platform specific instructions you can run `make` in the project root to build
-the binary.
 
 ## Building the project
+After following the platform specific instructions you can run `make` in the project root to build
+the binary.
 
 ### Windows
 You must either have the same version of [MinGW](https://winlibs.com/) as me in your path (look at
 `external/mingw_version_info.txt`, or replace `libgcc_s_seh-1.dll` and `libstdc++-6.dll` in the
 `binary/windows` folder with the ones from your MinGW installation, as long as it is a 64-bit
-version. This will also give you access to the unix tools that are used in the makefile.
+version. This will also give you access to the unix tools that are used in the makefile. To build
+using the makefile, you will need Make - run `winget install make --source winget` to install it.
 
 ### Linux
 Do the following to ensure your environment is set up correctly:
