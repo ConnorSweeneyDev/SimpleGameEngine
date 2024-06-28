@@ -31,7 +31,10 @@ namespace cse::object
     else if constexpr (std::is_same<Type, Item>::value)
       for (auto &item : items) callable(item);
     else
+    {
       std::cout << "Invalid Type!" << std::endl;
+      return;
+    }
 
     if (action == Call_action::CLEANUP)
     {
@@ -106,7 +109,10 @@ namespace cse::object
     else if constexpr (std::is_same<Type, Item>::value)
       items.push_back(create<Item>(name));
     else
+    {
       std::cout << "Invalid Type!" << std::endl;
+      return;
+    }
   }
 
   // add_dynamic only exists for Item, not player due to player's init
