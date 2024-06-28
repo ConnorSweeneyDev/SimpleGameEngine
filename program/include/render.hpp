@@ -11,8 +11,15 @@ namespace cse::object
   class Render
   {
   public:
+    enum class Call_action
+    {
+      NONE,
+      CLEANUP
+    };
+    template <typename Type, typename Callable>
+    void call_for_all(Callable callable, const Call_action action = Call_action::NONE) const;
+
     template <typename Type> const std::shared_ptr<Type> get_by_name(const std::string name) const;
-    template <typename Callable> void call_for_all(Callable callable) const;
 
     void specify();
     template <typename Type>

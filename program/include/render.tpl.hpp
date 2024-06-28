@@ -18,26 +18,39 @@
 
 namespace cse::object
 {
+  template <typename Type, typename Callable>
+  void Render::call_for_all(Callable callable, Call_action action) const
+  {
+    if constexpr (std::is_same<Type, void>::value)
+    {
+      for (auto &player : players) callable(player);
+      for (auto &item : items) callable(item);
+    }
+    else if constexpr (std::is_same<Type, Player>::value)
+      for (auto &player : players) callable(player);
+    else if constexpr (std::is_same<Type, Item>::value)
+      for (auto &item : items) callable(item);
+    else
+      std::cout << "Invalid Type!" << std::endl;
+
+    if (action == Call_action::CLEANUP)
+    {
+      players.clear();
+      items.clear();
+    }
+  }
+
   template <typename Type>
   const std::shared_ptr<Type> Render::get_by_name(const std::string name) const
   {
-    if constexpr (std::is_same<Type, Player>::value)
-    {
-      for (auto &player : players)
-        if (player->name == name) return player;
-    }
-    else if constexpr (std::is_same<Type, Item>::value)
-    {
-      for (auto &item : items)
-        if (item->name == name) return item;
-    }
-    return nullptr;
-  }
+    std::shared_ptr<Type> result = nullptr;
+    call_for_all<Type>(
+      [name, &result](auto object)
+      {
+        if (object->name == name) result = object;
+      });
 
-  template <typename Callable> void Render::call_for_all(Callable callable) const
-  {
-    for (auto &player : players) callable(player);
-    for (auto &item : items) callable(item);
+    return result;
   }
 
   // specify_dynamic only exists for Item, not player due to player's init function
@@ -62,15 +75,20 @@ namespace cse::object
                                    [&object](const Player_ptr &player)
                                    { return player == object; }),
                     players.end());
-      cleanup(object);
     }
     else if constexpr (std::is_same<Type, Item>::value)
     {
       items.erase(std::remove_if(items.begin(), items.end(),
                                  [&object](const Item_ptr &item) { return item == object; }),
                   items.end());
-      cleanup(object);
     }
+    else
+    {
+      std::cout << "Invalid Type!" << std::endl;
+      return;
+    }
+
+    cleanup(object);
   }
 
   template <typename Type> const std::shared_ptr<Type> Render::create(const std::string name)
@@ -87,6 +105,8 @@ namespace cse::object
       players.push_back(create<Player>(name));
     else if constexpr (std::is_same<Type, Item>::value)
       items.push_back(create<Item>(name));
+    else
+      std::cout << "Invalid Type!" << std::endl;
   }
 
   // add_dynamic only exists for Item, not player due to player's init

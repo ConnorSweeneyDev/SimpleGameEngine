@@ -23,17 +23,14 @@ namespace cse::object
 
   void Render::cleanup_all()
   {
-    call_for_all([this](auto object) { cleanup(object); });
-
-    players.clear();
-    items.clear();
+    call_for_all<void>([this](auto object) { cleanup(object); }, Call_action::CLEANUP);
   }
 
   void Render::update()
   {
     pre_draw_init();
-    call_for_all([this](auto object) { pre_draw_vertices(object); });
-    call_for_all([this](auto object) { draw_vertices(object); });
+    call_for_all<void>([this](auto object) { pre_draw_vertices(object); });
+    call_for_all<void>([this](auto object) { draw_vertices(object); });
     draw_cleanup();
 
     sdl::gl_swap_window(system::window.application);
