@@ -68,6 +68,8 @@ namespace cse::object
         std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
       else if (type == GL_FRAGMENT_SHADER)
         std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
+      else
+        std::cout << "Invalid shader type!\n" << error_messages;
 
       delete[] error_messages;
       gl::delete_shader(shader_object);
