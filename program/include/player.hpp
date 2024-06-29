@@ -59,7 +59,7 @@ namespace cse::object
     std::vector<float> initial_geometry;
   };
 
-  using Player_ptr = std::shared_ptr<Player>;
+  using Player_ptr = Object_ptr<Player>;
   using Player_ptr_list = std::vector<Player_ptr>;
   extern Player_ptr_list players;
 }

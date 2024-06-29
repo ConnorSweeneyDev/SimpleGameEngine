@@ -10,7 +10,7 @@
 
 namespace cse::object
 {
-  template <typename Type> void Texture::load(std::shared_ptr<Type> &object)
+  template <typename Type> void Texture::load(Object_ptr<Type> &object)
   {
     load_init(object);
     stbi::set_flip_vertically_on_load(true);
@@ -61,7 +61,7 @@ namespace cse::object
     load_cleanup();
   }
 
-  template <typename Type> void Texture::load_init(std::shared_ptr<Type> &object)
+  template <typename Type> void Texture::load_init(Object_ptr<Type> &object)
   {
     gl::bind_vertex_array(object->vertex_array_object);
     gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);

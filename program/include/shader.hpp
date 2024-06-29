@@ -12,7 +12,7 @@ namespace cse::object
   public:
     void specify();
     template <typename Type>
-    void set_program(std::shared_ptr<Type> &object, const std::string vertex_shader_path,
+    void set_program(Object_ptr<Type> &object, const std::string vertex_shader_path,
                      const std::string fragment_shader_path);
 
   private:

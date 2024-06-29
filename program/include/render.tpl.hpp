@@ -43,10 +43,9 @@ namespace cse::object
     }
   }
 
-  template <typename Type>
-  const std::shared_ptr<Type> Render::get_by_name(const std::string name) const
+  template <typename Type> const Object_ptr<Type> Render::get_by_name(const std::string name) const
   {
-    std::shared_ptr<Type> result = nullptr;
+    Object_ptr<Type> result = nullptr;
     call_for_all<Type>(
       [name, &result](auto object)
       {
@@ -70,7 +69,7 @@ namespace cse::object
           add_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
   }
 
-  template <typename Type> void Render::remove(std::shared_ptr<Type> &object)
+  template <typename Type> void Render::remove(Object_ptr<Type> &object)
   {
     if constexpr (std::is_same<Type, Player>::value)
     {
@@ -94,7 +93,7 @@ namespace cse::object
     cleanup(object);
   }
 
-  template <typename Type> const std::shared_ptr<Type> Render::create(const std::string name)
+  template <typename Type> const Object_ptr<Type> Render::create(const std::string name)
   {
     auto object = std::make_shared<Type>(name);
     specify_vertices(object);
@@ -119,10 +118,10 @@ namespace cse::object
   // function taking specific parameters - will be changed to a different Type
   // later (Might not need to be a template function)
   template <typename Type>
-  const std::shared_ptr<Type>
-  Render::add_dynamic(const std::string name, const std::string texture_path,
-                      const std::string vertex_shader, const std::string fragment_shader,
-                      const std::vector<float> default_geometry)
+  const Object_ptr<Type> Render::add_dynamic(const std::string name, const std::string texture_path,
+                                             const std::string vertex_shader,
+                                             const std::string fragment_shader,
+                                             const std::vector<float> default_geometry)
   {
     if constexpr (std::is_same<Type, Item>::value)
     {
@@ -137,7 +136,7 @@ namespace cse::object
     }
   }
 
-  template <typename Type> void Render::specify_vertices(std::shared_ptr<Type> &object)
+  template <typename Type> void Render::specify_vertices(Object_ptr<Type> &object)
   {
     gl::gen_vertex_arrays(1, &object->vertex_array_object);
     gl::bind_vertex_array(object->vertex_array_object);
@@ -172,7 +171,7 @@ namespace cse::object
     vertex_cleanup();
   }
 
-  template <typename Type> void Render::pre_draw_vertices(std::shared_ptr<Type> &object)
+  template <typename Type> void Render::pre_draw_vertices(Object_ptr<Type> &object)
   {
     gl::use_program(object->shader_program);
 
@@ -207,7 +206,7 @@ namespace cse::object
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));
   }
 
-  template <typename Type> void Render::draw_vertices(std::shared_ptr<Type> &object)
+  template <typename Type> void Render::draw_vertices(Object_ptr<Type> &object)
   {
     gl::bind_vertex_array(object->vertex_array_object);
     gl::use_program(object->shader_program);
@@ -215,7 +214,7 @@ namespace cse::object
     gl::draw_elements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (gl::Void *)0);
   }
 
-  template <typename Type> void Render::cleanup(std::shared_ptr<Type> &object)
+  template <typename Type> void Render::cleanup(Object_ptr<Type> &object)
   {
     gl::delete_vertex_arrays(1, &object->vertex_array_object);
     gl::delete_buffers(1, &object->vertex_buffer_object);

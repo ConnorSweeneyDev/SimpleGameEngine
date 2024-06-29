@@ -43,7 +43,7 @@ namespace cse::object
     float scale_z;
   };
 
-  using Item_ptr = std::shared_ptr<Item>;
+  using Item_ptr = Object_ptr<Item>;
   using Item_ptr_list = std::vector<Item_ptr>;
   extern Item_ptr_list items;
 }

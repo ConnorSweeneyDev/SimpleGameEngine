@@ -2,16 +2,18 @@
 
 #include <memory>
 
+#include "rename.hpp"
+
 namespace cse::object
 {
   class Texture
   {
   public:
     void specify();
-    template <typename Type> void load(std::shared_ptr<Type> &object);
+    template <typename Type> void load(Object_ptr<Type> &object);
 
   private:
-    template <typename Type> void load_init(std::shared_ptr<Type> &object);
+    template <typename Type> void load_init(Object_ptr<Type> &object);
     void load_cleanup();
   };
 

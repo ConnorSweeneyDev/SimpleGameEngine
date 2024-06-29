@@ -1,8 +1,15 @@
 #pragma once
 
+#include <memory>
+
 #include <SDL_events.h>
 #include <glad.h>
 #include <glm.hpp>
+
+namespace cse::object
+{
+  template <typename Type> using Object_ptr = std::shared_ptr<Type>;
+}
 
 namespace sdl
 {
