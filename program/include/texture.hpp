@@ -14,6 +14,7 @@ namespace cse::object
     template <typename Type> void load_init(std::shared_ptr<Type> &object);
     void load_cleanup();
   };
+
   extern Texture texture;
 }
 
