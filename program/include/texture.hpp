@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include "rename.hpp"
 
 namespace cse::object
@@ -20,4 +18,4 @@ namespace cse::object
   extern Texture texture;
 }
 
-#include "texture.tpl.hpp"
+#include "texture.tpl.hpp" // IWYU pragma: keep
