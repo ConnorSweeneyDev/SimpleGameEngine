@@ -6,7 +6,7 @@ the binary. The outputted binary must be run from the root directory to work as 
 
 ### Windows
 You must either have the same version of [MinGW](https://winlibs.com/) as me in your path (look at
-`external/mingw_version_info.txt`, or replace `libgcc_s_seh-1.dll`, `libstdc++-6.dll`,
+`external/mingw_version_info.txt`), or replace `libgcc_s_seh-1.dll`, `libstdc++-6.dll`,
 `libssp-0.dll` and `libwinpthread-1.dll` in the `binary/windows` folder with the ones from your
 MinGW installation, as long as it is a 64-bit version and has llvm/clang support. This will also
 give you access to the unix tools that are used in the makefile. To build using the makefile, you
@@ -18,6 +18,10 @@ Do the following to ensure your environment is set up correctly:
 - Run `sudo apt install git g++ make llvm clang clang-format`.
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window
   manager.
+
+Unless you are on the exact same version of linux as me (look at `external/linux_version_info.txt`) you will also want to replace the `libgcc_s.so.1`, `libstdc++.so.6`, `libm.so.6` and
+`libc.so.6` files in the `binary/linux` folder with the ones from your system; they can be found in
+`/lib/x86_64-linux-gnu/`.
 
 ### Mac
 Not yet supported.
