@@ -1,6 +1,6 @@
 #pragma once
 
-namespace csg::scene
+namespace cse::scene
 {
   void specify();
 }

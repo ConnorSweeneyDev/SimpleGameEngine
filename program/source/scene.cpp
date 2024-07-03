@@ -5,14 +5,14 @@
 #include "player.hpp"
 #include "scene.hpp"
 
-namespace csg::scene
+namespace cse::scene
 {
   void specify()
   {
-    cse::object::camera.init(45.0f, 0.1f, 10.0f, glm::Vec3(0.0f, 0.0f, 3.0f),
-                             glm::Vec3(0.0f, 0.0f, -1.0f), glm::Vec3(0.0f, 1.0f, 0.0f));
+    object::camera.init(45.0f, 0.1f, 10.0f, glm::Vec3(0.0f, 0.0f, 3.0f),
+                        glm::Vec3(0.0f, 0.0f, -1.0f), glm::Vec3(0.0f, 1.0f, 0.0f));
 
-    for (auto &player : cse::object::players)
+    for (auto &player : object::players)
     {
       if (player->name == "Player 1")
         player->init(50, 0.002f, {-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
@@ -22,7 +22,7 @@ namespace csg::scene
         player->init(100, 0.001f, {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
     }
 
-    for (auto &item : cse::object::items)
+    for (auto &item : object::items)
     {
       if (item->name == "Background 1")
         item->init({0.0f, 1.5f, -0.45f, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f, 1.0f});
