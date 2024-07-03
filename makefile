@@ -11,7 +11,7 @@ CXXFLAGS = -g -O2 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTI
 CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
-SYS_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
+SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
 
 ifeq ($(OS), Windows_NT)
   INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
@@ -32,63 +32,63 @@ endif
 CPP_SOURCES = $(wildcard program/source/*.cpp)
 C_SOURCES = $(wildcard external/source/*.c)
 
-OBJECTS_DIR = object
-COMMANDS_DIR = compile_commands.json
-CLANGD_DIR = .clangd
-FORMAT_DIR = .clang-format
+OBJECTS_DIRECTORY = object
+COMMANDS_DIRECTORY = compile_commands.json
+CLANGD_DIRECTORY = .clangd
+FORMAT_DIRECTORY = .clang-format
 
-$(shell if [ ! -d "$(OBJECTS_DIR)" ]; then mkdir -p $(OBJECTS_DIR); fi)
-OBJECTS = $(patsubst program/source/%.cpp,$(OBJECTS_DIR)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIR)/%.o,$(C_SOURCES))
+$(shell if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); fi)
+OBJECTS = $(patsubst program/source/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
 
 all: compile_commands clangd clang-format $(OUTPUT)
 
 compile_commands:
-	@echo -n > $(COMMANDS_DIR)
-	@echo "[" >> $(COMMANDS_DIR)
-	@for source in $(CPP_SOURCES); do echo "    { \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYS_INCLUDES) $(LIBRARIES) -c $$source -o $(OBJECTS_DIR)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIR)
-	@for source in $(C_SOURCES); do echo "    { \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) -c $$source -o $(OBJECTS_DIR)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIR)
-	@sed -i "$$ s/,$$//" $(COMMANDS_DIR)
-	@echo "]" >> $(COMMANDS_DIR)
-	@echo "$(COMMANDS_DIR) updated."
+	@echo -n > $(COMMANDS_DIRECTORY)
+	@echo "[" >> $(COMMANDS_DIRECTORY)
+	@for source in $(CPP_SOURCES); do echo "    { \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(LIBRARIES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
+	@for source in $(C_SOURCES); do echo "    { \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
+	@sed -i "$$ s/,$$//" $(COMMANDS_DIRECTORY)
+	@echo "]" >> $(COMMANDS_DIRECTORY)
+	@echo "$(COMMANDS_DIRECTORY) updated."
 
 clangd:
-	@echo -n > $(CLANGD_DIR)
-	@echo "Diagnostics:" >> $(CLANGD_DIR)
-	@echo "    UnusedIncludes: None" >> $(CLANGD_DIR)
-	@echo "$(CLANGD_DIR) updated."
+	@echo -n > $(CLANGD_DIRECTORY)
+	@echo "Diagnostics:" >> $(CLANGD_DIRECTORY)
+	@echo "    UnusedIncludes: None" >> $(CLANGD_DIRECTORY)
+	@echo "$(CLANGD_DIRECTORY) updated."
 
 clang-format:
-	@echo -n > $(FORMAT_DIR)
-	@echo "---" >> $(FORMAT_DIR)
-	@echo "BasedOnStyle: LLVM" >> $(FORMAT_DIR)
-	@echo "IndentWidth: 2" >> $(FORMAT_DIR)
-	@echo "ConstructorInitializerIndentWidth: 2" >> $(FORMAT_DIR)
-	@echo "ContinuationIndentWidth: 2" >> $(FORMAT_DIR)
-	@echo "BreakBeforeBraces: Allman" >> $(FORMAT_DIR)
-	@echo "---" >> $(FORMAT_DIR)
-	@echo "Language: Cpp" >> $(FORMAT_DIR)
-	@echo "ColumnLimit: 100" >> $(FORMAT_DIR)
-	@echo "AllowShortBlocksOnASingleLine: true" >> $(FORMAT_DIR)
-	@echo "AllowShortFunctionsOnASingleLine: true" >> $(FORMAT_DIR)
-	@echo "AllowShortIfStatementsOnASingleLine: true" >> $(FORMAT_DIR)
-	@echo "AllowShortLoopsOnASingleLine: true" >> $(FORMAT_DIR)
-	@echo "AllowShortCaseLabelsOnASingleLine: true" >> $(FORMAT_DIR)
-	@echo "IndentPPDirectives: BeforeHash" >> $(FORMAT_DIR)
-	@echo "NamespaceIndentation: All" >> $(FORMAT_DIR)
-	@echo "FixNamespaceComments: false" >> $(FORMAT_DIR)
-	@echo "IndentCaseLabels: true" >> $(FORMAT_DIR)
-	@echo "AlwaysBreakTemplateDeclarations: false" >> $(FORMAT_DIR)
-	@echo "..." >> $(FORMAT_DIR)
+	@echo -n > $(FORMAT_DIRECTORY)
+	@echo "---" >> $(FORMAT_DIRECTORY)
+	@echo "BasedOnStyle: LLVM" >> $(FORMAT_DIRECTORY)
+	@echo "IndentWidth: 2" >> $(FORMAT_DIRECTORY)
+	@echo "ConstructorInitializerIndentWidth: 2" >> $(FORMAT_DIRECTORY)
+	@echo "ContinuationIndentWidth: 2" >> $(FORMAT_DIRECTORY)
+	@echo "BreakBeforeBraces: Allman" >> $(FORMAT_DIRECTORY)
+	@echo "---" >> $(FORMAT_DIRECTORY)
+	@echo "Language: Cpp" >> $(FORMAT_DIRECTORY)
+	@echo "ColumnLimit: 100" >> $(FORMAT_DIRECTORY)
+	@echo "AllowShortBlocksOnASingleLine: true" >> $(FORMAT_DIRECTORY)
+	@echo "AllowShortFunctionsOnASingleLine: true" >> $(FORMAT_DIRECTORY)
+	@echo "AllowShortIfStatementsOnASingleLine: true" >> $(FORMAT_DIRECTORY)
+	@echo "AllowShortLoopsOnASingleLine: true" >> $(FORMAT_DIRECTORY)
+	@echo "AllowShortCaseLabelsOnASingleLine: true" >> $(FORMAT_DIRECTORY)
+	@echo "IndentPPDirectives: BeforeHash" >> $(FORMAT_DIRECTORY)
+	@echo "NamespaceIndentation: All" >> $(FORMAT_DIRECTORY)
+	@echo "FixNamespaceComments: false" >> $(FORMAT_DIRECTORY)
+	@echo "IndentCaseLabels: true" >> $(FORMAT_DIRECTORY)
+	@echo "AlwaysBreakTemplateDeclarations: false" >> $(FORMAT_DIRECTORY)
+	@echo "..." >> $(FORMAT_DIRECTORY)
 	@clang-format -i program/**/*
-	@echo "$(FORMAT_DIR) updated."
+	@echo "$(FORMAT_DIRECTORY) updated."
 
 $(OUTPUT): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYS_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
-$(OBJECTS_DIR)/%.o: program/source/%.cpp
-	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYS_INCLUDES) -c $< -o $@
-$(OBJECTS_DIR)/%.o: external/source/%.c
+	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
+$(OBJECTS_DIRECTORY)/%.o: program/source/%.cpp
+	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
+$(OBJECTS_DIRECTORY)/%.o: external/source/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@if [ -d "$(OBJECTS_DIR)" ]; then $(RM) $(OBJECTS_DIR); fi
+	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then $(RM) $(OBJECTS_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
