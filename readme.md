@@ -22,7 +22,7 @@ Do the following to ensure your environment is set up correctly:
 Unless you are on the exact same version of linux as me (look at `external/linux_version_info.txt`)
 you will also want to replace the `libgcc_s.so.1`, `libstdc++.so.6`, `libm.so.6` and `libc.so.6`
 files in the `binary/linux` folder with the ones from your system; they can be found in
-`/lib/x86_64-linux-gnu/`.
+`/lib/x86_64-linux-gnu`.
 
 ### Mac
 Not yet supported.
@@ -67,8 +67,8 @@ Now you have two important directories:
 Not yet supported.
 
 ## Updating glad/khr
-Go through the installation process for [glad/khr](https://glad.dav1d.de/) to get a zip file, put
-`glad.h` in the `external/include/glad` directory and `khrplatform.h` in the `external/include/khr`
+Go through the [installation](https://glad.dav1d.de/) for glad/khr to get a zip file, put `glad.h`
+in the `external/include/glad` directory and `khrplatform.h` in the `external/include/khr`
 directory. Then put `glad.c` in the `external/source` directory. Ensure that after replacing all of
 those files, you remove all instances of `KHR/` from the `#include` statements in `glad.c` due to
 the directory structure.
