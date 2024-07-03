@@ -19,8 +19,9 @@ Do the following to ensure your environment is set up correctly:
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window
   manager.
 
-Unless you are on the exact same version of linux as me (look at `external/linux_version_info.txt`) you will also want to replace the `libgcc_s.so.1`, `libstdc++.so.6`, `libm.so.6` and
-`libc.so.6` files in the `binary/linux` folder with the ones from your system; they can be found in
+Unless you are on the exact same version of linux as me (look at `external/linux_version_info.txt`)
+you will also want to replace the `libgcc_s.so.1`, `libstdc++.so.6`, `libm.so.6` and `libc.so.6`
+files in the `binary/linux` folder with the ones from your system; they can be found in
 `/lib/x86_64-linux-gnu/`.
 
 ### Mac
