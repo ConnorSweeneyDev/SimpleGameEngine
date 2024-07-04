@@ -37,10 +37,9 @@ COMMANDS_DIRECTORY = compile_commands.json
 CLANGD_DIRECTORY = .clangd
 FORMAT_DIRECTORY = .clang-format
 
-$(shell if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); fi)
 OBJECTS = $(patsubst program/source/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst external/source/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
 
-all: compile_commands clangd clang-format $(OUTPUT)
+all: compile_commands clangd clang-format object $(OUTPUT)
 
 compile_commands:
 	@echo -n > $(COMMANDS_DIRECTORY)
@@ -82,12 +81,15 @@ clang-format:
 	@clang-format -i program/**/*
 	@echo "$(FORMAT_DIRECTORY) updated."
 
+object:
+	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); fi
+
 $(OUTPUT): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
 $(OBJECTS_DIRECTORY)/%.o: program/source/%.cpp
 	$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 $(OBJECTS_DIRECTORY)/%.o: external/source/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 
 clean:
 	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then $(RM) $(OBJECTS_DIRECTORY); fi
