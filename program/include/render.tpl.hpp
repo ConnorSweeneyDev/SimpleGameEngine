@@ -55,9 +55,9 @@ namespace cse::object
     return result;
   }
 
-  // specify_dynamic only exists for Item, not player due to player's init function
-  // taking specific parameters - will be changed to a different Type later
-  // (Might not need to be a template function)
+  // specify_dynamic only exists for Item, not player due to player's init function taking specific
+  // parameters - will be changed to a different Type later (Might not need to be a template
+  // function)
   template <typename Type>
   void Render::specify_dynamic(const std::string name, const std::string texture_path,
                                const std::string vertex_shader, const std::string fragment_shader,
