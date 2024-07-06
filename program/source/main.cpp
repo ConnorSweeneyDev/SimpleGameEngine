@@ -27,8 +27,13 @@ void game_loop()
 {
   while (!cse::system::window.should_quit)
   {
-    cse::time::update_delta_time();
-    cse::input::read(); // Go here to set keybindings
+    cse::time::update();
+    while (cse::time::is_behind())
+    {
+      cse::input::read(); // Go here to set keybindings
+      cse::time::catchup();
+    }
+
     cse::object::render.update();
   }
 }

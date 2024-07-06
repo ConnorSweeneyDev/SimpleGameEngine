@@ -7,12 +7,12 @@ namespace cse::object
 
   Player::Player(const std::string i_name) : name(i_name) {}
 
-  void Player::move_right() { translation_x += speed * time::delta_time; }
-  void Player::move_left() { translation_x -= speed * time::delta_time; }
-  void Player::move_up() { translation_y += speed * time::delta_time; }
-  void Player::move_down() { translation_y -= speed * time::delta_time; }
-  void Player::move_forward() { translation_z -= speed * time::delta_time; }
-  void Player::move_backward() { translation_z += speed * time::delta_time; }
+  void Player::move_right() { translation_x += speed; }
+  void Player::move_left() { translation_x -= speed; }
+  void Player::move_up() { translation_y += speed; }
+  void Player::move_down() { translation_y -= speed; }
+  void Player::move_forward() { translation_z -= speed; }
+  void Player::move_backward() { translation_z += speed; }
 
   void Player::reset_stats()
   {

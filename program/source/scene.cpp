@@ -15,11 +15,11 @@ namespace cse::scene
     for (auto &player : object::players)
     {
       if (player->name == "Player 1")
-        player->init(50, 0.002f, {-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
+        player->init(50, 0.015f, {-1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
       else if (player->name == "Player 2")
-        player->init(200, 0.0005f, {1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f});
+        player->init(200, 0.005f, {1.5f, -0.2f, 0.0f, 0.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f});
       else
-        player->init(100, 0.001f, {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
+        player->init(100, 0.01f, {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f});
     }
 
     for (auto &item : object::items)

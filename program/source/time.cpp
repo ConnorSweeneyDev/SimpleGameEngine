@@ -4,14 +4,18 @@
 
 namespace cse::time
 {
-  float delta_time = 0.0f;
-  float current_time = 0.0f;
-  float last_time = 0.0f;
+  constexpr double poll_rate = 60.0;
+  double target = 1000.0 / poll_rate;
 
-  void update_delta_time()
+  double previous = (double)sdl::get_ticks_64();
+  double lag = 0.0;
+  void update()
   {
-    current_time = (float)sdl::get_ticks_64();
-    delta_time = (current_time - last_time);
-    last_time = current_time;
+    double current = (double)sdl::get_ticks_64();
+    double elapsed = current - previous;
+    previous = current;
+    lag += elapsed;
   }
+  bool is_behind() { return lag >= target; }
+  void catchup() { lag -= target; }
 }

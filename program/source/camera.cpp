@@ -19,12 +19,12 @@ namespace cse::object
     view_matrix = glm::look_at(position, position + direction, up);
   }
 
-  void Camera::move_right(const float speed) { position.x += speed * time::delta_time; }
-  void Camera::move_left(const float speed) { position.x -= speed * time::delta_time; }
-  void Camera::move_up(const float speed) { position.y += speed * time::delta_time; }
-  void Camera::move_down(const float speed) { position.y -= speed * time::delta_time; }
-  void Camera::move_forward(const float speed) { position.z -= speed * time::delta_time; }
-  void Camera::move_backward(const float speed) { position.z += speed * time::delta_time; }
+  void Camera::move_right(const float speed) { position.x += speed; }
+  void Camera::move_left(const float speed) { position.x -= speed; }
+  void Camera::move_up(const float speed) { position.y += speed; }
+  void Camera::move_down(const float speed) { position.y -= speed; }
+  void Camera::move_forward(const float speed) { position.z -= speed; }
+  void Camera::move_backward(const float speed) { position.z += speed; }
 
   void Camera::reset_orientation()
   {
