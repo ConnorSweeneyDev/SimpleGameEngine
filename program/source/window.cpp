@@ -14,8 +14,9 @@ namespace cse::system
   void Window::handle_move()
   {
     if (fullscreen) return;
-    sdl::get_window_position(window.application, &window.position_x, &window.position_y);
-    display_index = sdl::get_window_display_index(window.application);
+
+    sdl::get_window_position(application, &position_x, &position_y);
+    display_index = sdl::get_window_display_index(application);
   }
 
   void Window::handle_fullscreen()
@@ -36,6 +37,8 @@ namespace cse::system
   {
     width = starting_width;
     height = starting_height;
+    position_x = (int)SDL_WINDOWPOS_CENTERED_DISPLAY(display_index);
+    position_y = (int)SDL_WINDOWPOS_CENTERED_DISPLAY(display_index);
 
     for (int i = 0; i < sdl::get_num_video_displays(); i++)
     {

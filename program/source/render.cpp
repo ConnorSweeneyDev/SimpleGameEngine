@@ -46,7 +46,7 @@ namespace cse::object
 
     gl::viewport(0, 0, system::window.width, system::window.height);
 
-    gl::clear_color(0.2f, 0.2f, 0.2f, 1.0f);
+    gl::clear_color(0.0f, 0.0f, 0.0f, 1.0f);
     gl::clear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
   }
 

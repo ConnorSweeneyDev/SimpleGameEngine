@@ -30,8 +30,8 @@ namespace cse::system
     int display_index = 0;
     std::vector<sdl::Rect> display_bounds;
 
-    int position_x = 100;
-    int position_y = 100;
+    int position_x;
+    int position_y;
     const int starting_width = 1280;
     const int starting_height = 720;
 
