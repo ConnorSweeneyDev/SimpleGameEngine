@@ -1,4 +1,4 @@
-# 3DGameEngine
+# SimpleGameEngine
 
 ## Building and Running
 After following the platform specific instructions you can execute the `build.bat` file on windows

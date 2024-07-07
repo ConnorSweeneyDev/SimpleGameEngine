@@ -53,7 +53,7 @@ namespace cse::system
     }
 
     application =
-      sdl::create_window("3D Game Engine", display_bounds[(size_t)display_index].x + position_x,
+      sdl::create_window("Simple Game Engine", display_bounds[(size_t)display_index].x + position_x,
                          display_bounds[(size_t)display_index].y + position_y, starting_width,
                          starting_height, SDL_WINDOW_OPENGL);
     if (application == nullptr)
