@@ -10,7 +10,8 @@ You must either have the same version of [MinGW](https://winlibs.com/) as me in 
 `libssp-0.dll` and `libwinpthread-1.dll` in the `binary/windows` folder with the ones from your
 MinGW installation, as long as it is a 64-bit version and has llvm/clang support. This will also
 give you access to the unix tools that are used in the makefile. To build using the makefile, you
-will need Make; run `winget install make --source winget` to install it.
+will need Make (`winget install make --source winget`) and Python3 (`winget install --id
+Python.Python.3.12`);
 
 ### Linux
 Do the following to ensure your environment is set up correctly:
