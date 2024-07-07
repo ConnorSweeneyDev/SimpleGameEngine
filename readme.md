@@ -1,8 +1,9 @@
 # 3DGameEngine
 
 ## Building and Running
-After following the platform specific instructions you can run `make` in the project root to build
-the binary. The outputted binary must be run from the root directory to work as intended.
+After following the platform specific instructions you can execute the `build.bat` file on windows
+or the `build.sh` file on linux from the root of the project to build the binary. The outputted
+binary must be run from the root too to work as intended.
 
 ### Windows
 You must either have the same version of [MinGW](https://winlibs.com/) as me in your path (look at
