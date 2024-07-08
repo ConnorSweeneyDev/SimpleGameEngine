@@ -1,4 +1,5 @@
 # SimpleGameEngine
+This engine provides an interface for creating 2D/3D hybrid games.
 
 ## Building and Running
 After following the platform specific instructions you can execute the `build.bat` file on windows
