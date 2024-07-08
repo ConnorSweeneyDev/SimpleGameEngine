@@ -33,7 +33,6 @@ void game_loop()
       cse::input::read(); // Go here to set keybindings
       cse::time::catchup();
     }
-
     cse::object::render.update();
   }
 }
