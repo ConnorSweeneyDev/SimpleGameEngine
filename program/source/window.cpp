@@ -83,8 +83,6 @@ namespace cse::system
     sdl::gl_delete_context(gl_context);
     sdl::destroy_window(application);
     application = nullptr;
-
-    sdl::quit();
   }
 
   void Window::disable_fullscreen()

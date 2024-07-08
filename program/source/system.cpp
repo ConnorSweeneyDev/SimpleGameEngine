@@ -5,6 +5,7 @@
 #include <glad.h>
 
 #include "system.hpp"
+#include "window.hpp"
 
 namespace cse::system
 {
@@ -52,5 +53,11 @@ namespace cse::system
       std::cout << "Glad could not be initialized: " << sdl::get_error() << std::endl;
       exit(1);
     }
+  }
+
+  void cleanup()
+  {
+    window.cleanup();
+    sdl::quit();
   }
 }

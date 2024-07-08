@@ -8,6 +8,7 @@ namespace cse::system
 
   void sdl_init();
   void glad_init();
+  void cleanup();
 
 #define check_gl(function)                                                                         \
   clear_all_gl_errors();                                                                           \

@@ -37,19 +37,17 @@ void game_loop()
   }
 }
 
-void program_cleanup()
+void system_cleanup()
 {
   cse::object::render.cleanup_all();
-  cse::system::window.cleanup();
+  cse::system::cleanup();
 }
 
 int main()
 {
   system_init();
-
   game_specification();
   game_loop();
-
-  program_cleanup();
+  system_cleanup();
   return 0;
 }
