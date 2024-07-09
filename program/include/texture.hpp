@@ -18,4 +18,4 @@ namespace cse::object
   extern Texture texture;
 }
 
-#include "texture.tpl.hpp" // IWYU pragma: keep
+#include "texture.tpl.hpp"
