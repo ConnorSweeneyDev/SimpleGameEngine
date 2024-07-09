@@ -2,7 +2,6 @@
 #include <gtc/matrix_transform.hpp>
 
 #include "camera.hpp"
-#include "time.hpp"
 #include "window.hpp"
 
 namespace cse::object
