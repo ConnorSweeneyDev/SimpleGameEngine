@@ -1,4 +1,0 @@
-neofetch output:
-
-OS: Ubuntu 22.04.4 LTS on Windows 10 x86_64
-Kernel: 5.15.153.1-microsoft-standard-WSL2
