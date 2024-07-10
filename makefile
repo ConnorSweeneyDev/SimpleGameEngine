@@ -1,7 +1,18 @@
 RM = rm -r
+ifeq ($(OS), Windows_NT)
+  ECHO = echo -e
+else
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S), Linux)
+    ECHO = echo
+  endif
+  #MAC IS NOT SUPPORTED YET
+  #ifeq ($(UNAME_S), Darwin)
+  #endif
+endif
+
 CXX = g++
 CC = gcc
-
 #RELEASE FLAGS:
 #CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 #CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
@@ -12,14 +23,11 @@ CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
 SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
 ifeq ($(OS), Windows_NT)
-  ECHO = echo -e
   INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
   LIBRARIES = -Lexternal/library/sdl2/windows -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
-  UNAME_S := $(shell uname -s)
   ifeq ($(UNAME_S), Linux)
-    ECHO = echo
     INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
     LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
