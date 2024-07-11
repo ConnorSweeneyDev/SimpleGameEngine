@@ -29,7 +29,7 @@ ifeq ($(OS), Windows_NT)
 else
   ifeq ($(UNAME_S), Linux)
     INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
-    LIBRARIES = -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
+    LIBRARIES = -static-libgcc -static-libstdc++ -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
   endif
   #MAC IS NOT SUPPORTED YET
