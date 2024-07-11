@@ -7,8 +7,8 @@ or the `build.sh` file on linux from the root of the project to build the binary
 binary must be run from the root to work as intended.
 
 On Windows, the binary will be statically linked to any C++ runtime libraries that are used, but
-dynamically linked to SDL2. On Linux, the binary will be dynamically linked to both SDL2 and the C++
-runtime libraries to avoid any floating dependencies.
+dynamically linked to SDL2. On Linux, the binary will be statically linked where possible (libgcc
+and libstdc++) but dynamically linked to everything else.
 
 ### Windows
 You must have the same version of [MinGW](https://winlibs.com/) as me in your path (look at
