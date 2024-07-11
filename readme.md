@@ -11,10 +11,10 @@ dynamically linked to SDL2. On Linux, the binary will be statically linked where
 and libstdc++) but dynamically linked to everything else.
 
 ### Windows
-You must have the same version of [MinGW](https://winlibs.com/) as me in your path (look at
-`external/mingw_version_info.txt`), this will give you access to the unix tools that are used in the
-makefile and ensure no version collisions. To build using the makefile, you will need Make (`winget
-install make --source winget`) and Python3 (`winget install --id Python.Python.3.12`);
+You must have any 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
+path, this will give you access to the unix tools that are used in the makefile. To build using the
+makefile, you will need Make (`winget install make --source winget`) and Python3 (`winget install
+--id Python.Python.3.12`);
 
 ### Linux
 Do the following to ensure your environment is set up correctly:
