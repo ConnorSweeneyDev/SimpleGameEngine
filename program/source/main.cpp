@@ -37,7 +37,7 @@ void game_loop()
   }
 }
 
-void system_cleanup()
+void program_cleanup()
 {
   cse::object::render.cleanup_all();
   cse::system::cleanup();
@@ -48,6 +48,6 @@ int main()
   system_init();
   game_specification();
   game_loop();
-  system_cleanup();
+  program_cleanup();
   return 0;
 }
