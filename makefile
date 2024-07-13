@@ -21,14 +21,14 @@ CXXFLAGS = -g -O2 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTI
 CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
-SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stbi
+SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
 ifeq ($(OS), Windows_NT)
-  INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stbi
+  INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/windows -Iexternal/include/stb
   LIBRARIES = -static -Wl,-Bstatic -lstdc++ -lgcc -lssp -lwinpthread -Wl,-Bdynamic -Lexternal/library/sdl2/windows -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME_S), Linux)
-    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stbi
+    INCLUDES = -Iprogram/include -Iexternal/include -Iexternal/include/glad -Iexternal/include/glm -Iexternal/include/khr -Iexternal/include/sdl2/linux -Iexternal/include/stb
     LIBRARIES = -static-libgcc -static-libstdc++ -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
   endif
