@@ -71,6 +71,8 @@ namespace cse::object
 
   template <typename Type> void Render::remove(Object_ptr<Type> &object)
   {
+    cleanup(object);
+
     if constexpr (std::is_same<Type, Player>::value)
     {
       players.erase(std::remove_if(players.begin(), players.end(),
@@ -89,8 +91,6 @@ namespace cse::object
       std::cout << "Invalid Type!" << std::endl;
       return;
     }
-
-    cleanup(object);
   }
 
   template <typename Type> const Object_ptr<Type> Render::create(const std::string name)
