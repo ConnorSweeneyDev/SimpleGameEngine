@@ -8,17 +8,14 @@ else
   ifeq ($(UNAME), Linux)
     ECHO = echo
   endif
-  #MAC IS NOT SUPPORTED YET
   #ifeq ($(UNAME), Darwin)
   #endif
 endif
 
 CXX = g++
 CC = gcc
-#RELEASE FLAGS:
 #CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 #CFLAGS = -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
-#DEBUG FLAGS:
 CXXFLAGS = -g -O2 -std=c++20 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 
@@ -34,7 +31,6 @@ else
     LIBRARIES = -static-libgcc -static-libstdc++ -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
   endif
-  #MAC IS NOT SUPPORTED YET
   #ifeq ($(UNAME), Darwin)
   #endif
 endif
