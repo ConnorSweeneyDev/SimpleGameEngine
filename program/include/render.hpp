@@ -15,7 +15,7 @@ namespace cse::object
       NONE,
       CLEANUP
     };
-    template <typename Type, typename Callable>
+    template <typename Type = void, typename Callable>
     void call_for_all(Callable callable, const Call_action action = Call_action::NONE) const;
 
     template <typename Type> const Object_ptr<Type> get_by_name(const std::string name) const;

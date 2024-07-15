@@ -52,9 +52,7 @@ namespace cse::input
     }
     auto item_1 = object::render.get_by_name<object::Item>("Item 1");
     if (item_1)
-    {
       if (key_state[SDL_SCANCODE_0]) object::render.remove(item_1);
-    }
 
     if (key_state[SDL_SCANCODE_7])
     {
@@ -65,9 +63,7 @@ namespace cse::input
     }
     auto item_2 = object::render.get_by_name<object::Item>("Item 2");
     if (item_2)
-    {
       if (key_state[SDL_SCANCODE_8]) object::render.remove(item_2);
-    }
 
     auto player_1 = object::render.get_by_name<object::Player>("Player 1");
     if (player_1)
