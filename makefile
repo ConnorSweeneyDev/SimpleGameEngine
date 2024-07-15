@@ -1,4 +1,3 @@
-RM = rm -r
 ifeq ($(OS), Windows_NT)
   ECHO = echo -e
 else
@@ -28,7 +27,7 @@ ifeq ($(OS), Windows_NT)
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME), Linux)
-  SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
+    SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
     LIBRARIES = -static-libgcc -static-libstdc++ -Lexternal/library/sdl2/linux -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
   endif
@@ -98,5 +97,5 @@ $(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c
 	@$(ECHO) "Compiled | $< -> $@"
 
 clean:
-	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then $(RM) $(OBJECTS_DIRECTORY); fi
-	@if [ -f $(OUTPUT) ]; then $(RM) $(OUTPUT); fi
+	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then rm -r $(OBJECTS_DIRECTORY); fi
+	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
