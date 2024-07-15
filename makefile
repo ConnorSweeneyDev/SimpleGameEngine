@@ -39,7 +39,7 @@ endif
 
 PROGRAM_SOURCE_DIRECTORY = program/source
 EXTERNAL_SOURCE_DIRECTORY = external/source
-OBJECTS_DIRECTORY = object
+OBJECTS_DIRECTORY = binary/object
 CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
 OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
@@ -73,19 +73,19 @@ compile_commands:
 	@for source in $(C_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
 	@sed -i "$$ s/,$$//" $(COMMANDS_DIRECTORY)
 	@$(ECHO) "]" >> $(COMMANDS_DIRECTORY)
-	@$(ECHO) "Written  | $(COMMANDS_DIRECTORY)"
+	@$(ECHO) "Wrote    | $(COMMANDS_DIRECTORY)"
 
 clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_DIRECTORY)
 	@find program -type f \( -name "*.cpp" -o -name "*.hpp" \) -print0 | xargs -0 -I{} sh -c 'clang-format -i "{}"'
-	@$(ECHO) "Written  | $(FORMAT_DIRECTORY)"
+	@$(ECHO) "Wrote    | $(FORMAT_DIRECTORY)"
 
 clangd:
 	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_DIRECTORY)
-	@$(ECHO) "Written  | $(CLANGD_DIRECTORY)"
+	@$(ECHO) "Wrote    | $(CLANGD_DIRECTORY)"
 
 object:
-	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); fi
+	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Created  | $(OBJECTS_DIRECTORY)"; fi
 
 $(OUTPUT): $(OBJECTS)
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
