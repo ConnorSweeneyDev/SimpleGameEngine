@@ -68,34 +68,34 @@ BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
 all: compile_commands clang-format clangd object $(OUTPUT)
 
 compile_commands:
-	@echo "[" > $(COMMANDS_DIRECTORY)
+	@$(ECHO) "[" > $(COMMANDS_DIRECTORY)
 	@for source in $(CPP_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(LIBRARIES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
 	@for source in $(C_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
 	@sed -i "$$ s/,$$//" $(COMMANDS_DIRECTORY)
-	@echo "]" >> $(COMMANDS_DIRECTORY)
-	@echo "Written  | $(COMMANDS_DIRECTORY)"
+	@$(ECHO) "]" >> $(COMMANDS_DIRECTORY)
+	@$(ECHO) "Written  | $(COMMANDS_DIRECTORY)"
 
 clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_DIRECTORY)
 	@find program -type f \( -name "*.cpp" -o -name "*.hpp" \) -print0 | xargs -0 -I{} sh -c 'clang-format -i "{}"'
-	@echo "Written  | $(FORMAT_DIRECTORY)"
+	@$(ECHO) "Written  | $(FORMAT_DIRECTORY)"
 
 clangd:
 	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_DIRECTORY)
-	@echo "Written  | $(CLANGD_DIRECTORY)"
+	@$(ECHO) "Written  | $(CLANGD_DIRECTORY)"
 
 object:
 	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); fi
 
 $(OUTPUT): $(OBJECTS)
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
-	@echo "Linked   | $(OBJECTS) -> $(OUTPUT)"
+	@$(ECHO) "Linked   | $(OBJECTS) -> $(OUTPUT)"
 $(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@echo "Compiled | $< -> $@"
+	@$(ECHO) "Compiled | $< -> $@"
 $(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@echo "Compiled | $< -> $@"
+	@$(ECHO) "Compiled | $< -> $@"
 
 clean:
 	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then $(RM) $(OBJECTS_DIRECTORY); fi
