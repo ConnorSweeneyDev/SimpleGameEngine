@@ -1,7 +1,10 @@
+ifneq ($(OS), Windows_NT)
+	UNAME := $(shell uname -s)
+endif
+
 ifeq ($(OS), Windows_NT)
   ECHO = echo -e
 else
-  UNAME := $(shell uname -s)
   ifeq ($(UNAME), Linux)
     ECHO = echo
   endif
