@@ -38,5 +38,6 @@ namespace cse::system
     sdl::Gl_context gl_context;
     sdl::Display_mode display_mode;
   };
+
   extern Window window;
 }
