@@ -28,7 +28,7 @@ ifeq ($(OS), Windows_NT)
 else
   ifeq ($(UNAME), Linux)
     SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
-    LIBRARIES = -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
+    LIBRARIES = -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -ldl -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
   endif
   #ifeq ($(UNAME), Darwin)
