@@ -2,16 +2,6 @@ ifneq ($(OS), Windows_NT)
   UNAME := $(shell uname -s)
 endif
 
-ifeq ($(OS), Windows_NT)
-  ECHO = echo -e
-else
-  ifeq ($(UNAME), Linux)
-    ECHO = echo
-  endif
-  #ifeq ($(UNAME), Darwin)
-  #endif
-endif
-
 CXX = g++
 CC = gcc
 #CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
@@ -22,11 +12,13 @@ CFLAGS = -g -O2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -
 WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-align -Wfloat-equal -Wlogical-op -Wduplicated-cond -Wshift-overflow=2 -Wformat=2
 INCLUDES = -Iprogram/include
 ifeq ($(OS), Windows_NT)
+  ECHO = echo -e
   SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/stb
-  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lstdc++ -lgcc -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
+  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lgcc -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME), Linux)
+    ECHO = echo
     SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
     LIBRARIES = -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -ldl -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
