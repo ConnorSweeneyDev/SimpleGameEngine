@@ -1,5 +1,5 @@
 ifneq ($(OS), Windows_NT)
-	UNAME := $(shell uname -s)
+  UNAME := $(shell uname -s)
 endif
 
 ifeq ($(OS), Windows_NT)
