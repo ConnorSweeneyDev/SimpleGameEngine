@@ -14,7 +14,7 @@ INCLUDES = -Iprogram/include
 ifeq ($(OS), Windows_NT)
   ECHO = echo -e
   SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/stb
-  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lgcc -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
+  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME), Linux)
@@ -31,6 +31,8 @@ PROGRAM_SOURCE_DIRECTORY = program/source
 EXTERNAL_SOURCE_DIRECTORY = external/source
 BINARY_DIRECTORY = binary
 OBJECTS_DIRECTORY = binary/object
+WINDOWS_DIRECTORY = binary/windows
+LINUX_DIRECTORY = binary/linux
 CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
 OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
@@ -56,7 +58,7 @@ NAMESPACE_COMMENTS = FixNamespaceComments: false
 INDENT_CASE_LABELS = IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
 
-all: compile_commands clang-format clangd object $(OUTPUT)
+all: compile_commands clang-format clangd directories $(OUTPUT)
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_DIRECTORY)
@@ -75,14 +77,16 @@ clangd:
 	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_DIRECTORY)
 	@$(ECHO) "Write | $(CLANGD_DIRECTORY)"
 
-object:
+directories:
 	@if [ ! -d "$(BINARY_DIRECTORY)" ]; then mkdir -p $(BINARY_DIRECTORY); $(ECHO) "Write | $(BINARY_DIRECTORY)"; fi
 	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
+	@if [ ! -d "$(WINDOWS_DIRECTORY)" ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
+	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | object compile_commands clang-format clangd
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories compile_commands clang-format clangd
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | object compile_commands clang-format clangd
+$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories compile_commands clang-format clangd
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
 $(OUTPUT): $(OBJECTS)
