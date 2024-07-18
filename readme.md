@@ -10,6 +10,10 @@ On Windows, the binary will be statically linked to any C++ runtime libraries th
 dynamically linked to SDL2. On Linux, the binary will be statically linked where possible (libgcc
 and libstdc++) but dynamically linked to everything else.
 
+Part of the build process is to use my
+[ResourceLoader](https://github.com/ConnorSweeneyDev/ResourceLoader) to make shaders a part of the
+program rather than needing them present at runtime.
+
 ### Windows
 You must have any 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
 path, this will give you access to the unix tools that are used in the makefile. To build using the
