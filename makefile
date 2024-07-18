@@ -29,21 +29,6 @@ else
   #endif
 endif
 
-RESOURCE_DIRECTORY = program/include/resource.hpp
-RESOURCE_POSTFIX = _resource
-PROGRAM_SHADER_DIRECTORY = program/shader
-SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
-
-PROGRAM_SOURCE_DIRECTORY = program/source
-EXTERNAL_SOURCE_DIRECTORY = external/source
-BINARY_DIRECTORY = binary
-OBJECTS_DIRECTORY = binary/object
-WINDOWS_DIRECTORY = binary/windows
-LINUX_DIRECTORY = binary/linux
-CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
-C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
-OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
-
 COMMANDS_DIRECTORY = compile_commands.json
 FORMAT_DIRECTORY = .clang-format
 CLANGD_DIRECTORY = .clangd
@@ -64,6 +49,21 @@ NAMESPACE_INDENTATION = NamespaceIndentation: All
 NAMESPACE_COMMENTS = FixNamespaceComments: false
 INDENT_CASE_LABELS = IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
+
+RESOURCE_DIRECTORY = program/include/resource.hpp
+RESOURCE_POSTFIX = _resource
+PROGRAM_SHADER_DIRECTORY = program/shader
+SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
+
+PROGRAM_SOURCE_DIRECTORY = program/source
+EXTERNAL_SOURCE_DIRECTORY = external/source
+BINARY_DIRECTORY = binary
+OBJECTS_DIRECTORY = binary/object
+WINDOWS_DIRECTORY = binary/windows
+LINUX_DIRECTORY = binary/linux
+CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
+C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
+OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
 
 all: compile_commands clang-format clangd directories $(OUTPUT)
 
