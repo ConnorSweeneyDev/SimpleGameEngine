@@ -29,9 +29,7 @@ else
   #endif
 endif
 
-RESOURCE_INCLUDE_DIRECTORY = program/include/resource.hpp
-RESOURCE_SOURCE_DIRECTORY = program/source/resource.cpp
-RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
+RESOURCE_DIRECTORY = program/include/resource.hpp
 RESOURCE_POSTFIX = _resource
 PROGRAM_SHADER_DIRECTORY = program/shader
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
@@ -67,7 +65,7 @@ NAMESPACE_COMMENTS = FixNamespaceComments: false
 INDENT_CASE_LABELS = IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
 
-all: compile_commands clang-format clangd directories resources compile_resources $(OUTPUT)
+all: compile_commands clang-format clangd directories $(OUTPUT)
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_DIRECTORY)
@@ -93,24 +91,20 @@ directories:
 	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
 resources: directories compile_commands clang-format clangd $(RESOURCE_LOADER)
-	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_INCLUDE_DIRECTORY) $(RESOURCE_SOURCE_DIRECTORY)
-	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_INCLUDE_DIRECTORY) & $(RESOURCE_SOURCE_DIRECTORY)"
+	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_DIRECTORY)
+	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_DIRECTORY)"
 
-compile_resources: resources
-	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $(RESOURCE_SOURCE_DIRECTORY) -o $(RESOURCE_OBJECT_DIRECTORY)
-	@$(ECHO) "CXX   | $(RESOURCE_SOURCE_DIRECTORY) -> $(RESOURCE_OBJECT_DIRECTORY)"
 $(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | resources
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
 $(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | resources
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
-$(OUTPUT): compile_resources $(OBJECTS)
+$(OUTPUT): $(OBJECTS)
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
 	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT)"
 
 clean:
 	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then rm -r $(OBJECTS_DIRECTORY); fi
-	@if [ -f $(RESOURCE_INCLUDE_DIRECTORY) ]; then rm $(RESOURCE_INCLUDE_DIRECTORY); fi
-	@if [ -f $(RESOURCE_SOURCE_DIRECTORY) ]; then rm $(RESOURCE_SOURCE_DIRECTORY); fi
+	@if [ -f $(RESOURCE_DIRECTORY) ]; then rm $(RESOURCE_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
