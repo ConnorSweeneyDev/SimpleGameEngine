@@ -6,7 +6,7 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
-#include "resources.hpp"
+#include "resource.hpp"
 #include "window.hpp"
 
 namespace cse::input
@@ -35,12 +35,12 @@ namespace cse::input
       }
     }
 
-    if (key_state[SDL_SCANCODE_H]) object::camera.move_right(0.015f);
-    if (key_state[SDL_SCANCODE_F]) object::camera.move_left(0.015f);
-    if (key_state[SDL_SCANCODE_T]) object::camera.move_up(0.015f);
-    if (key_state[SDL_SCANCODE_G]) object::camera.move_down(0.015f);
-    if (key_state[SDL_SCANCODE_Y]) object::camera.move_forward(0.015f);
-    if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.015f);
+    if (key_state[SDL_SCANCODE_H]) object::camera.move_right(0.005f);
+    if (key_state[SDL_SCANCODE_F]) object::camera.move_left(0.005f);
+    if (key_state[SDL_SCANCODE_T]) object::camera.move_up(0.005f);
+    if (key_state[SDL_SCANCODE_G]) object::camera.move_down(0.005f);
+    if (key_state[SDL_SCANCODE_Y]) object::camera.move_forward(0.005f);
+    if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.005f);
     if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_orientation();
 
     // Tests for adding and removing objects dynamically

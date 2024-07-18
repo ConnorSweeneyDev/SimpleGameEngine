@@ -6,7 +6,7 @@
 
 #include "item.hpp"
 #include "player.hpp"
-#include "resources.hpp"
+#include "resource.hpp"
 #include "shader.hpp"
 
 namespace cse::object

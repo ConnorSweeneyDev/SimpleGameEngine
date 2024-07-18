@@ -4,7 +4,7 @@
 
 namespace cse::time
 {
-  constexpr double poll_rate = 60.0;
+  constexpr double poll_rate = 144.0;
   double target = 1000.0 / poll_rate;
 
   double previous = (double)sdl::get_ticks_64();
