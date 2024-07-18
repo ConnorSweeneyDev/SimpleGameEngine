@@ -14,7 +14,7 @@ INCLUDES = -Iprogram/include
 ifeq ($(OS), Windows_NT)
   ECHO = echo -e
   SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/stb
-  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
+  LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lgcc -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME), Linux)
