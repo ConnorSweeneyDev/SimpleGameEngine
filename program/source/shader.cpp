@@ -6,6 +6,7 @@
 
 #include "item.hpp"
 #include "player.hpp"
+#include "resources.hpp"
 #include "shader.hpp"
 
 namespace cse::object
@@ -15,32 +16,12 @@ namespace cse::object
   void Shader::specify()
   {
     for (auto &player : players)
-      set_program(player, "program/shader/vertex_shader.glsl",
-                  "program/shader/fragment_shader.glsl");
+      set_program(player, vertex_shader_resource, fragment_shader_resource);
 
-    for (auto &item : items)
-      set_program(item, "program/shader/vertex_shader.glsl", "program/shader/fragment_shader.glsl");
+    for (auto &item : items) set_program(item, vertex_shader_resource, fragment_shader_resource);
   }
 
-  const std::string Shader::load_as_string(const std::string &shader_path)
-  {
-    std::string result;
-
-    std::ifstream file(shader_path.c_str());
-    if (!file.is_open())
-    {
-      std::cout << "Unable to open file: " << shader_path << "!" << std::endl;
-      return result;
-    }
-
-    std::string line;
-    while (std::getline(file, line)) result += line + "\n";
-
-    file.close();
-    return result;
-  }
-
-  gl::Uint Shader::compile(const gl::Uint type, const std::string &shader_source)
+  gl::Uint Shader::compile(const gl::Uint type, const char *shader_source)
   {
     gl::Uint shader_object;
 
@@ -51,8 +32,7 @@ namespace cse::object
     else
       shader_object = gl::create_shader(GL_NONE);
 
-    const char *source = shader_source.c_str();
-    gl::shader_source(shader_object, 1, &source, nullptr);
+    gl::shader_source(shader_object, 1, &shader_source, nullptr);
     gl::compile_shader(shader_object);
 
     int result;
@@ -78,20 +58,5 @@ namespace cse::object
     }
 
     return shader_object;
-  }
-
-  gl::Uint Shader::create_program(const std::string &vertex_shader_source,
-                                  const std::string &fragment_shader_source)
-  {
-    gl::Uint program_object = gl::create_program();
-    gl::Uint vertex_shader = compile(GL_VERTEX_SHADER, vertex_shader_source);
-    gl::Uint fragment_shader = compile(GL_FRAGMENT_SHADER, fragment_shader_source);
-
-    gl::attach_shader(program_object, vertex_shader);
-    gl::attach_shader(program_object, fragment_shader);
-    gl::link_program(program_object);
-    gl::validate_program(program_object);
-
-    return program_object;
   }
 }

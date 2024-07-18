@@ -6,6 +6,7 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
+#include "resources.hpp"
 #include "window.hpp"
 
 namespace cse::input
@@ -46,8 +47,7 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_9])
     {
       object::render.specify_dynamic<object::Item>(
-        "Item 1", "assets/redhood.png", "program/shader/vertex_shader.glsl",
-        "program/shader/fragment_shader.glsl",
+        "Item 1", "assets/redhood.png", vertex_shader_resource, fragment_shader_resource,
         {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
     }
     auto item_1 = object::render.get_by_name<object::Item>("Item 1");
@@ -57,8 +57,7 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_7])
     {
       object::render.specify_dynamic<object::Item>(
-        "Item 2", "assets/lamp.png", "program/shader/vertex_shader.glsl",
-        "program/shader/fragment_shader.glsl",
+        "Item 2", "assets/lamp.png", vertex_shader_resource, fragment_shader_resource,
         {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
     }
     auto item_2 = object::render.get_by_name<object::Item>("Item 2");

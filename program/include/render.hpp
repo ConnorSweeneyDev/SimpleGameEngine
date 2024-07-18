@@ -23,7 +23,7 @@ namespace cse::object
     void specify();
     template <typename Type>
     void specify_dynamic(const std::string name, const std::string texture_path,
-                         const std::string vertex_shader, const std::string fragment_shader,
+                         const char vertex_source[], const char fragment_source[],
                          const std::vector<float> default_geometry);
     template <typename Type> void remove(Object_ptr<Type> &object);
 
@@ -35,8 +35,7 @@ namespace cse::object
     template <typename Type> void add(const std::string name);
     template <typename Type>
     const Object_ptr<Type> add_dynamic(const std::string name, const std::string texture_path,
-                                       const std::string vertex_shader,
-                                       const std::string fragment_shader,
+                                       const char vertex_source[], const char fragment_source[],
                                        const std::vector<float> default_geometry);
 
     template <typename Type> void specify_vertices(Object_ptr<Type> &object);

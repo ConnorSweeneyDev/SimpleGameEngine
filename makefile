@@ -13,12 +13,14 @@ WARNINGS = -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wcast-qual -Wcast-ali
 INCLUDES = -Iprogram/include
 ifeq ($(OS), Windows_NT)
   ECHO = echo -e
+  RESOURCE_LOADER = binary/windows/ResourceLoader.exe
   SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/stb
   LIBRARIES = -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lgcc -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
   OUTPUT = binary/windows/SimpleGameEngine.exe
 else
   ifeq ($(UNAME), Linux)
     ECHO = echo
+    RESOURCE_LOADER = binary/linux/ResourceLoader.out
     SYSTEM_INCLUDES = -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
     LIBRARIES = -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -ldl -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
     OUTPUT = binary/linux/SimpleGameEngine.out
@@ -26,6 +28,11 @@ else
   #ifeq ($(UNAME), Darwin)
   #endif
 endif
+
+RESOURCES_DIRECTORY = program/include/resources.hpp
+RESOURCES_POSTFIX = _resource
+PROGRAM_SHADER_DIRECTORY = program/shader
+SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
 
 PROGRAM_SOURCE_DIRECTORY = program/source
 EXTERNAL_SOURCE_DIRECTORY = external/source
@@ -83,10 +90,14 @@ directories:
 	@if [ ! -d "$(WINDOWS_DIRECTORY)" ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
 	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories compile_commands clang-format clangd
+resources: directories compile_commands clang-format clangd $(RESOURCE_LOADER)
+	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCES_POSTFIX) $(RESOURCES_DIRECTORY)
+	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCES_DIRECTORY)"
+
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories resources compile_commands clang-format clangd
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories compile_commands clang-format clangd
+$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories resources compile_commands clang-format clangd
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
 $(OUTPUT): $(OBJECTS)
@@ -95,4 +106,5 @@ $(OUTPUT): $(OBJECTS)
 
 clean:
 	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then rm -r $(OBJECTS_DIRECTORY); fi
+	@if [ -f $(RESOURCES_DIRECTORY) ]; then rm $(RESOURCES_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi

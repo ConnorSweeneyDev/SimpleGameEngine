@@ -60,13 +60,13 @@ namespace cse::object
   // function)
   template <typename Type>
   void Render::specify_dynamic(const std::string name, const std::string texture_path,
-                               const std::string vertex_shader, const std::string fragment_shader,
+                               const char vertex_source[], const char fragment_source[],
                                const std::vector<float> default_geometry)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
         items.push_back(
-          add_dynamic<Item>(name, texture_path, vertex_shader, fragment_shader, default_geometry));
+          add_dynamic<Item>(name, texture_path, vertex_source, fragment_source, default_geometry));
   }
 
   template <typename Type> void Render::remove(Object_ptr<Type> &object)
@@ -119,8 +119,8 @@ namespace cse::object
   // function)
   template <typename Type>
   const Object_ptr<Type> Render::add_dynamic(const std::string name, const std::string texture_path,
-                                             const std::string vertex_shader,
-                                             const std::string fragment_shader,
+                                             const char vertex_source[],
+                                             const char fragment_source[],
                                              const std::vector<float> default_geometry)
   {
     if constexpr (std::is_same<Type, Item>::value)
@@ -129,7 +129,7 @@ namespace cse::object
       specify_vertices(object);
       object->texture_path = texture_path;
       texture.load(object);
-      shader.set_program(object, vertex_shader, fragment_shader);
+      shader.set_program(object, vertex_source, fragment_source);
       object->init(default_geometry);
 
       return object;

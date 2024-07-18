@@ -10,14 +10,11 @@ namespace cse::object
   public:
     void specify();
     template <typename Type>
-    void set_program(Object_ptr<Type> &object, const std::string vertex_shader_path,
-                     const std::string fragment_shader_path);
+    void set_program(Object_ptr<Type> &object, const char vertex_source[],
+                     const char fragment_source[]);
 
   private:
-    const std::string load_as_string(const std::string &shader_path);
-    gl::Uint compile(const gl::Uint type, const std::string &shader_source);
-    gl::Uint create_program(const std::string &vertex_shader_source,
-                            const std::string &fragment_shader_source);
+    gl::Uint compile(const gl::Uint type, const char *shader_source);
   };
 
   extern Shader shader;
