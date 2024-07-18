@@ -29,6 +29,7 @@ endif
 
 PROGRAM_SOURCE_DIRECTORY = program/source
 EXTERNAL_SOURCE_DIRECTORY = external/source
+BINARY_DIRECTORY = binary
 OBJECTS_DIRECTORY = binary/object
 CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
@@ -75,6 +76,7 @@ clangd:
 	@$(ECHO) "Write | $(CLANGD_DIRECTORY)"
 
 object:
+	@if [ ! -d "$(BINARY_DIRECTORY)" ]; then mkdir -p $(BINARY_DIRECTORY); $(ECHO) "Write | $(BINARY_DIRECTORY)"; fi
 	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
 
 $(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | object compile_commands clang-format clangd
