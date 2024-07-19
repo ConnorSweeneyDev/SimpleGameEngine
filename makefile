@@ -90,7 +90,7 @@ directories:
 	@if [ ! -d "$(WINDOWS_DIRECTORY)" ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
 	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
-resources: directories compile_commands clang-format clangd $(RESOURCE_LOADER)
+resources: compile_commands clang-format clangd directories
 	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_DIRECTORY)
 	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_DIRECTORY)"
 
