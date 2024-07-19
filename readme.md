@@ -12,7 +12,8 @@ and libstdc++) but dynamically linked to everything else.
 
 Part of the build process is to use my
 [ResourceLoader](https://github.com/ConnorSweeneyDev/ResourceLoader) to make shaders a part of the
-program rather than needing them present at runtime.
+program rather than needing them present at runtime. It is capable of loading png's aswell but I
+don't want to include those directly into the binary due to the size increase.
 
 ### Windows
 You must have any 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
