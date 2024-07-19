@@ -2,6 +2,27 @@ ifneq ($(OS), Windows_NT)
   UNAME := $(shell uname -s)
 endif
 
+COMMANDS_DIRECTORY = compile_commands.json
+FORMAT_DIRECTORY = .clang-format
+CLANGD_DIRECTORY = .clangd
+STYLE = BasedOnStyle: LLVM
+TAB_WIDTH = IndentWidth: 2
+INITIALIZER_WIDTH = ConstructorInitializerIndentWidth: 2
+CONTINUATION_WIDTH = ContinuationIndentWidth: 2
+BRACES = BreakBeforeBraces: Allman
+LANGUAGE = Language: Cpp
+LIMIT = ColumnLimit: 100
+BLOCKS = AllowShortBlocksOnASingleLine: true
+FUNCTIONS = AllowShortFunctionsOnASingleLine: true
+IFS = AllowShortIfStatementsOnASingleLine: true
+LOOPS = AllowShortLoopsOnASingleLine: true
+CASE_LABELS = AllowShortCaseLabelsOnASingleLine: true
+PP_DIRECTIVES = IndentPPDirectives: BeforeHash
+NAMESPACE_INDENTATION = NamespaceIndentation: All
+NAMESPACE_COMMENTS = FixNamespaceComments: false
+INDENT_CASE_LABELS = IndentCaseLabels: true
+BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
+
 CXX = g++
 CC = gcc
 #CXXFLAGS = -s -O3 -std=c++20 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
@@ -28,27 +49,6 @@ else
   #ifeq ($(UNAME), Darwin)
   #endif
 endif
-
-COMMANDS_DIRECTORY = compile_commands.json
-FORMAT_DIRECTORY = .clang-format
-CLANGD_DIRECTORY = .clangd
-STYLE = BasedOnStyle: LLVM
-TAB_WIDTH = IndentWidth: 2
-INITIALIZER_WIDTH = ConstructorInitializerIndentWidth: 2
-CONTINUATION_WIDTH = ContinuationIndentWidth: 2
-BRACES = BreakBeforeBraces: Allman
-LANGUAGE = Language: Cpp
-LIMIT = ColumnLimit: 100
-BLOCKS = AllowShortBlocksOnASingleLine: true
-FUNCTIONS = AllowShortFunctionsOnASingleLine: true
-IFS = AllowShortIfStatementsOnASingleLine: true
-LOOPS = AllowShortLoopsOnASingleLine: true
-CASE_LABELS = AllowShortCaseLabelsOnASingleLine: true
-PP_DIRECTIVES = IndentPPDirectives: BeforeHash
-NAMESPACE_INDENTATION = NamespaceIndentation: All
-NAMESPACE_COMMENTS = FixNamespaceComments: false
-INDENT_CASE_LABELS = IndentCaseLabels: true
-BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
 
 RESOURCE_DIRECTORY = program/include/resource.hpp
 RESOURCE_POSTFIX = _resource
