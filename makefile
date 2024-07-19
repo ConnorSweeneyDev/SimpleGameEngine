@@ -106,5 +106,4 @@ $(OUTPUT): $(OBJECTS)
 
 clean:
 	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then rm -r $(OBJECTS_DIRECTORY); fi
-	@if [ -f $(RESOURCE_DIRECTORY) ]; then rm $(RESOURCE_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
