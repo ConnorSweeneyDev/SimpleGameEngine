@@ -78,7 +78,7 @@ compile_commands:
 	@$(ECHO) "]" >> $(COMMANDS_DIRECTORY)
 	@$(ECHO) "Write | $(COMMANDS_DIRECTORY)"
 
-clang-format: resources
+clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_DIRECTORY)
 	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
 	@$(ECHO) "Write | $(FORMAT_DIRECTORY)"
@@ -92,17 +92,17 @@ directories:
 	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
 	@if [ ! -d "$(WINDOWS_DIRECTORY)" ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
 	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
-
-resources:
 	@if [ ! -f "$(RESOURCE_HPP_DIRECTORY)" ]; then touch $(RESOURCE_HPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_HPP_DIRECTORY)"; fi
 	@if [ ! -f "$(RESOURCE_CPP_DIRECTORY)" ]; then touch $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_CPP_DIRECTORY)"; fi
+
+resources: directories
 	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY) "$(CXXFLAGS)" $(RESOURCE_OBJECT_DIRECTORY)
 	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_OBJECT_DIRECTORY)"
 
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | resources clang-format
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories resources clang-format
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | resources clang-format
+$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories resources clang-format
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
 $(OUTPUT): $(OBJECTS)
