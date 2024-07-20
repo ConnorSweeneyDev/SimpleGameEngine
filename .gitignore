@@ -15,6 +15,7 @@ compile_commands.json
 
 # Generated resource files
 resource.hpp
+resource.cpp
 
 # Precompiled Headers
 *.gch

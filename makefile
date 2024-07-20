@@ -50,7 +50,9 @@ else
   #endif
 endif
 
-RESOURCE_DIRECTORY = program/include/resource.hpp
+RESOURCE_HPP_DIRECTORY = program/include/resource.hpp
+RESOURCE_CPP_DIRECTORY = program/source/resource.cpp
+RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
 RESOURCE_POSTFIX = _resource
 PROGRAM_SHADER_DIRECTORY = program/shader
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
@@ -64,6 +66,7 @@ LINUX_DIRECTORY = binary/linux
 CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
 OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
+FORMAT_FILES = $(filter-out $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
 
 all: compile_commands clang-format clangd directories $(OUTPUT)
 
@@ -77,7 +80,7 @@ compile_commands:
 
 clang-format: resources
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_DIRECTORY)
-	@find program -type f \( -name "*.cpp" -o -name "*.hpp" \) -print0 | xargs -0 -I{} sh -c 'clang-format -i "{}"'
+	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
 	@$(ECHO) "Write | $(FORMAT_DIRECTORY)"
 
 clangd:
@@ -91,8 +94,10 @@ directories:
 	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
 resources:
-	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_DIRECTORY)
-	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_DIRECTORY)"
+	@if [ ! -f "$(RESOURCE_HPP_DIRECTORY)" ]; then touch $(RESOURCE_HPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_HPP_DIRECTORY)"; fi
+	@if [ ! -f "$(RESOURCE_CPP_DIRECTORY)" ]; then touch $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_CPP_DIRECTORY)"; fi
+	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY) "$(CXXFLAGS)" $(RESOURCE_OBJECT_DIRECTORY)
+	@$(ECHO) "Write | $(SHADER_SOURCES) -> $(RESOURCE_OBJECT_DIRECTORY)"
 
 $(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | resources clang-format
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
