@@ -56,6 +56,9 @@ RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
 RESOURCE_POSTFIX = _resource
 PROGRAM_SHADER_DIRECTORY = program/shader
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
+SHADER_TIMESTAMPS = $(foreach source, $(SHADER_SOURCES), $(shell stat -c %Y $(source)))
+RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_DIRECTORY)), $(shell stat -c %Y $(RESOURCE_OBJECT_DIRECTORY)), 0)
+RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
 
 PROGRAM_SOURCE_DIRECTORY = program/source
 EXTERNAL_SOURCE_DIRECTORY = external/source
@@ -68,7 +71,9 @@ C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
 OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
 FORMAT_FILES = $(filter-out $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
 
-all: compile_commands clang-format clangd directories $(OUTPUT)
+main: directories $(OUTPUT)
+
+external: compile_commands clang-format clangd directories resources
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_DIRECTORY)
@@ -95,14 +100,13 @@ directories:
 	@if [ ! -f "$(RESOURCE_HPP_DIRECTORY)" ]; then touch $(RESOURCE_HPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_HPP_DIRECTORY)"; fi
 	@if [ ! -f "$(RESOURCE_CPP_DIRECTORY)" ]; then touch $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_CPP_DIRECTORY)"; fi
 
-resources: directories
-	@./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY) "$(CXXFLAGS)" $(RESOURCE_OBJECT_DIRECTORY)
-	@$(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_OBJECT_DIRECTORY)"
+resources:
+	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ]; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_OBJECT_DIRECTORY)"; fi
 
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories resources clang-format
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories resources clang-format
+$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
 $(OUTPUT): $(OBJECTS)
