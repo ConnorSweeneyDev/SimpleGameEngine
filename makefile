@@ -56,7 +56,6 @@ RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
 RESOURCE_POSTFIX = _resource
 PROGRAM_SHADER_DIRECTORY = program/shader
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
-SHADER_TIMESTAMPS = $(foreach source, $(SHADER_SOURCES), $(shell stat -c %Y $(source)))
 RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_DIRECTORY)), $(shell stat -c %Y $(RESOURCE_OBJECT_DIRECTORY)), 0)
 RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
 
@@ -93,12 +92,10 @@ clangd:
 	@$(ECHO) "Write | $(CLANGD_DIRECTORY)"
 
 directories:
-	@if [ ! -d "$(BINARY_DIRECTORY)" ]; then mkdir -p $(BINARY_DIRECTORY); $(ECHO) "Write | $(BINARY_DIRECTORY)"; fi
-	@if [ ! -d "$(OBJECTS_DIRECTORY)" ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
-	@if [ ! -d "$(WINDOWS_DIRECTORY)" ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
-	@if [ ! -d "$(LINUX_DIRECTORY)" ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
-	@if [ ! -f "$(RESOURCE_HPP_DIRECTORY)" ]; then touch $(RESOURCE_HPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_HPP_DIRECTORY)"; fi
-	@if [ ! -f "$(RESOURCE_CPP_DIRECTORY)" ]; then touch $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_CPP_DIRECTORY)"; fi
+	@if [ ! -d $(BINARY_DIRECTORY) ]; then mkdir -p $(BINARY_DIRECTORY); $(ECHO) "Write | $(BINARY_DIRECTORY)"; fi
+	@if [ ! -d $(OBJECTS_DIRECTORY) ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
+	@if [ ! -d $(WINDOWS_DIRECTORY) ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
+	@if [ ! -d $(LINUX_DIRECTORY) ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
 
 resources:
 	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ]; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_CPP_DIRECTORY) & $(RESOURCE_HPP_DIRECTORY)"; fi
@@ -120,5 +117,5 @@ $(OUTPUT): $(OBJECTS)
 	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT)"
 
 clean:
-	@if [ -d "$(OBJECTS_DIRECTORY)" ]; then rm -r $(OBJECTS_DIRECTORY); fi
+	@if [ -d $(OBJECTS_DIRECTORY) ]; then rm -r $(OBJECTS_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
