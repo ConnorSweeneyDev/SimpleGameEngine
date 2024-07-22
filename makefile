@@ -50,8 +50,8 @@ else
   #endif
 endif
 
-RESOURCE_HPP_DIRECTORY = program/include/resource.hpp
 RESOURCE_CPP_DIRECTORY = program/source/resource.cpp
+RESOURCE_HPP_DIRECTORY = program/include/resource.hpp
 RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
 RESOURCE_POSTFIX = _resource
 PROGRAM_SHADER_DIRECTORY = program/shader
@@ -61,6 +61,7 @@ RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_DIRECTORY)), $(she
 RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
 
 PROGRAM_SOURCE_DIRECTORY = program/source
+PROGRAM_INCLUDE_DIRECTORY = program/include
 EXTERNAL_SOURCE_DIRECTORY = external/source
 BINARY_DIRECTORY = binary
 OBJECTS_DIRECTORY = binary/object
@@ -72,7 +73,6 @@ OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,
 FORMAT_FILES = $(filter-out $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
 
 main: directories $(OUTPUT)
-
 external: compile_commands clang-format clangd directories resources
 
 compile_commands:
@@ -101,8 +101,14 @@ directories:
 	@if [ ! -f "$(RESOURCE_CPP_DIRECTORY)" ]; then touch $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Write | $(RESOURCE_CPP_DIRECTORY)"; fi
 
 resources:
-	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ]; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_OBJECT_DIRECTORY)"; fi
+	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ]; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_CPP_DIRECTORY) & $(RESOURCE_HPP_DIRECTORY)"; fi
 
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
+	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
+	@$(ECHO) "CXX   | $< -> $@"
+$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp
+	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
+	@$(ECHO) "CXX   | $< -> $@"
 $(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
