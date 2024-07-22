@@ -2,27 +2,6 @@ ifneq ($(OS), Windows_NT)
   UNAME := $(shell uname -s)
 endif
 
-COMMANDS_DIRECTORY = compile_commands.json
-FORMAT_DIRECTORY = .clang-format
-CLANGD_DIRECTORY = .clangd
-STYLE = BasedOnStyle: LLVM
-TAB_WIDTH = IndentWidth: 2
-INITIALIZER_WIDTH = ConstructorInitializerIndentWidth: 2
-CONTINUATION_WIDTH = ContinuationIndentWidth: 2
-BRACES = BreakBeforeBraces: Allman
-LANGUAGE = Language: Cpp
-LIMIT = ColumnLimit: 100
-BLOCKS = AllowShortBlocksOnASingleLine: true
-FUNCTIONS = AllowShortFunctionsOnASingleLine: true
-IFS = AllowShortIfStatementsOnASingleLine: true
-LOOPS = AllowShortLoopsOnASingleLine: true
-CASE_LABELS = AllowShortCaseLabelsOnASingleLine: true
-PP_DIRECTIVES = IndentPPDirectives: BeforeHash
-NAMESPACE_INDENTATION = NamespaceIndentation: All
-NAMESPACE_COMMENTS = FixNamespaceComments: false
-INDENT_CASE_LABELS = IndentCaseLabels: true
-BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
-
 CXX = g++
 CC = gcc
 #CXXFLAGS = -s -O3 -std=c++17 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
@@ -50,66 +29,80 @@ else
   #endif
 endif
 
-RESOURCE_CPP_DIRECTORY = program/source/resource.cpp
-RESOURCE_HPP_DIRECTORY = program/include/resource.hpp
-RESOURCE_OBJECT_DIRECTORY = binary/object/resource.o
-RESOURCE_POSTFIX = _resource
-PROGRAM_SHADER_DIRECTORY = program/shader
-SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
-RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_DIRECTORY)), $(shell stat -c %Y $(RESOURCE_OBJECT_DIRECTORY)), 0)
-RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
-
 PROGRAM_SOURCE_DIRECTORY = program/source
 PROGRAM_INCLUDE_DIRECTORY = program/include
 EXTERNAL_SOURCE_DIRECTORY = external/source
-BINARY_DIRECTORY = binary
-OBJECTS_DIRECTORY = binary/object
-WINDOWS_DIRECTORY = binary/windows
-LINUX_DIRECTORY = binary/linux
+OBJECT_DIRECTORY = binary/object
 CPP_SOURCES = $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES = $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
-OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECTS_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECTS_DIRECTORY)/%.o,$(C_SOURCES))
-FORMAT_FILES = $(filter-out $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
+OBJECTS = $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECT_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECT_DIRECTORY)/%.o,$(C_SOURCES))
+
+PROGRAM_SHADER_DIRECTORY = program/shader
+RESOURCE_SOURCE_FILE = $(PROGRAM_SOURCE_DIRECTORY)/resource.cpp
+RESOURCE_INCLUDE_FILE = $(PROGRAM_INCLUDE_DIRECTORY)/resource.hpp
+RESOURCE_OBJECT_FILE = $(OBJECT_DIRECTORY)/resource.o
+SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
+RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_FILE)), $(shell stat -c %Y $(RESOURCE_OBJECT_FILE)), 0)
+RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
+
+COMMANDS_FILE = compile_commands.json
+FORMAT_FILE = .clang-format
+CLANGD_FILE = .clangd
+STYLE = BasedOnStyle: LLVM
+TAB_WIDTH = IndentWidth: 2
+INITIALIZER_WIDTH = ConstructorInitializerIndentWidth: 2
+CONTINUATION_WIDTH = ContinuationIndentWidth: 2
+BRACES = BreakBeforeBraces: Allman
+LANGUAGE = Language: Cpp
+LIMIT = ColumnLimit: 100
+BLOCKS = AllowShortBlocksOnASingleLine: true
+FUNCTIONS = AllowShortFunctionsOnASingleLine: true
+IFS = AllowShortIfStatementsOnASingleLine: true
+LOOPS = AllowShortLoopsOnASingleLine: true
+CASE_LABELS = AllowShortCaseLabelsOnASingleLine: true
+PP_DIRECTIVES = IndentPPDirectives: BeforeHash
+NAMESPACE_INDENTATION = NamespaceIndentation: All
+NAMESPACE_COMMENTS = FixNamespaceComments: false
+INDENT_CASE_LABELS = IndentCaseLabels: true
+BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
+FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
 
 main: directories $(OUTPUT)
 external: compile_commands clang-format clangd directories resources
 
 compile_commands:
-	@$(ECHO) "[" > $(COMMANDS_DIRECTORY)
-	@for source in $(CPP_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
-	@for source in $(C_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECTS_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_DIRECTORY)
-	@sed -i "$$ s/,$$//" $(COMMANDS_DIRECTORY)
-	@$(ECHO) "]" >> $(COMMANDS_DIRECTORY)
-	@$(ECHO) "Write | $(COMMANDS_DIRECTORY)"
+	@$(ECHO) "[" > $(COMMANDS_FILE)
+	@for source in $(CPP_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
+	@for source in $(C_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
+	@sed -i "$$ s/,$$//" $(COMMANDS_FILE)
+	@$(ECHO) "]" >> $(COMMANDS_FILE)
+	@$(ECHO) "Write | $(COMMANDS_FILE)"
 
 clang-format:
-	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_DIRECTORY)
+	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_FILE)
 	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
-	@$(ECHO) "Write | $(FORMAT_DIRECTORY)"
+	@$(ECHO) "Write | $(FORMAT_FILE)"
 
 clangd:
-	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_DIRECTORY)
-	@$(ECHO) "Write | $(CLANGD_DIRECTORY)"
+	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_FILE)
+	@$(ECHO) "Write | $(CLANGD_FILE)"
 
 directories:
-	@if [ ! -d $(BINARY_DIRECTORY) ]; then mkdir -p $(BINARY_DIRECTORY); $(ECHO) "Write | $(BINARY_DIRECTORY)"; fi
-	@if [ ! -d $(OBJECTS_DIRECTORY) ]; then mkdir -p $(OBJECTS_DIRECTORY); $(ECHO) "Write | $(OBJECTS_DIRECTORY)"; fi
-	@if [ ! -d $(WINDOWS_DIRECTORY) ]; then mkdir -p $(WINDOWS_DIRECTORY); $(ECHO) "Write | $(WINDOWS_DIRECTORY)"; fi
-	@if [ ! -d $(LINUX_DIRECTORY) ]; then mkdir -p $(LINUX_DIRECTORY); $(ECHO) "Write | $(LINUX_DIRECTORY)"; fi
+	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 
 resources:
-	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ] || [ ! -f $(RESOURCE_CPP_DIRECTORY) ] || [ ! -f $(RESOURCE_HPP_DIRECTORY) ] ; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) $(RESOURCE_POSTFIX) $(RESOURCE_HPP_DIRECTORY) $(RESOURCE_CPP_DIRECTORY); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_CPP_DIRECTORY) & $(RESOURCE_HPP_DIRECTORY)"; fi
+	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ] || [ ! -f $(RESOURCE_SOURCE_FILE) ] || [ ! -f $(RESOURCE_INCLUDE_FILE) ] ; then ./$(RESOURCE_LOADER) $(SHADER_SOURCES) _resource $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_SOURCE_FILE) & $(RESOURCE_INCLUDE_FILE)"; fi
 
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
+$(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp
+$(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
+$(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $< -> $@"
-$(OBJECTS_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c
+$(OBJECT_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $< -> $@"
 $(OUTPUT): $(OBJECTS)
@@ -117,5 +110,5 @@ $(OUTPUT): $(OBJECTS)
 	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT)"
 
 clean:
-	@if [ -d $(OBJECTS_DIRECTORY) ]; then rm -r $(OBJECTS_DIRECTORY); fi
+	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); fi
 	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
