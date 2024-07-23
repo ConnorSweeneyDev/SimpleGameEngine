@@ -41,6 +41,7 @@ PROGRAM_SHADER_DIRECTORY = program/shader
 RESOURCE_POSTFIX = _resource
 RESOURCE_SOURCE_FILE = $(PROGRAM_SOURCE_DIRECTORY)/resource.cpp
 RESOURCE_INCLUDE_FILE = $(PROGRAM_INCLUDE_DIRECTORY)/resource.hpp
+RESOURCE_OBJECT_FILE = $(OBJECT_DIRECTORY)/resource.o
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
 
 COMMANDS_FILE = compile_commands.json
@@ -66,7 +67,7 @@ BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
 FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
 main: directories $(OUTPUT)
-external: compile_commands clang-format clangd directories $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE) 
+external: compile_commands clang-format clangd directories $(RESOURCE_OBJECT_FILE)
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_FILE)
@@ -91,6 +92,8 @@ directories:
 
 $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE): $(SHADER_SOURCES)
 	@./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $@; $(ECHO) "Load  | $@"
+$(RESOURCE_OBJECT_FILE): $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE)
+	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@; $(ECHO) "CXX   | $@"
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
