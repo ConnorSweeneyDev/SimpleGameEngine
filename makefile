@@ -41,10 +41,7 @@ PROGRAM_SHADER_DIRECTORY = program/shader
 RESOURCE_POSTFIX = _resource
 RESOURCE_SOURCE_FILE = $(PROGRAM_SOURCE_DIRECTORY)/resource.cpp
 RESOURCE_INCLUDE_FILE = $(PROGRAM_INCLUDE_DIRECTORY)/resource.hpp
-RESOURCE_OBJECT_FILE = $(OBJECT_DIRECTORY)/resource.o
 SHADER_SOURCES = $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
-RESOURCE_OBJECT_TIMESTAMP = $(if $(wildcard $(RESOURCE_OBJECT_FILE)), $(shell stat -c %Y $(RESOURCE_OBJECT_FILE)), 0)
-RESOURCE_OBJECT_OUTDATED = $(foreach source, $(SHADER_SOURCES), $(shell [ $(RESOURCE_OBJECT_TIMESTAMP) -lt $(shell stat -c %Y $(source)) ] && echo $(source)))
 
 COMMANDS_FILE = compile_commands.json
 FORMAT_FILE = .clang-format
@@ -66,10 +63,10 @@ NAMESPACE_INDENTATION = NamespaceIndentation: All
 NAMESPACE_COMMENTS = FixNamespaceComments: false
 INDENT_CASE_LABELS = IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
-FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
+FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
 main: directories $(OUTPUT)
-external: compile_commands clang-format clangd directories resources
+external: compile_commands clang-format clangd directories $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE) 
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_FILE)
@@ -81,8 +78,9 @@ compile_commands:
 
 clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_FILE)
-	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
 	@$(ECHO) "Write | $(FORMAT_FILE)"
+	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
+	@$(ECHO) "FMT   | $(FORMAT_FILES)"
 
 clangd:
 	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_FILE)
@@ -91,8 +89,8 @@ clangd:
 directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 
-resources:
-	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ] || [ ! -f $(RESOURCE_SOURCE_FILE) ] || [ ! -f $(RESOURCE_INCLUDE_FILE) ]; then ./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_SOURCE_FILE) & $(RESOURCE_INCLUDE_FILE)"; fi
+$(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE): $(SHADER_SOURCES)
+	@./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE); $(ECHO) "Load  | $@"
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
