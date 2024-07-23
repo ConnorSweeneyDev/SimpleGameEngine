@@ -66,7 +66,7 @@ NAMESPACE_INDENTATION = NamespaceIndentation: All
 NAMESPACE_COMMENTS = FixNamespaceComments: false
 INDENT_CASE_LABELS = IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS = AlwaysBreakTemplateDeclarations: false
-FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp))
+FORMAT_FILES = $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
 main: directories $(OUTPUT)
 external: compile_commands clang-format clangd directories resources
@@ -92,7 +92,7 @@ directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 
 resources:
-	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ] || [ ! -f $(RESOURCE_SOURCE_FILE) ] || [ ! -f $(RESOURCE_INCLUDE_FILE) ] ; then ./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_SOURCE_FILE) & $(RESOURCE_INCLUDE_FILE)"; fi
+	@if [ ! -z "$(strip $(RESOURCE_OBJECT_OUTDATED))" ] || [ ! -f $(RESOURCE_SOURCE_FILE) ] || [ ! -f $(RESOURCE_INCLUDE_FILE) ]; then ./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE); $(ECHO) "Load  | $(SHADER_SOURCES) -> $(RESOURCE_SOURCE_FILE) & $(RESOURCE_INCLUDE_FILE)"; fi
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
