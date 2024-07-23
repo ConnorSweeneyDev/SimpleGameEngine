@@ -15,7 +15,7 @@ void system_init()
   cse::system::glad_init();
 }
 
-void game_specification()
+void specify_game()
 {
   cse::object::render.specify();  // Go here to add objects
   cse::object::texture.specify(); // Go here to set textures
@@ -23,7 +23,7 @@ void game_specification()
   cse::scene::specify();          // Go here to setup the scene
 }
 
-void game_loop()
+void start_game()
 {
   while (!cse::system::window.should_quit)
   {
@@ -35,19 +35,15 @@ void game_loop()
     }
     cse::object::render.update();
   }
-}
 
-void program_cleanup()
-{
   cse::object::render.cleanup_all();
-  cse::system::cleanup();
 }
 
 int main()
 {
   system_init();
-  game_specification();
-  game_loop();
-  program_cleanup();
+  specify_game();
+  start_game();
+  cse::system::cleanup();
   return 0;
 }
