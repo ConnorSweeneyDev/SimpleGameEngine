@@ -23,7 +23,7 @@ void specify_game()
   cse::scene::specify();          // Go here to setup the scene
 }
 
-void start_game()
+void play_game()
 {
   while (!cse::system::window.should_quit)
   {
@@ -43,7 +43,7 @@ int main()
 {
   system_init();
   specify_game();
-  start_game();
+  play_game();
   cse::system::cleanup();
   return 0;
 }
