@@ -26,8 +26,6 @@ else ifeq ($(UNAME), Linux)
   LIBRARIES = -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -ldl -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
   OUTPUT = binary/linux/SimpleGameEngine.out
 #else ifeq ($(UNAME), Darwin)
-else
-	$(error Unsupported OS)
 endif
 
 PROGRAM_SOURCE_DIRECTORY = program/source
@@ -91,7 +89,7 @@ clangd:
 directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 
-$(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE): $(SHADER_SOURCES)
+$(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE): $(SHADER_SOURCES) | directories
 	@./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $(SHADER_SOURCES) $@
 	@$(ECHO) "Load  | $@"
 $(RESOURCE_OBJECT_FILE): $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE) | directories
