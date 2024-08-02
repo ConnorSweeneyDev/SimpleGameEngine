@@ -2,7 +2,6 @@
 
 #include <memory>
 #include <string>
-#include <vector>
 
 #include "rename.hpp"
 
@@ -12,16 +11,9 @@ namespace cse::object
 
   struct Object_transform
   {
-    float translation_x;
-    float translation_y;
-    float translation_z;
-    float rotation_x;
-    float rotation_y;
-    float rotation_z;
-    float scale_x;
-    float scale_y;
-    float scale_z;
-    std::vector<float> initial;
+    glm::Vec3 translation;
+    glm::Vec3 rotation;
+    glm::Vec3 scale;
   };
 
   struct Object_data

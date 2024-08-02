@@ -43,14 +43,14 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_G]) object::camera.move_down(0.005f);
     if (key_state[SDL_SCANCODE_Y]) object::camera.move_forward(0.005f);
     if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.005f);
-    if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_orientation();
+    if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_transform();
 
     // Tests for adding and removing objects dynamically
     if (key_state[SDL_SCANCODE_9])
     {
       object::render.specify_dynamic<object::Item>(
         "Item 1", "assets/redhood.png", vertex_shader_resource, fragment_shader_resource,
-        {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
+        glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f));
     }
     auto item_1 = object::render.get_by_name<object::Item>("Item 1");
     if (item_1)
@@ -60,7 +60,7 @@ namespace cse::input
     {
       object::render.specify_dynamic<object::Item>(
         "Item 2", "assets/lamp.png", vertex_shader_resource, fragment_shader_resource,
-        {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.f, 1.0f, 1.0f, 1.0f});
+        glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f));
     }
     auto item_2 = object::render.get_by_name<object::Item>("Item 2");
     if (item_2)
@@ -75,7 +75,7 @@ namespace cse::input
       if (key_state[SDL_SCANCODE_S]) player_1->move_down();
       if (key_state[SDL_SCANCODE_E]) player_1->move_forward();
       if (key_state[SDL_SCANCODE_Q]) player_1->move_backward();
-      if (key_state[SDL_SCANCODE_SPACE]) player_1->reset_position();
+      if (key_state[SDL_SCANCODE_SPACE]) player_1->reset_transform();
     }
 
     auto player_2 = object::render.get_by_name<object::Player>("Player 2");
@@ -87,7 +87,7 @@ namespace cse::input
       if (key_state[SDL_SCANCODE_K]) player_2->move_down();
       if (key_state[SDL_SCANCODE_O]) player_2->move_forward();
       if (key_state[SDL_SCANCODE_U]) player_2->move_backward();
-      if (key_state[SDL_SCANCODE_SPACE]) player_2->reset_position();
+      if (key_state[SDL_SCANCODE_SPACE]) player_2->reset_transform();
     }
   }
 }

@@ -27,7 +27,8 @@ namespace cse::object
     template <typename Type>
     void specify_dynamic(const std::string name, const std::string texture_path,
                          const char vertex_source[], const char fragment_source[],
-                         const std::vector<float> default_geometry);
+                         const glm::Vec3 translation, const glm::Vec3 rotation,
+                         const glm::Vec3 scale);
     template <typename Type> void remove(Object_ptr<Type> &object);
     void remove_all();
 
@@ -39,7 +40,8 @@ namespace cse::object
     template <typename Type>
     const Object_ptr<Type> add_dynamic(const std::string name, const std::string texture_path,
                                        const char vertex_source[], const char fragment_source[],
-                                       const std::vector<float> default_geometry);
+                                       const glm::Vec3 translation, const glm::Vec3 rotation,
+                                       const glm::Vec3 scale);
 
     gl::Int get_uniform_location_by_name(const gl::Uint program, const std::string name);
     template <typename Type> void specify_vertices(Object_ptr<Type> &object);

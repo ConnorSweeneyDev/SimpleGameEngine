@@ -65,12 +65,13 @@ namespace cse::object
   template <typename Type>
   void Render::specify_dynamic(const std::string name, const std::string texture_path,
                                const char vertex_source[], const char fragment_source[],
-                               const std::vector<float> default_geometry)
+                               const glm::Vec3 translation, const glm::Vec3 rotation,
+                               const glm::Vec3 scale)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
-        items.push_back(
-          add_dynamic<Item>(name, texture_path, vertex_source, fragment_source, default_geometry));
+        items.push_back(add_dynamic<Item>(name, texture_path, vertex_source, fragment_source,
+                                          translation, rotation, scale));
   }
 
   template <typename Type> void Render::remove(Object_ptr<Type> &object)
@@ -122,10 +123,10 @@ namespace cse::object
   // parameters - will be changed to a different Type later (Might not need to be a template
   // function)
   template <typename Type>
-  const Object_ptr<Type> Render::add_dynamic(const std::string name, const std::string texture_path,
-                                             const char vertex_source[],
-                                             const char fragment_source[],
-                                             const std::vector<float> default_geometry)
+  const Object_ptr<Type>
+  Render::add_dynamic(const std::string name, const std::string texture_path,
+                      const char vertex_source[], const char fragment_source[],
+                      const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale)
   {
     if constexpr (std::is_same<Type, Item>::value)
     {
@@ -134,8 +135,7 @@ namespace cse::object
       object->data.texture_path = texture_path;
       texture.load(object);
       shader.set_program(object, vertex_source, fragment_source);
-      object->init(default_geometry);
-
+      object->init(translation, rotation, scale);
       return object;
     }
   }
@@ -180,30 +180,30 @@ namespace cse::object
     gl::use_program(object->data.shader_program);
 
     camera.update_projection_matrix();
-    glm::Mat4 projection = camera.projection_matrix;
+    glm::Mat4 projection = camera.matrix.projection;
     gl::Int uniform_projection_matrix_location =
       get_uniform_location_by_name(object->data.shader_program, "uniform_projection_matrix");
     gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
                            glm::value_ptr(projection));
 
     camera.update_view_matrix();
-    glm::Mat4 view = camera.view_matrix;
+    glm::Mat4 view = camera.matrix.view;
     gl::Int uniform_view_matrix_location =
       get_uniform_location_by_name(object->data.shader_program, "uniform_view_matrix");
     gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
-    model = glm::translate(model, glm::Vec3(object->transform.translation_x,
-                                            object->transform.translation_y,
-                                            object->transform.translation_z));
+    model = glm::translate(model, glm::Vec3(object->transform.translation.x,
+                                            object->transform.translation.y,
+                                            object->transform.translation.z));
     model =
-      glm::rotate(model, glm::radians(object->transform.rotation_x), glm::Vec3(1.0f, 0.0f, 0.0f));
+      glm::rotate(model, glm::radians(object->transform.rotation.x), glm::Vec3(1.0f, 0.0f, 0.0f));
     model =
-      glm::rotate(model, glm::radians(object->transform.rotation_y), glm::Vec3(0.0f, 1.0f, 0.0f));
+      glm::rotate(model, glm::radians(object->transform.rotation.y), glm::Vec3(0.0f, 1.0f, 0.0f));
     model =
-      glm::rotate(model, glm::radians(object->transform.rotation_z), glm::Vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::Vec3(object->transform.scale_x, object->transform.scale_y,
-                                        object->transform.scale_z));
+      glm::rotate(model, glm::radians(object->transform.rotation.z), glm::Vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(model, glm::Vec3(object->transform.scale.x, object->transform.scale.y,
+                                        object->transform.scale.z));
     gl::Int uniform_model_matrix_location =
       get_uniform_location_by_name(object->data.shader_program, "uniform_model_matrix");
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));

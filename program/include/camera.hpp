@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "rename.hpp"
 #include <glm.hpp>
 
@@ -9,6 +7,8 @@ namespace cse::object
 {
   class Camera
   {
+    friend class Render;
+
   public:
     void update_projection_matrix();
     void update_view_matrix();
@@ -20,23 +20,35 @@ namespace cse::object
     void move_forward(const float speed);
     void move_backward(const float speed);
 
-    void reset_orientation();
+    void reset_transform();
 
-    void init(const float i_fov, const float i_near_clip, const float i_far_clip,
-              const glm::Vec3 i_position, const glm::Vec3 i_direction, const glm::Vec3 i_up);
-
-    glm::Mat4 projection_matrix;
-    glm::Mat4 view_matrix;
+    void init(const float fov, const float near_clip, const float far_clip,
+              const glm::Vec3 translation, const glm::Vec3 direction, const glm::Vec3 up);
 
   private:
-    float fov;
-    float near_clip;
-    float far_clip;
-    glm::Vec3 position;
-    glm::Vec3 direction;
-    glm::Vec3 up;
+    struct Camera_perspective
+    {
+      float fov;
+      float near_clip;
+      float far_clip;
+    };
+    Camera_perspective perspective;
 
-    std::vector<glm::Vec3> initial_orientation;
+    struct Camera_transform
+    {
+      glm::Vec3 translation;
+      glm::Vec3 direction;
+      glm::Vec3 up;
+    };
+    Camera_transform transform;
+    Camera_transform initial_transform;
+
+    struct Camera_matrix
+    {
+      glm::Mat4 projection;
+      glm::Mat4 view;
+    };
+    Camera_matrix matrix;
   };
 
   extern Camera camera;

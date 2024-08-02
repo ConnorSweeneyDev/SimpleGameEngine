@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "rename.hpp"
+
 #include "object.hpp"
 
 namespace cse::object
@@ -24,10 +26,10 @@ namespace cse::object
     void move_backward();
 
     void reset_stats();
-    void reset_position();
+    void reset_transform();
 
-    void init(const float i_health, const float i_speed,
-              const std::vector<float> i_default_geometry);
+    void init(const float health, const float speed, const glm::Vec3 translation,
+              const glm::Vec3 rotation, const glm::Vec3 scale);
 
     std::string name;
 
@@ -36,11 +38,12 @@ namespace cse::object
     {
       float health;
       float speed;
-      std::vector<float> initial;
     };
     Player_stats stats;
+    Player_stats initial_stats;
 
     Object_transform transform;
+    Object_transform initial_transform;
     Object_data data;
   };
 
