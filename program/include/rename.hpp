@@ -1,23 +1,17 @@
 #pragma once
 
 #include <cstdint>
-#include <memory>
 
-#include <SDL_platform.h>
 #include <SDL_events.h>
-#include <SDL_stdinc.h>
+#include <SDL_platform.h>
 #include <SDL_rect.h>
+#include <SDL_stdinc.h>
 #include <SDL_video.h>
 
 #include <glad.h>
 
 #include <ext/matrix_float4x4.hpp>
 #include <ext/vector_float3.hpp>
-
-namespace cse::object
-{
-  template <typename Type> using Object_ptr = std::shared_ptr<Type>;
-}
 
 namespace sdl
 {

@@ -1,17 +1,19 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "rename.hpp"
 #include <glad.h>
+
+#include "object.hpp"
 
 namespace cse::object
 {
   class Render
   {
   public:
-    enum class Call_action
+    enum struct Call_action
     {
       NONE,
       CLEANUP

@@ -3,8 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "rename.hpp"
-#include <glad.h>
+#include "object.hpp"
 
 namespace cse::object
 {
@@ -33,30 +32,16 @@ namespace cse::object
     std::string name;
 
   private:
-    float health;
-    float speed;
-    std::vector<float> initial_stats;
+    struct Player_stats
+    {
+      float health;
+      float speed;
+      std::vector<float> initial;
+    };
+    Player_stats stats;
 
-    gl::Uint vertex_array_object;
-    gl::Uint vertex_buffer_object;
-    gl::Uint index_buffer_object;
-    gl::Uint shader_program;
-    gl::Uint texture_object;
-    std::string texture_path;
-    int texture_width;
-    int texture_height;
-    int texture_channels;
-
-    float translation_x;
-    float translation_y;
-    float translation_z;
-    float rotation_x;
-    float rotation_y;
-    float rotation_z;
-    float scale_x;
-    float scale_y;
-    float scale_z;
-    std::vector<float> initial_geometry;
+    Object_transform transform;
+    Object_data data;
   };
 
   using Player_ptr = Object_ptr<Player>;

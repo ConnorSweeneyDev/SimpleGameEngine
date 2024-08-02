@@ -1,8 +1,9 @@
 #pragma once
 
+#include "rename.hpp"
 #include <glad.h>
 
-#include "rename.hpp"
+#include "object.hpp"
 #include "shader.hpp"
 
 namespace cse::object
@@ -20,6 +21,6 @@ namespace cse::object
     gl::link_program(program_object);
     gl::validate_program(program_object);
 
-    object->shader_program = program_object;
+    object->data.shader_program = program_object;
   }
 }

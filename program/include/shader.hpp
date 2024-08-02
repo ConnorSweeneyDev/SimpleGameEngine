@@ -3,6 +3,8 @@
 #include "rename.hpp"
 #include <glad.h>
 
+#include "object.hpp"
+
 namespace cse::object
 {
   class Shader

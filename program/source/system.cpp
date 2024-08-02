@@ -2,8 +2,8 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include <SDL_video.h>
 #include <SDL.h>
+#include <SDL_video.h>
 #include <glad.h>
 
 #include "system.hpp"

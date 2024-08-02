@@ -2,18 +2,19 @@
 
 #include <algorithm>
 #include <iostream>
-#include <string>
 #include <memory>
+#include <string>
 #include <type_traits>
 #include <vector>
 
 #include "rename.hpp"
+#include <ext/matrix_transform.hpp>
 #include <glad.h>
 #include <gtc/type_ptr.hpp>
-#include <ext/matrix_transform.hpp>
 
 #include "camera.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "render.hpp"
 #include "shader.hpp"
@@ -130,7 +131,7 @@ namespace cse::object
     {
       auto object = create<Type>(name);
       specify_vertices(object);
-      object->texture_path = texture_path;
+      object->data.texture_path = texture_path;
       texture.load(object);
       shader.set_program(object, vertex_source, fragment_source);
       object->init(default_geometry);
@@ -141,19 +142,19 @@ namespace cse::object
 
   template <typename Type> void Render::specify_vertices(Object_ptr<Type> &object)
   {
-    gl::gen_vertex_arrays(1, &object->vertex_array_object);
-    gl::bind_vertex_array(object->vertex_array_object);
+    gl::gen_vertex_arrays(1, &object->data.vertex_array_object);
+    gl::bind_vertex_array(object->data.vertex_array_object);
 
-    gl::gen_buffers(1, &object->vertex_buffer_object);
-    gl::bind_buffer(GL_ARRAY_BUFFER, object->vertex_buffer_object);
+    gl::gen_buffers(1, &object->data.vertex_buffer_object);
+    gl::bind_buffer(GL_ARRAY_BUFFER, object->data.vertex_buffer_object);
     gl::buffer_data(GL_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_vertices.data(), GL_STATIC_DRAW);
     gl::vertex_attrib_pointer(0, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)0);
     gl::enable_vertex_attrib_array(0); // Vertex position
 
-    gl::gen_buffers(1, &object->index_buffer_object);
-    gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->index_buffer_object);
+    gl::gen_buffers(1, &object->data.index_buffer_object);
+    gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->data.index_buffer_object);
     gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_indices.data(), GL_STATIC_DRAW);
@@ -161,8 +162,8 @@ namespace cse::object
                               (gl::Void *)(sizeof(gl::Float) * 3));
     gl::enable_vertex_attrib_array(1); // Vertex color
 
-    gl::gen_textures(1, &object->texture_object);
-    gl::bind_texture(GL_TEXTURE_2D, object->texture_object);
+    gl::gen_textures(1, &object->data.texture_object);
+    gl::bind_texture(GL_TEXTURE_2D, object->data.texture_object);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -176,12 +177,12 @@ namespace cse::object
 
   template <typename Type> void Render::pre_draw_vertices(Object_ptr<Type> &object)
   {
-    gl::use_program(object->shader_program);
+    gl::use_program(object->data.shader_program);
 
     camera.update_projection_matrix();
     glm::Mat4 projection = camera.projection_matrix;
     gl::Int uniform_projection_matrix_location =
-      gl::get_uniform_location(object->shader_program, "uniform_projection_matrix");
+      gl::get_uniform_location(object->data.shader_program, "uniform_projection_matrix");
     if (uniform_projection_matrix_location <= -1)
       std::cout << "uniform_projection_matrix could not be found!" << std::endl;
     gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
@@ -190,20 +191,25 @@ namespace cse::object
     camera.update_view_matrix();
     glm::Mat4 view = camera.view_matrix;
     gl::Int uniform_view_matrix_location =
-      gl::get_uniform_location(object->shader_program, "uniform_view_matrix");
+      gl::get_uniform_location(object->data.shader_program, "uniform_view_matrix");
     if (uniform_view_matrix_location <= -1)
       std::cout << "uniform_view_matrix could not be found!" << std::endl;
     gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
-    model = glm::translate(
-      model, glm::Vec3(object->translation_x, object->translation_y, object->translation_z));
-    model = glm::rotate(model, glm::radians(object->rotation_x), glm::Vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(object->rotation_y), glm::Vec3(0.0f, 1.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(object->rotation_z), glm::Vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::Vec3(object->scale_x, object->scale_y, object->scale_z));
+    model = glm::translate(model, glm::Vec3(object->transform.translation_x,
+                                            object->transform.translation_y,
+                                            object->transform.translation_z));
+    model =
+      glm::rotate(model, glm::radians(object->transform.rotation_x), glm::Vec3(1.0f, 0.0f, 0.0f));
+    model =
+      glm::rotate(model, glm::radians(object->transform.rotation_y), glm::Vec3(0.0f, 1.0f, 0.0f));
+    model =
+      glm::rotate(model, glm::radians(object->transform.rotation_z), glm::Vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(model, glm::Vec3(object->transform.scale_x, object->transform.scale_y,
+                                        object->transform.scale_z));
     gl::Int uniform_model_matrix_location =
-      gl::get_uniform_location(object->shader_program, "uniform_model_matrix");
+      gl::get_uniform_location(object->data.shader_program, "uniform_model_matrix");
     if (uniform_model_matrix_location <= -1)
       std::cout << "uniform_model_matrix could not be found!" << std::endl;
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));
@@ -211,18 +217,18 @@ namespace cse::object
 
   template <typename Type> void Render::draw_vertices(Object_ptr<Type> &object)
   {
-    gl::bind_vertex_array(object->vertex_array_object);
-    gl::use_program(object->shader_program);
-    gl::bind_texture(GL_TEXTURE_2D, object->texture_object);
+    gl::bind_vertex_array(object->data.vertex_array_object);
+    gl::use_program(object->data.shader_program);
+    gl::bind_texture(GL_TEXTURE_2D, object->data.texture_object);
     gl::draw_elements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (gl::Void *)0);
   }
 
   template <typename Type> void Render::cleanup(Object_ptr<Type> &object)
   {
-    gl::delete_vertex_arrays(1, &object->vertex_array_object);
-    gl::delete_buffers(1, &object->vertex_buffer_object);
-    gl::delete_buffers(1, &object->index_buffer_object);
-    gl::delete_textures(1, &object->texture_object);
-    gl::delete_program(object->shader_program);
+    gl::delete_vertex_arrays(1, &object->data.vertex_array_object);
+    gl::delete_buffers(1, &object->data.vertex_buffer_object);
+    gl::delete_buffers(1, &object->data.index_buffer_object);
+    gl::delete_textures(1, &object->data.texture_object);
+    gl::delete_program(object->data.shader_program);
   }
 }
