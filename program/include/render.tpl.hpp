@@ -40,7 +40,7 @@ namespace cse::object
       return;
     }
 
-    if (action == Call_action::CLEANUP)
+    if (action == Call_action::REMOVE)
     {
       players.clear();
       items.clear();

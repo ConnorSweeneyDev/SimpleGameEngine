@@ -10,7 +10,7 @@ namespace cse::object
 {
   Texture texture;
 
-  void Texture::specify()
+  void Texture::specify_all()
   {
     for (auto &player : players)
     {

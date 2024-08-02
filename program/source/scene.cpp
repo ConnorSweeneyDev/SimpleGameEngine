@@ -7,7 +7,7 @@
 
 namespace cse::scene
 {
-  void specify()
+  void specify_all()
   {
     object::camera.init(45.0f, 0.1f, 10.0f, glm::Vec3(0.0f, 0.0f, 3.0f),
                         glm::Vec3(0.0f, 0.0f, -1.0f), glm::Vec3(0.0f, 1.0f, 0.0f));

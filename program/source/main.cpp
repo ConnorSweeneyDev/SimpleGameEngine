@@ -18,10 +18,10 @@ void system_init()
 
 void specify_game()
 {
-  cse::object::render.specify();  // Go here to add objects
-  cse::object::texture.specify(); // Go here to set textures
-  cse::object::shader.specify();  // Go here to set shaders
-  cse::scene::specify();          // Go here to setup the scene
+  cse::object::render.specify_all();  // Go here to add objects
+  cse::object::texture.specify_all(); // Go here to set textures
+  cse::object::shader.specify_all();  // Go here to set shaders
+  cse::scene::specify_all();          // Go here to setup the scene
 }
 
 void play_game()
@@ -37,7 +37,7 @@ void play_game()
     cse::object::render.update();
   }
 
-  cse::object::render.cleanup_all();
+  cse::object::render.remove_all();
 }
 
 int main()

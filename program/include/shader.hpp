@@ -10,7 +10,7 @@ namespace cse::object
   class Shader
   {
   public:
-    void specify();
+    void specify_all();
     template <typename Type>
     void set_program(Object_ptr<Type> &object, const char vertex_source[],
                      const char fragment_source[]);

@@ -7,7 +7,7 @@ namespace cse::object
   class Texture
   {
   public:
-    void specify();
+    void specify_all();
     template <typename Type> void load(Object_ptr<Type> &object);
 
   private:

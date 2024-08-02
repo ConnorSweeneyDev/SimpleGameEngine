@@ -2,5 +2,5 @@
 
 namespace cse::scene
 {
-  void specify();
+  void specify_all();
 }

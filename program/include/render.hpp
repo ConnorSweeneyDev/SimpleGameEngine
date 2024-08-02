@@ -16,21 +16,21 @@ namespace cse::object
     enum struct Call_action
     {
       NONE,
-      CLEANUP
+      REMOVE
     };
     template <typename Type = void, typename Callable>
     void call_for_all(Callable callable, const Call_action action = Call_action::NONE) const;
 
     template <typename Type> const Object_ptr<Type> get_by_name(const std::string name) const;
 
-    void specify();
+    void specify_all();
     template <typename Type>
     void specify_dynamic(const std::string name, const std::string texture_path,
                          const char vertex_source[], const char fragment_source[],
                          const std::vector<float> default_geometry);
     template <typename Type> void remove(Object_ptr<Type> &object);
+    void remove_all();
 
-    void cleanup_all();
     void update();
 
   private:

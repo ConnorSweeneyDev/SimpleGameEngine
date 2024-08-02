@@ -13,7 +13,7 @@ namespace cse::object
 {
   Render render;
 
-  void Render::specify()
+  void Render::specify_all()
   {
     add<Player>("Player 1");
     add<Player>("Player 2");
@@ -25,9 +25,9 @@ namespace cse::object
     add<Item>("Floor");
   }
 
-  void Render::cleanup_all()
+  void Render::remove_all()
   {
-    call_for_all([this](auto object) { cleanup(object); }, Call_action::CLEANUP);
+    call_for_all([this](auto object) { cleanup(object); }, Call_action::REMOVE);
   }
 
   void Render::update()
