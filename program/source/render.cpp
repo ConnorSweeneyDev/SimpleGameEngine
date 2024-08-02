@@ -1,3 +1,6 @@
+#include <iostream>
+#include <string>
+
 #include "rename.hpp"
 #include <glad.h>
 
@@ -35,6 +38,18 @@ namespace cse::object
     draw_cleanup();
 
     sdl::gl_swap_window(system::window.application);
+  }
+
+  gl::Int Render::get_uniform_location_by_name(const gl::Uint program, const std::string name)
+  {
+    gl::Int uniform_location = gl::get_uniform_location(program, name.c_str());
+    if (uniform_location <= -1)
+    {
+      std::cout << "Uniform location could not be found: " << name << std::endl;
+      return -1;
+    }
+
+    return uniform_location;
   }
 
   void Render::pre_draw_init()

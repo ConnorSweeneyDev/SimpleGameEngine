@@ -41,14 +41,15 @@ namespace cse::object
                                        const char vertex_source[], const char fragment_source[],
                                        const std::vector<float> default_geometry);
 
+    gl::Int get_uniform_location_by_name(const gl::Uint program, const std::string name);
     template <typename Type> void specify_vertices(Object_ptr<Type> &object);
     template <typename Type> void pre_draw_vertices(Object_ptr<Type> &object);
     template <typename Type> void draw_vertices(Object_ptr<Type> &object);
 
     void pre_draw_init();
-    template <typename Type> void cleanup(Object_ptr<Type> &object);
     void vertex_cleanup();
     void draw_cleanup();
+    template <typename Type> void cleanup(Object_ptr<Type> &object);
 
     const std::vector<gl::Float> default_quad_vertices = {
       -0.5f, -0.5f, 0.0f, // Bottom left vertex position

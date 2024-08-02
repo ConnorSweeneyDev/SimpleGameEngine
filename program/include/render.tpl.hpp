@@ -182,18 +182,14 @@ namespace cse::object
     camera.update_projection_matrix();
     glm::Mat4 projection = camera.projection_matrix;
     gl::Int uniform_projection_matrix_location =
-      gl::get_uniform_location(object->data.shader_program, "uniform_projection_matrix");
-    if (uniform_projection_matrix_location <= -1)
-      std::cout << "uniform_projection_matrix could not be found!" << std::endl;
+      get_uniform_location_by_name(object->data.shader_program, "uniform_projection_matrix");
     gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
                            glm::value_ptr(projection));
 
     camera.update_view_matrix();
     glm::Mat4 view = camera.view_matrix;
     gl::Int uniform_view_matrix_location =
-      gl::get_uniform_location(object->data.shader_program, "uniform_view_matrix");
-    if (uniform_view_matrix_location <= -1)
-      std::cout << "uniform_view_matrix could not be found!" << std::endl;
+      get_uniform_location_by_name(object->data.shader_program, "uniform_view_matrix");
     gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
@@ -209,9 +205,7 @@ namespace cse::object
     model = glm::scale(model, glm::Vec3(object->transform.scale_x, object->transform.scale_y,
                                         object->transform.scale_z));
     gl::Int uniform_model_matrix_location =
-      gl::get_uniform_location(object->data.shader_program, "uniform_model_matrix");
-    if (uniform_model_matrix_location <= -1)
-      std::cout << "uniform_model_matrix could not be found!" << std::endl;
+      get_uniform_location_by_name(object->data.shader_program, "uniform_model_matrix");
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));
   }
 
