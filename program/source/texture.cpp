@@ -1,8 +1,10 @@
 #define STB_IMAGE_IMPLEMENTATION
+#include "rename.hpp"
+#include <glad.h>
 
-#include "texture.hpp"
 #include "item.hpp"
 #include "player.hpp"
+#include "texture.hpp"
 
 namespace cse::object
 {

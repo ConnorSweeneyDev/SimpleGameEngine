@@ -1,5 +1,7 @@
 #include "rename.hpp"
 #include <SDL_events.h>
+#include <SDL_scancode.h>
+#include <SDL_video.h>
 
 #include "camera.hpp"
 #include "input.hpp"

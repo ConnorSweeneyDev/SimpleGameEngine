@@ -2,12 +2,15 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <memory>
+#include <type_traits>
 #include <vector>
 
 #include "rename.hpp"
 #include <glad.h>
 #include <gtc/type_ptr.hpp>
+#include <ext/matrix_transform.hpp>
 
 #include "camera.hpp"
 #include "item.hpp"

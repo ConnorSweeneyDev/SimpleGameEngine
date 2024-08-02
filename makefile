@@ -45,7 +45,6 @@ SHADER_SOURCES := $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
 
 COMMANDS_FILE := compile_commands.json
 FORMAT_FILE := .clang-format
-CLANGD_FILE := .clangd
 STYLE := BasedOnStyle: LLVM
 TAB_WIDTH := IndentWidth: 2
 INITIALIZER_WIDTH := ConstructorInitializerIndentWidth: 2
@@ -64,6 +63,10 @@ NAMESPACE_COMMENTS := FixNamespaceComments: false
 INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
 FORMAT_FILES := $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
+CLANGD_FILE := .clangd
+UNUSED_INCLUDES := UnusedIncludes: Strict
+MISSING_INCLUDES := MissingIncludes: Strict
+IGNORE_HEADERS := IgnoreHeader: tpl.hpp
 
 main: directories $(OUTPUT)
 external: compile_commands clang-format clangd directories $(RESOURCE_OBJECT_FILE)
@@ -83,7 +86,7 @@ clang-format:
 	@$(ECHO) "FMT   | $(FORMAT_FILES)"
 
 clangd:
-	@$(ECHO) "Diagnostics:\n\tUnusedIncludes: None" > $(CLANGD_FILE)
+	@$(ECHO) "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
 	@$(ECHO) "Write | $(CLANGD_FILE)"
 
 directories:

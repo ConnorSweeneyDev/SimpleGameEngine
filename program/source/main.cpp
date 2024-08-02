@@ -5,6 +5,7 @@
 #include "scene.hpp"
 #include "shader.hpp"
 #include "system.hpp"
+#include "texture.hpp"
 #include "time.hpp"
 #include "window.hpp"
 

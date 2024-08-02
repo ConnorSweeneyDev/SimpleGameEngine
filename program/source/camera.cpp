@@ -1,5 +1,6 @@
 #include "rename.hpp"
-#include <gtc/matrix_transform.hpp>
+#include <ext/matrix_clip_space.hpp>
+#include <trigonometric.hpp>
 
 #include "camera.hpp"
 #include "window.hpp"

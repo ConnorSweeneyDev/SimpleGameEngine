@@ -1,3 +1,6 @@
+#include <string>
+#include <vector>
+
 #include "player.hpp"
 
 namespace cse::object

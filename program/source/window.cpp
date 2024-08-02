@@ -1,6 +1,8 @@
+#include <cstdlib>
 #include <iostream>
 
 #include "rename.hpp"
+#include <SDL_stdinc.h>
 #include <SDL_video.h>
 #include <glad.h>
 

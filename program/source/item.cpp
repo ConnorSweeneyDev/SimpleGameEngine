@@ -1,3 +1,6 @@
+#include <string>
+#include <vector>
+
 #include "item.hpp"
 
 namespace cse::object
