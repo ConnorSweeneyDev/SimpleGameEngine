@@ -32,8 +32,8 @@ namespace cse::system
 
     int position_x = 0;
     int position_y = 0;
-    const int starting_width = 1280;
-    const int starting_height = 720;
+    static constexpr int starting_width = 1280;
+    static constexpr int starting_height = 720;
 
     sdl::Gl_context gl_context = nullptr;
     sdl::Display_mode display_mode = {};
