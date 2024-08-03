@@ -31,5 +31,5 @@ namespace cse::object
 
   using Item_ptr = Object_ptr<Item>;
   using Item_ptr_list = std::vector<Item_ptr>;
-  extern Item_ptr_list items;
+  inline Item_ptr_list items = {};
 }

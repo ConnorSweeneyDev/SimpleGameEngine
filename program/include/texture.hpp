@@ -15,7 +15,7 @@ namespace cse::object
     void cleanup_load();
   };
 
-  extern Texture texture;
+  inline Texture texture = {};
 }
 
 #include "texture.tpl.hpp"

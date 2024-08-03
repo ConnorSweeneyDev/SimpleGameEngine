@@ -39,5 +39,5 @@ namespace cse::system
     sdl::Display_mode display_mode = {};
   };
 
-  extern Window window;
+  inline Window window = {};
 }

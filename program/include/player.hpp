@@ -49,5 +49,5 @@ namespace cse::object
 
   using Player_ptr = Object_ptr<Player>;
   using Player_ptr_list = std::vector<Player_ptr>;
-  extern Player_ptr_list players;
+  inline Player_ptr_list players = {};
 }

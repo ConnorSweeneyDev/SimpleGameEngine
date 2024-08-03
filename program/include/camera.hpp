@@ -51,5 +51,5 @@ namespace cse::object
     Camera_matrix matrix = {};
   };
 
-  extern Camera camera;
+  inline Camera camera = {};
 }

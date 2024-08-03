@@ -73,7 +73,7 @@ namespace cse::object
     };
   };
 
-  extern Render render;
+  inline Render render = {};
 }
 
 #include "render.tpl.hpp"

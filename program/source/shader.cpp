@@ -11,8 +11,6 @@
 
 namespace cse::object
 {
-  Shader shader;
-
   void Shader::initialize()
   {
     for (auto &player : players)

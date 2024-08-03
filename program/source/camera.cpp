@@ -7,8 +7,6 @@
 
 namespace cse::object
 {
-  Camera camera;
-
   void Camera::update_projection_matrix()
   {
     float window_aspect_ratio = (float)system::window.width / (float)system::window.height;

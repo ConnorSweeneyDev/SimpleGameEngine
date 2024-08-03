@@ -6,8 +6,6 @@
 
 namespace cse::object
 {
-  Item_ptr_list items;
-
   Item::Item(const std::string i_name) : name(i_name) {}
 
   void Item::initialize(const glm::Vec3 translation, const glm::Vec3 rotation,

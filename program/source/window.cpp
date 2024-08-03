@@ -10,8 +10,6 @@
 
 namespace cse::system
 {
-  Window window;
-
   void Window::handle_move()
   {
     if (fullscreen) return;

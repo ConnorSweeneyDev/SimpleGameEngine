@@ -8,8 +8,6 @@
 
 namespace cse::object
 {
-  Texture texture;
-
   void Texture::initialize()
   {
     for (auto &player : players)

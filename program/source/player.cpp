@@ -5,8 +5,6 @@
 
 namespace cse::object
 {
-  Player_ptr_list players;
-
   Player::Player(const std::string i_name) : name(i_name) {}
 
   void Player::move_right() { transform.translation.x += stats.speed; }

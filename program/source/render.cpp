@@ -11,8 +11,6 @@
 
 namespace cse::object
 {
-  Render render;
-
   void Render::initialize()
   {
     add<Player>("Player 1");

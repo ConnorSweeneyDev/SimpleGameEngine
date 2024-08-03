@@ -19,7 +19,7 @@ namespace cse::object
     gl::Uint compile(const gl::Uint type, const char *shader_source);
   };
 
-  extern Shader shader;
+  inline Shader shader = {};
 }
 
 #include "shader.tpl.hpp"
