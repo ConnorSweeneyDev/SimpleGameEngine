@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include "stb_image.h"
+#include <stb_image.h>
 #include <glad.h>
 
 #include "object.hpp"
