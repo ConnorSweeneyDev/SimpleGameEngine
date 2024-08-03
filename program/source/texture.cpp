@@ -10,7 +10,7 @@ namespace cse::object
 {
   Texture texture;
 
-  void Texture::specify_all()
+  void Texture::initialize()
   {
     for (auto &player : players)
     {
@@ -43,7 +43,7 @@ namespace cse::object
     }
   }
 
-  void Texture::load_cleanup()
+  void Texture::cleanup_load()
   {
     gl::bind_vertex_array(0);
     gl::bind_buffer(GL_ARRAY_BUFFER, 0);

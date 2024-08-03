@@ -7,12 +7,12 @@ namespace cse::object
   class Texture
   {
   public:
-    void specify_all();
+    void initialize();
     template <typename Type> void load(Object_ptr<Type> &object);
 
   private:
-    template <typename Type> void load_init(Object_ptr<Type> &object);
-    void load_cleanup();
+    template <typename Type> void initialize_load(Object_ptr<Type> &object);
+    void cleanup_load();
   };
 
   extern Texture texture;

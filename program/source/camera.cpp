@@ -30,8 +30,9 @@ namespace cse::object
 
   void Camera::reset_transform() { transform = initial_transform; }
 
-  void Camera::init(const float fov, const float near_clip, const float far_clip,
-                    const glm::Vec3 translation, const glm::Vec3 direction, const glm::Vec3 up)
+  void Camera::initialize(const float fov, const float near_clip, const float far_clip,
+                          const glm::Vec3 translation, const glm::Vec3 direction,
+                          const glm::Vec3 up)
   {
     perspective.fov = fov;
     perspective.near_clip = near_clip;

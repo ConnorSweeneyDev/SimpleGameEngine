@@ -2,5 +2,5 @@
 
 namespace cse::scene
 {
-  void specify_all();
+  void initialize_objects();
 }

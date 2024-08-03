@@ -13,7 +13,7 @@ namespace cse::system
     void handle_move();
     void handle_fullscreen();
 
-    void init();
+    void initialize();
     void cleanup();
 
     bool should_quit = false;

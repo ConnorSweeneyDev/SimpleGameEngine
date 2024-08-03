@@ -14,9 +14,9 @@ namespace cse::object
 {
   template <typename Type> void Texture::load(Object_ptr<Type> &object)
   {
-    load_init(object);
-    stbi::set_flip_vertically_on_load(true);
+    initialize_load(object);
 
+    stbi::set_flip_vertically_on_load(true);
     unsigned char *image_data =
       stbi::load(object->data.texture_path.c_str(), &object->data.texture_width,
                  &object->data.texture_height, &object->data.texture_channels, 0);
@@ -61,10 +61,10 @@ namespace cse::object
     }
 
     stbi::image_free(image_data);
-    load_cleanup();
+    cleanup_load();
   }
 
-  template <typename Type> void Texture::load_init(Object_ptr<Type> &object)
+  template <typename Type> void Texture::initialize_load(Object_ptr<Type> &object)
   {
     gl::bind_vertex_array(object->data.vertex_array_object);
     gl::bind_buffer(GL_ARRAY_BUFFER, object->data.vertex_buffer_object);

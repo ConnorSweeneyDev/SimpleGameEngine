@@ -19,7 +19,7 @@ namespace cse::object
   public:
     Item(const std::string i_name);
 
-    void init(const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale);
+    void initialize(const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale);
 
     std::string name;
 

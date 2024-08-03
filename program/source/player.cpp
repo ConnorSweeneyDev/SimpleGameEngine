@@ -19,8 +19,8 @@ namespace cse::object
   void Player::reset_stats() { stats = initial_stats; }
   void Player::reset_transform() { transform = initial_transform; }
 
-  void Player::init(const float health, const float speed, const glm::Vec3 translation,
-                    const glm::Vec3 rotation, const glm::Vec3 scale)
+  void Player::initialize(const float health, const float speed, const glm::Vec3 translation,
+                          const glm::Vec3 rotation, const glm::Vec3 scale)
   {
     stats.health = health;
     stats.speed = speed;

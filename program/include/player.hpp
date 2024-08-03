@@ -28,8 +28,8 @@ namespace cse::object
     void reset_stats();
     void reset_transform();
 
-    void init(const float health, const float speed, const glm::Vec3 translation,
-              const glm::Vec3 rotation, const glm::Vec3 scale);
+    void initialize(const float health, const float speed, const glm::Vec3 translation,
+                    const glm::Vec3 rotation, const glm::Vec3 scale);
 
     std::string name;
 

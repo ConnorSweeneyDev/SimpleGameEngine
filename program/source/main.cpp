@@ -9,19 +9,19 @@
 #include "time.hpp"
 #include "window.hpp"
 
-void system_init()
+void initialize_system()
 {
-  cse::system::sdl_init();
-  cse::system::window.init();
-  cse::system::glad_init();
+  cse::system::initialize_sdl();
+  cse::system::window.initialize();
+  cse::system::initialize_glad();
 }
 
-void specify_game()
+void initialize_game()
 {
-  cse::object::render.specify_all();  // Go here to add objects
-  cse::object::texture.specify_all(); // Go here to set textures
-  cse::object::shader.specify_all();  // Go here to set shaders
-  cse::scene::specify_all();          // Go here to setup the scene
+  cse::object::render.initialize();  // Go here to set objects
+  cse::object::texture.initialize(); // Go here to set object textures
+  cse::object::shader.initialize();  // Go here to set object shaders
+  cse::scene::initialize_objects();  // Go here to set up the scene
 }
 
 void play_game()
@@ -34,17 +34,26 @@ void play_game()
       cse::input::read(); // Go here to set keybindings
       cse::time::catchup();
     }
-    cse::object::render.update();
+    cse::object::render.update_all();
   }
+}
 
-  cse::object::render.remove_all();
+void cleanup_game() { cse::object::render.remove_all(); }
+
+void cleanup_system()
+{
+  cse::system::window.cleanup();
+  cse::system::cleanup_sdl();
 }
 
 int main()
 {
-  system_init();
-  specify_game();
+  initialize_system();
+
+  initialize_game();
   play_game();
-  cse::system::cleanup();
+  cleanup_game();
+
+  cleanup_system();
   return 0;
 }

@@ -13,7 +13,7 @@ namespace cse::object
 {
   Render render;
 
-  void Render::specify_all()
+  void Render::initialize()
   {
     add<Player>("Player 1");
     add<Player>("Player 2");
@@ -30,12 +30,12 @@ namespace cse::object
     call_for_all([this](auto object) { cleanup(object); }, Call_action::REMOVE);
   }
 
-  void Render::update()
+  void Render::update_all()
   {
-    pre_draw_init();
+    initialize_pre_draw();
     call_for_all([this](auto object) { pre_draw_vertices(object); });
     call_for_all([this](auto object) { draw_vertices(object); });
-    draw_cleanup();
+    cleanup_draw();
 
     sdl::gl_swap_window(system::window.application);
   }
@@ -52,7 +52,7 @@ namespace cse::object
     return uniform_location;
   }
 
-  void Render::pre_draw_init()
+  void Render::initialize_pre_draw()
   {
     gl::enable(GL_DEPTH_TEST);
     gl::disable(GL_CULL_FACE);
@@ -66,7 +66,7 @@ namespace cse::object
     gl::clear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
   }
 
-  void Render::vertex_cleanup()
+  void Render::cleanup_vertices()
   {
     gl::bind_vertex_array(0);
     gl::disable_vertex_attrib_array(0);
@@ -77,7 +77,7 @@ namespace cse::object
     gl::bind_texture(GL_TEXTURE_2D, 0);
   }
 
-  void Render::draw_cleanup()
+  void Render::cleanup_draw()
   {
     gl::bind_vertex_array(0);
     gl::use_program(0);

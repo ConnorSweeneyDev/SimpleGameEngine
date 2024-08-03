@@ -34,7 +34,7 @@ namespace cse::system
       enable_fullscreen();
   }
 
-  void Window::init()
+  void Window::initialize()
   {
     width = starting_width;
     height = starting_height;

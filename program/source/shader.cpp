@@ -13,7 +13,7 @@ namespace cse::object
 {
   Shader shader;
 
-  void Shader::specify_all()
+  void Shader::initialize()
   {
     for (auto &player : players)
       set_program(player, vertex_shader_resource, fragment_shader_resource);

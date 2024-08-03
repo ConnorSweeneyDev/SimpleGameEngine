@@ -7,7 +7,6 @@
 #include <glad.h>
 
 #include "system.hpp"
-#include "window.hpp"
 
 namespace cse::system
 {
@@ -28,7 +27,7 @@ namespace cse::system
     }
   }
 
-  void sdl_init()
+  void initialize_sdl()
   {
     sdl::set_main_ready();
     if (sdl::init(SDL_INIT_EVERYTHING) < 0)
@@ -48,7 +47,7 @@ namespace cse::system
     sdl::gl_set_swap_interval(0); // Vsync
   }
 
-  void glad_init()
+  void initialize_glad()
   {
     if (!glad::load_gl_loader(sdl::gl_get_proc_address))
     {
@@ -57,9 +56,5 @@ namespace cse::system
     }
   }
 
-  void cleanup()
-  {
-    window.cleanup();
-    sdl::quit();
-  }
+  void cleanup_sdl() { sdl::quit(); }
 }

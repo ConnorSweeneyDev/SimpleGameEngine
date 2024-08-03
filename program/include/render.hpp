@@ -23,16 +23,16 @@ namespace cse::object
 
     template <typename Type> const Object_ptr<Type> get_by_name(const std::string name) const;
 
-    void specify_all();
+    void initialize();
     template <typename Type>
-    void specify_dynamic(const std::string name, const std::string texture_path,
-                         const char vertex_source[], const char fragment_source[],
-                         const glm::Vec3 translation, const glm::Vec3 rotation,
-                         const glm::Vec3 scale);
+    void initialize_dynamic(const std::string name, const std::string texture_path,
+                            const char vertex_source[], const char fragment_source[],
+                            const glm::Vec3 translation, const glm::Vec3 rotation,
+                            const glm::Vec3 scale);
     template <typename Type> void remove(Object_ptr<Type> &object);
     void remove_all();
 
-    void update();
+    void update_all();
 
   private:
     template <typename Type> const Object_ptr<Type> create(const std::string name);
@@ -48,9 +48,9 @@ namespace cse::object
     template <typename Type> void pre_draw_vertices(Object_ptr<Type> &object);
     template <typename Type> void draw_vertices(Object_ptr<Type> &object);
 
-    void pre_draw_init();
-    void vertex_cleanup();
-    void draw_cleanup();
+    void initialize_pre_draw();
+    void cleanup_vertices();
+    void cleanup_draw();
     template <typename Type> void cleanup(Object_ptr<Type> &object);
 
     const std::vector<gl::Float> default_quad_vertices = {

@@ -59,14 +59,14 @@ namespace cse::object
     return result;
   }
 
-  // specify_dynamic only exists for Item, not player due to player's init function taking specific
-  // parameters - will be changed to a different Type later (Might not need to be a template
-  // function)
+  // initialize_dynamic only exists for Item, not player due to player's initialize function taking
+  // specific parameters - will be changed to a different Type later (might not need to be a
+  // template function)
   template <typename Type>
-  void Render::specify_dynamic(const std::string name, const std::string texture_path,
-                               const char vertex_source[], const char fragment_source[],
-                               const glm::Vec3 translation, const glm::Vec3 rotation,
-                               const glm::Vec3 scale)
+  void Render::initialize_dynamic(const std::string name, const std::string texture_path,
+                                  const char vertex_source[], const char fragment_source[],
+                                  const glm::Vec3 translation, const glm::Vec3 rotation,
+                                  const glm::Vec3 scale)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
@@ -119,9 +119,9 @@ namespace cse::object
     }
   }
 
-  // add_dynamic only exists for Item, not player due to player's init function taking specific
-  // parameters - will be changed to a different Type later (Might not need to be a template
-  // function)
+  // add_dynamic only exists for Item, not player due to player's initialize function taking
+  // specific parameters - will be changed to a different Type later (might not need to be a
+  // template function)
   template <typename Type>
   const Object_ptr<Type>
   Render::add_dynamic(const std::string name, const std::string texture_path,
@@ -135,7 +135,7 @@ namespace cse::object
       object->data.texture_path = texture_path;
       texture.load(object);
       shader.set_program(object, vertex_source, fragment_source);
-      object->init(translation, rotation, scale);
+      object->initialize(translation, rotation, scale);
       return object;
     }
   }
@@ -172,7 +172,7 @@ namespace cse::object
                               (gl::Void *)(sizeof(gl::Float) * 6));
     gl::enable_vertex_attrib_array(2); // Vertex texture coordinates
 
-    vertex_cleanup();
+    cleanup_vertices();
   }
 
   template <typename Type> void Render::pre_draw_vertices(Object_ptr<Type> &object)

@@ -22,8 +22,8 @@ namespace cse::object
 
     void reset_transform();
 
-    void init(const float fov, const float near_clip, const float far_clip,
-              const glm::Vec3 translation, const glm::Vec3 direction, const glm::Vec3 up);
+    void initialize(const float fov, const float near_clip, const float far_clip,
+                    const glm::Vec3 translation, const glm::Vec3 direction, const glm::Vec3 up);
 
   private:
     struct Camera_perspective
