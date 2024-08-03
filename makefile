@@ -44,6 +44,10 @@ RESOURCE_OBJECT_FILE := $(OBJECT_DIRECTORY)/resource.o
 SHADER_SOURCES := $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl)
 
 COMMANDS_FILE := compile_commands.json
+CLANGD_FILE := .clangd
+UNUSED_INCLUDES := UnusedIncludes: Strict
+MISSING_INCLUDES := MissingIncludes: Strict
+IGNORE_HEADERS := IgnoreHeader: tpl.hpp
 FORMAT_FILE := .clang-format
 STYLE := BasedOnStyle: LLVM
 TAB_WIDTH := IndentWidth: 2
@@ -63,10 +67,6 @@ NAMESPACE_COMMENTS := FixNamespaceComments: false
 INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
 FORMAT_FILES := $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
-CLANGD_FILE := .clangd
-UNUSED_INCLUDES := UnusedIncludes: Strict
-MISSING_INCLUDES := MissingIncludes: Strict
-IGNORE_HEADERS := IgnoreHeader: tpl.hpp
 
 main: directories $(OUTPUT)
 external: compile_commands clang-format clangd directories $(RESOURCE_OBJECT_FILE)
@@ -79,15 +79,15 @@ compile_commands:
 	@$(ECHO) "]" >> $(COMMANDS_FILE)
 	@$(ECHO) "Write | $(COMMANDS_FILE)"
 
+clangd:
+	@$(ECHO) "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
+	@$(ECHO) "Write | $(CLANGD_FILE)"
+
 clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(FORMAT_FILE)
 	@$(ECHO) "Write | $(FORMAT_FILE)"
 	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
 	@$(ECHO) "FMT   | $(FORMAT_FILES)"
-
-clangd:
-	@$(ECHO) "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
-	@$(ECHO) "Write | $(CLANGD_FILE)"
 
 directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
@@ -112,7 +112,7 @@ $(OBJECT_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $@"
 
-$(OUTPUT): $(OBJECTS)
+$(OUTPUT): $(OBJECTS) | directories
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
 	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT)"
 
