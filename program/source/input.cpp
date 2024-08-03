@@ -1,3 +1,4 @@
+#include "object.hpp"
 #include "rename.hpp"
 #include <SDL_events.h>
 #include <SDL_scancode.h>
@@ -43,14 +44,16 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_G]) object::camera.move_down(0.005f);
     if (key_state[SDL_SCANCODE_Y]) object::camera.move_forward(0.005f);
     if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.005f);
-    if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_transform();
+    if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_orientation();
 
     // Tests for adding and removing objects dynamically
     if (key_state[SDL_SCANCODE_9])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 1", "assets/redhood.png", vertex_shader_resource, fragment_shader_resource,
-        glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f));
+        "Item 1", object::Texture_data{"assets/redhood.png"},
+        object::Shader_data{vertex_shader_resource, fragment_shader_resource},
+        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f),
+                               glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item_1 = object::render.get_by_name<object::Item>("Item 1");
     if (item_1)
@@ -59,8 +62,10 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_7])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 2", "assets/lamp.png", vertex_shader_resource, fragment_shader_resource,
-        glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f));
+        "Item 2", object::Texture_data{"assets/lamp.png"},
+        object::Shader_data{vertex_shader_resource, fragment_shader_resource},
+        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f),
+                               glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item_2 = object::render.get_by_name<object::Item>("Item 2");
     if (item_2)

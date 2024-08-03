@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "rename.hpp"
-
 #include "object.hpp"
 
 namespace cse::object
@@ -16,6 +14,12 @@ namespace cse::object
     friend class Texture;
 
   public:
+    struct Stats
+    {
+      float health = 0.0f;
+      float speed = 0.0f;
+    };
+
     Player(const std::string i_name);
 
     void move_right();
@@ -28,23 +32,19 @@ namespace cse::object
     void reset_stats();
     void reset_transform();
 
-    void initialize(const float health, const float speed, const glm::Vec3 translation,
-                    const glm::Vec3 rotation, const glm::Vec3 scale);
+    void initialize(const Stats &i_stats, const Transform_data &i_transform_data);
 
     std::string name = "";
 
   private:
-    struct Player_stats
-    {
-      float health = 0.0f;
-      float speed = 0.0f;
-    };
-    Player_stats stats = {};
-    Player_stats initial_stats = {};
+    Stats stats = {};
+    Stats initial_stats = {};
+    Transform_data transform_data = {};
+    Transform_data initial_transform_data = {};
 
-    Object_transform transform = {};
-    Object_transform initial_transform = {};
-    Object_data data = {};
+    Texture_data texture_data = {};
+    Shader_data shader_data = {};
+    Render_data render_data = {};
   };
 
   using Player_ptr = Object_ptr<Player>;

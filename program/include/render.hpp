@@ -24,10 +24,8 @@ namespace cse::object
 
     void initialize();
     template <typename Type>
-    void initialize_dynamic(const std::string name, const std::string texture_path,
-                            const char vertex_source[], const char fragment_source[],
-                            const glm::Vec3 translation, const glm::Vec3 rotation,
-                            const glm::Vec3 scale);
+    void initialize_dynamic(const std::string name, const Texture_data &texture_data,
+                            const Shader_data &shader_data, const Transform_data &transform_data);
     template <typename Type> void remove(Object_ptr<Type> &object);
 
     void remove_all();
@@ -37,10 +35,9 @@ namespace cse::object
     template <typename Type> const Object_ptr<Type> create(const std::string name);
     template <typename Type> void add(const std::string name);
     template <typename Type>
-    const Object_ptr<Type> add_dynamic(const std::string name, const std::string texture_path,
-                                       const char vertex_source[], const char fragment_source[],
-                                       const glm::Vec3 translation, const glm::Vec3 rotation,
-                                       const glm::Vec3 scale);
+    const Object_ptr<Type> add_dynamic(const std::string name, const Texture_data &texture_data,
+                                       const Shader_data &shader_data,
+                                       const Transform_data &transform_data);
 
     gl::Int get_uniform_location_by_name(const gl::Uint program, const std::string name);
     template <typename Type> void specify_vertices(Object_ptr<Type> &object);

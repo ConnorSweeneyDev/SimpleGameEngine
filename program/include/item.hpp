@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "rename.hpp"
 #include <glad.h>
 
 #include "object.hpp"
@@ -19,14 +18,17 @@ namespace cse::object
   public:
     Item(const std::string i_name);
 
-    void initialize(const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale);
+    void initialize(const Transform_data &i_transform_data);
 
     std::string name = "";
 
   private:
-    Object_transform transform = {};
-    Object_transform initial_transform = {};
-    Object_data data = {};
+    Transform_data transform_data = {};
+    Transform_data initial_transform_data = {};
+
+    Texture_data texture_data = {};
+    Shader_data shader_data = {};
+    Render_data render_data = {};
   };
 
   using Item_ptr = Object_ptr<Item>;

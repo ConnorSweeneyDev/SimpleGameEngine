@@ -11,9 +11,7 @@ namespace cse::object
   {
   public:
     void initialize();
-    template <typename Type>
-    void set_program(Object_ptr<Type> &object, const char vertex_source[],
-                     const char fragment_source[]);
+    template <typename Type> void load(Object_ptr<Type> &object);
 
   private:
     gl::Uint compile(const gl::Uint type, const char *shader_source);

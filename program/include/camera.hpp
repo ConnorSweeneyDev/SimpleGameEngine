@@ -10,6 +10,20 @@ namespace cse::object
     friend class Render;
 
   public:
+    struct Perspective_data
+    {
+      float fov = 0.0f;
+      float near_clip = 0.0f;
+      float far_clip = 0.0f;
+    };
+
+    struct Orientation_data
+    {
+      glm::Vec3 translation = {};
+      glm::Vec3 direction = {};
+      glm::Vec3 up = {};
+    };
+
     void update_projection_matrix();
     void update_view_matrix();
 
@@ -20,35 +34,22 @@ namespace cse::object
     void move_forward(const float speed);
     void move_backward(const float speed);
 
-    void reset_transform();
+    void reset_orientation();
 
-    void initialize(const float fov, const float near_clip, const float far_clip,
-                    const glm::Vec3 translation, const glm::Vec3 direction, const glm::Vec3 up);
+    void initialize(const Perspective_data &i_perspective, const Orientation_data &i_transform);
 
   private:
-    struct Camera_perspective
-    {
-      float fov = 0.0f;
-      float near_clip = 0.0f;
-      float far_clip = 0.0f;
-    };
-    Camera_perspective perspective;
+    Perspective_data perspective_data = {};
+    Perspective_data initial_perspective_data = {};
+    Orientation_data orientation_data = {};
+    Orientation_data initial_orientation_data = {};
 
-    struct Camera_transform
-    {
-      glm::Vec3 translation = {};
-      glm::Vec3 direction = {};
-      glm::Vec3 up = {};
-    };
-    Camera_transform transform = {};
-    Camera_transform initial_transform = {};
-
-    struct Camera_matrix
+    struct Matrix_data
     {
       glm::Mat4 projection = {};
       glm::Mat4 view = {};
     };
-    Camera_matrix matrix = {};
+    Matrix_data matrix_data = {};
   };
 
   inline Camera camera = {};

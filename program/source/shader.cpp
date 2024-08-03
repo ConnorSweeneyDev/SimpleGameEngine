@@ -14,9 +14,20 @@ namespace cse::object
   void Shader::initialize()
   {
     for (auto &player : players)
-      set_program(player, vertex_shader_resource, fragment_shader_resource);
+    {
+      player->shader_data.vertex_source = vertex_shader_resource;
+      player->shader_data.fragment_source = fragment_shader_resource;
 
-    for (auto &item : items) set_program(item, vertex_shader_resource, fragment_shader_resource);
+      load(player);
+    }
+
+    for (auto &item : items)
+    {
+      item->shader_data.vertex_source = vertex_shader_resource;
+      item->shader_data.fragment_source = fragment_shader_resource;
+
+      load(item);
+    }
   }
 
   gl::Uint Shader::compile(const gl::Uint type, const char *shader_source)

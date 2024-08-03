@@ -10,36 +10,34 @@ namespace cse::object
   void Camera::update_projection_matrix()
   {
     float window_aspect_ratio = (float)system::window.width / (float)system::window.height;
-    matrix.projection = glm::perspective(glm::radians(perspective.fov), window_aspect_ratio,
-                                         perspective.near_clip, perspective.far_clip);
+    matrix_data.projection =
+      glm::perspective(glm::radians(perspective_data.fov), window_aspect_ratio,
+                       perspective_data.near_clip, perspective_data.far_clip);
   }
   void Camera::update_view_matrix()
   {
-    matrix.view = glm::look_at(transform.translation, transform.translation + transform.direction,
-                               transform.up);
+    matrix_data.view =
+      glm::look_at(orientation_data.translation,
+                   orientation_data.translation + orientation_data.direction, orientation_data.up);
   }
 
-  void Camera::move_right(const float speed) { transform.translation.x += speed; }
-  void Camera::move_left(const float speed) { transform.translation.x -= speed; }
-  void Camera::move_up(const float speed) { transform.translation.y += speed; }
-  void Camera::move_down(const float speed) { transform.translation.y -= speed; }
-  void Camera::move_forward(const float speed) { transform.translation.z -= speed; }
-  void Camera::move_backward(const float speed) { transform.translation.z += speed; }
+  void Camera::move_right(const float speed) { orientation_data.translation.x += speed; }
+  void Camera::move_left(const float speed) { orientation_data.translation.x -= speed; }
+  void Camera::move_up(const float speed) { orientation_data.translation.y += speed; }
+  void Camera::move_down(const float speed) { orientation_data.translation.y -= speed; }
+  void Camera::move_forward(const float speed) { orientation_data.translation.z -= speed; }
+  void Camera::move_backward(const float speed) { orientation_data.translation.z += speed; }
 
-  void Camera::reset_transform() { transform = initial_transform; }
+  void Camera::reset_orientation() { orientation_data = initial_orientation_data; }
 
-  void Camera::initialize(const float fov, const float near_clip, const float far_clip,
-                          const glm::Vec3 translation, const glm::Vec3 direction,
-                          const glm::Vec3 up)
+  void Camera::initialize(const Perspective_data &i_perspective,
+                          const Orientation_data &i_orientation)
   {
-    perspective.fov = fov;
-    perspective.near_clip = near_clip;
-    perspective.far_clip = far_clip;
+    perspective_data = i_perspective;
+    initial_perspective_data = perspective_data;
 
-    transform.translation = translation;
-    transform.direction = direction;
-    transform.up = up;
-    initial_transform = transform;
+    orientation_data = i_orientation;
+    initial_orientation_data = orientation_data;
 
     update_projection_matrix();
     update_view_matrix();

@@ -1,32 +1,30 @@
 #include <string>
 
-#include "player.hpp"
 #include "rename.hpp"
+
+#include "object.hpp"
+#include "player.hpp"
 
 namespace cse::object
 {
   Player::Player(const std::string i_name) : name(i_name) {}
 
-  void Player::move_right() { transform.translation.x += stats.speed; }
-  void Player::move_left() { transform.translation.x -= stats.speed; }
-  void Player::move_up() { transform.translation.y += stats.speed; }
-  void Player::move_down() { transform.translation.y -= stats.speed; }
-  void Player::move_forward() { transform.translation.z -= stats.speed; }
-  void Player::move_backward() { transform.translation.z += stats.speed; }
+  void Player::move_right() { transform_data.translation.x += stats.speed; }
+  void Player::move_left() { transform_data.translation.x -= stats.speed; }
+  void Player::move_up() { transform_data.translation.y += stats.speed; }
+  void Player::move_down() { transform_data.translation.y -= stats.speed; }
+  void Player::move_forward() { transform_data.translation.z -= stats.speed; }
+  void Player::move_backward() { transform_data.translation.z += stats.speed; }
 
   void Player::reset_stats() { stats = initial_stats; }
-  void Player::reset_transform() { transform = initial_transform; }
+  void Player::reset_transform() { transform_data = initial_transform_data; }
 
-  void Player::initialize(const float health, const float speed, const glm::Vec3 translation,
-                          const glm::Vec3 rotation, const glm::Vec3 scale)
+  void Player::initialize(const Stats &i_stats, const Transform_data &i_transform_data)
   {
-    stats.health = health;
-    stats.speed = speed;
+    stats = i_stats;
     initial_stats = stats;
 
-    transform.translation = translation;
-    transform.rotation = rotation;
-    transform.scale = scale;
-    initial_transform = transform;
+    transform_data = i_transform_data;
+    initial_transform_data = transform_data;
   }
 }

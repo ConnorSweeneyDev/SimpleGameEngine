@@ -63,15 +63,13 @@ namespace cse::object
   // specific parameters - will be changed to a different Type later (might not need to be a
   // template function)
   template <typename Type>
-  void Render::initialize_dynamic(const std::string name, const std::string texture_path,
-                                  const char vertex_source[], const char fragment_source[],
-                                  const glm::Vec3 translation, const glm::Vec3 rotation,
-                                  const glm::Vec3 scale)
+  void Render::initialize_dynamic(const std::string name, const Texture_data &texture_data,
+                                  const Shader_data &shader_data,
+                                  const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
-        items.push_back(add_dynamic<Item>(name, texture_path, vertex_source, fragment_source,
-                                          translation, rotation, scale));
+        items.push_back(add_dynamic<Item>(name, texture_data, shader_data, transform_data));
   }
 
   template <typename Type> void Render::remove(Object_ptr<Type> &object)
@@ -124,37 +122,37 @@ namespace cse::object
   // template function)
   template <typename Type>
   const Object_ptr<Type>
-  Render::add_dynamic(const std::string name, const std::string texture_path,
-                      const char vertex_source[], const char fragment_source[],
-                      const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale)
+  Render::add_dynamic(const std::string name, const Texture_data &texture_data,
+                      const Shader_data &shader_data, const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)
     {
       auto object = create<Type>(name);
       specify_vertices(object);
-      object->data.texture_path = texture_path;
+      object->texture_data = texture_data;
       texture.load(object);
-      shader.set_program(object, vertex_source, fragment_source);
-      object->initialize(translation, rotation, scale);
+      object->shader_data = shader_data;
+      shader.load(object);
+      object->initialize(transform_data);
       return object;
     }
   }
 
   template <typename Type> void Render::specify_vertices(Object_ptr<Type> &object)
   {
-    gl::gen_vertex_arrays(1, &object->data.vertex_array_object);
-    gl::bind_vertex_array(object->data.vertex_array_object);
+    gl::gen_vertex_arrays(1, &object->render_data.vertex_array_object);
+    gl::bind_vertex_array(object->render_data.vertex_array_object);
 
-    gl::gen_buffers(1, &object->data.vertex_buffer_object);
-    gl::bind_buffer(GL_ARRAY_BUFFER, object->data.vertex_buffer_object);
+    gl::gen_buffers(1, &object->render_data.vertex_buffer_object);
+    gl::bind_buffer(GL_ARRAY_BUFFER, object->render_data.vertex_buffer_object);
     gl::buffer_data(GL_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_vertices.data(), GL_STATIC_DRAW);
     gl::vertex_attrib_pointer(0, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)0);
     gl::enable_vertex_attrib_array(0); // Vertex position
 
-    gl::gen_buffers(1, &object->data.index_buffer_object);
-    gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->data.index_buffer_object);
+    gl::gen_buffers(1, &object->render_data.index_buffer_object);
+    gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->render_data.index_buffer_object);
     gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER,
                     (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float),
                     default_quad_indices.data(), GL_STATIC_DRAW);
@@ -162,8 +160,8 @@ namespace cse::object
                               (gl::Void *)(sizeof(gl::Float) * 3));
     gl::enable_vertex_attrib_array(1); // Vertex color
 
-    gl::gen_textures(1, &object->data.texture_object);
-    gl::bind_texture(GL_TEXTURE_2D, object->data.texture_object);
+    gl::gen_textures(1, &object->texture_data.object);
+    gl::bind_texture(GL_TEXTURE_2D, object->texture_data.object);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -177,52 +175,53 @@ namespace cse::object
 
   template <typename Type> void Render::pre_draw_vertices(Object_ptr<Type> &object)
   {
-    gl::use_program(object->data.shader_program);
+    gl::use_program(object->shader_data.program);
 
     camera.update_projection_matrix();
-    glm::Mat4 projection = camera.matrix.projection;
+    glm::Mat4 projection = camera.matrix_data.projection;
     gl::Int uniform_projection_matrix_location =
-      get_uniform_location_by_name(object->data.shader_program, "uniform_projection_matrix");
+      get_uniform_location_by_name(object->shader_data.program, "uniform_projection_matrix");
     gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
                            glm::value_ptr(projection));
 
     camera.update_view_matrix();
-    glm::Mat4 view = camera.matrix.view;
+    glm::Mat4 view = camera.matrix_data.view;
     gl::Int uniform_view_matrix_location =
-      get_uniform_location_by_name(object->data.shader_program, "uniform_view_matrix");
+      get_uniform_location_by_name(object->shader_data.program, "uniform_view_matrix");
     gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
-    model = glm::translate(model, glm::Vec3(object->transform.translation.x,
-                                            object->transform.translation.y,
-                                            object->transform.translation.z));
+    model = glm::translate(model, glm::Vec3(object->transform_data.translation.x,
+                                            object->transform_data.translation.y,
+                                            object->transform_data.translation.z));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.x),
+                        glm::Vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.y),
+                        glm::Vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.z),
+                        glm::Vec3(0.0f, 0.0f, 1.0f));
     model =
-      glm::rotate(model, glm::radians(object->transform.rotation.x), glm::Vec3(1.0f, 0.0f, 0.0f));
-    model =
-      glm::rotate(model, glm::radians(object->transform.rotation.y), glm::Vec3(0.0f, 1.0f, 0.0f));
-    model =
-      glm::rotate(model, glm::radians(object->transform.rotation.z), glm::Vec3(0.0f, 0.0f, 1.0f));
-    model = glm::scale(model, glm::Vec3(object->transform.scale.x, object->transform.scale.y,
-                                        object->transform.scale.z));
+      glm::scale(model, glm::Vec3(object->transform_data.scale.x, object->transform_data.scale.y,
+                                  object->transform_data.scale.z));
     gl::Int uniform_model_matrix_location =
-      get_uniform_location_by_name(object->data.shader_program, "uniform_model_matrix");
+      get_uniform_location_by_name(object->shader_data.program, "uniform_model_matrix");
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));
   }
 
   template <typename Type> void Render::draw_vertices(Object_ptr<Type> &object)
   {
-    gl::bind_vertex_array(object->data.vertex_array_object);
-    gl::use_program(object->data.shader_program);
-    gl::bind_texture(GL_TEXTURE_2D, object->data.texture_object);
+    gl::bind_vertex_array(object->render_data.vertex_array_object);
+    gl::use_program(object->shader_data.program);
+    gl::bind_texture(GL_TEXTURE_2D, object->texture_data.object);
     gl::draw_elements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (gl::Void *)0);
   }
 
   template <typename Type> void Render::cleanup(Object_ptr<Type> &object)
   {
-    gl::delete_vertex_arrays(1, &object->data.vertex_array_object);
-    gl::delete_buffers(1, &object->data.vertex_buffer_object);
-    gl::delete_buffers(1, &object->data.index_buffer_object);
-    gl::delete_textures(1, &object->data.texture_object);
-    gl::delete_program(object->data.shader_program);
+    gl::delete_vertex_arrays(1, &object->render_data.vertex_array_object);
+    gl::delete_buffers(1, &object->render_data.vertex_buffer_object);
+    gl::delete_buffers(1, &object->render_data.index_buffer_object);
+    gl::delete_textures(1, &object->texture_data.object);
+    gl::delete_program(object->shader_data.program);
   }
 }
