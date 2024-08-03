@@ -20,7 +20,6 @@ namespace cse::object
     };
     template <typename Type = void, typename Callable>
     void call_for_all(Callable callable, const Call_action action = Call_action::NONE) const;
-
     template <typename Type> const Object_ptr<Type> get_by_name(const std::string name) const;
 
     void initialize();
@@ -30,8 +29,8 @@ namespace cse::object
                             const glm::Vec3 translation, const glm::Vec3 rotation,
                             const glm::Vec3 scale);
     template <typename Type> void remove(Object_ptr<Type> &object);
-    void remove_all();
 
+    void remove_all();
     void update_all();
 
   private:
