@@ -17,10 +17,10 @@ namespace cse::system
     void cleanup();
 
     bool should_quit = false;
-    int width;
-    int height;
+    int width = 0;
+    int height = 0;
 
-    sdl::Window *application;
+    sdl::Window *application = nullptr;
 
   private:
     void disable_fullscreen();
@@ -30,13 +30,13 @@ namespace cse::system
     int display_index = 0;
     std::vector<sdl::Rect> display_bounds;
 
-    int position_x;
-    int position_y;
+    int position_x = 0;
+    int position_y = 0;
     const int starting_width = 1280;
     const int starting_height = 720;
 
-    sdl::Gl_context gl_context;
-    sdl::Display_mode display_mode;
+    sdl::Gl_context gl_context = nullptr;
+    sdl::Display_mode display_mode = {};
   };
 
   extern Window window;

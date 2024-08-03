@@ -28,27 +28,27 @@ namespace cse::object
   private:
     struct Camera_perspective
     {
-      float fov;
-      float near_clip;
-      float far_clip;
+      float fov = 0.0f;
+      float near_clip = 0.0f;
+      float far_clip = 0.0f;
     };
     Camera_perspective perspective;
 
     struct Camera_transform
     {
-      glm::Vec3 translation;
-      glm::Vec3 direction;
-      glm::Vec3 up;
+      glm::Vec3 translation = {};
+      glm::Vec3 direction = {};
+      glm::Vec3 up = {};
     };
-    Camera_transform transform;
-    Camera_transform initial_transform;
+    Camera_transform transform = {};
+    Camera_transform initial_transform = {};
 
     struct Camera_matrix
     {
-      glm::Mat4 projection;
-      glm::Mat4 view;
+      glm::Mat4 projection = {};
+      glm::Mat4 view = {};
     };
-    Camera_matrix matrix;
+    Camera_matrix matrix = {};
   };
 
   extern Camera camera;

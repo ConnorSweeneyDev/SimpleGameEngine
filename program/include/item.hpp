@@ -21,12 +21,12 @@ namespace cse::object
 
     void initialize(const glm::Vec3 translation, const glm::Vec3 rotation, const glm::Vec3 scale);
 
-    std::string name;
+    std::string name = "";
 
   private:
-    Object_transform transform;
-    Object_transform initial_transform;
-    Object_data data;
+    Object_transform transform = {};
+    Object_transform initial_transform = {};
+    Object_data data = {};
   };
 
   using Item_ptr = Object_ptr<Item>;
