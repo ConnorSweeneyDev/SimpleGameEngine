@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 
 #include "item.hpp"
@@ -10,6 +11,6 @@ namespace cse::object
   void Item::initialize(const Transform_data &i_transform_data)
   {
     transform_data = i_transform_data;
-    initial_transform_data = transform_data;
+    initial_transform_data = std::make_unique<const Transform_data>(transform_data);
   }
 }

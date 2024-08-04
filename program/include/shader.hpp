@@ -11,7 +11,7 @@ namespace cse::object
   {
   public:
     void initialize();
-    template <typename Type> void load(Object_ptr<Type> &object);
+    template <typename Type> void load(Object_pointer<Type> &object);
 
   private:
     gl::Uint compile(const gl::Uint type, const char *shader_source);

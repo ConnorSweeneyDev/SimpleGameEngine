@@ -4,15 +4,15 @@
 #include <iostream>
 
 #include "rename.hpp"
-#include <stb_image.h>
 #include <glad.h>
+#include <stb_image.h>
 
 #include "object.hpp"
 #include "texture.hpp"
 
 namespace cse::object
 {
-  template <typename Type> void Texture::load(Object_ptr<Type> &object)
+  template <typename Type> void Texture::load(Object_pointer<Type> &object)
   {
     initialize_load(object);
 
@@ -64,11 +64,11 @@ namespace cse::object
     cleanup_load();
   }
 
-  template <typename Type> void Texture::initialize_load(Object_ptr<Type> &object)
+  template <typename Type> void Texture::initialize_load(Object_pointer<Type> &object)
   {
     gl::bind_vertex_array(object->render_data.vertex_array_object);
     gl::bind_buffer(GL_ARRAY_BUFFER, object->render_data.vertex_buffer_object);
     gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->render_data.index_buffer_object);
-    gl::bind_texture(GL_TEXTURE_2D, object->texture_data.object);
+    gl::bind_texture(GL_TEXTURE_2D, object->render_data.texture_object);
   }
 }

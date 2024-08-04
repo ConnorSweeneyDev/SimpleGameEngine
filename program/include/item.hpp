@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -24,14 +25,14 @@ namespace cse::object
 
   private:
     Transform_data transform_data = {};
-    Transform_data initial_transform_data = {};
+    std::unique_ptr<const Transform_data> initial_transform_data = {};
 
+    Render_data render_data = {};
     Texture_data texture_data = {};
     Shader_data shader_data = {};
-    Render_data render_data = {};
   };
 
-  using Item_ptr = Object_ptr<Item>;
-  using Item_ptr_list = std::vector<Item_ptr>;
-  inline Item_ptr_list items = {};
+  using Item_pointer = Object_pointer<Item>;
+  using Item_pointer_list = std::vector<Item_pointer>;
+  inline Item_pointer_list items = {};
 }

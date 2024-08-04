@@ -7,7 +7,7 @@
 
 namespace cse::object
 {
-  template <typename Type> using Object_ptr = std::shared_ptr<Type>;
+  template <typename Type> using Object_pointer = std::shared_ptr<Type>;
 
   struct Transform_data
   {
@@ -22,32 +22,12 @@ namespace cse::object
     int width = 0;
     int height = 0;
     int channels = 0;
-    gl::Uint object = 0;
-
-    Texture_data &operator=(const Texture_data &other)
-    {
-      path = other.path;
-      width = other.width;
-      height = other.height;
-      channels = other.channels;
-
-      return *this;
-    }
   };
 
   struct Shader_data
   {
     const char *vertex_source = nullptr;
     const char *fragment_source = nullptr;
-    gl::Uint program = 0;
-
-    Shader_data &operator=(const Shader_data &other)
-    {
-      vertex_source = other.vertex_source;
-      fragment_source = other.fragment_source;
-
-      return *this;
-    }
   };
 
   struct Render_data
@@ -55,5 +35,7 @@ namespace cse::object
     gl::Uint vertex_array_object = 0;
     gl::Uint vertex_buffer_object = 0;
     gl::Uint index_buffer_object = 0;
+    gl::Uint texture_object = 0;
+    gl::Uint shader_object = 0;
   };
 }

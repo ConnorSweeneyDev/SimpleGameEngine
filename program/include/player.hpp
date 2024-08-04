@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -38,16 +39,16 @@ namespace cse::object
 
   private:
     Stats stats = {};
-    Stats initial_stats = {};
+    std::unique_ptr<const Stats> initial_stats = {};
     Transform_data transform_data = {};
-    Transform_data initial_transform_data = {};
+    std::unique_ptr<const Transform_data> initial_transform_data = {};
 
+    Render_data render_data = {};
     Texture_data texture_data = {};
     Shader_data shader_data = {};
-    Render_data render_data = {};
   };
 
-  using Player_ptr = Object_ptr<Player>;
-  using Player_ptr_list = std::vector<Player_ptr>;
-  inline Player_ptr_list players = {};
+  using Player_pointer = Object_pointer<Player>;
+  using Player_pointer_list = std::vector<Player_pointer>;
+  inline Player_pointer_list players = {};
 }

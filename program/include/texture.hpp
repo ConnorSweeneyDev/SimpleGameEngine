@@ -8,10 +8,10 @@ namespace cse::object
   {
   public:
     void initialize();
-    template <typename Type> void load(Object_ptr<Type> &object);
+    template <typename Type> void load(Object_pointer<Type> &object);
 
   private:
-    template <typename Type> void initialize_load(Object_ptr<Type> &object);
+    template <typename Type> void initialize_load(Object_pointer<Type> &object);
     void cleanup_load();
   };
 
