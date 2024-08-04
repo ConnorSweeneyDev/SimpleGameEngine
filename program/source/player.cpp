@@ -24,7 +24,6 @@ namespace cse::object
   {
     stats = i_stats;
     initial_stats = std::make_unique<const Stats>(stats);
-
     transform_data = i_transform_data;
     initial_transform_data = std::make_unique<const Transform_data>(transform_data);
   }

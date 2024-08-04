@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "rename.hpp"
 #include <glm.hpp>
 
@@ -40,9 +42,9 @@ namespace cse::object
 
   private:
     Perspective_data perspective_data = {};
-    Perspective_data initial_perspective_data = {};
+    std::unique_ptr<const Perspective_data> initial_perspective_data = {};
     Orientation_data orientation_data = {};
-    Orientation_data initial_orientation_data = {};
+    std::unique_ptr<const Orientation_data> initial_orientation_data = {};
 
     struct Matrix_data
     {
