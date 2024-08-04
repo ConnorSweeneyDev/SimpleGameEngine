@@ -21,7 +21,7 @@ namespace cse::object
       float speed = 0.0f;
     };
 
-    Player(const std::string i_name);
+    Player(const std::string &i_name);
 
     void move_right();
     void move_left();

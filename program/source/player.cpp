@@ -8,7 +8,7 @@
 
 namespace cse::object
 {
-  Player::Player(const std::string i_name) : name(i_name) {}
+  Player::Player(const std::string &i_name) : name(i_name) {}
 
   void Player::move_right() { transform_data.translation.x += stats.speed; }
   void Player::move_left() { transform_data.translation.x -= stats.speed; }

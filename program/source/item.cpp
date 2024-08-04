@@ -6,7 +6,7 @@
 
 namespace cse::object
 {
-  Item::Item(const std::string i_name) : name(i_name) {}
+  Item::Item(const std::string &i_name) : name(i_name) {}
 
   void Item::initialize(const Transform_data &i_transform_data)
   {

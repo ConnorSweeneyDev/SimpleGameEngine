@@ -48,7 +48,7 @@ namespace cse::object
   }
 
   template <typename Type>
-  const Object_pointer<Type> Render::get_by_name(const std::string name) const
+  const Object_pointer<Type> Render::get_by_name(const std::string &name) const
   {
     Object_pointer<Type> result = nullptr;
     call_for_all<Type>(
@@ -64,7 +64,7 @@ namespace cse::object
   // specific parameters - will be changed to a different Type later (might not need to be a
   // template function)
   template <typename Type>
-  void Render::initialize_dynamic(const std::string name, const Texture_data &texture_data,
+  void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
                                   const Shader_data &shader_data,
                                   const Transform_data &transform_data)
   {
@@ -97,7 +97,7 @@ namespace cse::object
     }
   }
 
-  template <typename Type> const Object_pointer<Type> Render::create(const std::string name)
+  template <typename Type> const Object_pointer<Type> Render::create(const std::string &name)
   {
     auto object = std::make_shared<Type>(name);
     specify_vertices(object);
@@ -105,7 +105,7 @@ namespace cse::object
     return object;
   }
 
-  template <typename Type> void Render::add(const std::string name)
+  template <typename Type> void Render::add(const std::string &name)
   {
     if constexpr (std::is_same<Type, Player>::value)
       players.push_back(create<Player>(name));
@@ -123,7 +123,7 @@ namespace cse::object
   // template function)
   template <typename Type>
   const Object_pointer<Type>
-  Render::add_dynamic(const std::string name, const Texture_data &texture_data,
+  Render::add_dynamic(const std::string &name, const Texture_data &texture_data,
                       const Shader_data &shader_data, const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)

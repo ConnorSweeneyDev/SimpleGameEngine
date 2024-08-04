@@ -17,7 +17,7 @@ namespace cse::object
     friend class Texture;
 
   public:
-    Item(const std::string i_name);
+    Item(const std::string &i_name);
 
     void initialize(const Transform_data &i_transform_data);
 

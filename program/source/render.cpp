@@ -38,7 +38,8 @@ namespace cse::object
     sdl::gl_swap_window(system::window.application);
   }
 
-  gl::Int Render::get_uniform_location_by_name(const gl::Uint shader_object, const std::string name)
+  gl::Int Render::get_uniform_location_by_name(const gl::Uint shader_object,
+                                               const std::string &name)
   {
     gl::Int uniform_location = gl::get_uniform_location(shader_object, name.c_str());
     if (uniform_location <= -1)
