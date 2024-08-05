@@ -1,4 +1,3 @@
-#include "object.hpp"
 #include "rename.hpp"
 #include <SDL_events.h>
 #include <SDL_scancode.h>
@@ -7,6 +6,7 @@
 #include "camera.hpp"
 #include "input.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "render.hpp"
 #include "resource.hpp"

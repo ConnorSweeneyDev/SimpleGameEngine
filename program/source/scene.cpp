@@ -1,7 +1,7 @@
-#include "object.hpp"
 #include "rename.hpp"
 
 #include "camera.hpp"
+#include "object.hpp"
 #include "item.hpp"
 #include "player.hpp"
 #include "scene.hpp"
