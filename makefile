@@ -18,13 +18,13 @@ ifeq ($(UNAME), Windows)
   RESOURCE_LOADER := binary/windows/ResourceLoader.exe
   SYSTEM_INCLUDES := -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/windows -isystemexternal/include/stb
   LIBRARIES := -Lexternal/library/sdl2/windows -static -Wl,-Bstatic -lgcc -lstdc++ -lssp -lwinpthread -Wl,-Bdynamic -lSDL2
-  OUTPUT := binary/windows/SimpleGameEngine.exe
+  OUTPUT_FILE := binary/windows/SimpleGameEngine.exe
 else ifeq ($(UNAME), Linux)
   ECHO := echo
   RESOURCE_LOADER := binary/linux/ResourceLoader.out
   SYSTEM_INCLUDES := -isystemexternal/include -isystemexternal/include/glad -isystemexternal/include/glm -isystemexternal/include/khr -isystemexternal/include/sdl2/linux -isystemexternal/include/stb
   LIBRARIES := -Lexternal/library/sdl2/linux -static-libgcc -static-libstdc++ -ldl -lpthread -lSDL2 -Wl,-rpath,'$$ORIGIN'
-  OUTPUT := binary/linux/SimpleGameEngine.out
+  OUTPUT_FILE := binary/linux/SimpleGameEngine.out
 #else ifeq ($(UNAME), Darwin)
 endif
 
@@ -71,7 +71,7 @@ INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
 FORMAT_FILES := $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
-main: directories $(OUTPUT)
+main: directories $(OUTPUT_FILE)
 external: compile_commands clang-format clangd directories $(RESOURCE_OBJECT_FILE)
 
 compile_commands:
@@ -130,10 +130,10 @@ $(OBJECT_DIRECTORY)/%.o: $(C_SOURCES) | directories
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $@"
 
-$(OUTPUT): $(OBJECTS) | directories
-	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT)
-	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT)"
+$(OUTPUT_FILE): $(OBJECTS) | directories
+	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT_FILE)
+	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT_FILE)"
 
 clean:
 	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); fi
-	@if [ -f $(OUTPUT) ]; then rm -r $(OUTPUT); fi
+	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); fi
