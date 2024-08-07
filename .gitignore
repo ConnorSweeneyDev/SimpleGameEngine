@@ -7,13 +7,13 @@
 *.o
 *.obj
 
-# Generated clangd files
+# Generated Clangd Files
 compile_commands.json
 .clangd
 .clang-format
 .cache
 
-# Generated resource files
+# Generated Resource Files
 resource.hpp
 resource.cpp
 
@@ -24,7 +24,7 @@ resource.cpp
 # Compiled Dynamic libraries
 *.dylib
 
-# Fortran module files
+# Fortran Module Files
 *.mod
 *.smod
 
