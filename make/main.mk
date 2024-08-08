@@ -1,10 +1,11 @@
 include make/platform.mk
 include make/flags.mk
 include make/files.mk
-include make/clang.mk
+include make/utility.mk
 
 build: $(OUTPUT_FILE)
-prepare: compile_commands clang-format clangd directories $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE)
+prepare: directories $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE)
+utility: compile_commands clang-format clangd
 clean: delete
 
 include make/build.mk
