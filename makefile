@@ -32,9 +32,9 @@ PROGRAM_SOURCE_DIRECTORY := program/source
 PROGRAM_INCLUDE_DIRECTORY := program/include
 EXTERNAL_SOURCE_DIRECTORY := external/source
 OBJECT_DIRECTORY := binary/object
-CPP_SOURCES := $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
-C_SOURCES := $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
-OBJECT_FILES := $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECT_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECT_DIRECTORY)/%.o,$(C_SOURCES))
+CPP_SOURCE_FILES := $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
+C_SOURCE_FILES := $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
+OBJECT_FILES := $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECT_DIRECTORY)/%.o,$(CPP_SOURCE_FILES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECT_DIRECTORY)/%.o,$(C_SOURCE_FILES))
 
 PROGRAM_SHADER_DIRECTORY := program/shader
 RESOURCE_POSTFIX := _resource
@@ -73,8 +73,8 @@ external: compile_commands clang-format clangd directories $(RESOURCE_SOURCE_FIL
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_FILE)
-	@for source in $(CPP_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
-	@for source in $(C_SOURCES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
+	@for source in $(CPP_SOURCE_FILES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
+	@for source in $(C_SOURCE_FILES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMMANDS_FILE)
 	@sed -i "$$ s/,$$//" $(COMMANDS_FILE)
 	@$(ECHO) "]" >> $(COMMANDS_FILE)
 	@$(ECHO) "Write | $(COMMANDS_FILE)"
@@ -123,7 +123,7 @@ $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIR
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories
 	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CXX   | $@"
-$(OBJECT_DIRECTORY)/%.o: $(C_SOURCES) | directories
+$(OBJECT_DIRECTORY)/%.o: $(C_SOURCE_FILES) | directories
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $@"
 
