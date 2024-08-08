@@ -34,7 +34,7 @@ EXTERNAL_SOURCE_DIRECTORY := external/source
 OBJECT_DIRECTORY := binary/object
 CPP_SOURCES := $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 C_SOURCES := $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
-OBJECTS := $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECT_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECT_DIRECTORY)/%.o,$(C_SOURCES))
+OBJECT_FILES := $(patsubst $(PROGRAM_SOURCE_DIRECTORY)/%.cpp,$(OBJECT_DIRECTORY)/%.o,$(CPP_SOURCES)) $(patsubst $(EXTERNAL_SOURCE_DIRECTORY)/%.c,$(OBJECT_DIRECTORY)/%.o,$(C_SOURCES))
 
 PROGRAM_SHADER_DIRECTORY := program/shader
 RESOURCE_POSTFIX := _resource
@@ -68,8 +68,8 @@ INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
 FORMAT_FILES := $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
-main: directories $(OUTPUT_FILE)
-external: compile_commands clang-format clangd directories $(RESOURCE_OBJECT_FILE)
+main: directories $(RESOURCE_OBJECT_FILE) $(OUTPUT_FILE)
+external: compile_commands clang-format clangd directories $(RESOURCE_SOURCE_FILE) $(RESOURCE_INCLUDE_FILE)
 
 compile_commands:
 	@$(ECHO) "[" > $(COMMANDS_FILE)
@@ -127,9 +127,9 @@ $(OBJECT_DIRECTORY)/%.o: $(C_SOURCES) | directories
 	@$(CC) $(CFLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
 	@$(ECHO) "CC    | $@"
 
-$(OUTPUT_FILE): $(OBJECTS) | directories
-	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(OUTPUT_FILE)
-	@$(ECHO) "Link  | $(OBJECTS) -> $(OUTPUT_FILE)"
+$(OUTPUT_FILE): $(OBJECT_FILES) | directories
+	@$(CXX) $(CXXFLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) $(OBJECT_FILES) $(LIBRARIES) -o $(OUTPUT_FILE)
+	@$(ECHO) "Link  | $(OBJECT_FILES) -> $(OUTPUT_FILE)"
 
 clean:
 	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); fi
