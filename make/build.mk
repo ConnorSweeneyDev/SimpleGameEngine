@@ -38,5 +38,5 @@ $(OUTPUT_FILE): $(OBJECT_FILES) | directories
 	@$(ECHO) "Link  | $(OBJECT_FILES) -> $(OUTPUT_FILE)"
 
 delete:
-	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); fi
-	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); fi
+	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); $(ECHO) "RM		| $(OBJECT_DIRECTORY)"; fi
+	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); $(ECHO) "RM		| $(OUTPUT_FILE)"; fi
