@@ -7,31 +7,31 @@ $(RESOURCE_FILES): $(SHADER_FILES)
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.inl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.inl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.inl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.inl.hpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp | directories
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CXX   | $@"
+	@$(ECHO) "CXX   | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 $(OBJECT_DIRECTORY)/%.o: $(EXTERNAL_SOURCE_DIRECTORY)/%.c | directories
 	@$(CC) $(CC_FLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@
-	@$(ECHO) "CC    | $@"
+	@$(ECHO) "CC    | $@ $(patsubst $(OBJECT_DIRECTORY)/%.o,$(OBJECT_DIRECTORY)/%.d,$@)"
 -include $(DEPENDENCY_FILES)
 
 $(OUTPUT_FILE): $(OBJECT_FILES) | directories
@@ -39,5 +39,5 @@ $(OUTPUT_FILE): $(OBJECT_FILES) | directories
 	@$(ECHO) "Link  | $(OBJECT_FILES) -> $(OUTPUT_FILE)"
 
 delete:
-	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); $(ECHO) "RM		| $(OBJECT_DIRECTORY)"; fi
-	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); $(ECHO) "RM		| $(OUTPUT_FILE)"; fi
+	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); $(ECHO) "RM   | $(OBJECT_DIRECTORY)"; fi
+	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); $(ECHO) "RM   | $(OUTPUT_FILE)"; fi
