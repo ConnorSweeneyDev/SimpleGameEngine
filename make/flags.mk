@@ -1,4 +1,5 @@
 DEBUG := 1
+
 CXX := g++
 CC := gcc
 ifeq ($(DEBUG), 1)
