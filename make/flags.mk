@@ -3,8 +3,8 @@ DEBUG := 1
 CXX := g++
 CC := gcc
 ifeq ($(DEBUG), 1)
-  CXX_FLAGS := -g -O2 -MD -MP -std=c++17 -DDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
-  CC_FLAGS := -g -O2 -MD -MP -DDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+  CXX_FLAGS := -g -MD -MP -O2 -std=c++17 -DDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
+  CC_FLAGS := -g -MD -MP -O2 -DDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
 else
   CXX_FLAGS := -s -O3 -std=c++17 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
   CC_FLAGS := -s -O3 -DNDEBUG -D_FORTIFY_SOURCE=2 -fstack-protector-strong
