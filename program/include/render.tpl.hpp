@@ -29,21 +29,38 @@ namespace cse::object
     {
       for (auto &player : players) callable(player);
       for (auto &item : items) callable(item);
+      switch (action)
+      {
+        case Call_action::REMOVE:
+          players.clear();
+          items.clear();
+          break;
+
+        default: break;
+      }
     }
     else if constexpr (std::is_same<Type, Player>::value)
+    {
       for (auto &player : players) callable(player);
+      switch (action)
+      {
+        case Call_action::REMOVE: players.clear(); break;
+        default: break;
+      }
+    }
     else if constexpr (std::is_same<Type, Item>::value)
+    {
       for (auto &item : items) callable(item);
+      switch (action)
+      {
+        case Call_action::REMOVE: items.clear(); break;
+        default: break;
+      }
+    }
     else
     {
       std::cout << "Invalid Type!" << std::endl;
       return;
-    }
-
-    if (action == Call_action::REMOVE)
-    {
-      players.clear();
-      items.clear();
     }
   }
 
