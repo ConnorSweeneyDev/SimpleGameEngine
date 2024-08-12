@@ -17,19 +17,15 @@ don't want to include those directly into the binary due to the size increase.
 
 ### Windows
 You must have any 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
-path, this will give you access to the unix tools that are used in the makefile. To build using the
-makefile, you will need Make (`winget install make --source winget`) and Python3 (`winget install
---id Python.Python.3.12`);
+path, this will give you access to the unix tools that are used in the makefile. In addition, you
+will need Python3 for parallel build support - `winget install --id Python.Python.3.12`.
 
 ### Linux
 Do the following to ensure your environment is set up correctly:
 - Only run `sudo apt update && sudo apt upgrade` if you haven't already.
-- Run `sudo apt install git g++ make llvm clang clang-format`.
+- Run `sudo apt install git g++ make`.
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window
   manager.
-
-### Mac
-Not yet supported.
 
 ## Updating SDL
 Since the library files are all within the project, to update SDL for each platform some extra steps
@@ -66,9 +62,6 @@ Now you have two important directories:
 - `SDL2-[VERSION]/build/build/.libs` which contains files (excluding the `.d` and `.o` files) that
   can replace the `external/library/sdl2/linux` directory of this project. This directory has the
   caveat that you need to move `libSDL2-2.0.so.0` from the library directory into `binary/linux`.
-
-### Mac
-Not yet supported.
 
 ## Updating glad/khr
 Go through the [installation](https://glad.dav1d.de/) for glad/khr to get a zip file, put `glad.h`

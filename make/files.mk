@@ -6,7 +6,6 @@ else ifeq ($(UNAME), Linux)
   ECHO := echo
   RESOURCE_LOADER := binary/linux/ResourceLoader.out
   OUTPUT_FILE := binary/linux/SimpleGameEngine.out
-#else ifeq ($(UNAME), Darwin)
 endif
 
 PROGRAM_SOURCE_DIRECTORY := program/source
