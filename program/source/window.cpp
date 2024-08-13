@@ -95,9 +95,6 @@ namespace cse::system
     sdl::set_window_fullscreen(application, 0);
     sdl::set_window_position(application, position_x, position_y);
 #endif
-    // #ifdef __APPLE__
-    // Mac not yet supported.
-    // #endif
 
     width = starting_width;
     height = starting_height;
@@ -115,9 +112,6 @@ namespace cse::system
 #ifdef __linux__
     sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);
 #endif
-    // #ifdef __APPLE__
-    // Mac not yet supported.
-    // #endif
 
     width = display_mode.w;
     height = display_mode.h;
