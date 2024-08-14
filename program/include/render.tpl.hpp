@@ -58,10 +58,7 @@ namespace cse::object
       }
     }
     else
-    {
       std::cout << "Invalid Type!" << std::endl;
-      return;
-    }
   }
 
   template <typename Type>
@@ -108,10 +105,7 @@ namespace cse::object
                   items.end());
     }
     else
-    {
       std::cout << "Invalid Type!" << std::endl;
-      return;
-    }
   }
 
   template <typename Type> const Object_pointer<Type> Render::create(const std::string &name)
@@ -129,10 +123,7 @@ namespace cse::object
     else if constexpr (std::is_same<Type, Item>::value)
       items.push_back(create<Item>(name));
     else
-    {
       std::cout << "Invalid Type!" << std::endl;
-      return;
-    }
   }
 
   // add_dynamic only exists for Item, not player due to player's initialize function taking

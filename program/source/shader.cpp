@@ -53,12 +53,18 @@ namespace cse::object
       char *error_messages = new char[(size_t)length];
       gl::get_shader_info_log(shader_object, length, &length, error_messages);
 
-      if (type == GL_VERTEX_SHADER)
-        std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
-      else if (type == GL_FRAGMENT_SHADER)
-        std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
-      else
-        std::cout << "Invalid shader type!\n" << error_messages;
+      switch (type)
+      {
+        case GL_VERTEX_SHADER:
+          std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
+          break;
+
+        case GL_FRAGMENT_SHADER:
+          std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
+          break;
+
+        default: std::cout << "Invalid shader type!\n" << error_messages; break;
+      }
 
       delete[] error_messages;
       gl::delete_shader(shader_object);
