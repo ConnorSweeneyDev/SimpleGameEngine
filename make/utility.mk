@@ -21,7 +21,7 @@ NAMESPACE_INDENTATION := NamespaceIndentation: All
 NAMESPACE_COMMENTS := FixNamespaceComments: false
 INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
-FORMAT_FILES := $(filter-out $(RESOURCE_INCLUDE_FILE) $(RESOURCE_SOURCE_FILE), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
+FORMAT_FILES := $(filter-out $(RESOURCE_FILES), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
 
 compile_commands:
 	@$(ECHO) "[" > $(COMPILE_COMMANDS_FILE)
