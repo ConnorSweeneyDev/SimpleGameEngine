@@ -2,26 +2,30 @@
 This engine provides an interface for creating 2D/3D hybrid games.
 
 ## Building and Running
-After following the platform specific instructions you can execute the `build.bat` file on windows
-or the `build.sh` file on linux from the root of the project to build the binary. The outputted
-binary must be run from the root to work as intended.
+This project is optimized to be built with the following targets in mind:
+- Windows 11 MinGW 64-bit GCC 14.2.0
+- Ubuntu 18.04 GLIBC Version 2.27
+
+Version information for dependencies can be found in `external/version_info.txt`.
 
 On Windows, the binary will be statically linked to any C++ runtime libraries that are used, but
 dynamically linked to SDL2. On Linux, the binary will be statically linked where possible (libgcc
-and libstdc++) but dynamically linked to everything else.
-
-Part of the build process is to use my
+and libstdc++) but dynamically linked to everything else. Part of the build process is to use my
 [ResourceLoader](https://github.com/ConnorSweeneyDev/ResourceLoader) to make shaders a part of the
-program rather than needing them present at runtime. It is capable of loading png's aswell but I
+program rather than needing them present at runtime. It is capable of loading png files aswell but I
 don't want to include those directly into the binary due to the size increase.
 
+After following the platform specific instructions below you can execute the `build.bat` file on
+Windows or the `build.sh` file on Linux from the root of the project to build the binary. The
+outputted binary must be run from the root to work as intended.
+
 ### Windows
-You must have any 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
+You must have a 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
 path, this will give you access to the unix tools that are used in the makefile. In addition, you
 will need Python3 for parallel build support - `winget install --id Python.Python.3.12`.
 
 ### Linux
-Do the following to ensure your environment is set up correctly:
+Do the following on Ubuntu to ensure your environment is set up correctly:
 - Only run `sudo apt update && sudo apt upgrade` if you haven't already.
 - Run `sudo apt install git g++ make`.
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window

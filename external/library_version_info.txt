@@ -1,5 +1,0 @@
-ResourceLoader: v3.1
-sdl2: 2.30.4, Windows: x86_64-w64-mingw32, Linux: Ubuntu 18.04 GLIBC V2.27
-glad/khr: Core 4.1, All Extensions
-glm: 1.0.1
-stbi: 2.30
