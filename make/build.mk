@@ -2,7 +2,7 @@ directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 
 $(RESOURCE_FILES): $(SHADER_FILES)
-	@./$(RESOURCE_LOADER) $(RESOURCE_POSTFIX) $^ $@
+	@./$(RESOURCE_LOADER) _resource $^ $@
 	@$(ECHO) "Load  | $@"
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp $(PROGRAM_INCLUDE_DIRECTORY)/%.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.tpl.hpp $(PROGRAM_INCLUDE_DIRECTORY)/%.inl.hpp | directories
