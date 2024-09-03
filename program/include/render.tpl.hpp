@@ -23,7 +23,7 @@
 namespace cse::object
 {
   template <typename Type, typename Callable>
-  void Render::call_for_all(Callable callable, Call_action action) const
+  void Render::call_for_all(Callable callable, Call_action action)
   {
     if constexpr (std::is_same<Type, void>::value)
     {
@@ -61,8 +61,7 @@ namespace cse::object
       std::cout << "Invalid Type!" << std::endl;
   }
 
-  template <typename Type>
-  const Object_pointer<Type> Render::get_by_name(const std::string &name) const
+  template <typename Type> const Object_pointer<Type> Render::get_by_name(const std::string &name)
   {
     Object_pointer<Type> result = nullptr;
     call_for_all<Type>(
