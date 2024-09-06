@@ -22,7 +22,7 @@ outputted binary must be run from the root to work as intended.
 ### Windows
 You must have a 64-bit [MinGW](https://winlibs.com/) installation with clang/LLVM support in your
 path, this will give you access to the unix tools that are used in the makefile. In addition, you
-will need Python3 for parallel build support - `winget install --id Python.Python.3.12`.
+will need Python3 for parallel build support - `winget install --id Python.Python.3.10`.
 
 ### Linux
 Do the following on Ubuntu to ensure your environment is set up correctly:
