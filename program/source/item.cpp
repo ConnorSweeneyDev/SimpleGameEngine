@@ -2,7 +2,7 @@
 #include <string>
 
 #include "item.hpp"
-#include "object.hpp"
+#include "property.hpp"
 
 namespace cse::object
 {

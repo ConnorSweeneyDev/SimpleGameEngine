@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "object.hpp"
+#include "property.hpp"
 
 namespace cse::object
 {

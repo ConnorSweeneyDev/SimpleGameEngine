@@ -14,8 +14,8 @@
 
 #include "camera.hpp"
 #include "item.hpp"
-#include "object.hpp"
 #include "player.hpp"
+#include "property.hpp"
 #include "render.hpp"
 #include "shader.hpp"
 #include "texture.hpp"

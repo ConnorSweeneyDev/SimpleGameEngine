@@ -18,7 +18,6 @@ namespace cse::object
       float near_clip = 0.0f;
       float far_clip = 0.0f;
     };
-
     struct Orientation_data
     {
       glm::Vec3 translation = {};

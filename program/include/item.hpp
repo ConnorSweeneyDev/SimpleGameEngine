@@ -6,7 +6,7 @@
 
 #include <glad.h>
 
-#include "object.hpp"
+#include "property.hpp"
 
 namespace cse::object
 {

@@ -7,7 +7,7 @@
 #include <glad.h>
 #include <stb_image.h>
 
-#include "object.hpp"
+#include "property.hpp"
 #include "texture.hpp"
 
 namespace cse::object

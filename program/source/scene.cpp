@@ -2,8 +2,8 @@
 
 #include "camera.hpp"
 #include "item.hpp"
-#include "object.hpp"
 #include "player.hpp"
+#include "property.hpp"
 #include "scene.hpp"
 
 namespace cse::scene

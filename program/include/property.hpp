@@ -15,7 +15,6 @@ namespace cse::object
     glm::Vec3 rotation = {};
     glm::Vec3 scale = {};
   };
-
   struct Texture_data
   {
     std::string path = "";
@@ -23,7 +22,6 @@ namespace cse::object
     int height = 0;
     int channels = 0;
   };
-
   struct Shader_data
   {
     const char *vertex_source = nullptr;
