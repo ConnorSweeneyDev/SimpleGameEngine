@@ -10,10 +10,7 @@
 
 namespace cse::system
 {
-  void clear_all_gl_errors()
-  {
-    while (gl::get_error() != GL_NO_ERROR) { ; }
-  }
+  void clear_all_gl_errors() { while (gl::get_error() != GL_NO_ERROR); }
 
   void check_gl_error_status(const char *function_name, const char *file_name,
                              const int line_number)
