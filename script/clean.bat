@@ -1,6 +1,6 @@
 @ECHO OFF
 
-set FILE=-f "make/main.mk"
-set CLEAN=%FILE% clean
+set FLAGS=-s -f "make/main.mk"
 
+set CLEAN=clean %FLAGS%
 make %CLEAN%

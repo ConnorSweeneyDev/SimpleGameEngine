@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE="-f make/main.mk"
-CLEAN="$FILE clean"
+FLAGS="-f make/main.mk"
 
+CLEAN="clean $FLAGS"
 make $CLEAN
