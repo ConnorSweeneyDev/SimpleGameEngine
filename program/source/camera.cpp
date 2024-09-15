@@ -1,8 +1,8 @@
 #include <memory>
 
+#include "ext/matrix_clip_space.hpp"
 #include "rename.hpp"
-#include <ext/matrix_clip_space.hpp>
-#include <trigonometric.hpp>
+#include "trigonometric.hpp"
 
 #include "camera.hpp"
 #include "window.hpp"

@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-#include <glad.h>
-
 #include "property.hpp"
 
 namespace cse::object

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "rename.hpp"
-#include <glad.h>
 
 #include "property.hpp"
 

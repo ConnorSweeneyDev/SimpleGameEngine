@@ -1,7 +1,7 @@
 #pragma once
 
+#include "glad.h"
 #include "rename.hpp"
-#include <glad.h>
 
 #include "property.hpp"
 #include "shader.hpp"

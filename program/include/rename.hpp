@@ -2,16 +2,14 @@
 
 #include <cstdint>
 
-#include <SDL_events.h>
-#include <SDL_platform.h>
-#include <SDL_rect.h>
-#include <SDL_stdinc.h>
-#include <SDL_video.h>
-
-#include <glad.h>
-
-#include <ext/matrix_float4x4.hpp>
-#include <ext/vector_float3.hpp>
+#include "SDL_events.h"
+#include "SDL_platform.h"
+#include "SDL_rect.h"
+#include "SDL_stdinc.h"
+#include "SDL_video.h"
+#include "ext/matrix_float4x4.hpp"
+#include "ext/vector_float3.hpp"
+#include "glad.h"
 
 namespace sdl
 {

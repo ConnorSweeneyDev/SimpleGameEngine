@@ -1,10 +1,9 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "SDL_stdinc.h"
+#include "SDL_video.h"
 #include "rename.hpp"
-#include <SDL_stdinc.h>
-#include <SDL_video.h>
-#include <glad.h>
 
 #include "window.hpp"
 

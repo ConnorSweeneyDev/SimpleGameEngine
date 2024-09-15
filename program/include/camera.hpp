@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "rename.hpp"
-#include <glm.hpp>
 
 namespace cse::object
 {

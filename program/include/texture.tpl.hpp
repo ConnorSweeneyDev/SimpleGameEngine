@@ -3,9 +3,9 @@
 #include <cstddef>
 #include <iostream>
 
+#include "glad.h"
 #include "rename.hpp"
-#include <glad.h>
-#include <stb_image.h>
+#include "stb_image.h"
 
 #include "property.hpp"
 #include "texture.hpp"

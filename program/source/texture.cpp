@@ -1,6 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
+#include "glad.h"
 #include "rename.hpp"
-#include <glad.h>
 
 #include "item.hpp"
 #include "player.hpp"

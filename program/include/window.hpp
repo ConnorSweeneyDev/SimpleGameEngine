@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "rename.hpp"
-#include <SDL.h>
 
 namespace cse::system
 {

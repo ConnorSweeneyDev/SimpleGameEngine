@@ -7,10 +7,10 @@
 #include <type_traits>
 #include <vector>
 
+#include "ext/matrix_transform.hpp"
+#include "glad.h"
+#include "gtc/type_ptr.hpp"
 #include "rename.hpp"
-#include <ext/matrix_transform.hpp>
-#include <glad.h>
-#include <gtc/type_ptr.hpp>
 
 #include "camera.hpp"
 #include "item.hpp"
