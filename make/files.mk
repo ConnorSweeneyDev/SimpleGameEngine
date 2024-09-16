@@ -1,16 +1,19 @@
 ifeq ($(UNAME), Windows)
   ECHO := echo -e
   RESOURCE_LOADER := binary/windows/ResourceLoader.exe
+  TARGET_PLATFORM_DIRECTORY := binary/windows
   OUTPUT_FILE := binary/windows/SimpleGameEngine.exe
 else ifeq ($(UNAME), Linux)
   ECHO := echo
   RESOURCE_LOADER := binary/linux/ResourceLoader.out
+  TARGET_PLATFORM_DIRECTORY := binary/linux
   OUTPUT_FILE := binary/linux/SimpleGameEngine.out
 endif
 
 PROGRAM_SOURCE_DIRECTORY := program/source
 PROGRAM_INCLUDE_DIRECTORY := program/include
 EXTERNAL_SOURCE_DIRECTORY := external/source
+BINARY_DIRECTORY := binary
 OBJECT_DIRECTORY := binary/object
 CPP_SOURCE_FILES := $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp)
 CC_SOURCE_FILES := $(wildcard $(EXTERNAL_SOURCE_DIRECTORY)/*.c)
