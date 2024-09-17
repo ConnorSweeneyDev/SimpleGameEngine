@@ -1,5 +1,6 @@
 #define SDL_MAIN_HANDLED
 
+#include "main.hpp"
 #include "input.hpp"
 #include "render.hpp"
 #include "scene.hpp"
@@ -8,6 +9,18 @@
 #include "texture.hpp"
 #include "time.hpp"
 #include "window.hpp"
+
+int main()
+{
+  initialize_system();
+
+  initialize_game();
+  play_game();
+  cleanup_game();
+
+  cleanup_system();
+  return 0;
+}
 
 void initialize_system()
 {
@@ -44,16 +57,4 @@ void cleanup_system()
 {
   cse::system::window.cleanup();
   cse::system::cleanup_sdl();
-}
-
-int main()
-{
-  initialize_system();
-
-  initialize_game();
-  play_game();
-  cleanup_game();
-
-  cleanup_system();
-  return 0;
 }
