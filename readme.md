@@ -26,9 +26,12 @@ Do the following to ensure your environment is set up correctly:
 - Run `winget install make --source winget` if you don't have Make installed.
 
 ### Linux
-Do the following on Ubuntu to ensure your environment is set up correctly:
+Do the following on Ubuntu 18.04 to ensure your environment is set up correctly:
 - Only run `sudo apt update && sudo apt upgrade` if you haven't already.
 - Run `sudo apt install git g++ gdb make`.
+
+After building on the specified version of linux, due to better packages on Ubuntu 22.04 you can
+move there to run the binary after the following step:
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window
   manager.
 
