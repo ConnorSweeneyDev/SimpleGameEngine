@@ -1,5 +1,7 @@
 #pragma once
 
+int main();
+
 void initialize_system();
 
 void initialize_game();
