@@ -1,4 +1,4 @@
-ResourceLoader: v4.3
+ResourceLoader: v4.4
 sdl2: 2.30.4
 glad/khr: Core 4.1, All Extensions
 glm: 1.0.1
