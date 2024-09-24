@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLAGS="-f make/main.mk"
+FLAGS="-s -f make/main.mk DELETE_RESOURCE_FILES=0"
 
 CLEAN="clean $FLAGS"
 make $CLEAN
