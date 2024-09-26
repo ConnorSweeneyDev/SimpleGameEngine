@@ -18,4 +18,4 @@ namespace cse::object
   inline Texture texture = {};
 }
 
-#include "texture.tpl.hpp"
+#include "texture.inl"

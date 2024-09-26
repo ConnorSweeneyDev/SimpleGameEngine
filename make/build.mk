@@ -3,7 +3,7 @@ directories:
 	@if [ ! -d $(OBJECT_DIRECTORY) ]; then mkdir -p $(OBJECT_DIRECTORY); $(ECHO) "Write | $(OBJECT_DIRECTORY)"; fi
 	@if [ ! -d $(TARGET_PLATFORM_DIRECTORY) ]; then mkdir -p $(TARGET_PLATFORM_DIRECTORY); $(ECHO) "Write | $(TARGET_PLATFORM_DIRECTORY)"; fi
 
-$(RESOURCE_FILES): $(SHADER_FILES)
+$(RESOURCE_SOURCE_FILES): $(SHADER_SOURCE_FILES)
 	@./$(RESOURCE_LOADER) _resource $^ $@
 	@$(ECHO) "Load  | $@"
 
@@ -22,4 +22,4 @@ $(OUTPUT_FILE): $(OBJECT_FILES)
 delete:
 	@if [ -d $(OBJECT_DIRECTORY) ]; then rm -r $(OBJECT_DIRECTORY); $(ECHO) "RM    | $(OBJECT_DIRECTORY)"; fi
 	@if [ -f $(OUTPUT_FILE) ]; then rm -r $(OUTPUT_FILE); $(ECHO) "RM    | $(OUTPUT_FILE)"; fi
-	@if [ $(DELETE_RESOURCE_FILES) = 1 ]; then for file in $(RESOURCE_FILES); do if [ -f $$file ]; then rm -r $$file; $(ECHO) "RM    | $$file"; fi; done; fi
+	@if [ $(DELETE_RESOURCE_SOURCE_FILES) = 1 ]; then for file in $(RESOURCE_SOURCE_FILES); do if [ -f $$file ]; then rm -r $$file; $(ECHO) "RM    | $$file"; fi; done; fi

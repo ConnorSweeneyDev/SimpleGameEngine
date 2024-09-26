@@ -71,4 +71,4 @@ namespace cse::object
   inline Render render = {};
 }
 
-#include "render.tpl.hpp"
+#include "render.inl"

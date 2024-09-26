@@ -3,7 +3,7 @@ include make/flags.mk
 include make/files.mk
 
 build: $(OUTPUT_FILE)
-prepare: directories $(RESOURCE_FILES)
+prepare: directories $(RESOURCE_SOURCE_FILES)
 utility: compile_commands clang-format clangd
 clean: delete
 

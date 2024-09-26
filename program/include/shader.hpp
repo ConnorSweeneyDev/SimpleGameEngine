@@ -19,4 +19,4 @@ namespace cse::object
   inline Shader shader = {};
 }
 
-#include "shader.tpl.hpp"
+#include "shader.inl"

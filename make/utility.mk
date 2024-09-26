@@ -1,8 +1,10 @@
 COMPILE_COMMANDS_FILE := compile_commands.json
+
 CLANGD_FILE := .clangd
 UNUSED_INCLUDES := UnusedIncludes: Strict
 MISSING_INCLUDES := MissingIncludes: Strict
-IGNORE_HEADERS := IgnoreHeader: [tpl.hpp, inl.hpp]
+IGNORE_HEADERS := IgnoreHeader: inl
+
 CLANG_FORMAT_FILE := .clang-format
 STYLE := BasedOnStyle: LLVM
 TAB_WIDTH := IndentWidth: 2
@@ -21,7 +23,7 @@ NAMESPACE_INDENTATION := NamespaceIndentation: All
 NAMESPACE_COMMENTS := FixNamespaceComments: false
 INDENT_CASE_LABELS := IndentCaseLabels: true
 BREAK_TEMPLATE_DECLARATIONS := AlwaysBreakTemplateDeclarations: false
-FORMAT_FILES := $(filter-out $(RESOURCE_FILES), $(wildcard $(PROGRAM_SOURCE_DIRECTORY)/*.cpp) $(wildcard $(PROGRAM_INCLUDE_DIRECTORY)/*.hpp) $(wildcard $(PROGRAM_SHADER_DIRECTORY)/*.glsl))
+TARGET_FORMAT_FILES := $(filter-out $(RESOURCE_SOURCE_FILES), $(CPP_SOURCE_FILES) $(HPP_SOURCE_FILES) $(INL_SOURCE_FILES) $(SHADER_SOURCE_FILES))
 
 compile_commands:
 	@$(ECHO) "[" > $(COMPILE_COMMANDS_FILE)
@@ -38,5 +40,5 @@ clangd:
 clang-format:
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(CLANG_FORMAT_FILE)
 	@$(ECHO) "Write | $(CLANG_FORMAT_FILE)"
-	@for file in $(FORMAT_FILES); do clang-format -i $$file; done
-	@$(ECHO) "FMT   | $(FORMAT_FILES)"
+	@for file in $(TARGET_FORMAT_FILES); do clang-format -i $$file; done
+	@$(ECHO) "FMT   | $(TARGET_FORMAT_FILES)"
