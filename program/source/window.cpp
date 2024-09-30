@@ -42,7 +42,7 @@ namespace cse::system
     {
       sdl::Rect display_bound;
       sdl::get_display_bounds(i, &display_bound);
-      display_bounds.push_back(display_bound);
+      display_bounds.emplace_back(display_bound);
     }
     if (display_bounds.empty())
     {
