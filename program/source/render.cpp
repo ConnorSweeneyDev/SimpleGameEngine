@@ -13,9 +13,11 @@ namespace cse::object
 {
   void Render::initialize()
   {
+    players.reserve(2);
     add<Player>("Player 1");
     add<Player>("Player 2");
 
+    items.reserve(50);
     add<Item>("Background 1");
     add<Item>("Background 2");
     add<Item>("Background 3");
