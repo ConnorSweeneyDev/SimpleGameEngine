@@ -83,7 +83,7 @@ namespace cse::object
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
-        items.emplace_back(add_dynamic<Item>(name, texture_data, shader_data, transform_data));
+        items.push_back(add_dynamic<Item>(name, texture_data, shader_data, transform_data));
   }
 
   template <typename Type> void Render::remove(Object_pointer<Type> &object)
@@ -118,9 +118,9 @@ namespace cse::object
   template <typename Type> void Render::add(const std::string &name)
   {
     if constexpr (std::is_same<Type, Player>::value)
-      players.emplace_back(create<Player>(name));
+      players.push_back(create<Player>(name));
     else if constexpr (std::is_same<Type, Item>::value)
-      items.emplace_back(create<Item>(name));
+      items.push_back(create<Item>(name));
     else
       std::cout << "Invalid Type!" << std::endl;
   }

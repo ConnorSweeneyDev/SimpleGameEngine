@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <utility>
 
 #include "SDL_stdinc.h"
 #include "SDL_video.h"
@@ -42,7 +43,7 @@ namespace cse::system
     {
       sdl::Rect display_bound;
       sdl::get_display_bounds(i, &display_bound);
-      display_bounds.emplace_back(display_bound);
+      display_bounds.emplace_back(std::move(display_bound));
     }
     if (display_bounds.empty())
     {
