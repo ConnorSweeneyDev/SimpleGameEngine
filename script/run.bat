@@ -1,3 +1,3 @@
 @ECHO OFF
 
-start pwsh -Command "./binary/windows/SimpleGameEngine.exe"
+START pwsh -Command "./binary/windows/SimpleGameEngine.exe"
