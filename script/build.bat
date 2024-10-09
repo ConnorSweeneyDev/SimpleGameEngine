@@ -8,7 +8,6 @@ IF "%1" == "-wezterm" (
 
 FOR /f %%a in ('pwsh -Command "[int](python -c 'import multiprocessing as mp; print(int(mp.cpu_count() * 1.5))')"') DO SET CPU_COUNT_MULTIPLIER=%%a
 SET FLAGS=-s -f make/main.mk -j %CPU_COUNT_MULTIPLIER% DEBUG=1
-
 SET UTILITY=utility %FLAGS%
 SET PREPARE=prepare %FLAGS%
 SET BUILD=build %FLAGS%
