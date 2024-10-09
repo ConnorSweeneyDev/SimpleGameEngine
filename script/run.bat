@@ -1,3 +1,9 @@
 @ECHO OFF
 
-START pwsh -Command "./binary/windows/SimpleGameEngine.exe"
+IF "%1" == "-wezterm" (
+  SET TERM=wezterm cli spawn --cwd %CD% pwsh -Command
+) ELSE (
+  SET TERM=pwsh -Command
+)
+
+%TERM% "./binary/windows/SimpleGameEngine.exe"
