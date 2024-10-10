@@ -83,6 +83,6 @@ extract it and replace the contents of the `external/include/glm` directory with
 `glm` directory in the extracted folder. Make sure to delete the `CMakeLists.txt`, `copying.txt`,
 `glm.cppm` and `detail/glm.cpp` files as they are not needed.
 
-# Updating stbi
+# Updating stb_image
 Go to the stb_image.h [file](https://github.com/nothings/stb/blob/master/stb_image.h) and download
-it as a raw file, then replace the file in `external/include/stbi` directory with that file.
+it as a raw file, then replace the file in `external/include/stb` directory with that file.
