@@ -20,7 +20,6 @@ outputted binary must be run from the root to work as intended.
 Do the following to ensure your environment is set up correctly:
 - Download a 64-bit [MinGW](https://winlibs.com/) distribution with Clang/LLVM support and put the
   `[DISTRIBUTION]/bin` directory in your path.
-- Run `winget install --id Python.Python.3.10` if you don't have Python installed.
 - Run `winget install --id Microsoft.Powershell --source winget` if you don't have pwsh.exe
   installed.
 - Run `winget install make --source winget` if you don't have Make installed.
