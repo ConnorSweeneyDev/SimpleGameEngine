@@ -8,4 +8,4 @@ SET BUILD=build %FLAGS%
 
 SET COMMAND="make %UTILITY% && make %PREPARE% && make %BUILD%"
 IF "%1" == "-wezterm" (wezterm cli spawn --cwd %CD% pwsh -NoExit -Command %COMMAND%)
-IF "%1" == "" (START cmd /K %COMMAND%)
+IF "%1" == "" (cmd /K %COMMAND%)
