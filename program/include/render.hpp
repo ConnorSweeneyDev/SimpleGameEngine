@@ -50,16 +50,16 @@ namespace cse::object
 
     const std::vector<gl::Float> default_quad_vertices = {
       -0.5f, -0.5f, 0.0f, // Bottom left vertex position
-      1.0f,  0.0f,  0.0f, // Bottom left vertex color
+      0.0f,  0.0f,  0.0f, // Bottom left vertex color
       0.0f,  0.0f,        // Bottom left vertex texture coordinates
       0.5f,  -0.5f, 0.0f, // Bottom right vertex position
-      0.0f,  1.0f,  0.0f, // Bottom right vertex color
+      0.0f,  0.0f,  0.0f, // Bottom right vertex color
       1.0f,  0.0f,        // Bottom right vertex texture coordinates
       -0.5f, 0.5f,  0.0f, // Top left vertex position
-      0.0f,  0.0f,  1.0f, // Top left vertex color
+      0.0f,  0.0f,  0.0f, // Top left vertex color
       0.0f,  1.0f,        // Top left vertex texture coordinates
       0.5f,  0.5f,  0.0f, // Top right vertex position
-      1.0f,  0.0f,  0.0f, // Top right vertex color
+      0.0f,  0.0f,  0.0f, // Top right vertex color
       1.0f,  1.0f         // Top right vertex texture coordinates
     };
     const std::vector<gl::Uint> default_quad_indices = {
