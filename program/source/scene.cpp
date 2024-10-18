@@ -1,9 +1,9 @@
 #include "rename.hpp"
 
 #include "camera.hpp"
+#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
-#include "property.hpp"
 #include "scene.hpp"
 
 namespace cse::scene

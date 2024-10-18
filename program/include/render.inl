@@ -13,9 +13,9 @@
 #include "rename.hpp"
 
 #include "camera.hpp"
+#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
-#include "property.hpp"
 #include "render.hpp"
 #include "shader.hpp"
 #include "texture.hpp"

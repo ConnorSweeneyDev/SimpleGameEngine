@@ -7,7 +7,7 @@
 #include "rename.hpp"
 #include "stb_image.h"
 
-#include "property.hpp"
+#include "data.hpp"
 #include "texture.hpp"
 
 namespace cse::object

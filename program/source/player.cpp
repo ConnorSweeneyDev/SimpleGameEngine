@@ -3,8 +3,8 @@
 
 #include "rename.hpp"
 
+#include "data.hpp"
 #include "player.hpp"
-#include "property.hpp"
 
 namespace cse::object
 {
