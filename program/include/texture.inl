@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstddef>
 #include <iostream>
 
 #include "glad.h"
@@ -26,40 +25,28 @@ namespace cse::object
       return;
     }
 
-    if (object->name == "Player 1" || object->name == "Player 2")
+    gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_data.width,
+                     object->texture_data.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+    if (object->name == "Player 1")
     {
-      int offset = 0;
-      int section_width = 50;
-      int section_height = 50;
-      int channels = object->texture_data.channels;
-      unsigned char *source_image_data = image_data + (section_width * offset) * channels;
-      unsigned char *destination_image_data =
-        new unsigned char[(size_t)(section_width * section_height * channels)];
-
-      for (int y = 0; y < section_height; ++y)
-      {
-        for (int x = 0; x < section_width; ++x)
-        {
-          int source_index = (y * object->texture_data.width + x) * channels;
-          int destination_index = (y * section_width + x) * channels;
-
-          destination_image_data[destination_index + 0] = source_image_data[source_index + 0];
-          destination_image_data[destination_index + 1] = source_image_data[source_index + 1];
-          destination_image_data[destination_index + 2] = source_image_data[source_index + 2];
-          destination_image_data[destination_index + 3] = source_image_data[source_index + 3];
-        }
-      }
-
-      gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, section_width, section_height, 0, GL_RGBA,
-                       GL_UNSIGNED_BYTE, destination_image_data);
-      delete[] destination_image_data;
+      const float bottom_right[] = {0.5f, 0.0f};
+      const float top_right[] = {0.5f, 1.0f};
+      glBufferSubData(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                      &bottom_right);
+      glBufferSubData(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_right);
     }
-    else
+    if (object->name == "Player 2")
     {
-      gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_data.width,
-                       object->texture_data.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+      const float bottom_left[] = {0.5f, 0.0f};
+      const float bottom_right[] = {0.0f, 0.0f};
+      const float top_left[] = {0.5f, 1.0f};
+      const float top_right[] = {0.0f, 1.0f};
+      glBufferSubData(GL_ARRAY_BUFFER, 6 * sizeof(gl::Float), 2 * sizeof(gl::Float), &bottom_left);
+      glBufferSubData(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                      &bottom_right);
+      glBufferSubData(GL_ARRAY_BUFFER, 22 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_left);
+      glBufferSubData(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_right);
     }
-
     stbi::image_free(image_data);
     cleanup_load();
   }

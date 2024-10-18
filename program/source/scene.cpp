@@ -26,7 +26,7 @@ namespace cse::scene
         player->initialize(object::Player::Stats{200, 0.005f},
                            object::Transform_data{glm::Vec3(1.5f, -0.2f, 0.0f),
                                                   glm::Vec3(0.0f, 0.0f, 0.0f),
-                                                  glm::Vec3(-1.0f, 1.0f, 1.0f)});
+                                                  glm::Vec3(1.0f, 1.0f, 1.0f)});
       else
         player->initialize(object::Player::Stats{100, 0.01f},
                            object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f),
