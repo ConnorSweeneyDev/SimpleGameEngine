@@ -31,14 +31,13 @@ compile_commands:
 	@for source in $(CC_SOURCE_FILES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CC_FLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMPILE_COMMANDS_FILE)
 	@sed -i "$$ s/,$$//" $(COMPILE_COMMANDS_FILE)
 	@$(ECHO) "]" >> $(COMPILE_COMMANDS_FILE)
-	@$(ECHO) "Write | $(COMPILE_COMMANDS_FILE)"
+	@$(ECHO) "WRITE | $(COMPILE_COMMANDS_FILE)"
 
 clangd:
 	@$(ECHO) "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
-	@$(ECHO) "Write | $(CLANGD_FILE)"
+	@$(ECHO) "WRITE | $(CLANGD_FILE)"
 
-clang-format:
+clang-format: $(TARGET_FORMAT_FILES)
 	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(CLANG_FORMAT_FILE)
-	@$(ECHO) "Write | $(CLANG_FORMAT_FILE)"
-	@for file in $(TARGET_FORMAT_FILES); do clang-format -i $$file; done
-	@$(ECHO) "FMT   | $(TARGET_FORMAT_FILES)"
+	@$(ECHO) "WRITE | $(CLANG_FORMAT_FILE)"
+	@for file in $^; do clang-format -i $$file; $(ECHO) "FMT   | $$file"; done
