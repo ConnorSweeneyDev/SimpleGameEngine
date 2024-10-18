@@ -9,6 +9,14 @@ namespace cse::object
 {
   template <typename Type> using Object_pointer = std::shared_ptr<Type>;
 
+  struct Render_data
+  {
+    gl::Uint vertex_array_object = 0;
+    gl::Uint vertex_buffer_object = 0;
+    gl::Uint index_buffer_object = 0;
+    gl::Uint texture_object = 0;
+    gl::Uint shader_object = 0;
+  };
   struct Transform_data
   {
     glm::Vec3 translation = {};
@@ -26,14 +34,5 @@ namespace cse::object
   {
     const char *vertex_source = nullptr;
     const char *fragment_source = nullptr;
-  };
-
-  struct Render_data
-  {
-    gl::Uint vertex_array_object = 0;
-    gl::Uint vertex_buffer_object = 0;
-    gl::Uint index_buffer_object = 0;
-    gl::Uint texture_object = 0;
-    gl::Uint shader_object = 0;
   };
 }
