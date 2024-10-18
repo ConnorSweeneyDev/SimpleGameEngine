@@ -4,7 +4,7 @@ include make/files.mk
 
 build: $(OUTPUT_FILE)
 prepare: directories $(RESOURCE_SOURCE_FILES)
-utility: compile_commands clang-format clangd
+utility: compile_commands clangd clang-format
 clean: delete
 
 include make/build.mk
