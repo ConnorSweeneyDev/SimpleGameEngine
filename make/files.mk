@@ -1,11 +1,11 @@
 ifeq ($(UNAME), Windows)
   ECHO := echo -e
-  RESOURCE_LOADER := binary/windows/ResourceLoader.exe
+  RESOURCE_GENERATOR := binary/windows/ResourceGenerator.exe
   TARGET_PLATFORM_DIRECTORY := binary/windows
   OUTPUT_FILE := binary/windows/SimpleGameEngine.exe
 else ifeq ($(UNAME), Linux)
   ECHO := echo
-  RESOURCE_LOADER := binary/linux/ResourceLoader.out
+  RESOURCE_GENERATOR := binary/linux/ResourceGenerator.out
   TARGET_PLATFORM_DIRECTORY := binary/linux
   OUTPUT_FILE := binary/linux/SimpleGameEngine.out
 endif

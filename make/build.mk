@@ -4,8 +4,8 @@ directories:
 	@if [ ! -d $(TARGET_PLATFORM_DIRECTORY) ]; then mkdir -p $(TARGET_PLATFORM_DIRECTORY); $(ECHO) "WRITE | $(TARGET_PLATFORM_DIRECTORY)"; fi
 
 $(RESOURCE_SOURCE_FILES): $(SHADER_SOURCE_FILES)
-	@./$(RESOURCE_LOADER) _resource $^ $@
-	@$(ECHO) "LOAD  | $@"
+	@./$(RESOURCE_GENERATOR) _resource $^ $@
+	@$(ECHO) "GEN   | $@"
 
 $(OBJECT_DIRECTORY)/%.o: $(PROGRAM_SOURCE_DIRECTORY)/%.cpp
 	@$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $< -o $@

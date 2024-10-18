@@ -8,9 +8,9 @@ Version information for dependencies can be found in `external/version_info.txt`
 On Windows, the binary will be statically linked to any C++ runtime libraries that are used, but
 dynamically linked to SDL2. On Linux, the binary will be statically linked where possible (libgcc
 and libstdc++) but dynamically linked to everything else. Part of the build process is to use my
-[ResourceLoader](https://github.com/ConnorSweeneyDev/ResourceLoader) to make shaders a part of the
-program rather than needing them present at runtime. It is capable of loading png files aswell but I
-don't want to include those directly into the binary due to the size increase.
+[ResourceGenerator](https://github.com/ConnorSweeneyDev/ResourceGenerator) to make shaders a part of
+the program rather than needing them present at runtime. It is capable of loading png files aswell
+but I don't want to include those directly into the binary due to the size increase.
 
 After following the platform specific instructions below you can execute the `build.bat` file on
 Windows or the `build.sh` file on Linux from the root of the project to build the binary. The
