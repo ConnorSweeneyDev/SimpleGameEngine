@@ -63,48 +63,53 @@ namespace gl
   using Void = GLvoid;
   using Int = GLint;
   using Uint = GLuint;
+  using Boolean = GLboolean;
+  using Char = GLchar;
   using Float = GLfloat;
-  using Size_i = GLsizei;
+  using Sizei = GLsizei;
+  using Intptr = GLintptr;
+  using Sizei_ptr = GLsizeiptr;
   using Enum = GLenum;
 
   Enum get_error(void);
   void enable(Enum cap);
   void disable(Enum cap);
   void blend_func(Enum sfactor, Enum dfactor);
-  void viewport(Int x, Int y, Size_i width, Size_i height);
+  void viewport(Int x, Int y, Sizei width, Sizei height);
   void clear_color(Float red, Float green, Float blue, Float alpha);
   void clear(Enum mask);
   Uint create_shader(Enum type);
-  void shader_source(Uint shader, int count, const char **string, const int *length);
+  void shader_source(Uint shader, Sizei count, const Char *const *string, const Int *length);
   void compile_shader(Uint shader);
-  void get_shaderiv(Uint shader, Enum pname, int *params);
-  void get_shader_info_log(Uint shader, int max_length, int *length, char *info_log);
+  void get_shaderiv(Uint shader, Enum pname, Int *params);
+  void get_shader_info_log(Uint shader, Sizei max_length, Sizei *length, Char *info_log);
   void delete_shader(Uint shader);
   Uint create_program();
   void attach_shader(Uint program, Uint shader);
   void link_program(Uint program);
   void validate_program(Uint program);
-  void gen_vertex_arrays(Size_i n, Uint *arrays);
+  void gen_vertex_arrays(Sizei n, Uint *arrays);
   void bind_vertex_array(Uint array);
-  void gen_buffers(Size_i n, Uint *buffers);
+  void gen_buffers(Sizei n, Uint *buffers);
   void bind_buffer(Enum target, Uint buffer);
-  void buffer_data(Enum target, Size_i size, const void *data, Enum usage);
-  void vertex_attrib_pointer(Uint index, int size, Enum type, bool normalized, Size_i stride,
+  void buffer_data(Enum target, Sizei size, const void *data, Enum usage);
+  void buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, const void *data);
+  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride,
                              const void *pointer);
   void enable_vertex_attrib_array(Uint index);
-  void gen_textures(Size_i n, Uint *textures);
+  void gen_textures(Sizei n, Uint *textures);
   void bind_texture(Enum target, Uint texture);
-  void tex_parameter_i(Enum target, Enum name, int param);
-  void tex_image_2d(Enum target, Int level, Int internal_format, Size_i width, Size_i height,
+  void tex_parameter_i(Enum target, Enum name, Int param);
+  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height,
                     Int border, Enum format, Enum type, const Void *pixels);
   void use_program(Uint program);
-  Int get_uniform_location(Uint program, const char *name);
-  void uniform_matrix_4fv(Int location, Size_i count, bool transpose, const Float *value);
-  void draw_elements(Enum mode, Size_i count, Enum type, const Void *indices);
-  void delete_vertex_arrays(Size_i n, const Uint *arrays);
+  Int get_uniform_location(Uint program, const Char *name);
+  void uniform_matrix_4fv(Int location, Sizei count, Boolean transpose, const Float *value);
+  void draw_elements(Enum mode, Sizei count, Enum type, const Void *indices);
+  void delete_vertex_arrays(Sizei n, const Uint *arrays);
   void disable_vertex_attrib_array(Uint index);
-  void delete_buffers(Size_i n, const Uint *buffers);
-  void delete_textures(Size_i n, const Uint *textures);
+  void delete_buffers(Sizei n, const Uint *buffers);
+  void delete_textures(Sizei n, const Uint *textures);
   void delete_program(Uint program);
 }
 

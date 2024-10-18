@@ -154,7 +154,7 @@ namespace cse::object
     gl::gen_buffers(1, &object->render_data.vertex_buffer_object);
     gl::bind_buffer(GL_ARRAY_BUFFER, object->render_data.vertex_buffer_object);
     gl::buffer_data(GL_ARRAY_BUFFER,
-                    (gl::Size_i)default_quad_vertices.size() * (gl::Size_i)sizeof(gl::Float),
+                    (gl::Sizei)default_quad_vertices.size() * (gl::Sizei)sizeof(gl::Float),
                     default_quad_vertices.data(), GL_STATIC_DRAW);
     gl::vertex_attrib_pointer(0, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)0);
     gl::enable_vertex_attrib_array(0); // Vertex position
@@ -162,7 +162,7 @@ namespace cse::object
     gl::gen_buffers(1, &object->render_data.index_buffer_object);
     gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->render_data.index_buffer_object);
     gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER,
-                    (gl::Size_i)default_quad_indices.size() * (gl::Size_i)sizeof(gl::Float),
+                    (gl::Sizei)default_quad_indices.size() * (gl::Sizei)sizeof(gl::Float),
                     default_quad_indices.data(), GL_STATIC_DRAW);
     gl::vertex_attrib_pointer(1, 3, GL_FLOAT, false, sizeof(gl::Float) * 8,
                               (gl::Void *)(sizeof(gl::Float) * 3));

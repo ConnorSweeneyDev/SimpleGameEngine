@@ -31,9 +31,10 @@ namespace cse::object
     {
       const float bottom_right[] = {0.5f, 0.0f};
       const float top_right[] = {0.5f, 1.0f};
-      glBufferSubData(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
-                      &bottom_right);
-      glBufferSubData(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_right);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &bottom_right);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &top_right);
     }
     if (object->name == "Player 2")
     {
@@ -41,11 +42,14 @@ namespace cse::object
       const float bottom_right[] = {0.0f, 0.0f};
       const float top_left[] = {0.5f, 1.0f};
       const float top_right[] = {0.0f, 1.0f};
-      glBufferSubData(GL_ARRAY_BUFFER, 6 * sizeof(gl::Float), 2 * sizeof(gl::Float), &bottom_left);
-      glBufferSubData(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
-                      &bottom_right);
-      glBufferSubData(GL_ARRAY_BUFFER, 22 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_left);
-      glBufferSubData(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_right);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 6 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &bottom_left);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 14 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &bottom_right);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 22 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &top_left);
+      gl::buffer_sub_data(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float),
+                          &top_right);
     }
     stbi::image_free(image_data);
     cleanup_load();

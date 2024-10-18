@@ -69,20 +69,20 @@ namespace gl
   void enable(Enum cap) { glEnable(cap); }
   void disable(Enum cap) { glDisable(cap); }
   void blend_func(Enum sfactor, Enum dfactor) { glBlendFunc(sfactor, dfactor); }
-  void viewport(Int x, Int y, Size_i width, Size_i height) { glViewport(x, y, width, height); }
+  void viewport(Int x, Int y, Sizei width, Sizei height) { glViewport(x, y, width, height); }
   void clear_color(Float red, Float green, Float blue, Float alpha)
   {
     glClearColor(red, green, blue, alpha);
   }
   void clear(Enum mask) { glClear(mask); }
   Uint create_shader(Enum type) { return glCreateShader(type); }
-  void shader_source(Uint shader, int count, const char **string, const int *length)
+  void shader_source(Uint shader, Sizei count, const Char *const *string, const Int *length)
   {
     glShaderSource(shader, count, string, length);
   }
   void compile_shader(Uint shader) { glCompileShader(shader); }
-  void get_shaderiv(Uint shader, Enum pname, int *params) { glGetShaderiv(shader, pname, params); }
-  void get_shader_info_log(Uint shader, int max_length, int *length, char *info_log)
+  void get_shaderiv(Uint shader, Enum pname, Int *params) { glGetShaderiv(shader, pname, params); }
+  void get_shader_info_log(Uint shader, Sizei max_length, Sizei *length, Char *info_log)
   {
     glGetShaderInfoLog(shader, max_length, length, info_log);
   }
@@ -91,45 +91,49 @@ namespace gl
   void attach_shader(Uint program, Uint shader) { glAttachShader(program, shader); }
   void link_program(Uint program) { glLinkProgram(program); }
   void validate_program(Uint program) { glValidateProgram(program); }
-  void gen_vertex_arrays(Size_i n, Uint *arrays) { glGenVertexArrays(n, arrays); }
+  void gen_vertex_arrays(Sizei n, Uint *arrays) { glGenVertexArrays(n, arrays); }
   void bind_vertex_array(Uint array) { glBindVertexArray(array); }
-  void gen_buffers(Size_i n, Uint *buffers) { glGenBuffers(n, buffers); }
+  void gen_buffers(Sizei n, Uint *buffers) { glGenBuffers(n, buffers); }
   void bind_buffer(Enum target, Uint buffer) { glBindBuffer(target, buffer); }
-  void buffer_data(Enum target, Size_i size, const void *data, Enum usage)
+  void buffer_data(Enum target, Sizei size, const void *data, Enum usage)
   {
     glBufferData(target, size, data, usage);
   }
-  void vertex_attrib_pointer(Uint index, int size, Enum type, bool normalized, Size_i stride,
+  void buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, const void *data)
+  {
+    glBufferSubData(target, offset, size, data);
+  }
+  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride,
                              const void *pointer)
   {
     glVertexAttribPointer(index, size, type, normalized, stride, pointer);
   }
   void enable_vertex_attrib_array(Uint index) { glEnableVertexAttribArray(index); }
-  void gen_textures(Size_i n, Uint *textures) { glGenTextures(n, textures); }
+  void gen_textures(Sizei n, Uint *textures) { glGenTextures(n, textures); }
   void bind_texture(Enum target, Uint texture) { glBindTexture(target, texture); }
-  void tex_parameter_i(Enum target, Enum name, int param) { glTexParameteri(target, name, param); }
-  void tex_image_2d(Enum target, Int level, Int internal_format, Size_i width, Size_i height,
+  void tex_parameter_i(Enum target, Enum name, Int param) { glTexParameteri(target, name, param); }
+  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height,
                     Int border, Enum format, Enum type, const Void *pixels)
   {
     glTexImage2D(target, level, internal_format, width, height, border, format, type, pixels);
   }
   void use_program(Uint program) { glUseProgram(program); }
-  Int get_uniform_location(Uint program, const char *name)
+  Int get_uniform_location(Uint program, const Char *name)
   {
     return glGetUniformLocation(program, name);
   }
-  void uniform_matrix_4fv(Int location, Size_i count, bool transpose, const Float *value)
+  void uniform_matrix_4fv(Int location, Sizei count, Boolean transpose, const Float *value)
   {
     glUniformMatrix4fv(location, count, transpose, value);
   }
-  void draw_elements(Enum mode, Size_i count, Enum type, const Void *indices)
+  void draw_elements(Enum mode, Sizei count, Enum type, const Void *indices)
   {
     glDrawElements(mode, count, type, indices);
   }
-  void delete_vertex_arrays(Size_i n, const Uint *arrays) { glDeleteVertexArrays(n, arrays); }
+  void delete_vertex_arrays(Sizei n, const Uint *arrays) { glDeleteVertexArrays(n, arrays); }
   void disable_vertex_attrib_array(Uint index) { glDisableVertexAttribArray(index); }
-  void delete_buffers(Size_i n, const Uint *buffers) { glDeleteBuffers(n, buffers); }
-  void delete_textures(Size_i n, const Uint *textures) { glDeleteTextures(n, textures); }
+  void delete_buffers(Sizei n, const Uint *buffers) { glDeleteBuffers(n, buffers); }
+  void delete_textures(Sizei n, const Uint *textures) { glDeleteTextures(n, textures); }
   void delete_program(Uint program) { glDeleteProgram(program); }
 }
 
