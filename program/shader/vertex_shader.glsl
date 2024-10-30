@@ -17,6 +17,5 @@ void main()
   vertex_color = color;
   vertex_texture = texture;
 
-  gl_Position =
-    uniform_projection_matrix * uniform_view_matrix * uniform_model_matrix * vec4(position, 1.0f);
+  gl_Position = uniform_projection_matrix * uniform_view_matrix * uniform_model_matrix * vec4(position, 1.0f);
 }

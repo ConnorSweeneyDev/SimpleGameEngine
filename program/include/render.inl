@@ -22,8 +22,7 @@
 
 namespace cse::object
 {
-  template <typename Type, typename Callable>
-  void Render::call_for_all(Callable callable, Call_action action)
+  template <typename Type, typename Callable> void Render::call_for_all(Callable callable, Call_action action)
   {
     if constexpr (std::is_same<Type, void>::value)
     {
@@ -78,8 +77,7 @@ namespace cse::object
   // template function)
   template <typename Type>
   void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
-                                  const Shader_data &shader_data,
-                                  const Transform_data &transform_data)
+                                  const Shader_data &shader_data, const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)
@@ -93,15 +91,14 @@ namespace cse::object
     if constexpr (std::is_same<Type, Player>::value)
     {
       players.erase(std::remove_if(players.begin(), players.end(),
-                                   [&object](const Player_pointer &player)
-                                   { return player == object; }),
+                                   [&object](const Player_pointer &player) { return player == object; }),
                     players.end());
     }
     else if constexpr (std::is_same<Type, Item>::value)
     {
-      items.erase(std::remove_if(items.begin(), items.end(),
-                                 [&object](const Item_pointer &item) { return item == object; }),
-                  items.end());
+      items.erase(
+        std::remove_if(items.begin(), items.end(), [&object](const Item_pointer &item) { return item == object; }),
+        items.end());
     }
     else
       std::cout << "Invalid Type!" << std::endl;
@@ -129,9 +126,8 @@ namespace cse::object
   // specific parameters - will be changed to a different Type later (might not need to be a
   // template function)
   template <typename Type>
-  const Object_pointer<Type>
-  Render::add_dynamic(const std::string &name, const Texture_data &texture_data,
-                      const Shader_data &shader_data, const Transform_data &transform_data)
+  const Object_pointer<Type> Render::add_dynamic(const std::string &name, const Texture_data &texture_data,
+                                                 const Shader_data &shader_data, const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)
     {
@@ -153,19 +149,16 @@ namespace cse::object
 
     gl::gen_buffers(1, &object->render_data.vertex_buffer_object);
     gl::bind_buffer(GL_ARRAY_BUFFER, object->render_data.vertex_buffer_object);
-    gl::buffer_data(GL_ARRAY_BUFFER,
-                    (gl::Sizei)default_quad_vertices.size() * (gl::Sizei)sizeof(gl::Float),
+    gl::buffer_data(GL_ARRAY_BUFFER, (gl::Sizei)default_quad_vertices.size() * (gl::Sizei)sizeof(gl::Float),
                     default_quad_vertices.data(), GL_STATIC_DRAW);
     gl::vertex_attrib_pointer(0, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)0);
     gl::enable_vertex_attrib_array(0); // Vertex position
 
     gl::gen_buffers(1, &object->render_data.index_buffer_object);
     gl::bind_buffer(GL_ELEMENT_ARRAY_BUFFER, object->render_data.index_buffer_object);
-    gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER,
-                    (gl::Sizei)default_quad_indices.size() * (gl::Sizei)sizeof(gl::Float),
+    gl::buffer_data(GL_ELEMENT_ARRAY_BUFFER, (gl::Sizei)default_quad_indices.size() * (gl::Sizei)sizeof(gl::Float),
                     default_quad_indices.data(), GL_STATIC_DRAW);
-    gl::vertex_attrib_pointer(1, 3, GL_FLOAT, false, sizeof(gl::Float) * 8,
-                              (gl::Void *)(sizeof(gl::Float) * 3));
+    gl::vertex_attrib_pointer(1, 3, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)(sizeof(gl::Float) * 3));
     gl::enable_vertex_attrib_array(1); // Vertex color
 
     gl::gen_textures(1, &object->render_data.texture_object);
@@ -174,8 +167,7 @@ namespace cse::object
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     gl::tex_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    gl::vertex_attrib_pointer(2, 2, GL_FLOAT, false, sizeof(gl::Float) * 8,
-                              (gl::Void *)(sizeof(gl::Float) * 6));
+    gl::vertex_attrib_pointer(2, 2, GL_FLOAT, false, sizeof(gl::Float) * 8, (gl::Void *)(sizeof(gl::Float) * 6));
     gl::enable_vertex_attrib_array(2); // Vertex texture coordinates
 
     cleanup_vertices();
@@ -189,8 +181,7 @@ namespace cse::object
     glm::Mat4 projection = camera.matrix_data.projection;
     gl::Int uniform_projection_matrix_location =
       get_uniform_location_by_name(object->render_data.shader_object, "uniform_projection_matrix");
-    gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false,
-                           glm::value_ptr(projection));
+    gl::uniform_matrix_4fv(uniform_projection_matrix_location, 1, false, glm::value_ptr(projection));
 
     camera.update_view_matrix();
     glm::Mat4 view = camera.matrix_data.view;
@@ -199,18 +190,13 @@ namespace cse::object
     gl::uniform_matrix_4fv(uniform_view_matrix_location, 1, false, glm::value_ptr(view));
 
     glm::Mat4 model = glm::Mat4(1.0f);
-    model = glm::translate(model, glm::Vec3(object->transform_data.translation.x,
-                                            object->transform_data.translation.y,
+    model = glm::translate(model, glm::Vec3(object->transform_data.translation.x, object->transform_data.translation.y,
                                             object->transform_data.translation.z));
-    model = glm::rotate(model, glm::radians(object->transform_data.rotation.x),
-                        glm::Vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(object->transform_data.rotation.y),
-                        glm::Vec3(0.0f, 1.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(object->transform_data.rotation.z),
-                        glm::Vec3(0.0f, 0.0f, 1.0f));
-    model =
-      glm::scale(model, glm::Vec3(object->transform_data.scale.x, object->transform_data.scale.y,
-                                  object->transform_data.scale.z));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.x), glm::Vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.y), glm::Vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(object->transform_data.rotation.z), glm::Vec3(0.0f, 0.0f, 1.0f));
+    model = glm::scale(
+      model, glm::Vec3(object->transform_data.scale.x, object->transform_data.scale.y, object->transform_data.scale.z));
     gl::Int uniform_model_matrix_location =
       get_uniform_location_by_name(object->render_data.shader_object, "uniform_model_matrix");
     gl::uniform_matrix_4fv(uniform_model_matrix_location, 1, false, glm::value_ptr(model));

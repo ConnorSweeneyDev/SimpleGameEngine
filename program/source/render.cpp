@@ -7,6 +7,7 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
+#include "timer.hpp"
 #include "window.hpp"
 
 namespace cse::object
@@ -32,6 +33,7 @@ namespace cse::object
 
   void Render::update_all()
   {
+    time::Timer timer("Update all");
     initialize_pre_draw();
     call_for_all([this](auto object) { pre_draw_vertices(object); });
     call_for_all([this](auto object) { draw_vertices(object); });
@@ -40,8 +42,7 @@ namespace cse::object
     sdl::gl_swap_window(system::window.application);
   }
 
-  gl::Int Render::get_uniform_location_by_name(const gl::Uint shader_object,
-                                               const std::string &name)
+  gl::Int Render::get_uniform_location_by_name(const gl::Uint shader_object, const std::string &name)
   {
     gl::Int uniform_location = gl::get_uniform_location(shader_object, name.c_str());
     if (uniform_location <= -1)

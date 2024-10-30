@@ -55,14 +55,8 @@ namespace cse::object
 
       switch (type)
       {
-        case GL_VERTEX_SHADER:
-          std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages;
-          break;
-
-        case GL_FRAGMENT_SHADER:
-          std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages;
-          break;
-
+        case GL_VERTEX_SHADER: std::cout << "GL_VERTEX_SHADER compilation failed!\n" << error_messages; break;
+        case GL_FRAGMENT_SHADER: std::cout << "GL_FRAGMENT_SHADER compilation failed!\n" << error_messages; break;
         default: std::cout << "Invalid shader type!\n" << error_messages; break;
       }
 

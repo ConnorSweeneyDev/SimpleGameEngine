@@ -52,8 +52,7 @@ namespace cse::input
       object::render.initialize_dynamic<object::Item>(
         "Item 1", object::Texture_data{"assets/redhood.png"},
         object::Shader_data{vertex_shader_resource, fragment_shader_resource},
-        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f),
-                               glm::Vec3(1.0f, 1.0f, 1.0f)});
+        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item1 = object::render.get_by_name<object::Item>("Item 1");
     if (item1)
@@ -64,8 +63,7 @@ namespace cse::input
       object::render.initialize_dynamic<object::Item>(
         "Item 2", object::Texture_data{"assets/lamp.png"},
         object::Shader_data{vertex_shader_resource, fragment_shader_resource},
-        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f),
-                               glm::Vec3(1.0f, 1.0f, 1.0f)});
+        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item2 = object::render.get_by_name<object::Item>("Item 2");
     if (item2)

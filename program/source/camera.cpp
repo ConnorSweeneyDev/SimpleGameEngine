@@ -12,9 +12,8 @@ namespace cse::object
   void Camera::update_projection_matrix()
   {
     float window_aspect_ratio = (float)system::window.width / (float)system::window.height;
-    matrix_data.projection =
-      glm::perspective(glm::radians(perspective_data.fov), window_aspect_ratio,
-                       perspective_data.near_clip, perspective_data.far_clip);
+    matrix_data.projection = glm::perspective(glm::radians(perspective_data.fov), window_aspect_ratio,
+                                              perspective_data.near_clip, perspective_data.far_clip);
   }
   void Camera::update_view_matrix()
   {
@@ -31,8 +30,7 @@ namespace cse::object
 
   void Camera::reset_orientation() { orientation_data = *initial_orientation_data; }
 
-  void Camera::initialize(const Perspective_data &i_perspective,
-                          const Orientation_data &i_orientation)
+  void Camera::initialize(const Perspective_data &i_perspective, const Orientation_data &i_orientation)
   {
     perspective_data = i_perspective;
     initial_perspective_data = std::make_unique<const Perspective_data>(perspective_data);

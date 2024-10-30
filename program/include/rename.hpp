@@ -94,14 +94,13 @@ namespace gl
   void bind_buffer(Enum target, Uint buffer);
   void buffer_data(Enum target, Sizei size, const void *data, Enum usage);
   void buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, const void *data);
-  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride,
-                             const void *pointer);
+  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride, const void *pointer);
   void enable_vertex_attrib_array(Uint index);
   void gen_textures(Sizei n, Uint *textures);
   void bind_texture(Enum target, Uint texture);
   void tex_parameter_i(Enum target, Enum name, Int param);
-  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height,
-                    Int border, Enum format, Enum type, const Void *pixels);
+  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height, Int border, Enum format,
+                    Enum type, const Void *pixels);
   void use_program(Uint program);
   Int get_uniform_location(Uint program, const Char *name);
   void uniform_matrix_4fv(Int location, Sizei count, Boolean transpose, const Float *value);
@@ -124,7 +123,6 @@ namespace glm
 namespace stbi
 {
   void set_flip_vertically_on_load(int flag);
-  unsigned char *load(const char *filename, int *width, int *height, int *channels,
-                      int desired_channels);
+  unsigned char *load(const char *filename, int *width, int *height, int *channels, int desired_channels);
   void image_free(void *data);
 }

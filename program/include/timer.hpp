@@ -12,7 +12,7 @@ namespace cse::time
     ~Timer();
 
   private:
-    float microseconds() const;
+    long long microseconds() const;
     float milliseconds() const;
     float seconds() const;
 

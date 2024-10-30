@@ -17,10 +17,7 @@ namespace sdl
   void set_main_ready(void) { SDL_SetMainReady(); }
   int init(Uint32 flags) { return SDL_Init(flags); }
   int get_num_video_displays(void) { return SDL_GetNumVideoDisplays(); }
-  int get_display_bounds(int display_index, Rect *rect)
-  {
-    return SDL_GetDisplayBounds(display_index, rect);
-  }
+  int get_display_bounds(int display_index, Rect *rect) { return SDL_GetDisplayBounds(display_index, rect); }
   int get_desktop_display_mode(int display_index, Display_mode *mode)
   {
     return SDL_GetDesktopDisplayMode(display_index, mode);
@@ -30,18 +27,9 @@ namespace sdl
     return SDL_CreateWindow(title, x, y, w, h, flags);
   }
   void destroy_window(Window *window) { SDL_DestroyWindow(window); }
-  int set_window_fullscreen(Window *window, Uint32 flags)
-  {
-    return SDL_SetWindowFullscreen(window, flags);
-  }
-  void set_window_bordered(Window *window, Bool bordered)
-  {
-    SDL_SetWindowBordered(window, bordered);
-  }
-  void set_window_resizable(Window *window, Bool resizable)
-  {
-    SDL_SetWindowResizable(window, resizable);
-  }
+  int set_window_fullscreen(Window *window, Uint32 flags) { return SDL_SetWindowFullscreen(window, flags); }
+  void set_window_bordered(Window *window, Bool bordered) { SDL_SetWindowBordered(window, bordered); }
+  void set_window_resizable(Window *window, Bool resizable) { SDL_SetWindowResizable(window, resizable); }
   void set_window_size(Window *window, int w, int h) { SDL_SetWindowSize(window, w, h); }
   void set_window_position(Window *window, int x, int y) { SDL_SetWindowPosition(window, x, y); }
   void get_window_position(Window *window, int *x, int *y) { SDL_GetWindowPosition(window, x, y); }
@@ -70,10 +58,7 @@ namespace gl
   void disable(Enum cap) { glDisable(cap); }
   void blend_func(Enum sfactor, Enum dfactor) { glBlendFunc(sfactor, dfactor); }
   void viewport(Int x, Int y, Sizei width, Sizei height) { glViewport(x, y, width, height); }
-  void clear_color(Float red, Float green, Float blue, Float alpha)
-  {
-    glClearColor(red, green, blue, alpha);
-  }
+  void clear_color(Float red, Float green, Float blue, Float alpha) { glClearColor(red, green, blue, alpha); }
   void clear(Enum mask) { glClear(mask); }
   Uint create_shader(Enum type) { return glCreateShader(type); }
   void shader_source(Uint shader, Sizei count, const Char *const *string, const Int *length)
@@ -95,16 +80,12 @@ namespace gl
   void bind_vertex_array(Uint array) { glBindVertexArray(array); }
   void gen_buffers(Sizei n, Uint *buffers) { glGenBuffers(n, buffers); }
   void bind_buffer(Enum target, Uint buffer) { glBindBuffer(target, buffer); }
-  void buffer_data(Enum target, Sizei size, const void *data, Enum usage)
-  {
-    glBufferData(target, size, data, usage);
-  }
+  void buffer_data(Enum target, Sizei size, const void *data, Enum usage) { glBufferData(target, size, data, usage); }
   void buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, const void *data)
   {
     glBufferSubData(target, offset, size, data);
   }
-  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride,
-                             const void *pointer)
+  void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride, const void *pointer)
   {
     glVertexAttribPointer(index, size, type, normalized, stride, pointer);
   }
@@ -112,16 +93,13 @@ namespace gl
   void gen_textures(Sizei n, Uint *textures) { glGenTextures(n, textures); }
   void bind_texture(Enum target, Uint texture) { glBindTexture(target, texture); }
   void tex_parameter_i(Enum target, Enum name, Int param) { glTexParameteri(target, name, param); }
-  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height,
-                    Int border, Enum format, Enum type, const Void *pixels)
+  void tex_image_2d(Enum target, Int level, Int internal_format, Sizei width, Sizei height, Int border, Enum format,
+                    Enum type, const Void *pixels)
   {
     glTexImage2D(target, level, internal_format, width, height, border, format, type, pixels);
   }
   void use_program(Uint program) { glUseProgram(program); }
-  Int get_uniform_location(Uint program, const Char *name)
-  {
-    return glGetUniformLocation(program, name);
-  }
+  Int get_uniform_location(Uint program, const Char *name) { return glGetUniformLocation(program, name); }
   void uniform_matrix_4fv(Int location, Sizei count, Boolean transpose, const Float *value)
   {
     glUniformMatrix4fv(location, count, transpose, value);
@@ -145,8 +123,7 @@ namespace glm
 namespace stbi
 {
   void set_flip_vertically_on_load(int flag) { stbi_set_flip_vertically_on_load(flag); }
-  unsigned char *load(const char *filename, int *width, int *height, int *channels,
-                      int desired_channels)
+  unsigned char *load(const char *filename, int *width, int *height, int *channels, int desired_channels)
   {
     return stbi_load(filename, width, height, channels, desired_channels);
   }
