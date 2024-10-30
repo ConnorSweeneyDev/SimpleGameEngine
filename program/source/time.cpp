@@ -16,6 +16,7 @@ namespace cse::time
     previous = current;
     lag += elapsed;
   }
+
   bool is_behind() { return lag >= target; }
   void catchup() { lag -= target; }
 }
