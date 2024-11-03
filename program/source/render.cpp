@@ -7,7 +7,6 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
-#include "timer.hpp"
 #include "window.hpp"
 
 namespace cse::object
@@ -33,7 +32,6 @@ namespace cse::object
 
   void Render::update_all()
   {
-    time::Timer timer("Update all");
     initialize_pre_draw();
     call_for_all([this](auto object) { pre_draw_vertices(object); });
     call_for_all([this](auto object) { draw_vertices(object); });
