@@ -119,10 +119,3 @@ namespace glm
 
   Mat4 look_at(Vec3 eye, Vec3 center, Vec3 up);
 }
-
-namespace stbi
-{
-  void set_flip_vertically_on_load(int flag);
-  unsigned char *load(const char *filename, int *width, int *height, int *channels, int desired_channels);
-  void image_free(void *data);
-}

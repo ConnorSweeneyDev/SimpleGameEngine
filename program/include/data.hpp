@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <string>
 
 #include "rename.hpp"
 
@@ -25,10 +24,10 @@ namespace cse::object
   };
   struct Texture_data
   {
-    std::string path = "";
     int width = 0;
     int height = 0;
     int channels = 0;
+    const unsigned char *data = nullptr;
   };
   struct Shader_data
   {

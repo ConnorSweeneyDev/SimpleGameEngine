@@ -1,10 +1,7 @@
 #pragma once
 
-#include <iostream>
-
 #include "glad.h"
 #include "rename.hpp"
-#include "stb_image.h"
 
 #include "data.hpp"
 #include "texture.hpp"
@@ -15,17 +12,8 @@ namespace cse::object
   {
     initialize_load(object);
 
-    stbi::set_flip_vertically_on_load(true);
-    unsigned char *image_data = stbi::load(object->texture_data.path.c_str(), &object->texture_data.width,
-                                           &object->texture_data.height, &object->texture_data.channels, 0);
-    if (!image_data)
-    {
-      std::cout << "Failed to load " << object->texture_data.path << "!" << std::endl;
-      return;
-    }
-
     gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_data.width, object->texture_data.height, 0, GL_RGBA,
-                     GL_UNSIGNED_BYTE, image_data);
+                     GL_UNSIGNED_BYTE, object->texture_data.data);
     if (object->name == "Player 1")
     {
       const float bottom_right[] = {0.5f, 0.0f};
@@ -44,7 +32,7 @@ namespace cse::object
       gl::buffer_sub_data(GL_ARRAY_BUFFER, 22 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_left);
       gl::buffer_sub_data(GL_ARRAY_BUFFER, 30 * sizeof(gl::Float), 2 * sizeof(gl::Float), &top_right);
     }
-    stbi::image_free(image_data);
+
     cleanup_load();
   }
 

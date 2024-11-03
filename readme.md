@@ -8,9 +8,9 @@ Version information for dependencies can be found in `external/version_info.txt`
 On Windows, the binary will be statically linked to any C++ runtime libraries that are used, but dynamically linked to
 SDL2. On Linux, the binary will be statically linked where possible (libgcc and libstdc++) but dynamically linked to
 everything else. Part of the build process is to use my
-[ResourceGenerator](https://github.com/ConnorSweeneyDev/ResourceGenerator) to make shaders a part of the program rather
-than needing them present at runtime. It is capable of loading png files aswell but I don't want to include those
-directly into the binary due to the size increase.
+[ResourceGenerator](https://github.com/ConnorSweeneyDev/ResourceGenerator) to make assets such as shaders and textures a
+part of the program rather than needing them present at runtime, with the cost of longer linking times and a larger
+executable.
 
 After following the platform specific instructions below you can execute the `build.bat` file on Windows or the
 `build.sh` file on Linux from the root of the project to build the binary. The outputted binary must be run from the
@@ -75,7 +75,3 @@ Go through the [installation](https://glad.dav1d.de/) for glad/khr to get a zip 
 Go to the [releases](https://github.com/g-truc/glm/releases) page and download the one you want, extract it and replace
 the contents of the `external/include/glm` directory with the contents of the `glm` directory in the extracted folder.
 Make sure to delete the `CMakeLists.txt`, `copying.txt`, `glm.cppm` and `detail/glm.cpp` files as they are not needed.
-
-# Updating stb_image
-Go to the stb_image.h [file](https://github.com/nothings/stb/blob/master/stb_image.h) and download it as a raw file,
-then replace the file in `external/include/stb` directory with that file.

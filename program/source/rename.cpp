@@ -9,7 +9,6 @@
 #include "SDL_video.h"
 #include "ext/matrix_transform.hpp"
 #include "glad.h"
-#include "stb_image.h"
 
 namespace sdl
 {
@@ -118,14 +117,4 @@ namespace gl
 namespace glm
 {
   Mat4 look_at(Vec3 eye, Vec3 center, Vec3 up) { return lookAt(eye, center, up); }
-}
-
-namespace stbi
-{
-  void set_flip_vertically_on_load(int flag) { stbi_set_flip_vertically_on_load(flag); }
-  unsigned char *load(const char *filename, int *width, int *height, int *channels, int desired_channels)
-  {
-    return stbi_load(filename, width, height, channels, desired_channels);
-  }
-  void image_free(void *data) { stbi_image_free(data); }
 }

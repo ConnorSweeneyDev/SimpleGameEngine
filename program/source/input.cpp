@@ -50,7 +50,9 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_9])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 1", object::Texture_data{"assets/redhood.png"},
+        "Item 1",
+        object::Texture_data{redhood_resource_width, redhood_resource_height, redhood_resource_channels,
+                             redhood_resource_data},
         object::Shader_data{vertex_shader_resource, fragment_shader_resource},
         object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
@@ -61,7 +63,8 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_7])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 2", object::Texture_data{"assets/lamp.png"},
+        "Item 2",
+        object::Texture_data{lamp_resource_width, lamp_resource_height, lamp_resource_channels, lamp_resource_data},
         object::Shader_data{vertex_shader_resource, fragment_shader_resource},
         object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
