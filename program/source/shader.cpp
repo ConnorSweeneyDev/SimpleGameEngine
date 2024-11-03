@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <iostream>
 
+#include "data.hpp"
 #include "glad.h"
 #include "rename.hpp"
 
@@ -15,16 +16,14 @@ namespace cse::object
   {
     for (auto &player : players)
     {
-      player->shader_data.vertex_source = vertex_shader_resource;
-      player->shader_data.fragment_source = fragment_shader_resource;
+      player->shader_data = Shader_data{resource::vertex_shader_source, resource::fragment_shader_source};
 
       load(player);
     }
 
     for (auto &item : items)
     {
-      item->shader_data.vertex_source = vertex_shader_resource;
-      item->shader_data.fragment_source = fragment_shader_resource;
+      item->shader_data = Shader_data{resource::vertex_shader_source, resource::fragment_shader_source};
 
       load(item);
     }

@@ -13,7 +13,7 @@ namespace cse::object
     initialize_load(object);
 
     gl::tex_image_2d(GL_TEXTURE_2D, 0, GL_RGBA, object->texture_data.width, object->texture_data.height, 0, GL_RGBA,
-                     GL_UNSIGNED_BYTE, object->texture_data.data);
+                     GL_UNSIGNED_BYTE, object->texture_data.source);
     if (object->name == "Player 1")
     {
       const float bottom_right[] = {0.5f, 0.0f};

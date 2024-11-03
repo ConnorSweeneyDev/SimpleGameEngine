@@ -50,10 +50,8 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_9])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 1",
-        object::Texture_data{redhood_resource_width, redhood_resource_height, redhood_resource_channels,
-                             redhood_resource_data},
-        object::Shader_data{vertex_shader_resource, fragment_shader_resource},
+        "Item 1", resource::redhood_texture_data,
+        object::Shader_data{resource::vertex_shader_source, resource::fragment_shader_source},
         object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item1 = object::render.get_by_name<object::Item>("Item 1");
@@ -63,9 +61,8 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_7])
     {
       object::render.initialize_dynamic<object::Item>(
-        "Item 2",
-        object::Texture_data{lamp_resource_width, lamp_resource_height, lamp_resource_channels, lamp_resource_data},
-        object::Shader_data{vertex_shader_resource, fragment_shader_resource},
+        "Item 2", resource::lamp_texture_data,
+        object::Shader_data{resource::vertex_shader_source, resource::fragment_shader_source},
         object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
     }
     auto item2 = object::render.get_by_name<object::Item>("Item 2");

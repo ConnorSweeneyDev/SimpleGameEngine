@@ -41,9 +41,9 @@ namespace cse::object
     Stats stats = {};
     std::unique_ptr<const Stats> initial_stats = {};
 
-    Render_data render_data = {};
     Transform_data transform_data = {};
     std::unique_ptr<const Transform_data> initial_transform_data = {};
+    Render_data render_data = {};
     Texture_data texture_data = {};
     Shader_data shader_data = {};
   };
