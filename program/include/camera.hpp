@@ -24,9 +24,6 @@ namespace cse::object
       glm::Vec3 up = {};
     };
 
-    void update_projection_matrix();
-    void update_view_matrix();
-
     void move_right(const float speed);
     void move_left(const float speed);
     void move_up(const float speed);
@@ -39,6 +36,9 @@ namespace cse::object
     void initialize(const Perspective_data &i_perspective, const Orientation_data &i_transform);
 
   private:
+    void update_projection_matrix();
+    void update_view_matrix();
+
     Perspective_data perspective_data = {};
     std::unique_ptr<const Perspective_data> initial_perspective_data = {};
     Orientation_data orientation_data = {};

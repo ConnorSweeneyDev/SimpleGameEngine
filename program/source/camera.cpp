@@ -9,18 +9,6 @@
 
 namespace cse::object
 {
-  void Camera::update_projection_matrix()
-  {
-    float window_aspect_ratio = (float)system::window.width / (float)system::window.height;
-    matrix_data.projection = glm::perspective(glm::radians(perspective_data.fov), window_aspect_ratio,
-                                              perspective_data.near_clip, perspective_data.far_clip);
-  }
-  void Camera::update_view_matrix()
-  {
-    glm::Vec3 center = orientation_data.translation + orientation_data.direction;
-    matrix_data.view = glm::look_at(orientation_data.translation, center, orientation_data.up);
-  }
-
   void Camera::move_right(const float speed) { orientation_data.translation.x += speed; }
   void Camera::move_left(const float speed) { orientation_data.translation.x -= speed; }
   void Camera::move_up(const float speed) { orientation_data.translation.y += speed; }
@@ -40,4 +28,17 @@ namespace cse::object
     update_projection_matrix();
     update_view_matrix();
   }
+
+  void Camera::update_projection_matrix()
+  {
+    float window_aspect_ratio = (float)system::window.width / (float)system::window.height;
+    matrix_data.projection = glm::perspective(glm::radians(perspective_data.fov), window_aspect_ratio,
+                                              perspective_data.near_clip, perspective_data.far_clip);
+  }
+  void Camera::update_view_matrix()
+  {
+    glm::Vec3 center = orientation_data.translation + orientation_data.direction;
+    matrix_data.view = glm::look_at(orientation_data.translation, center, orientation_data.up);
+  }
+
 }
