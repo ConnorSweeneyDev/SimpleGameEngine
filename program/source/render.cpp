@@ -7,7 +7,6 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
-#include "time.hpp"
 #include "window.hpp"
 
 namespace cse::object
