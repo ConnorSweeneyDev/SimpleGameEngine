@@ -71,7 +71,7 @@ namespace gl
     glGetShaderInfoLog(shader, max_length, length, info_log);
   }
   void delete_shader(Uint shader) { glDeleteShader(shader); }
-  Uint create_program() { return glCreateProgram(); }
+  Uint create_program(void) { return glCreateProgram(); }
   void attach_shader(Uint program, Uint shader) { glAttachShader(program, shader); }
   void link_program(Uint program) { glLinkProgram(program); }
   void validate_program(Uint program) { glValidateProgram(program); }

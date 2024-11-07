@@ -84,7 +84,7 @@ namespace gl
   void get_shaderiv(Uint shader, Enum pname, Int *params);
   void get_shader_info_log(Uint shader, Sizei max_length, Sizei *length, Char *info_log);
   void delete_shader(Uint shader);
-  Uint create_program();
+  Uint create_program(void);
   void attach_shader(Uint program, Uint shader);
   void link_program(Uint program);
   void validate_program(Uint program);
