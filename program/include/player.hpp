@@ -21,7 +21,10 @@ namespace cse::object
       float speed = 0.0f;
     };
 
+  public:
     Player(const std::string &i_name);
+
+    void initialize(const Stats &i_stats, const Transform_data &i_transform_data);
 
     void move_right();
     void move_left();
@@ -29,13 +32,13 @@ namespace cse::object
     void move_down();
     void move_forward();
     void move_backward();
-
-    void reset_stats();
     void reset_transform();
 
-    void initialize(const Stats &i_stats, const Transform_data &i_transform_data);
+    void reset_stats();
 
+  public:
     std::string name = "";
+    unsigned long long lifetime_frames = 0;
 
   private:
     Stats stats = {};

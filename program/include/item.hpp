@@ -19,7 +19,9 @@ namespace cse::object
 
     void initialize(const Transform_data &i_transform_data);
 
+  public:
     std::string name = "";
+    unsigned long long lifetime_frames = 0;
 
   private:
     Transform_data transform_data = {};

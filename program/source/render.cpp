@@ -1,3 +1,4 @@
+#include <climits>
 #include <iostream>
 #include <string>
 
@@ -7,6 +8,7 @@
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
+#include "texture.hpp"
 #include "window.hpp"
 
 namespace cse::object
@@ -25,19 +27,34 @@ namespace cse::object
     add<Item>("Floor");
   }
 
-  void Render::remove_all()
-  {
-    call_for_all([this](auto object) { cleanup(object); }, Call_action::REMOVE);
-  }
-
   void Render::update_all()
   {
+    call_for_all(
+      [](auto object)
+      {
+        if (object->lifetime_frames % 60 == 0 && object->lifetime_frames != 0)
+        {
+          object->texture_data.current_frame++;
+          if (object->texture_data.current_frame > object->texture_data.total_frames)
+            object->texture_data.current_frame = 1;
+
+          texture.update(object);
+        }
+
+        object->lifetime_frames++;
+        if (object->lifetime_frames == ULLONG_MAX) object->lifetime_frames = 0;
+      });
+
     initialize_pre_draw();
     call_for_all([this](auto object) { pre_draw_vertices(object); });
     call_for_all([this](auto object) { draw_vertices(object); });
     cleanup_draw();
-
     sdl::gl_swap_window(system::window.application);
+  }
+
+  void Render::remove_all()
+  {
+    call_for_all([this](auto object) { cleanup(object); }, Call_action::REMOVE);
   }
 
   gl::Int Render::get_uniform_location_by_name(const gl::Uint shader_object, const std::string &name)

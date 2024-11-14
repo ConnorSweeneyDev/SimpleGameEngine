@@ -2,11 +2,12 @@
 
 namespace cse::system
 {
+  void initialize_sdl();
+  void initialize_glad();
+
   void clear_all_gl_errors();
   void check_gl_error_status(const char *function_name, const char *file_name, const int line_number);
 
-  void initialize_sdl();
-  void initialize_glad();
   void cleanup_sdl();
 
 #define check_gl(function)                                                                                             \

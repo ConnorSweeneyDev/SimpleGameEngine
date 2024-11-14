@@ -23,6 +23,7 @@ namespace cse::time
     float milliseconds() const;
     float seconds() const;
 
+  private:
     std::string name;
     std::chrono::time_point<std::chrono::high_resolution_clock> time;
   };

@@ -18,14 +18,14 @@ namespace cse::object
     {
       player->shader_data = Shader_data{resource::vertex_shader_source, resource::fragment_shader_source};
 
-      load(player);
+      update(player);
     }
 
     for (auto &item : items)
     {
       item->shader_data = Shader_data{resource::vertex_shader_source, resource::fragment_shader_source};
 
-      load(item);
+      update(item);
     }
   }
 

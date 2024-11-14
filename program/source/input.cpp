@@ -46,28 +46,20 @@ namespace cse::input
     if (key_state[SDL_SCANCODE_R]) object::camera.move_backward(0.005f);
     if (key_state[SDL_SCANCODE_SPACE]) object::camera.reset_orientation();
 
-    // Tests for adding and removing objects dynamically
+    // Test for adding and removing an object dynamically
     if (key_state[SDL_SCANCODE_9])
     {
-      object::render.initialize_dynamic<object::Item>(
-        "Item 1", resource::redhood_texture_data,
-        object::Shader_data{resource::vertex_shader_source, resource::fragment_shader_source},
-        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
+      object::Texture_data texture_data = resource::redhood_texture_data;
+      texture_data.total_frames = 2;
+      texture_data.flip_direction = object::Texture_data::Flip_direction::DIAGONAL;
+      object::Shader_data shader_data{resource::vertex_shader_source, resource::fragment_shader_source};
+      object::Transform_data transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f),
+                                            glm::Vec3(1.0f, 1.0f, 1.0f)};
+      object::render.initialize_dynamic<object::Item>("Item 1", texture_data, shader_data, transform_data);
     }
     auto item1 = object::render.get_by_name<object::Item>("Item 1");
     if (item1)
       if (key_state[SDL_SCANCODE_0]) object::render.remove(item1);
-
-    if (key_state[SDL_SCANCODE_7])
-    {
-      object::render.initialize_dynamic<object::Item>(
-        "Item 2", resource::lamp_texture_data,
-        object::Shader_data{resource::vertex_shader_source, resource::fragment_shader_source},
-        object::Transform_data{glm::Vec3(0.0f, 0.0f, 0.0f), glm::Vec3(0.0f, 0.0f, 0.f), glm::Vec3(1.0f, 1.0f, 1.0f)});
-    }
-    auto item2 = object::render.get_by_name<object::Item>("Item 2");
-    if (item2)
-      if (key_state[SDL_SCANCODE_8]) object::render.remove(item2);
 
     auto player1 = object::render.get_by_name<object::Player>("Player 1");
     if (player1)

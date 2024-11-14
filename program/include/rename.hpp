@@ -94,6 +94,7 @@ namespace gl
   void bind_buffer(Enum target, Uint buffer);
   void buffer_data(Enum target, Sizei size, const void *data, Enum usage);
   void buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, const void *data);
+  void get_buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, void *data);
   void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride, const void *pointer);
   void enable_vertex_attrib_array(Uint index);
   void gen_textures(Sizei n, Uint *textures);

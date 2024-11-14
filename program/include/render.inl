@@ -22,6 +22,49 @@
 
 namespace cse::object
 {
+  template <typename Type> const Object_pointer<Type> Render::get_by_name(const std::string &name)
+  {
+    Object_pointer<Type> result = nullptr;
+    call_for_all<Type>(
+      [name, &result](auto object)
+      {
+        if (object->name == name) result = object;
+      });
+
+    return result;
+  }
+
+  // initialize_dynamic only exists for Item, not player due to player's initialize function taking specific parameters
+  // will be changed to a different Type later (might not need to be a template function)
+  template <typename Type>
+  void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
+                                  const Shader_data &shader_data, const Transform_data &transform_data)
+  {
+    if constexpr (std::is_same<Type, Item>::value)
+      if (get_by_name<Item>(name) == nullptr)
+        items.push_back(add_dynamic<Item>(name, texture_data, shader_data, transform_data));
+  }
+
+  template <typename Type> void Render::remove(Object_pointer<Type> &object)
+  {
+    cleanup(object);
+
+    if constexpr (std::is_same<Type, Player>::value)
+    {
+      players.erase(std::remove_if(players.begin(), players.end(),
+                                   [&object](const Player_pointer &player) { return player == object; }),
+                    players.end());
+    }
+    else if constexpr (std::is_same<Type, Item>::value)
+    {
+      items.erase(
+        std::remove_if(items.begin(), items.end(), [&object](const Item_pointer &item) { return item == object; }),
+        items.end());
+    }
+    else
+      std::cout << "Invalid Type!" << std::endl;
+  }
+
   template <typename Type, typename Callable> void Render::call_for_all(Callable callable, Call_action action)
   {
     if constexpr (std::is_same<Type, void>::value)
@@ -60,50 +103,6 @@ namespace cse::object
       std::cout << "Invalid Type!" << std::endl;
   }
 
-  template <typename Type> const Object_pointer<Type> Render::get_by_name(const std::string &name)
-  {
-    Object_pointer<Type> result = nullptr;
-    call_for_all<Type>(
-      [name, &result](auto object)
-      {
-        if (object->name == name) result = object;
-      });
-
-    return result;
-  }
-
-  // initialize_dynamic only exists for Item, not player due to player's initialize function taking
-  // specific parameters - will be changed to a different Type later (might not need to be a
-  // template function)
-  template <typename Type>
-  void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
-                                  const Shader_data &shader_data, const Transform_data &transform_data)
-  {
-    if constexpr (std::is_same<Type, Item>::value)
-      if (get_by_name<Item>(name) == nullptr)
-        items.push_back(add_dynamic<Item>(name, texture_data, shader_data, transform_data));
-  }
-
-  template <typename Type> void Render::remove(Object_pointer<Type> &object)
-  {
-    cleanup(object);
-
-    if constexpr (std::is_same<Type, Player>::value)
-    {
-      players.erase(std::remove_if(players.begin(), players.end(),
-                                   [&object](const Player_pointer &player) { return player == object; }),
-                    players.end());
-    }
-    else if constexpr (std::is_same<Type, Item>::value)
-    {
-      items.erase(
-        std::remove_if(items.begin(), items.end(), [&object](const Item_pointer &item) { return item == object; }),
-        items.end());
-    }
-    else
-      std::cout << "Invalid Type!" << std::endl;
-  }
-
   template <typename Type> const Object_pointer<Type> Render::create(const std::string &name)
   {
     auto object = std::make_shared<Type>(name);
@@ -122,9 +121,8 @@ namespace cse::object
       std::cout << "Invalid Type!" << std::endl;
   }
 
-  // add_dynamic only exists for Item, not player due to player's initialize function taking
-  // specific parameters - will be changed to a different Type later (might not need to be a
-  // template function)
+  // add_dynamic only exists for Item, not player due to player's initialize function taking specific parameters will be
+  // changed to a different Type later (might not need to be a template function)
   template <typename Type>
   const Object_pointer<Type> Render::add_dynamic(const std::string &name, const Texture_data &texture_data,
                                                  const Shader_data &shader_data, const Transform_data &transform_data)
@@ -134,9 +132,9 @@ namespace cse::object
       auto object = create<Type>(name);
       specify_vertices(object);
       object->texture_data = texture_data;
-      texture.load(object);
+      texture.update(object);
       object->shader_data = shader_data;
-      shader.load(object);
+      shader.update(object);
       object->initialize(transform_data);
       return object;
     }

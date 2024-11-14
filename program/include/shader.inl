@@ -8,7 +8,7 @@
 
 namespace cse::object
 {
-  template <typename Type> void Shader::load(Object_pointer<Type> &object)
+  template <typename Type> void Shader::update(Object_pointer<Type> &object)
   {
     gl::Uint shader_object = gl::create_program();
     gl::Uint vertex_shader = compile(GL_VERTEX_SHADER, object->shader_data.vertex_source);

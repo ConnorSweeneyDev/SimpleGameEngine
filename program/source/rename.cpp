@@ -84,6 +84,10 @@ namespace gl
   {
     glBufferSubData(target, offset, size, data);
   }
+  void get_buffer_sub_data(Enum target, Intptr offset, Sizei_ptr size, void *data)
+  {
+    glGetBufferSubData(target, offset, size, data);
+  }
   void vertex_attrib_pointer(Uint index, Int size, Enum type, Boolean normalized, Sizei stride, const void *pointer)
   {
     glVertexAttribPointer(index, size, type, normalized, stride, pointer);

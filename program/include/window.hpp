@@ -9,12 +9,14 @@ namespace cse::system
   class Window
   {
   public:
+    void initialize();
+
     void handle_move();
     void handle_fullscreen();
 
-    void initialize();
     void cleanup();
 
+  public:
     bool should_quit = false;
     int width = 0;
     int height = 0;
@@ -25,10 +27,10 @@ namespace cse::system
     void disable_fullscreen();
     void enable_fullscreen();
 
+  private:
     bool fullscreen = false;
     int display_index = 0;
     std::vector<sdl::Rect> display_bounds;
-
     int position_x = 0;
     int position_y = 0;
     static constexpr int starting_width = 1280;

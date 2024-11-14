@@ -24,31 +24,33 @@ namespace cse::object
       glm::Vec3 up = {};
     };
 
+  private:
+    struct Matrix_data
+    {
+      glm::Mat4 projection = {};
+      glm::Mat4 view = {};
+    };
+
+  public:
+    void initialize(const Perspective_data &i_perspective, const Orientation_data &i_transform);
+
     void move_right(const float speed);
     void move_left(const float speed);
     void move_up(const float speed);
     void move_down(const float speed);
     void move_forward(const float speed);
     void move_backward(const float speed);
-
     void reset_orientation();
-
-    void initialize(const Perspective_data &i_perspective, const Orientation_data &i_transform);
 
   private:
     void update_projection_matrix();
     void update_view_matrix();
 
+  private:
     Perspective_data perspective_data = {};
     std::unique_ptr<const Perspective_data> initial_perspective_data = {};
     Orientation_data orientation_data = {};
     std::unique_ptr<const Orientation_data> initial_orientation_data = {};
-
-    struct Matrix_data
-    {
-      glm::Mat4 projection = {};
-      glm::Mat4 view = {};
-    };
     Matrix_data matrix_data = {};
   };
 

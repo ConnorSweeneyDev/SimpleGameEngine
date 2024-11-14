@@ -10,28 +10,6 @@
 
 namespace cse::system
 {
-  void Window::handle_move()
-  {
-    if (fullscreen) return;
-
-    sdl::get_window_position(application, &position_x, &position_y);
-    display_index = sdl::get_window_display_index(application);
-  }
-
-  void Window::handle_fullscreen()
-  {
-    if (sdl::get_desktop_display_mode(display_index, &display_mode))
-    {
-      std::cout << "Couldn't get desktop display mode: " << sdl::get_error() << std::endl;
-      return;
-    }
-
-    if (fullscreen)
-      disable_fullscreen();
-    else
-      enable_fullscreen();
-  }
-
   void Window::initialize()
   {
     width = starting_width;
@@ -74,6 +52,28 @@ namespace cse::system
       exit(1);
     }
     if (fullscreen) enable_fullscreen();
+  }
+
+  void Window::handle_move()
+  {
+    if (fullscreen) return;
+
+    sdl::get_window_position(application, &position_x, &position_y);
+    display_index = sdl::get_window_display_index(application);
+  }
+
+  void Window::handle_fullscreen()
+  {
+    if (sdl::get_desktop_display_mode(display_index, &display_mode))
+    {
+      std::cout << "Couldn't get desktop display mode: " << sdl::get_error() << std::endl;
+      return;
+    }
+
+    if (fullscreen)
+      disable_fullscreen();
+    else
+      enable_fullscreen();
   }
 
   void Window::cleanup()
