@@ -38,7 +38,6 @@ namespace cse::object
 
   public:
     std::string name = "";
-    unsigned long long lifetime_frames = 0;
 
   private:
     Stats stats = {};
@@ -49,6 +48,7 @@ namespace cse::object
     Render_data render_data = {};
     Texture_data texture_data = {};
     Shader_data shader_data = {};
+    unsigned long long lifetime_frames = 0;
   };
 
   using Player_pointer = Object_pointer<Player>;
