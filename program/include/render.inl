@@ -19,6 +19,7 @@
 #include "render.hpp"
 #include "shader.hpp"
 #include "texture.hpp"
+#include "utility.hpp"
 
 namespace cse::object
 {
@@ -60,44 +61,6 @@ namespace cse::object
       items.erase(
         std::remove_if(items.begin(), items.end(), [&object](const Item_pointer &item) { return item == object; }),
         items.end());
-    }
-    else
-      std::cout << "Invalid Type!" << std::endl;
-  }
-
-  template <typename Type, typename Callable> void Render::call_for_all(Callable callable, Call_action action)
-  {
-    if constexpr (std::is_same<Type, void>::value)
-    {
-      for (auto &player : players) callable(player);
-      for (auto &item : items) callable(item);
-      switch (action)
-      {
-        case Call_action::REMOVE:
-          players.clear();
-          items.clear();
-          break;
-
-        default: break;
-      }
-    }
-    else if constexpr (std::is_same<Type, Player>::value)
-    {
-      for (auto &player : players) callable(player);
-      switch (action)
-      {
-        case Call_action::REMOVE: players.clear(); break;
-        default: break;
-      }
-    }
-    else if constexpr (std::is_same<Type, Item>::value)
-    {
-      for (auto &item : items) callable(item);
-      switch (action)
-      {
-        case Call_action::REMOVE: items.clear(); break;
-        default: break;
-      }
     }
     else
       std::cout << "Invalid Type!" << std::endl;

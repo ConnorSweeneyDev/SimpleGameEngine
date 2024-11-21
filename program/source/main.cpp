@@ -45,6 +45,7 @@ void play_game()
     while (cse::time::is_behind())
     {
       cse::input::read(); // Go here to set keybindings
+      cse::object::texture.update_all();
       cse::time::catchup();
     }
     cse::object::render.update_all();

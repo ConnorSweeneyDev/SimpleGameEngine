@@ -9,6 +9,7 @@
 #include "player.hpp"
 #include "render.hpp"
 #include "texture.hpp"
+#include "utility.hpp"
 #include "window.hpp"
 
 namespace cse::object
@@ -29,22 +30,7 @@ namespace cse::object
 
   void Render::update_all()
   {
-    call_for_all(
-      [](auto object)
-      {
-        if (object->lifetime_frames % 60 == 0 && object->lifetime_frames != 0)
-        {
-          object->texture_data.current_frame++;
-          if (object->texture_data.current_frame > object->texture_data.total_frames)
-            object->texture_data.current_frame = 1;
-
-          texture.update(object);
-        }
-
-        object->lifetime_frames++;
-        if (object->lifetime_frames == ULLONG_MAX) object->lifetime_frames = 0;
-      });
-
+    call_for_all([](auto object) { texture.update(object); });
     initialize_pre_draw();
     call_for_all([this](auto object) { pre_draw_vertices(object); });
     call_for_all([this](auto object) { draw_vertices(object); });

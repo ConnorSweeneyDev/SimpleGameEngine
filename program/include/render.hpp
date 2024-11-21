@@ -11,13 +11,6 @@ namespace cse::object
 {
   class Render
   {
-  private:
-    enum struct Call_action
-    {
-      NONE,
-      REMOVE
-    };
-
   public:
     void initialize();
 
@@ -31,9 +24,6 @@ namespace cse::object
     void remove_all();
 
   private:
-    template <typename Type = void, typename Callable>
-    void call_for_all(Callable callable, const Call_action action = Call_action::NONE);
-
     template <typename Type> const Object_pointer<Type> create(const std::string &name);
     template <typename Type> void add(const std::string &name);
     template <typename Type>

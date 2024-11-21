@@ -1,3 +1,4 @@
+#include <climits>
 #include <utility>
 
 #include "glad.h"
@@ -8,6 +9,7 @@
 #include "player.hpp"
 #include "resource.hpp"
 #include "texture.hpp"
+#include "utility.hpp"
 
 namespace cse::object
 {
@@ -49,6 +51,22 @@ namespace cse::object
 
       update(item);
     }
+  }
+
+  void Texture::update_all()
+  {
+    call_for_all(
+      [](auto object)
+      {
+        if (object->lifetime_frames % 60 == 0 && object->lifetime_frames != 0)
+        {
+          object->texture_data.current_frame++;
+          if (object->texture_data.current_frame > object->texture_data.total_frames)
+            object->texture_data.current_frame = 1;
+        }
+        object->lifetime_frames++;
+        if (object->lifetime_frames == ULLONG_MAX) object->lifetime_frames = 0;
+      });
   }
 
   void Texture::flip_frame(const Texture_data::Flip_direction direction)

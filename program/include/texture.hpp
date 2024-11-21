@@ -9,6 +9,7 @@ namespace cse::object
   public:
     void initialize();
     template <typename Type> void update(Object_pointer<Type> &object);
+    void update_all();
 
   private:
     template <typename Type> void initialize_buffers(Object_pointer<Type> &object);
