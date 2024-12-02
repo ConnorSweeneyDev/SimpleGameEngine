@@ -1,10 +1,8 @@
 ifeq ($(UNAME), Windows)
-  ECHO := echo -e
   RESOURCE_GENERATOR := binary/windows/ResourceGenerator.exe
   BINARY_PLATFORM_DIRECTORY := binary/windows
   OUTPUT_FILE := $(BINARY_PLATFORM_DIRECTORY)/SimpleGameEngine.exe
 else ifeq ($(UNAME), Linux)
-  ECHO := echo
   RESOURCE_GENERATOR := binary/linux/ResourceGenerator.out
   BINARY_PLATFORM_DIRECTORY := binary/linux
   OUTPUT_FILE := $(BINARY_PLATFORM_DIRECTORY)/SimpleGameEngine.out

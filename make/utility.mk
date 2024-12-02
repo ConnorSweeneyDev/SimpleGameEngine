@@ -28,18 +28,18 @@ INCLUDE_FORMAT_FILES := $(CPP_SOURCE_FILES) $(HPP_SOURCE_FILES) $(INL_SOURCE_FIL
 TARGET_FORMAT_FILES := $(filter-out $(EXCLUDE_FORMAT_FILES), $(INCLUDE_FORMAT_FILES))
 
 compile_commands:
-	@$(ECHO) "[" > $(COMPILE_COMMANDS_FILE)
-	@for source in $(CPP_SOURCE_FILES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(BINARY_OBJECT_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMPILE_COMMANDS_FILE)
-	@for source in $(CC_SOURCE_FILES); do $(ECHO) "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CC_FLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(BINARY_OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMPILE_COMMANDS_FILE)
+	@echo "[" > $(COMPILE_COMMANDS_FILE)
+	@for source in $(CPP_SOURCE_FILES); do echo -e "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CXX) $(CXX_FLAGS) $(WARNINGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(BINARY_OBJECT_DIRECTORY)/$$(basename $$source .cpp).o\", \"file\": \"$$source\" },"; done >> $(COMPILE_COMMANDS_FILE)
+	@for source in $(CC_SOURCE_FILES); do echo -e "\t{ \"directory\": \"$(CURDIR)\", \"command\": \"$(CC) $(CC_FLAGS) $(INCLUDES) $(SYSTEM_INCLUDES) -c $$source -o $(BINARY_OBJECT_DIRECTORY)/$$(basename $$source .c).o\", \"file\": \"$$source\" },"; done >> $(COMPILE_COMMANDS_FILE)
 	@sed -i "$$ s/,$$//" $(COMPILE_COMMANDS_FILE)
-	@$(ECHO) "]" >> $(COMPILE_COMMANDS_FILE)
-	@$(ECHO) "WRITE | $(COMPILE_COMMANDS_FILE)"
+	@echo "]" >> $(COMPILE_COMMANDS_FILE)
+	@echo "WRITE | $(COMPILE_COMMANDS_FILE)"
 
 clangd:
-	@$(ECHO) "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
-	@$(ECHO) "WRITE | $(CLANGD_FILE)"
+	@echo -e "Diagnostics:\n  $(UNUSED_INCLUDES)\n  $(MISSING_INCLUDES)\n  Includes:\n    $(IGNORE_HEADERS)" > $(CLANGD_FILE)
+	@echo "WRITE | $(CLANGD_FILE)"
 
 clang-format: $(TARGET_FORMAT_FILES)
-	@$(ECHO) "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(CLANG_FORMAT_FILE)
-	@$(ECHO) "WRITE | $(CLANG_FORMAT_FILE)"
-	@for file in $^; do clang-format -i $$file; $(ECHO) "FMT   | $$file"; done
+	@echo -e "---\n$(STYLE)\n$(TAB_WIDTH)\n$(INITIALIZER_WIDTH)\n$(CONTINUATION_WIDTH)\n$(BRACES)\n---\n$(LANGUAGE)\n$(LIMIT)\n$(BLOCKS)\n$(FUNCTIONS)\n$(IFS)\n$(LOOPS)\n$(CASE_LABELS)\n$(PP_DIRECTIVES)\n$(NAMESPACE_INDENTATION)\n$(NAMESPACE_COMMENTS)\n$(INDENT_CASE_LABELS)\n$(BREAK_TEMPLATE_DECLARATIONS)\n..." > $(CLANG_FORMAT_FILE)
+	@echo "WRITE | $(CLANG_FORMAT_FILE)"
+	@for file in $^; do clang-format -i $$file; echo "FMT   | $$file"; done
