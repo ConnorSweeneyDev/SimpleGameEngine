@@ -1,6 +1,0 @@
-@ECHO OFF
-
-SET FLAGS=-s -f "make/main.mk" DELETE_RESOURCE_SOURCE_FILES=0
-SET CLEAN=clean %FLAGS%
-
-make %CLEAN%
