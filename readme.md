@@ -18,7 +18,8 @@ from the root of the project to build and run the project.
 ### Windows
 Do the following to ensure your environment is set up correctly:
 - Download a 64-bit [MinGW](https://winlibs.com/) distribution with Clang/LLVM support and put the `[DISTRIBUTION]/bin`
-  directory in your path. Rename the `mingw32-make.exe` file in that directory to `make.exe` if you haven't already.
+  directory in your path.
+- Install GNUMake by running `winget install ezwinports.make`.
 - Ensure that you have `[GIT_INSTALLATION]/bin` in your path.
 
 ### Linux
