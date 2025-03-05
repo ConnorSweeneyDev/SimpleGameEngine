@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "data.hpp"
+#include "item.hpp"
 
 namespace cse::object
 {

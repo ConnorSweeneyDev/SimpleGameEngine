@@ -5,11 +5,11 @@
 #include "glad.h"
 #include "rename.hpp"
 
+#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"
 #include "texture.hpp"
-#include "utility.hpp"
 #include "window.hpp"
 
 namespace cse::object

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <type_traits>
 
+#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
-#include "utility.hpp"
 
 namespace cse::object
 {
@@ -45,5 +46,17 @@ namespace cse::object
     }
     else
       std::cout << "Invalid Type!" << std::endl;
+  }
+
+  template <typename Type> const Object_pointer<Type> get_by_name(const std::string &name)
+  {
+    Object_pointer<Type> result = nullptr;
+    call_for_all<Type>(
+      [name, &result](auto object)
+      {
+        if (object->name == name) result = object;
+      });
+
+    return result;
   }
 }

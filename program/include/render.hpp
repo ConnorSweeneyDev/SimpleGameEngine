@@ -14,7 +14,6 @@ namespace cse::object
   public:
     void initialize();
 
-    template <typename Type> const Object_pointer<Type> get_by_name(const std::string &name);
     template <typename Type>
     void initialize_dynamic(const std::string &name, const Texture_data &texture_data, const Shader_data &shader_data,
                             const Transform_data &transform_data);

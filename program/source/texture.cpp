@@ -9,7 +9,6 @@
 #include "player.hpp"
 #include "resource.hpp"
 #include "texture.hpp"
-#include "utility.hpp"
 
 namespace cse::object
 {

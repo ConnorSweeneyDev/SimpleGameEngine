@@ -19,22 +19,9 @@
 #include "render.hpp"
 #include "shader.hpp"
 #include "texture.hpp"
-#include "utility.hpp"
 
 namespace cse::object
 {
-  template <typename Type> const Object_pointer<Type> Render::get_by_name(const std::string &name)
-  {
-    Object_pointer<Type> result = nullptr;
-    call_for_all<Type>(
-      [name, &result](auto object)
-      {
-        if (object->name == name) result = object;
-      });
-
-    return result;
-  }
-
   // initialize_dynamic only exists for Item, not player due to player's initialize function taking specific parameters
   // will be changed to a different Type later (might not need to be a template function)
   template <typename Type>

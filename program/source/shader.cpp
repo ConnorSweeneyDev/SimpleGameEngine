@@ -1,10 +1,10 @@
 #include <cstddef>
 #include <iostream>
 
-#include "data.hpp"
 #include "glad.h"
 #include "rename.hpp"
 
+#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
 #include "resource.hpp"

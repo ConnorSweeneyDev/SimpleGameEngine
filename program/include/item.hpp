@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "data.hpp"
+#include "player.hpp"
 
 namespace cse::object
 {
