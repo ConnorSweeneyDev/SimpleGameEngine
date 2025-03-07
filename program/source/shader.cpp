@@ -4,8 +4,8 @@
 #include "glad.h"
 #include "rename.hpp"
 
-#include "data.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "resource.hpp"
 #include "shader.hpp"

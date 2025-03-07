@@ -4,9 +4,10 @@
 #include "glad.h"
 #include "rename.hpp"
 
-#include "data.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
+#include "render.hpp"
 #include "resource.hpp"
 #include "texture.hpp"
 
@@ -54,7 +55,7 @@ namespace cse::object
 
   void Texture::update_all()
   {
-    call_for_all(
+    render.call_for_all(
       [](auto object)
       {
         if (object->lifetime_frames % 60 == 0 && object->lifetime_frames != 0)

@@ -4,9 +4,9 @@
 #include "rename.hpp"
 
 #include "camera.hpp"
-#include "data.hpp"
 #include "input.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "render.hpp"
 #include "resource.hpp"
@@ -57,11 +57,11 @@ namespace cse::input
                                             glm::Vec3(1.0f, 1.0f, 1.0f)};
       object::render.initialize_dynamic<object::Item>("Item 1", texture_data, shader_data, transform_data);
     }
-    auto item1 = object::get_by_name<object::Item>("Item 1");
+    auto item1 = object::render.get_by_name<object::Item>("Item 1");
     if (item1)
       if (key_state[SDL_SCANCODE_0]) object::render.remove(item1);
 
-    auto player1 = object::get_by_name<object::Player>("Player 1");
+    auto player1 = object::render.get_by_name<object::Player>("Player 1");
     if (player1)
     {
       if (key_state[SDL_SCANCODE_D]) player1->move_right();
@@ -73,7 +73,7 @@ namespace cse::input
       if (key_state[SDL_SCANCODE_SPACE]) player1->reset_transform();
     }
 
-    auto player2 = object::get_by_name<object::Player>("Player 2");
+    auto player2 = object::render.get_by_name<object::Player>("Player 2");
     if (player2)
     {
       if (key_state[SDL_SCANCODE_L]) player2->move_right();

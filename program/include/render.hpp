@@ -5,14 +5,25 @@
 
 #include "rename.hpp"
 
-#include "data.hpp"
+#include "object.hpp"
 
 namespace cse::object
 {
   class Render
   {
   public:
+    enum struct Call_action
+    {
+      NONE,
+      REMOVE
+    };
+
+  public:
     void initialize();
+
+    template <typename Type = void, typename Callable>
+    void call_for_all(Callable callable, const Call_action action = Call_action::NONE);
+    template <typename Type> const Object_pointer<Type> get_by_name(const std::string &name);
 
     template <typename Type>
     void initialize_dynamic(const std::string &name, const Texture_data &texture_data, const Shader_data &shader_data,

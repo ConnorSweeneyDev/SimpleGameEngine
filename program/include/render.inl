@@ -13,8 +13,8 @@
 #include "rename.hpp"
 
 #include "camera.hpp"
-#include "data.hpp"
 #include "item.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "render.hpp"
 #include "shader.hpp"
@@ -22,6 +22,56 @@
 
 namespace cse::object
 {
+  template <typename Type, typename Callable> void Render::call_for_all(Callable callable, Call_action action)
+  {
+    if constexpr (std::is_same<Type, void>::value)
+    {
+      for (auto &player : players) callable(player);
+      for (auto &item : items) callable(item);
+      switch (action)
+      {
+        case Call_action::REMOVE:
+          players.clear();
+          items.clear();
+          break;
+
+        default: break;
+      }
+    }
+    else if constexpr (std::is_same<Type, Player>::value)
+    {
+      for (auto &player : players) callable(player);
+      switch (action)
+      {
+        case Call_action::REMOVE: players.clear(); break;
+        default: break;
+      }
+    }
+    else if constexpr (std::is_same<Type, Item>::value)
+    {
+      for (auto &item : items) callable(item);
+      switch (action)
+      {
+        case Call_action::REMOVE: items.clear(); break;
+        default: break;
+      }
+    }
+    else
+      std::cout << "Invalid Type!" << std::endl;
+  }
+
+  template <typename Type> const Object_pointer<Type> Render::get_by_name(const std::string &name)
+  {
+    Object_pointer<Type> result = nullptr;
+    call_for_all<Type>(
+      [name, &result](auto object)
+      {
+        if (object->name == name) result = object;
+      });
+
+    return result;
+  }
+
   // initialize_dynamic only exists for Item, not player due to player's initialize function taking specific parameters
   // will be changed to a different Type later (might not need to be a template function)
   template <typename Type>

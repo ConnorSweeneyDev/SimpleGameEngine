@@ -1,22 +1,12 @@
 #pragma once
 
 #include <memory>
-#include <string>
 
 #include "rename.hpp"
 
 namespace cse::object
 {
   template <typename Type> using Object_pointer = std::shared_ptr<Type>;
-
-  enum struct Call_action
-  {
-    NONE,
-    REMOVE
-  };
-  template <typename Type = void, typename Callable>
-  void call_for_all(Callable callable, const Call_action action = Call_action::NONE);
-  template <typename Type> const Object_pointer<Type> get_by_name(const std::string &name);
 
   struct Transform_data
   {
@@ -59,5 +49,3 @@ namespace cse::object
     const char *fragment_source = nullptr;
   };
 }
-
-#include "data.inl"

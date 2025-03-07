@@ -5,7 +5,6 @@
 #include "glad.h"
 #include "rename.hpp"
 
-#include "data.hpp"
 #include "item.hpp"
 #include "player.hpp"
 #include "render.hpp"

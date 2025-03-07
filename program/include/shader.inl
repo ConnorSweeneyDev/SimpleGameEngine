@@ -3,7 +3,7 @@
 #include "glad.h"
 #include "rename.hpp"
 
-#include "data.hpp"
+#include "object.hpp"
 #include "shader.hpp"
 
 namespace cse::object
