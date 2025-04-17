@@ -9,13 +9,7 @@
 
 # Generated Clangd Files
 compile_commands.json
-.clangd
-.clang-format
 .cache
-
-# Generated Resource Files
-resource.hpp
-resource.cpp
 
 # Precompiled Headers
 *.gch
@@ -28,6 +22,9 @@ resource.cpp
 *.mod
 *.smod
 
-# Executables
-SimpleGameEngine.exe
-SimpleGameEngine.out
+# Build Output
+build/
+
+# Executable Output
+resource.hpp
+resource.cpp

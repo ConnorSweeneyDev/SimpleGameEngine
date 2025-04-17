@@ -1,0 +1,20 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 2
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+BreakBeforeBraces: Allman
+---
+Language: Cpp
+ColumnLimit: 120
+AllowShortBlocksOnASingleLine: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+IndentPPDirectives: BeforeHash
+NamespaceIndentation: All
+FixNamespaceComments: false
+IndentCaseLabels: true
+AlwaysBreakTemplateDeclarations: false
+---
