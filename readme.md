@@ -23,7 +23,7 @@ Do the following to ensure your environment is set up correctly:
   environment variables if you don't (for language server and clang-format support).
 
 ### Linux
-Do the following on Ubuntu 18.04 to ensure your environment is set up correctly:
+Do the following on Ubuntu 22.04 to ensure your environment is set up correctly:
 - Only run `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list` if you haven't already.
 - Run `sudo apt update && sudo apt upgrade`.
 - Run `sudo apt build-dep libsdl2-dev`.
