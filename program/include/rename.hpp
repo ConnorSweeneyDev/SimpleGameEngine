@@ -7,9 +7,9 @@
 #include "SDL_rect.h"
 #include "SDL_stdinc.h"
 #include "SDL_video.h"
-#include "ext/matrix_float4x4.hpp"
-#include "ext/vector_float3.hpp"
 #include "glad.h"
+#include "glm/ext/matrix_float4x4.hpp"
+#include "glm/ext/vector_float3.hpp"
 
 namespace sdl
 {

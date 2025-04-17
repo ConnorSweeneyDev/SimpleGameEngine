@@ -1,3 +1,5 @@
+#include "system.hpp"
+
 #include <cstdlib>
 #include <iostream>
 
@@ -5,8 +7,6 @@
 #include "SDL_video.h"
 #include "glad.h"
 #include "rename.hpp"
-
-#include "system.hpp"
 
 namespace cse::system
 {

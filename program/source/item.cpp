@@ -1,7 +1,8 @@
+#include "item.hpp"
+
 #include <memory>
 #include <string>
 
-#include "item.hpp"
 #include "object.hpp"
 
 namespace cse::object

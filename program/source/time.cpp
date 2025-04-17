@@ -1,10 +1,10 @@
+#include "time.hpp"
+
 #include <chrono>
 #include <iostream>
 #include <string>
 
 #include "rename.hpp"
-
-#include "time.hpp"
 
 namespace cse::time
 {

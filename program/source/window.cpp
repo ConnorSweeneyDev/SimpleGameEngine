@@ -1,3 +1,5 @@
+#include "window.hpp"
+
 #include <cstdlib>
 #include <iostream>
 #include <utility>
@@ -5,8 +7,6 @@
 #include "SDL_stdinc.h"
 #include "SDL_video.h"
 #include "rename.hpp"
-
-#include "window.hpp"
 
 namespace cse::system
 {

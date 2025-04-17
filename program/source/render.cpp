@@ -1,3 +1,5 @@
+#include "render.hpp"
+
 #include <iostream>
 #include <string>
 
@@ -6,7 +8,6 @@
 
 #include "item.hpp"
 #include "player.hpp"
-#include "render.hpp"
 #include "texture.hpp"
 #include "window.hpp"
 

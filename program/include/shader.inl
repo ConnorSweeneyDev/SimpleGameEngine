@@ -1,10 +1,11 @@
 #pragma once
 
+#include "shader.hpp"
+
 #include "glad.h"
 #include "rename.hpp"
 
 #include "object.hpp"
-#include "shader.hpp"
 
 namespace cse::object
 {

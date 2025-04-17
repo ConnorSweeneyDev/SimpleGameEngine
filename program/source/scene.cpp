@@ -1,10 +1,11 @@
+#include "scene.hpp"
+
 #include "rename.hpp"
 
 #include "camera.hpp"
 #include "item.hpp"
 #include "object.hpp"
 #include "player.hpp"
-#include "scene.hpp"
 
 namespace cse::scene
 {

@@ -1,10 +1,11 @@
+#include "input.hpp"
+
 #include "SDL_events.h"
 #include "SDL_scancode.h"
 #include "SDL_video.h"
 #include "rename.hpp"
 
 #include "camera.hpp"
-#include "input.hpp"
 #include "item.hpp"
 #include "object.hpp"
 #include "player.hpp"

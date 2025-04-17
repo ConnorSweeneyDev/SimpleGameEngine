@@ -1,10 +1,11 @@
+#include "camera.hpp"
+
 #include <memory>
 
-#include "ext/matrix_clip_space.hpp"
+#include "glm/ext/matrix_clip_space.hpp"
+#include "glm/trigonometric.hpp"
 #include "rename.hpp"
-#include "trigonometric.hpp"
 
-#include "camera.hpp"
 #include "window.hpp"
 
 namespace cse::object

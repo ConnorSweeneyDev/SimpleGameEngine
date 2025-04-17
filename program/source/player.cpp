@@ -1,10 +1,11 @@
+#include "player.hpp"
+
 #include <memory>
 #include <string>
 
 #include "rename.hpp"
 
 #include "object.hpp"
-#include "player.hpp"
 
 namespace cse::object
 {

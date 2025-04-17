@@ -1,3 +1,5 @@
+#include "texture.hpp"
+
 #include <climits>
 #include <utility>
 
@@ -9,7 +11,6 @@
 #include "player.hpp"
 #include "render.hpp"
 #include "resource.hpp"
-#include "texture.hpp"
 
 namespace cse::object
 {

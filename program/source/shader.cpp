@@ -1,3 +1,5 @@
+#include "shader.hpp"
+
 #include <cstddef>
 #include <iostream>
 
@@ -8,7 +10,6 @@
 #include "object.hpp"
 #include "player.hpp"
 #include "resource.hpp"
-#include "shader.hpp"
 
 namespace cse::object
 {

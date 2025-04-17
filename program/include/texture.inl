@@ -1,10 +1,11 @@
 #pragma once
 
+#include "texture.hpp"
+
 #include "glad.h"
 #include "rename.hpp"
 
 #include "object.hpp"
-#include "texture.hpp"
 
 namespace cse::object
 {

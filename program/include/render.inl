@@ -1,5 +1,7 @@
 #pragma once
 
+#include "render.hpp"
+
 #include <algorithm>
 #include <iostream>
 #include <memory>
@@ -7,16 +9,15 @@
 #include <type_traits>
 #include <vector>
 
-#include "ext/matrix_transform.hpp"
 #include "glad.h"
-#include "gtc/type_ptr.hpp"
+#include "glm/ext/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include "rename.hpp"
 
 #include "camera.hpp"
 #include "item.hpp"
 #include "object.hpp"
 #include "player.hpp"
-#include "render.hpp"
 #include "shader.hpp"
 #include "texture.hpp"
 
