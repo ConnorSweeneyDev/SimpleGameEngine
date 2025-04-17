@@ -24,10 +24,16 @@ Do the following to ensure your environment is set up correctly:
 
 ### Linux
 Do the following on Ubuntu 18.04 to ensure your environment is set up correctly:
-- Only run `sudo apt update && sudo apt upgrade` if you haven't already.
-- Run `sudo apt install cmake llvm clang-format`.
+- Only run `sudo sed -i~orig -e 's/# deb-src/deb-src/' /etc/apt/sources.list` if you haven't already.
+- Run `sudo apt update && sudo apt upgrade`.
+- Run `sudo apt build-dep libsdl2-dev`.
+- Run `sudo apt install llvm clang-format`.
+- Run `mkdir ~/temp_cmake && cd ~/temp_cmake && wget https://cmake.org/files/v4.0/cmake-4.0.1-linux-x86_64.sh && sudo
+  mkdir /opt/cmake && sudo sh cmake-4.0.1-linux-x86_64.sh --prefix=/opt/cmake && sudo ln -s
+  /opt/cmake/cmake-4.0.1-linux-x86_64/bin/cmake /usr/local/bin/cmake && cd ~ && rm -rf temp_cmake` and say yes to
+  everything.
 
-After building you can do the following to run the binary:
+After building you can do the following to ensure you can run the binary:
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window manager.
 
 # Updating Libraries
