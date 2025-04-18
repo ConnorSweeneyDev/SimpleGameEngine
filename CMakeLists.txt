@@ -56,8 +56,8 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   set(LINKER_FLAGS "-static-libgcc" "-static-libstdc++")
 endif()
 set(PROGRAM_INCLUDE_DIR "program/include")
-set(PROGRAM_SOURCE_DIR "program/source")
 set(EXTERNAL_INCLUDE_DIR "external/include")
+set(PROGRAM_SOURCE_DIR "program/source")
 set(EXTERNAL_SOURCE_DIR "external/source")
 set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}")
 set(
@@ -71,10 +71,17 @@ set(
   "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-release/SDL2"
 )
 file(
+  GLOB HEADER_FILES
+  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.inl"
+)
+file(
   GLOB SOURCE_FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/*.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_SOURCE_DIR}/**/*.c"
 )
+source_group("Header Files" FILES "${HEADER_FILES}")
+source_group("Source Files" FILES "${SOURCE_FILES}")
 set(BUILD_SHARED_LIBS OFF)
 set(FORCE_STATIC_VCRT ON)
 
@@ -106,7 +113,7 @@ add_subdirectory("external/SDL2")
 add_executable("${OUTPUT}")
 target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
 target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
-target_sources("${OUTPUT}" PRIVATE "${SOURCE_FILES}")
+target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
 target_compile_options("${OUTPUT}" PRIVATE "${WARNINGS}" "${OPTIMIZATIONS}")
 target_link_libraries("${OUTPUT}" PRIVATE "${SDL2_LIBRARIES}")
 target_link_options("${OUTPUT}" PRIVATE "${LINKER_FLAGS}")

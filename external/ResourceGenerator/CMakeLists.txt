@@ -7,7 +7,7 @@ else()
 endif()
 
 set(OUTPUT "ResourceGenerator")
-project(${OUTPUT} VERSION 5.3)
+project(${OUTPUT} VERSION 5.4)
 set(CMAKE_CXX_STANDARD 20)
 if(MSVC)
   set(WARNINGS "/W4")
@@ -56,21 +56,28 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   set(LINKER_FLAGS "-static" "-static-libgcc" "-static-libstdc++")
 endif()
 set(PROGRAM_INCLUDE_DIR "program/include")
-set(PROGRAM_SOURCE_DIR "program/source")
 set(EXTERNAL_INCLUDE_DIR "external/include")
+set(PROGRAM_SOURCE_DIR "program/source")
 set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}")
 set(
   SYSTEM_INCLUDE_DIRS
   "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}"
   "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}/stb"
 )
+file(
+  GLOB HEADER_FILES
+  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.inl"
+)
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/*.cpp")
+source_group("Header Files" FILES "${HEADER_FILES}")
+source_group("Source Files" FILES "${SOURCE_FILES}")
 set(BUILD_SHARED_LIBS OFF)
 
 add_executable("${OUTPUT}")
 target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
 target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
-target_sources("${OUTPUT}" PRIVATE "${SOURCE_FILES}")
+target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
 target_compile_options("${OUTPUT}" PRIVATE "${WARNINGS}" "${OPTIMIZATIONS}")
 target_link_options("${OUTPUT}" PRIVATE "${LINKER_FLAGS}")
 

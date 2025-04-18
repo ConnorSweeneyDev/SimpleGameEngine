@@ -3,7 +3,7 @@ This project is optimized to be built with the following targets in mind:
 - Windows 10/11:
   - MSVC
   - MinGW 64-bit GCC
-- Ubuntu 22.04 GLIBC Version 2.35
+- Ubuntu 22.04 GLIBC Version 2.35 GCC
 
 Version information for dependencies can be found in `external/version_info.txt`.
 
@@ -36,25 +36,25 @@ Do the following on Ubuntu 22.04 to ensure your environment is set up correctly:
 After building you can do the following to ensure you can run the binary:
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window manager.
 
-# Updating Libraries
-All libraries can be updated by replacing the existing files in the `external` directory with new ones.
+# Updating Dependencies
+All dependencies can be updated by replacing the existing files in the `external` directory with new ones.
 
-### Updating SDL
+### ResourceGenerator
+Go to the [releases](https://github.com/ConnorSweeneyDev/ResourceGenerator/releases) page and download the
+`ResourceGenerator-Minimal.zip` file for the version you want. Extract it and replace the contents of the
+`external/ResourceGenerator` directory with the contents of the extracted folder.
+
+### SDL
 Go to the [releases](https://github.com/libsdl-org/SDL/releases) page and download the desired release. Extract it and
 replace all of the existing files and folders in the `external/SDL2` directory with the contents of the extracted
 folder.
 
-### Updating glad/khr
-Go through the [installation](https://glad.dav1d.de/) for glad/khr to get a zip file, put `glad.h` in the
+### Glad/KHR
+Go through the [installation](https://glad.dav1d.de/) for glad/KHR to get a zip file, put `glad.h` in the
 `external/include/glad` directory and `khrplatform.h` in the `external/include/KHR` directory. Then put `glad.c` in the
 `external/source/glad` directory.
 
-### Updating glm
+### GLM
 Go to the [releases](https://github.com/g-truc/glm/releases) page and download the one you want, extract it and replace
 the contents of the `external/include/glm` directory with the contents of the `glm` directory in the extracted folder.
 You can delete the `CMakeLists.txt`, `copying.txt`, `glm.cppm` and `detail/glm.cpp` files as they are not needed.
-
-### Updating ResourceGenerator
-Go to the [releases](https://github.com/ConnorSweeneyDev/ResourceGenerator/releases) page and download the
-ResourceGenerator-Minimal.zip file for the version you want. Extract it and replace the contents of the
-`external/ResourceGenerator` directory with the contents of the extracted folder.
