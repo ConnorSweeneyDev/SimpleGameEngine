@@ -34,8 +34,6 @@ Do the following on Ubuntu 22.04 to ensure your environment is set up correctly:
 - Run `mkdir ~/temp_llvm && cd ~/temp_llvm && wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && sudo ./llvm.sh 19
   && sudo apt install clang-format-19 && sudo ln -s /usr/lib/llvm-19/bin/clang-format /usr/bin/clang-format && cd ~ &&
   rm -rf temp_llvm` and say yes to everything.
-
-After building you can do the following to ensure you can run the binary:
 - Only run `sudo apt install alsa xorg openbox` if you don't already have an audio and window manager.
 
 # Updating Dependencies
