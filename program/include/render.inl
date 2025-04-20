@@ -75,9 +75,9 @@ namespace cse::object
 
   // initialize_dynamic only exists for Item, not player due to player's initialize function taking specific parameters
   // will be changed to a different Type later (might not need to be a template function)
-  template <typename Type>
-  void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
-                                  const Shader_data &shader_data, const Transform_data &transform_data)
+  template <typename Type> void Render::initialize_dynamic(const std::string &name, const Texture_data &texture_data,
+                                                           const Shader_data &shader_data,
+                                                           const Transform_data &transform_data)
   {
     if constexpr (std::is_same<Type, Item>::value)
       if (get_by_name<Item>(name) == nullptr)

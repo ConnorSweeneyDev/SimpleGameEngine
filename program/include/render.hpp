@@ -25,9 +25,9 @@ namespace cse::object
     void call_for_all(Callable callable, const Call_action action = Call_action::NONE);
     template <typename Type> const Object_pointer<Type> get_by_name(const std::string &name);
 
-    template <typename Type>
-    void initialize_dynamic(const std::string &name, const Texture_data &texture_data, const Shader_data &shader_data,
-                            const Transform_data &transform_data);
+    template <typename Type> void initialize_dynamic(const std::string &name, const Texture_data &texture_data,
+                                                     const Shader_data &shader_data,
+                                                     const Transform_data &transform_data);
     template <typename Type> void remove(Object_pointer<Type> &object);
 
     void update_all();
