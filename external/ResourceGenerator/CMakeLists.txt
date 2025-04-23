@@ -9,7 +9,7 @@ endif()
 set(OUTPUT "ResourceGenerator")
 project(${OUTPUT} VERSION 5.5)
 set(CMAKE_CXX_STANDARD 20)
-if(MSVC)
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
   set(WARNINGS "/W4")
   if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
     set(OPTIMIZATIONS "/MTd" "/Od")
@@ -18,7 +18,7 @@ if(MSVC)
     set(OPTIMIZATIONS "/MT" "/O2")
     set(LINKER_FLAGS "/INCREMENTAL:NO" "/NODEFAULTLIB:MSVCRT")
   endif()
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
   set(
     WARNINGS
     "-Wall"
