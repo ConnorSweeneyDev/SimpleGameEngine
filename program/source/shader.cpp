@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <iostream>
 
-#include "glad.h"
+#include "glad/glad.h"
 #include "rename.hpp"
 
 #include "item.hpp"

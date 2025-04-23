@@ -2,12 +2,12 @@
 
 #include <cstdint>
 
-#include "SDL_events.h"
-#include "SDL_platform.h"
-#include "SDL_rect.h"
-#include "SDL_stdinc.h"
-#include "SDL_video.h"
-#include "glad.h"
+#include "SDL2/SDL_events.h"
+#include "SDL2/SDL_platform.h"
+#include "SDL2/SDL_rect.h"
+#include "SDL2/SDL_stdinc.h"
+#include "SDL2/SDL_video.h"
+#include "glad/glad.h"
 #include "glm/ext/matrix_float4x4.hpp"
 #include "glm/ext/vector_float3.hpp"
 

@@ -1,14 +1,14 @@
 #include "rename.hpp"
 
-#include "SDL.h"
-#include "SDL_error.h"
-#include "SDL_events.h"
-#include "SDL_keyboard.h"
-#include "SDL_main.h"
-#include "SDL_platform.h"
-#include "SDL_timer.h"
-#include "SDL_video.h"
-#include "glad.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_error.h"
+#include "SDL2/SDL_events.h"
+#include "SDL2/SDL_keyboard.h"
+#include "SDL2/SDL_main.h"
+#include "SDL2/SDL_platform.h"
+#include "SDL2/SDL_timer.h"
+#include "SDL2/SDL_video.h"
+#include "glad/glad.h"
 #include "glm/ext/matrix_transform.hpp"
 
 namespace sdl

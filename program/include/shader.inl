@@ -2,7 +2,7 @@
 
 #include "shader.hpp"
 
-#include "glad.h"
+#include "glad/glad.h"
 #include "rename.hpp"
 
 #include "object.hpp"

@@ -7,7 +7,7 @@ else()
 endif()
 
 set(OUTPUT "ResourceGenerator")
-project(${OUTPUT} VERSION 5.4)
+project(${OUTPUT} VERSION 5.5)
 set(CMAKE_CXX_STANDARD 20)
 if(MSVC)
   set(WARNINGS "/W4")
@@ -56,14 +56,9 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   set(LINKER_FLAGS "-static" "-static-libgcc" "-static-libstdc++")
 endif()
 set(PROGRAM_INCLUDE_DIR "program/include")
-set(EXTERNAL_INCLUDE_DIR "external/include")
 set(PROGRAM_SOURCE_DIR "program/source")
 set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}")
-set(
-  SYSTEM_INCLUDE_DIRS
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}/stb"
-)
+set(SYSTEM_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/stb/include")
 file(
   GLOB HEADER_FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.hpp"

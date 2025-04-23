@@ -56,19 +56,13 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
   set(LINKER_FLAGS "-static-libgcc" "-static-libstdc++")
 endif()
 set(PROGRAM_INCLUDE_DIR "program/include")
-set(EXTERNAL_INCLUDE_DIR "external/include")
 set(PROGRAM_SOURCE_DIR "program/source")
-set(EXTERNAL_SOURCE_DIR "external/source")
 set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}")
 set(
   SYSTEM_INCLUDE_DIRS
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}/glad"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}/glm"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_INCLUDE_DIR}/KHR"
-  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include/SDL2"
-  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-debug/SDL2"
-  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-release/SDL2"
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include"
+  "${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include"
 )
 file(
   GLOB HEADER_FILES
@@ -78,7 +72,7 @@ file(
 file(
   GLOB SOURCE_FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/*.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${EXTERNAL_SOURCE_DIR}/**/*.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/*.c"
 )
 source_group("Header Files" FILES "${HEADER_FILES}")
 source_group("Source Files" FILES "${SOURCE_FILES}")
@@ -107,8 +101,21 @@ add_custom_command(
 )
 add_custom_target("${GENERATE_RESOURCES}" DEPENDS "${RESOURCE_CPP_FILE}" "${RESOURCE_HPP_FILE}")
 
-set(SDL2_LIBRARIES "SDL2-static")
 add_subdirectory("external/SDL2")
+set(SDL2_LIBRARIES "SDL2-static")
+set(SDL2_COPY_CONFIG "SDL2CopyConfig")
+string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
+set(
+  SDL2_SOURCE_CONFIG_FILE
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2/SDL_config.h"
+)
+set(SDL2_TARGET_CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include/SDL2")
+add_custom_command(
+  OUTPUT "${SDL2_TARGET_CONFIG_DIR}/SDL_config.h"
+  COMMAND "${CMAKE_COMMAND}" -E copy "${SDL2_SOURCE_CONFIG_FILE}" "${SDL2_TARGET_CONFIG_DIR}"
+  DEPENDS "${SDL2_SOURCE_CONFIG_FILE}"
+)
+add_custom_target("${SDL2_COPY_CONFIG}" DEPENDS "${SDL2_TARGET_CONFIG_DIR}/SDL_config.h")
 
 add_executable("${OUTPUT}")
 target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
@@ -118,6 +125,7 @@ target_compile_options("${OUTPUT}" PRIVATE "${WARNINGS}" "${OPTIMIZATIONS}")
 target_link_libraries("${OUTPUT}" PRIVATE "${SDL2_LIBRARIES}")
 target_link_options("${OUTPUT}" PRIVATE "${LINKER_FLAGS}")
 add_dependencies("${OUTPUT}" "${GENERATE_RESOURCES}")
+add_dependencies("${OUTPUT}" "${SDL2_COPY_CONFIG}")
 
 if(NOT "${IS_SUBDIRECTORY}")
   set(COMPILE_COMMANDS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json")

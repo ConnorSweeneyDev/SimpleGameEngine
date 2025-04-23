@@ -1,8 +1,8 @@
 #include "input.hpp"
 
-#include "SDL_events.h"
-#include "SDL_scancode.h"
-#include "SDL_video.h"
+#include "SDL2/SDL_events.h"
+#include "SDL2/SDL_scancode.h"
+#include "SDL2/SDL_video.h"
 #include "rename.hpp"
 
 #include "camera.hpp"

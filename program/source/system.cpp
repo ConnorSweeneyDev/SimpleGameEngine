@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "SDL.h"
-#include "SDL_video.h"
-#include "glad.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_video.h"
+#include "glad/glad.h"
 #include "rename.hpp"
 
 namespace cse::system

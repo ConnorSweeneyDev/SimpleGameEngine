@@ -4,8 +4,8 @@
 #include <iostream>
 #include <utility>
 
-#include "SDL_stdinc.h"
-#include "SDL_video.h"
+#include "SDL2/SDL_stdinc.h"
+#include "SDL2/SDL_video.h"
 #include "rename.hpp"
 
 namespace cse::system

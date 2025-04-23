@@ -1,4 +1,4 @@
-ResourceGenerator: v5.4
+ResourceGenerator: v5.5
 sdl2: 2.32.4
 glad/KHR: Core 4.1, All Extensions, No Loader
 glm: 1.0.1

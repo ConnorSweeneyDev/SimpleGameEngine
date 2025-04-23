@@ -41,20 +41,19 @@ All dependencies can be updated by replacing the existing files in the `external
 
 ### ResourceGenerator
 Go to the [releases](https://github.com/ConnorSweeneyDev/ResourceGenerator/releases) page and download the
-`ResourceGenerator-Minimal.zip` file for the version you want. Extract it and replace the contents of the
+`ResourceGenerator-Light.zip` file for the version you want. Extract it and replace the contents of the
 `external/ResourceGenerator` directory with the contents of the extracted folder.
 
 ### SDL
-Go to the [releases](https://github.com/libsdl-org/SDL/releases) page and download the desired release. Extract it and
-replace all of the existing files and folders in the `external/SDL2` directory with the contents of the extracted
-folder.
+Go to the [releases](https://github.com/libsdl-org/SDL/releases) page and download the desired release's source code.
+Extract it and replace all of the existing files and folders in the `external/SDL2` directory with the contents of the
+extracted folder.
 
-### Glad/KHR
-Go through the [installation](https://glad.dav1d.de/) for glad/KHR to get a zip file, put `glad.h` in the
-`external/include/glad` directory and `khrplatform.h` in the `external/include/KHR` directory. Then put `glad.c` in the
-`external/source/glad` directory.
+### Glad
+Go through the [installation](https://glad.dav1d.de/) for glad to get a zip file, extract it and replace all of the
+existing files and folders in the `external/glad` directory with the contents of the extracted folder.
 
 ### GLM
-Go to the [releases](https://github.com/g-truc/glm/releases) page and download the one you want, extract it and replace
-the contents of the `external/include/glm` directory with the contents of the `glm` directory in the extracted folder.
+Go to the [releases](https://github.com/g-truc/glm/releases) page and download the light zip file for the one you want,
+extract it and replace the contents of the `external/glm/include` directory with the contents of the extracted zip file.
 You can delete the `CMakeLists.txt`, `copying.txt`, `glm.cppm` and `detail/glm.cpp` files as they are not needed.
