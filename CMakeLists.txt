@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 4.0)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
   set(IS_SUBDIRECTORY OFF)
 else()
@@ -7,85 +6,52 @@ else()
 endif()
 
 set(OUTPUT "SimpleGameEngine")
-project(${OUTPUT} VERSION 0.0.1)
-set(CMAKE_CXX_STANDARD 20)
-if("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
-  set(WARNINGS "/W4")
-  if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
-    set(OPTIMIZATIONS "/MTd" "/Od")
-    set(LINKER_FLAGS "/INCREMENTAL:NO" "/NODEFAULTLIB:MSVCRTD")
-  else()
-    set(OPTIMIZATIONS "/MT" "/O2")
-    set(LINKER_FLAGS "/INCREMENTAL:NO" "/NODEFAULTLIB:MSVCRT")
-  endif()
-elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-  set(
-    WARNINGS
-    "-Wall"
-    "-Wextra"
-    "-Wpedantic"
-    "-Wconversion"
-    "-Wshadow"
-    "-Wundef"
-    "-Wclobbered"
-    "-Wdeprecated"
-    "-Wmultichar"
-    "-Wuninitialized"
-    "-Wunreachable-code"
-    "-Wstrict-aliasing"
-    "-Wreturn-type"
-    "-Wtype-limits"
-    "-Wformat-security"
-    "-Wpointer-arith"
-    "-Wmaybe-uninitialized"
-    "-Wempty-body"
-    "-Wdouble-promotion"
-    "-Wcast-qual"
-    "-Wcast-align"
-    "-Wfloat-equal"
-    "-Wlogical-op"
-    "-Wduplicated-cond"
-    "-Wshift-overflow=2"
-    "-Wformat=2"
-  )
-  if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
-    set(OPTIMIZATIONS "-g" "-Og")
-  else()
-    set(OPTIMIZATIONS "-s" "-O3")
-  endif()
-  set(LINKER_FLAGS "-static-libgcc" "-static-libstdc++")
-endif()
-set(PROGRAM_INCLUDE_DIR "program/include")
-set(PROGRAM_SOURCE_DIR "program/source")
-set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}")
+project(${OUTPUT} VERSION 0.0.0)
+set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/program/include")
 set(
   SYSTEM_INCLUDE_DIRS
   "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include"
 )
-file(
-  GLOB HEADER_FILES
-  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.hpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.inl"
-)
+file(GLOB HEADER_FILES "${CMAKE_CURRENT_SOURCE_DIR}/program/include/*.*")
 file(
   GLOB SOURCE_FILES
-  "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/*.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/*.c"
+  "${CMAKE_CURRENT_SOURCE_DIR}/program/source/*.*"
+  "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/*.*"
 )
 source_group("Header Files" FILES "${HEADER_FILES}")
 source_group("Source Files" FILES "${SOURCE_FILES}")
-set(BUILD_SHARED_LIBS OFF)
+add_compile_options("/MT$<$<CONFIG:Debug>:d>")
+add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
 set(FORCE_STATIC_VCRT ON)
+set(BUILD_SHARED_LIBS OFF)
+
+add_subdirectory("external/SDL2")
+set(SDL2_LIBRARIES "SDL2-static")
+set(SDL2_TARGET_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include/SDL2")
+string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
+set(
+  SDL2_SOURCE_CONFIG_FILE
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2/SDL_config.h"
+)
+set(SDL2_OUTPUT_CONFIG_FILE "${SDL2_TARGET_INCLUDE_DIR}/SDL_config.h")
+add_custom_command(
+  OUTPUT "${SDL2_OUTPUT_CONFIG_FILE}"
+  COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${SDL2_SOURCE_CONFIG_FILE}" "${SDL2_TARGET_INCLUDE_DIR}"
+  DEPENDS "${SDL2_CONFIG_FILE}"
+)
+add_custom_target("SDL2CopyConfig" DEPENDS "${SDL2_OUTPUT_CONFIG_FILE}")
 
 add_subdirectory("external/ResourceGenerator")
-set(GENERATE_RESOURCES "GenerateResources")
-set(ASSET_DIR "asset")
 set(RESOURCE_POSTFIXES "_shader_source" "_texture_data")
-set(RESOURCE_HPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/resource.hpp")
-set(RESOURCE_CPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/resource.cpp")
-file(GLOB ASSET_FILES "${ASSET_DIR}/**/*.*")
+set(RESOURCE_HPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/program/include/resource.hpp")
+set(RESOURCE_CPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/program/source/resource.cpp")
+file(GLOB ASSET_FILES "asset/**/*.*")
+source_group("Asset Files" FILES ${ASSET_FILES})
 if(NOT "${RESOURCE_CPP_FILE}" IN_LIST SOURCE_FILES)
   list(APPEND SOURCE_FILES "${RESOURCE_CPP_FILE}")
 endif()
@@ -99,37 +65,38 @@ add_custom_command(
   COMMAND ResourceGenerator ${RESOURCE_POSTFIXES} ${ASSET_FILES} "${RESOURCE_CPP_FILE}"
   DEPENDS "${ASSET_FILES}"
 )
-add_custom_target("${GENERATE_RESOURCES}" DEPENDS "${RESOURCE_CPP_FILE}" "${RESOURCE_HPP_FILE}")
-
-add_subdirectory("external/SDL2")
-set(SDL2_LIBRARIES "SDL2-static")
-set(SDL2_COPY_CONFIG "SDL2CopyConfig")
-string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
-set(
-  SDL2_SOURCE_CONFIG_FILE
-  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2/SDL_config.h"
-)
-set(SDL2_TARGET_CONFIG_DIR "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include/SDL2")
-add_custom_command(
-  OUTPUT "${SDL2_TARGET_CONFIG_DIR}/SDL_config.h"
-  COMMAND "${CMAKE_COMMAND}" -E copy "${SDL2_SOURCE_CONFIG_FILE}" "${SDL2_TARGET_CONFIG_DIR}"
-  DEPENDS "${SDL2_SOURCE_CONFIG_FILE}"
-)
-add_custom_target("${SDL2_COPY_CONFIG}" DEPENDS "${SDL2_TARGET_CONFIG_DIR}/SDL_config.h")
+add_custom_target("GenerateResources" DEPENDS "${RESOURCE_CPP_FILE}" "${RESOURCE_HPP_FILE}")
 
 add_executable("${OUTPUT}")
 target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
 target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
 target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
-target_compile_options("${OUTPUT}" PRIVATE "${WARNINGS}" "${OPTIMIZATIONS}")
+target_compile_options("${OUTPUT}" PRIVATE "/W4")
 target_link_libraries("${OUTPUT}" PRIVATE "${SDL2_LIBRARIES}")
-target_link_options("${OUTPUT}" PRIVATE "${LINKER_FLAGS}")
-add_dependencies("${OUTPUT}" "${GENERATE_RESOURCES}")
-add_dependencies("${OUTPUT}" "${SDL2_COPY_CONFIG}")
+add_dependencies("${OUTPUT}" "SDL2CopyConfig")
+add_dependencies("${OUTPUT}" "GenerateResources")
 
 if(NOT "${IS_SUBDIRECTORY}")
+  set(FORMAT_MARKER_DIR "${CMAKE_CURRENT_BINARY_DIR}/FormatMarkers")
+  set(FORMAT_MARKERS "")
+  file(GLOB FORMAT_FILES "${CMAKE_CURRENT_SOURCE_DIR}/program/**/*.*")
+  list(REMOVE_ITEM FORMAT_FILES "${RESOURCE_HPP_FILE}" "${RESOURCE_CPP_FILE}")
+  foreach(FILE ${FORMAT_FILES})
+    get_filename_component(FILE_NAME "${FILE}" NAME)
+    set(FORMAT_FILE "${FORMAT_MARKER_DIR}/${FILE_NAME}.format")
+    add_custom_command(
+      OUTPUT "${FORMAT_FILE}"
+      COMMAND clang-format -i "${FILE}"
+      COMMAND "${CMAKE_COMMAND}" -E make_directory "${FORMAT_MARKER_DIR}"
+      COMMAND "${CMAKE_COMMAND}" -E touch "${FORMAT_FILE}"
+      DEPENDS "${FILE}"
+    )
+    list(APPEND FORMAT_MARKERS "${FORMAT_FILE}")
+  endforeach()
+  add_custom_target("Format" DEPENDS "${FORMAT_MARKERS}")
+  add_dependencies("${OUTPUT}" "Format")
+
   set(COMPILE_COMMANDS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json")
-  set(COMPILE_COMMANDS_INDEX 0)
   file(WRITE "${COMPILE_COMMANDS_FILE}" "[\n")
   foreach(SRC ${SOURCE_FILES})
     list(LENGTH SOURCE_FILES NUM_SOURCE_FILES)
@@ -161,34 +128,4 @@ if(NOT "${IS_SUBDIRECTORY}")
       file(APPEND "${COMPILE_COMMANDS_FILE}" "\n]")
     endif()
   endforeach()
-
-  set(FORMAT "Format")
-  set(FORMAT_MARKER_DIR "${CMAKE_CURRENT_BINARY_DIR}/FormatMarkers")
-  set(FORMAT_MARKERS "")
-  file(
-    GLOB FORMAT_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.hpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/*.inl"
-  )
-  list(
-    REMOVE_ITEM
-    FORMAT_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_SOURCE_DIR}/resource.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/${PROGRAM_INCLUDE_DIR}/resource.hpp"
-  )
-  foreach(FILE ${FORMAT_FILES})
-    get_filename_component(FILE_NAME "${FILE}" NAME)
-    set(FORMAT_FILE "${FORMAT_MARKER_DIR}/${FILE_NAME}.format")
-    add_custom_command(
-      OUTPUT "${FORMAT_FILE}"
-      COMMAND clang-format -i "${FILE}"
-      COMMAND "${CMAKE_COMMAND}" -E make_directory "${FORMAT_MARKER_DIR}"
-      COMMAND "${CMAKE_COMMAND}" -E touch "${FORMAT_FILE}"
-      DEPENDS "${FILE}"
-    )
-    list(APPEND FORMAT_MARKERS "${FORMAT_FILE}")
-  endforeach()
-  add_custom_target("${FORMAT}" DEPENDS "${FORMAT_MARKERS}")
-  add_dependencies("${OUTPUT}" "${FORMAT}")
 endif()

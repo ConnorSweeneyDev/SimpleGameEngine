@@ -27,7 +27,7 @@ namespace cse::system
     sdl::gl_set_attribute(SDL_GL_DEPTH_SIZE, 24);
     sdl::gl_set_attribute(SDL_GL_MULTISAMPLEBUFFERS, 1); // Antialiasing
     sdl::gl_set_attribute(SDL_GL_MULTISAMPLESAMPLES, 8);
-    sdl::gl_set_swap_interval(0); // Vsync
+    sdl::gl_set_swap_interval(1); // Vsync
   }
 
   void initialize_glad()
