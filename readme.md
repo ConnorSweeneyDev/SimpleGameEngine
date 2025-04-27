@@ -28,21 +28,12 @@ in `external/version_info.txt`.
 1. Download the source code for the [release](https://github.com/libsdl-org/SDL/releases) you want.
 2. Put the contents of the extracted folder in `external/SDL2`.
 3. Put a copy of `external/SDL_mixer/include/SDL_mixer.h` in `external/SDL2/include`.
-3. You can remove anything that isn't in this list of files: `VisualC/` `VisualC-GDK/` `VisualC-WinRT/` `acinclude/`
-   `build-scripts/` `cmake/` `include/` `mingw/` `src/` `wayland-protocols/` `CMakeLists.txt` `Makefile.in`
-   `Makefile.minimal` `Makefile.os2` `Makefile.pandora` `Makefile.w32` `SDL2.spec.in` `SDL2Config.cmake.in` `autogen.sh`
-   `cmake_uninstall.cmake.in` `configure` `configure.ac` `sdl2-config-version.cmake.in` `sdl2-config.cmake.in`
-   `sdl2-config.in` `sdl2.m4` `sdl2.pc.in`.
 
 ### SDL_mixer
 1. Download the source code for the [release](https://github.com/libsdl-org/SDL_mixer/releases) you want.
 2. Put the contents of the extracted folder in `external/SDL_mixer`.
 3. Put a copy of `external/SDL_mixer/include/SDL_mixer.h` in `external/SDL2/include`.
-4. Remove `external/SDL_mixer/external/Get-GitModules.ps1`.
-5. You can remove anything that isn't in this list of files: `VisualC/` `VisualC-WinRT/` `acinclude/` `build-scripts/`
-   `cmake/` `external/` `include/` `mingw/` `src/` `.gitmodules` `CMakeLists.txt` `Makefile.in` `Makefile.os2`
-   `SDL2_mixer.pc.in` `SDL2_mixer.spec.in` `SDL2_mixerConfig.cmake.in` `autogen.sh` `configure` `configure.ac`
-   `sdl2_mixer-config-version.cmake.in` `sdl2_mixer-config.cmake.in` `version.rc`
+4. Run `external/SDL_mixer/external/download.sh` and delete all git related files in each of the cloned folders.
 
 ### Glad
 1. Go through the [installation](https://glad.dav1d.de/) to get a zip file.

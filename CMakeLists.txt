@@ -33,21 +33,6 @@ set(FORCE_STATIC_VCRT ON)
 set(BUILD_SHARED_LIBS OFF)
 
 add_subdirectory("external/SDL2")
-set(SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external/.downloaded")
-if(NOT EXISTS "${SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER}")
-  message(STATUS "Downloading SDL_mixer external dependencies")
-  execute_process(
-    COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external/download.sh"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external"
-    RESULT_VARIABLE DOWNLOAD_RESULT
-  )
-  if("${DOWNLOAD_RESULT}" EQUAL 0)
-    message(STATUS "Downloading SDL_mixer external dependencies - done")
-    file(WRITE "${SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER}" "")
-  else()
-    message(FATAL_ERROR "Downloading SDL_mixer external dependencies - failed")
-  endif()
-endif()
 add_subdirectory("external/SDL_mixer")
 set(SDL2_LIBRARIES "SDL2::SDL2-static" "SDL2_mixer::SDL2_mixer-static")
 
