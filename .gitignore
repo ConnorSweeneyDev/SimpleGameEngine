@@ -24,6 +24,7 @@ compile_commands.json
 
 # Build Output
 build/
+.downloaded
 
 # Executable Output
 resource.hpp

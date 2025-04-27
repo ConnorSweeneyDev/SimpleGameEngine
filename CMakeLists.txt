@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 4.0)
+string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
   set(IS_SUBDIRECTORY OFF)
 else()
@@ -11,6 +12,8 @@ set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/program/include")
 set(
   SYSTEM_INCLUDE_DIRS
   "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include"
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}"
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2"
   "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include"
   "${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include"
 )
@@ -22,7 +25,6 @@ file(
 )
 source_group("Header Files" FILES "${HEADER_FILES}")
 source_group("Source Files" FILES "${SOURCE_FILES}")
-add_compile_options("/MT$<$<CONFIG:Debug>:d>")
 add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -31,20 +33,23 @@ set(FORCE_STATIC_VCRT ON)
 set(BUILD_SHARED_LIBS OFF)
 
 add_subdirectory("external/SDL2")
-set(SDL2_LIBRARIES "SDL2-static")
-set(SDL2_TARGET_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include/SDL2")
-string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LOWER)
-set(
-  SDL2_SOURCE_CONFIG_FILE
-  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2/SDL_config.h"
-)
-set(SDL2_OUTPUT_CONFIG_FILE "${SDL2_TARGET_INCLUDE_DIR}/SDL_config.h")
-add_custom_command(
-  OUTPUT "${SDL2_OUTPUT_CONFIG_FILE}"
-  COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${SDL2_SOURCE_CONFIG_FILE}" "${SDL2_TARGET_INCLUDE_DIR}"
-  DEPENDS "${SDL2_CONFIG_FILE}"
-)
-add_custom_target("SDL2CopyConfig" DEPENDS "${SDL2_OUTPUT_CONFIG_FILE}")
+set(SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external/.downloaded")
+if(NOT EXISTS "${SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER}")
+  message(STATUS "Downloading SDL_mixer external dependencies")
+  execute_process(
+    COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external/download.sh"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer/external"
+    RESULT_VARIABLE DOWNLOAD_RESULT
+  )
+  if("${DOWNLOAD_RESULT}" EQUAL 0)
+    message(STATUS "Downloading SDL_mixer external dependencies - done")
+    file(WRITE "${SDL_MIXER_EXTERNAL_DOWNLOADED_MARKER}" "")
+  else()
+    message(FATAL_ERROR "Downloading SDL_mixer external dependencies - failed")
+  endif()
+endif()
+add_subdirectory("external/SDL_mixer")
+set(SDL2_LIBRARIES "SDL2::SDL2-static" "SDL2_mixer::SDL2_mixer-static")
 
 add_subdirectory("external/ResourceGenerator")
 set(RESOURCE_POSTFIXES "_shader_source" "_texture_data")
@@ -73,7 +78,6 @@ target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
 target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
 target_compile_options("${OUTPUT}" PRIVATE "/W4")
 target_link_libraries("${OUTPUT}" PRIVATE "${SDL2_LIBRARIES}")
-add_dependencies("${OUTPUT}" "SDL2CopyConfig")
 add_dependencies("${OUTPUT}" "GenerateResources")
 
 if(NOT "${IS_SUBDIRECTORY}")
