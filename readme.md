@@ -34,7 +34,7 @@ in `external/version_info.txt`.
 2. Put the contents of the extracted folder in `external/SDL_mixer`.
 3. Put a copy of `external/SDL_mixer/include/SDL_mixer.h` in `external/SDL2/include`.
 4. Run `external/SDL_mixer/external/download.sh` and remove all git related files in each of the cloned folders.
-5. Remove all git related files in `external/SDL_mixer`.
+5. Remove `external/SDL_mixer/.gitmodules`.
 
 ### Glad
 1. Go through the [installation](https://glad.dav1d.de/) to get a zip file.
