@@ -17,7 +17,6 @@ file(
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/program/source/*.cpp")
 source_group("Header Files" FILES "${HEADER_FILES}")
 source_group("Source Files" FILES "${SOURCE_FILES}")
-add_compile_options("/MT$<$<CONFIG:Debug>:d>")
 add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
