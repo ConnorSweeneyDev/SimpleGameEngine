@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 4.0)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
   set(IS_SUBDIRECTORY OFF)
 else()
@@ -17,18 +18,18 @@ file(
 file(GLOB SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/program/source/*.cpp")
 source_group("Header Files" FILES "${HEADER_FILES}")
 source_group("Source Files" FILES "${SOURCE_FILES}")
-add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
-set(FORCE_STATIC_VCRT ON)
+set(COMPILER_WARNINGS "/W4")
 set(BUILD_SHARED_LIBS OFF)
+set(FORCE_STATIC_VCRT ON)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
 
 add_executable("${OUTPUT}")
 target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
 target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
 target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
-target_compile_options("${OUTPUT}" PRIVATE "/W4")
+target_compile_options("${OUTPUT}" PRIVATE "${COMPILER_WARNINGS}")
 
 if(NOT "${IS_SUBDIRECTORY}")
   set(FORMAT_MARKER_DIR "${CMAKE_CURRENT_BINARY_DIR}/FormatMarkers")
@@ -51,20 +52,20 @@ if(NOT "${IS_SUBDIRECTORY}")
 
   set(COMPILE_COMMANDS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json")
   file(WRITE "${COMPILE_COMMANDS_FILE}" "[\n")
-  foreach(SRC ${SOURCE_FILES})
+  foreach(FILE ${SOURCE_FILES})
     list(LENGTH SOURCE_FILES NUM_SOURCE_FILES)
-    get_filename_component(SRC_EXT "${SRC}" EXT)
-    if("${SRC_EXT}" MATCHES "cpp")
+    get_filename_component(FILE_EXT "${FILE}" EXT)
+    if("${FILE_EXT}" MATCHES "cpp")
       file(
         APPEND
         "${COMPILE_COMMANDS_FILE}"
-        "  {\n    \"directory\": \"${CMAKE_CURRENT_SOURCE_DIR}\",\n    \"file\": \"${SRC}\",\n    \"command\": \"clang++ -std=c++${CMAKE_CXX_STANDARD} -Wall -Wextra -Wpedantic -Wconversion -Wshadow-all -Wundef -Wdeprecated -Wtype-limits -Wcast-qual -Wcast-align -Wfloat-equal -Wparentheses -Wunreachable-code-aggressive -Wformat=2 "
+        "  {\n    \"directory\": \"${CMAKE_CURRENT_SOURCE_DIR}\",\n    \"file\": \"${FILE}\",\n    \"command\": \"clang++ -std=c++${CMAKE_CXX_STANDARD} -Wall -Wextra -Wpedantic -Wconversion -Wshadow-all -Wundef -Wdeprecated -Wtype-limits -Wcast-qual -Wcast-align -Wfloat-equal -Wparentheses -Wunreachable-code-aggressive -Wformat=2 "
       )
     else()
       file(
         APPEND
         "${COMPILE_COMMANDS_FILE}"
-        "  {\n    \"directory\": \"${CMAKE_CURRENT_SOURCE_DIR}\",\n    \"file\": \"${SRC}\",\n    \"command\": \"clang "
+        "  {\n    \"directory\": \"${CMAKE_CURRENT_SOURCE_DIR}\",\n    \"file\": \"${FILE}\",\n    \"command\": \"clang "
       )
     endif()
     foreach(DIR ${INCLUDE_DIRS})
@@ -73,7 +74,7 @@ if(NOT "${IS_SUBDIRECTORY}")
     foreach(DIR ${SYSTEM_INCLUDE_DIRS})
       file(APPEND "${COMPILE_COMMANDS_FILE}" "-isystem\\\"${DIR}\\\" ")
     endforeach()
-    file(APPEND "${COMPILE_COMMANDS_FILE}" "-c \\\"${SRC}\\\"\"\n  }")
+    file(APPEND "${COMPILE_COMMANDS_FILE}" "-c \\\"${FILE}\\\"\"\n  }")
     math(EXPR COMPILE_COMMANDS_INDEX "${COMPILE_COMMANDS_INDEX} + 1")
     if(NOT "${COMPILE_COMMANDS_INDEX}" EQUAL "${NUM_SOURCE_FILES}")
       file(APPEND "${COMPILE_COMMANDS_FILE}" ",\n")

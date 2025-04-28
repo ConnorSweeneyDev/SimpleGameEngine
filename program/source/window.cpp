@@ -85,15 +85,9 @@ namespace cse::system
 
   void Window::disable_fullscreen()
   {
-#ifdef _WIN32
     sdl::set_window_bordered(application, SDL_TRUE);
     sdl::set_window_size(application, starting_width, starting_height);
     sdl::set_window_position(application, position_x, position_y);
-#endif
-#ifdef __linux__
-    sdl::set_window_fullscreen(application, 0);
-    sdl::set_window_position(application, position_x, position_y);
-#endif
 
     width = starting_width;
     height = starting_height;
@@ -102,15 +96,10 @@ namespace cse::system
 
   void Window::enable_fullscreen()
   {
-#ifdef _WIN32
     sdl::set_window_bordered(application, SDL_FALSE);
     sdl::set_window_size(application, display_mode.w, display_mode.h + 1);
     sdl::set_window_position(application, (int)SDL_WINDOWPOS_CENTERED_DISPLAY(display_index),
                              (int)SDL_WINDOWPOS_CENTERED_DISPLAY(display_index));
-#endif
-#ifdef __linux__
-    sdl::set_window_fullscreen(application, SDL_WINDOW_FULLSCREEN_DESKTOP);
-#endif
 
     width = display_mode.w;
     height = display_mode.h;

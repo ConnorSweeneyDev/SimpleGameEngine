@@ -1,4 +1,5 @@
-ResourceGenerator: v1.0.0
-sdl2: 2.32.4
-glad/KHR: Core 4.1, All Extensions, No Loader
-glm: 1.0.1
+SDL2: 2.32.4
+SDL_mixer: 2.8.1
+Glad/KHR: Core 4.1, All Extensions, No Loader
+GLM: 1.0.1
+ResourceGenerator: 1.0.0

@@ -19,18 +19,13 @@ cost of longer linking times and a larger executable.
 All dependencies are vendored and stored in the `external` directory. Version information for dependencies can be found
 in `external/version_info.txt`.
 
-### ResourceGenerator
-1. Download the light zip file for the [release](https://github.com/ConnorSweeneyDev/ResourceGenerator/releases) you
-   want.
-2. Put the contents of the extracted folder in `external/ResourceGenerator`.
-
 ### SDL
-1. Download the source code for the [release](https://github.com/libsdl-org/SDL/releases) you want.
+1. Download the source code (light) for the [release](https://github.com/libsdl-org/SDL/releases) you want.
 2. Put the contents of the extracted folder in `external/SDL2`.
 3. Put a copy of `external/SDL_mixer/include/SDL_mixer.h` in `external/SDL2/include`.
 
 ### SDL_mixer
-1. Download the source code for the [release](https://github.com/libsdl-org/SDL_mixer/releases) you want.
+1. Download the source code (light) for the [release](https://github.com/libsdl-org/SDL_mixer/releases) you want.
 2. Put the contents of the extracted folder in `external/SDL_mixer`.
 3. Put a copy of `external/SDL_mixer/include/SDL_mixer.h` in `external/SDL2/include`.
 4. Run `external/SDL_mixer/external/download.sh` and remove all git related files in each of the cloned folders.
@@ -41,6 +36,11 @@ in `external/version_info.txt`.
 2. Put the contents of the extracted folder in `external/glad`.
 
 ### GLM
-1. Download the light zip file for the [release](https://github.com/g-truc/glm/releases) you want.
+1. Download the source code (light) for the [release](https://github.com/g-truc/glm/releases) you want.
 2. Put the contents of the extracted folder in `external/glm/include`.
 3. You can remove anything that isn't a `.hpp`, `.inl` or `.h` file as they are not needed.
+
+### ResourceGenerator
+1. Download the source code (light) for the [release](https://github.com/ConnorSweeneyDev/ResourceGenerator/releases)
+   you want.
+2. Put the contents of the extracted folder in `external/ResourceGenerator`.

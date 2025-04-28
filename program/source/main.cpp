@@ -1,7 +1,5 @@
 #include "main.hpp"
 
-#define SDL_MAIN_HANDLED
-
 #include "input.hpp"
 #include "render.hpp"
 #include "scene.hpp"
