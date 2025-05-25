@@ -8,8 +8,8 @@ endif()
 
 set(OUTPUT "ResourceGenerator")
 project(${OUTPUT} VERSION 1.0.0)
-set(INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/program/include")
-set(SYSTEM_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/external/stb/include")
+set(INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/program/include")
+set(SYSTEM_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/external/stb/include")
 file(
   GLOB HEADER_FILES
   "${CMAKE_CURRENT_SOURCE_DIR}/program/include/*.hpp"
@@ -27,31 +27,24 @@ add_link_options("$<$<CONFIG:Release>:/INCREMENTAL:NO>")
 
 list(APPEND COMPILER_DEFINITIONS "STB_IMAGE_IMPLEMENTATION")
 
-add_executable("${OUTPUT}")
-target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRS}")
-target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRS}")
-target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
-target_compile_options("${OUTPUT}" PRIVATE "${COMPILER_WARNINGS}")
-target_compile_definitions("${OUTPUT}" PRIVATE "${COMPILER_DEFINITIONS}")
-
 if(NOT "${IS_SUBDIRECTORY}")
-  set(FORMAT_MARKER_DIR "${CMAKE_CURRENT_BINARY_DIR}/FormatMarkers")
+  set(FORMAT_MARKER_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/FormatMarkers")
   set(FORMAT_MARKERS "")
   file(GLOB FORMAT_FILES "${CMAKE_CURRENT_SOURCE_DIR}/program/**/*.*")
+  file(MAKE_DIRECTORY "${FORMAT_MARKER_DIRECTORY}")
   foreach(FILE ${FORMAT_FILES})
     get_filename_component(FILE_NAME "${FILE}" NAME)
-    set(FORMAT_FILE "${FORMAT_MARKER_DIR}/${FILE_NAME}.format")
+    set(FORMAT_FILE "${FORMAT_MARKER_DIRECTORY}/${FILE_NAME}.format")
     add_custom_command(
       OUTPUT "${FORMAT_FILE}"
       COMMAND clang-format -i "${FILE}"
-      COMMAND "${CMAKE_COMMAND}" -E make_directory "${FORMAT_MARKER_DIR}"
       COMMAND "${CMAKE_COMMAND}" -E touch "${FORMAT_FILE}"
       DEPENDS "${FILE}"
     )
     list(APPEND FORMAT_MARKERS "${FORMAT_FILE}")
   endforeach()
   add_custom_target("Format" DEPENDS "${FORMAT_MARKERS}")
-  add_dependencies("${OUTPUT}" "Format")
+  list(APPEND DEPENDENCIES "Format")
 
   set(COMPILE_COMMANDS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json")
   file(WRITE "${COMPILE_COMMANDS_FILE}" "[\n")
@@ -71,11 +64,11 @@ if(NOT "${IS_SUBDIRECTORY}")
         "  {\n    \"directory\": \"${CMAKE_CURRENT_SOURCE_DIR}\",\n    \"file\": \"${FILE}\",\n    \"command\": \"clang "
       )
     endif()
-    foreach(DIR ${INCLUDE_DIRS})
-      file(APPEND "${COMPILE_COMMANDS_FILE}" "-I\\\"${DIR}\\\" ")
+    foreach(DIRECTORY ${INCLUDE_DIRECTORIES})
+      file(APPEND "${COMPILE_COMMANDS_FILE}" "-I\\\"${DIRECTORY}\\\" ")
     endforeach()
-    foreach(DIR ${SYSTEM_INCLUDE_DIRS})
-      file(APPEND "${COMPILE_COMMANDS_FILE}" "-isystem\\\"${DIR}\\\" ")
+    foreach(DIRECTORY ${SYSTEM_INCLUDE_DIRECTORIES})
+      file(APPEND "${COMPILE_COMMANDS_FILE}" "-isystem\\\"${DIRECTORY}\\\" ")
     endforeach()
     foreach(DEFINITION ${COMPILER_DEFINITIONS})
       file(APPEND "${COMPILE_COMMANDS_FILE}" "-D${DEFINITION} ")
@@ -89,3 +82,14 @@ if(NOT "${IS_SUBDIRECTORY}")
     endif()
   endforeach()
 endif()
+
+add_executable("${OUTPUT}")
+if(DEFINED DEPENDENCIES)
+  add_dependencies("${OUTPUT}" ${DEPENDENCIES})
+endif()
+
+target_include_directories("${OUTPUT}" PRIVATE "${INCLUDE_DIRECTORIES}")
+target_include_directories("${OUTPUT}" SYSTEM PRIVATE "${SYSTEM_INCLUDE_DIRECTORIES}")
+target_sources("${OUTPUT}" PRIVATE "${HEADER_FILES}" "${SOURCE_FILES}")
+target_compile_options("${OUTPUT}" PRIVATE "${COMPILER_WARNINGS}")
+target_compile_definitions("${OUTPUT}" PRIVATE "${COMPILER_DEFINITIONS}")
