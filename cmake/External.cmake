@@ -1,9 +1,28 @@
 list(APPEND SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/glad.c")
+list(APPEND SYSTEM_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include")
+
+list(APPEND SYSTEM_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include")
 
 set(RESOURCE_POSTFIXES "_shader_source" "_texture_data")
 set(RESOURCE_HPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/program/include/resource.hpp")
 set(RESOURCE_CPP_FILE "${CMAKE_CURRENT_SOURCE_DIR}/program/source/resource.cpp")
 file(GLOB ASSET_FILES "asset/**/*.*")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/ResourceGenerator" EXCLUDE_FROM_ALL)
+add_custom_command(
+  OUTPUT "${RESOURCE_HPP_FILE}"
+  COMMAND "ResourceGenerator" ${RESOURCE_POSTFIXES} ${ASSET_FILES} "${RESOURCE_HPP_FILE}"
+  DEPENDS "${ASSET_FILES}"
+)
+add_custom_command(
+  OUTPUT "${RESOURCE_CPP_FILE}"
+  COMMAND "ResourceGenerator" ${RESOURCE_POSTFIXES} ${ASSET_FILES} "${RESOURCE_CPP_FILE}"
+  DEPENDS "${ASSET_FILES}"
+)
+add_custom_target("GenerateResources" DEPENDS "${RESOURCE_CPP_FILE}" "${RESOURCE_HPP_FILE}")
+list(APPEND DEPENDENCIES "GenerateResources")
+if(NOT "${RESOURCE_CPP_FILE}" IN_LIST SOURCE_FILES)
+  list(APPEND SOURCE_FILES "${RESOURCE_CPP_FILE}")
+endif()
 
 set(SDL_TEST_ENABLED_BY_DEFAULT OFF CACHE BOOL "")
 set(SDL_TEST OFF CACHE BOOL "")
@@ -18,25 +37,18 @@ set(SDL2MIXER_MIDI OFF CACHE BOOL "")
 set(SDL2MIXER_GME OFF CACHE BOOL "")
 set(SDL2MIXER_OGG OFF CACHE BOOL "")
 set(SDL2MIXER_VORBIS "" CACHE STRING "")
-
-add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/ResourceGenerator" EXCLUDE_FROM_ALL)
-if(NOT "${RESOURCE_CPP_FILE}" IN_LIST SOURCE_FILES)
-  list(APPEND SOURCE_FILES "${RESOURCE_CPP_FILE}")
-endif()
-add_custom_command(
-  OUTPUT "${RESOURCE_HPP_FILE}"
-  COMMAND ResourceGenerator ${RESOURCE_POSTFIXES} ${ASSET_FILES} "${RESOURCE_HPP_FILE}"
-  DEPENDS "${ASSET_FILES}"
-)
-add_custom_command(
-  OUTPUT "${RESOURCE_CPP_FILE}"
-  COMMAND ResourceGenerator ${RESOURCE_POSTFIXES} ${ASSET_FILES} "${RESOURCE_CPP_FILE}"
-  DEPENDS "${ASSET_FILES}"
-)
-add_custom_target("GenerateResources" DEPENDS "${RESOURCE_CPP_FILE}" "${RESOURCE_HPP_FILE}")
-list(APPEND DEPENDENCIES "GenerateResources")
-
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/SDL2" EXCLUDE_FROM_ALL)
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_mixer" EXCLUDE_FROM_ALL)
-list(APPEND LIBRARIES "SDL2::SDL2-static" "SDL2_mixer::SDL2_mixer-static")
+list(APPEND SYSTEM_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include")
+list(
+  APPEND
+  SYSTEM_INCLUDE_DIRECTORIES
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}"
+)
+list(
+  APPEND
+  SYSTEM_INCLUDE_DIRECTORIES
+  "${CMAKE_CURRENT_BINARY_DIR}/external/SDL2/include-config-${CMAKE_BUILD_TYPE_LOWER}/SDL2"
+)
 list(APPEND COMPILER_DEFINITIONS "SDL_MAIN_HANDLED")
+list(APPEND LIBRARIES "SDL2::SDL2-static" "SDL2_mixer::SDL2_mixer-static")
