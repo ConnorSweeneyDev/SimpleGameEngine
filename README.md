@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project has been discontinued.
+
 # Simple Game Engine
 An engine meant for 2D/3D hybrid games.
 
